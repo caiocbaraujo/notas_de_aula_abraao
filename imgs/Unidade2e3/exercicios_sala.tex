@@ -1,0 +1,290 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumitem}
+
+\newtheorem{exercise}{Exercício}
+\newtheorem{solution}{Solução}
+
+\title{Caderno de Exercícios da Sala - Inferência Estatística}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+\maketitle
+
+\section{Convergência Estocástica}
+
+\begin{exercise}[Aproximação Binomial-Poisson]
+Demonstre que se $X_n \sim \text{Binomial}(n, p_n)$ com $np_n \to \lambda$ quando $n \to \infty$, então $X_n \xrightarrow{d} \text{Poisson}(\lambda)$.
+\end{exercise}
+
+\begin{solution}
+Para $k \in \{0, 1, 2, \ldots\}$:
+\begin{align}
+P(X_n = k) &= \binom{n}{k} p_n^k (1-p_n)^{n-k} \\
+&= \frac{n!}{(n-k)!k!} \left(\frac{\lambda}{n}\right)^k \left(1 - \frac{\lambda}{n}\right)^{n-k} \\
+&= \frac{n(n-1)\cdots(n-k+1)}{n^k} \cdot \frac{\lambda^k}{k!} \cdot \left(1 - \frac{\lambda}{n}\right)^n \cdot \left(1 - \frac{\lambda}{n}\right)^{-k}
+\end{align}
+
+Quando $n \to \infty$:
+\begin{itemize}
+\item $\frac{n(n-1)\cdots(n-k+1)}{n^k} = \prod_{j=0}^{k-1}\left(1 - \frac{j}{n}\right) \to 1$
+\item $\left(1 - \frac{\lambda}{n}\right)^n \to e^{-\lambda}$
+\item $\left(1 - \frac{\lambda}{n}\right)^{-k} \to 1$
+\end{itemize}
+
+Portanto: $P(X_n = k) \to e^{-\lambda} \frac{\lambda^k}{k!}$.
+\end{solution}
+
+\begin{exercise}[Lei dos Grandes Números]
+Seja $X_1, X_2, \ldots$ uma sequência de variáveis aleatórias i.i.d. com $E[X_i] = \mu$ e $\text{Var}(X_i) = \sigma^2 < \infty$. Mostre que $\bar{X}_n \xrightarrow{P} \mu$.
+\end{exercise}
+
+\begin{solution}
+Pela desigualdade de Chebyshev:
+$$P(|\bar{X}_n - \mu| > \varepsilon) \leq \frac{\text{Var}(\bar{X}_n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \to 0$$
+
+quando $n \to \infty$. Portanto, $\bar{X}_n \xrightarrow{P} \mu$.
+\end{solution}
+
+\section{Teorema Central do Limite}
+
+\begin{exercise}[Aproximação Normal]
+Uma moeda honesta é lançada 100 vezes. Use o TCL para aproximar a probabilidade de obter entre 45 e 55 caras.
+\end{exercise}
+
+\begin{solution}
+Seja $X$ o número de caras em 100 lançamentos. Então $X \sim \text{Binomial}(100, 0.5)$.
+
+Pelo TCL: $\frac{X - 50}{5} \approx N(0,1)$
+
+Com correção de continuidade:
+\begin{align}
+P(45 \leq X \leq 55) &= P(44.5 \leq X \leq 55.5) \\
+&= P\left(\frac{44.5 - 50}{5} \leq \frac{X - 50}{5} \leq \frac{55.5 - 50}{5}\right) \\
+&= P(-1.1 \leq Z \leq 1.1) \\
+&= 2\Phi(1.1) - 1 \\
+&\approx 0.7287
+\end{align}
+\end{solution}
+
+\begin{exercise}[Método Delta]
+Se $\sqrt{n}(\bar{X}_n - \mu) \xrightarrow{d} N(0, \sigma^2)$, encontre a distribuição limite de $\sqrt{n}(\bar{X}_n^2 - \mu^2)$.
+\end{exercise}
+
+\begin{solution}
+Aplicando o método delta com $g(x) = x^2$:
+$$g'(\mu) = 2\mu$$
+
+Portanto:
+$$\sqrt{n}(\bar{X}_n^2 - \mu^2) \xrightarrow{d} N(0, 4\mu^2\sigma^2)$$
+\end{solution}
+
+\section{Estimação Pontual}
+
+\begin{exercise}[Máxima Verossimilhança]
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Exp}(\lambda)$. Encontre o estimador de máxima verossimilhança de $\lambda$.
+\end{exercise}
+
+\begin{solution}
+A função de verossimilhança é:
+$$L(\lambda) = \prod_{i=1}^n \lambda e^{-\lambda x_i} = \lambda^n e^{-\lambda \sum_{i=1}^n x_i}$$
+
+A log-verossimilhança:
+$$\ell(\lambda) = n\log\lambda - \lambda\sum_{i=1}^n x_i$$
+
+Derivando e igualando a zero:
+$$\frac{d\ell}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^n x_i = 0$$
+
+Portanto: $\hat{\lambda} = \frac{n}{\sum_{i=1}^n X_i} = \frac{1}{\bar{X}}$
+\end{solution}
+
+\begin{exercise}[Método dos Momentos]
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Uniforme}(0, \theta)$. Encontre o estimador de $\theta$ pelo método dos momentos.
+\end{exercise}
+
+\begin{solution}
+O primeiro momento populacional é $E[X] = \frac{\theta}{2}$.
+
+O primeiro momento amostral é $\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$.
+
+Igualando: $\frac{\theta}{2} = \bar{X}$
+
+Portanto: $\hat{\theta} = 2\bar{X}$
+\end{solution}
+
+\section{Intervalos de Confiança}
+
+\begin{exercise}[IC para Média]
+Uma amostra de 25 observações de uma população normal forneceu $\bar{x} = 10.2$ e $s = 2.1$. Construa um intervalo de confiança de 95\% para a média populacional.
+\end{exercise}
+
+\begin{solution}
+Como a variância é desconhecida, usamos a distribuição t:
+$$\bar{X} \pm t_{0.025, 24} \frac{S}{\sqrt{n}}$$
+
+Com $t_{0.025, 24} = 2.064$:
+$$10.2 \pm 2.064 \cdot \frac{2.1}{\sqrt{25}} = 10.2 \pm 0.867$$
+
+Portanto: $IC_{95\%} = [9.33, 11.07]$
+\end{solution}
+
+\begin{exercise}[IC para Proporção]
+Em uma amostra de 400 pessoas, 120 são favoráveis a uma proposta. Construa um IC de 99\% para a proporção populacional.
+\end{exercise}
+
+\begin{solution}
+$\hat{p} = \frac{120}{400} = 0.3$
+
+$$IC = \hat{p} \pm z_{0.005} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+Com $z_{0.005} = 2.576$:
+$$0.3 \pm 2.576 \sqrt{\frac{0.3 \cdot 0.7}{400}} = 0.3 \pm 0.059$$
+
+Portanto: $IC_{99\%} = [0.241, 0.359]$
+\end{solution}
+
+\section{Testes de Hipóteses}
+
+\begin{exercise}[Teste t]
+Uma amostra de 16 observações de uma população normal forneceu $\bar{x} = 12.5$ e $s = 3.2$. Teste $H_0: \mu = 10$ vs $H_1: \mu > 10$ com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{solution}
+Estatística de teste:
+$$t = \frac{\bar{X} - \mu_0}{S/\sqrt{n}} = \frac{12.5 - 10}{3.2/\sqrt{16}} = \frac{2.5}{0.8} = 3.125$$
+
+Valor crítico: $t_{0.05, 15} = 1.753$
+
+Como $t = 3.125 > 1.753$, rejeitamos $H_0$.
+
+Valor-p: $P(T_{15} > 3.125) \approx 0.003$
+\end{solution}
+
+\begin{exercise}[Teste para Proporção]
+Em uma amostra de 200 pessoas, 85 são favoráveis a uma proposta. Teste $H_0: p = 0.5$ vs $H_1: p \neq 0.5$ com $\alpha = 0.01$.
+\end{exercise}
+
+\begin{solution}
+$\hat{p} = \frac{85}{200} = 0.425$
+
+Estatística de teste:
+$$Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.425 - 0.5}{\sqrt{0.5 \cdot 0.5/200}} = \frac{-0.075}{0.0354} = -2.12$$
+
+Valor crítico: $z_{0.005} = 2.576$
+
+Como $|Z| = 2.12 < 2.576$, não rejeitamos $H_0$.
+
+Valor-p: $2P(Z < -2.12) = 2 \cdot 0.017 = 0.034$
+\end{solution}
+
+\section{Testes de Aderência}
+
+\begin{exercise}[Teste Qui-Quadrado]
+Um dado é lançado 60 vezes com os seguintes resultados:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Face & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+Frequência & 8 & 12 & 9 & 11 & 10 & 10 \\
+\hline
+\end{tabular}
+\end{center}
+Teste se o dado é honesto com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{solution}
+Se o dado é honesto, esperamos 10 observações para cada face.
+
+Estatística de teste:
+$$\chi^2 = \sum_{i=1}^6 \frac{(O_i - E_i)^2}{E_i} = \frac{(8-10)^2 + (12-10)^2 + (9-10)^2 + (11-10)^2 + (10-10)^2 + (10-10)^2}{10}$$
+
+$$= \frac{4 + 4 + 1 + 1 + 0 + 0}{10} = \frac{10}{10} = 1$$
+
+Valor crítico: $\chi^2_{0.05, 5} = 11.07$
+
+Como $\chi^2 = 1 < 11.07$, não rejeitamos $H_0$. O dado parece ser honesto.
+\end{solution}
+
+\section{Análise de Variância}
+
+\begin{exercise}[ANOVA]
+Três métodos de ensino foram testados em grupos de 10 alunos cada. Os resultados foram:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Método A & Método B & Método C \\
+\hline
+85, 87, 89, 91, 93 & 78, 80, 82, 84, 86 & 90, 92, 94, 96, 98 \\
+\hline
+\end{tabular}
+\end{center}
+Teste se há diferença entre os métodos com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{solution}
+Calculando as médias: $\bar{x}_A = 89$, $\bar{x}_B = 82$, $\bar{x}_C = 94$, $\bar{x}_{total} = 88.33$
+
+SQE = $10[(89-88.33)^2 + (82-88.33)^2 + (94-88.33)^2] = 10[0.45 + 40.11 + 32.11] = 726.7$
+
+SQR = $\sum_{i=1}^3 \sum_{j=1}^{10} (x_{ij} - \bar{x}_i)^2 = 40 + 40 + 40 = 120$
+
+F = $\frac{SQE/2}{SQR/27} = \frac{363.35}{4.44} = 81.8$
+
+Valor crítico: $F_{0.05, 2, 27} = 3.35$
+
+Como $F = 81.8 > 3.35$, rejeitamos $H_0$. Há diferença significativa entre os métodos.
+\end{solution}
+
+\section{Regressão Linear}
+
+\begin{exercise}[Regressão Simples]
+Dados os pares $(x_i, y_i)$: (1,2), (2,4), (3,5), (4,7), (5,8). Encontre a reta de regressão e calcule $R^2$.
+\end{exercise}
+
+\begin{solution}
+$\bar{x} = 3$, $\bar{y} = 5.2$
+
+$S_{xx} = \sum (x_i - \bar{x})^2 = 10$
+
+$S_{xy} = \sum (x_i - \bar{x})(y_i - \bar{y}) = 12$
+
+$\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{12}{10} = 1.2$
+
+$\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x} = 5.2 - 1.2 \cdot 3 = 1.6$
+
+Reta: $\hat{y} = 1.6 + 1.2x$
+
+$R^2 = \frac{S_{xy}^2}{S_{xx} S_{yy}} = \frac{144}{10 \cdot 14.8} = 0.973$
+\end{solution}
+
+\section{Testes Não-Paramétricos}
+
+\begin{exercise}[Teste de Wilcoxon]
+Compare dois grupos usando o teste de Wilcoxon:
+Grupo A: 12, 15, 18, 20, 22
+Grupo B: 8, 10, 14, 16, 19
+\end{exercise}
+
+\begin{solution}
+Ordenando todos os valores: 8, 10, 12, 14, 15, 16, 18, 19, 20, 22
+
+Postos do Grupo A: 3, 5, 7, 9, 10
+$R_A = 3 + 5 + 7 + 9 + 10 = 34$
+
+$U = n_A n_B + \frac{n_A(n_A+1)}{2} - R_A = 5 \cdot 5 + \frac{5 \cdot 6}{2} - 34 = 25 + 15 - 34 = 6$
+
+Valor crítico para $n_A = n_B = 5$: $U_{0.05} = 2$
+
+Como $U = 6 > 2$, não rejeitamos $H_0$ ao nível 5\%.
+\end{solution}
+
+\end{document}

@@ -1,0 +1,37 @@
+﻿\[
+\Rightarrow R_c = \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i \cdot \frac{\sigma_i}{\mu_1 - \mu_0} \log(k_1) \right\}_{k_2}
+\]
+
+(versão mais manipulável analiticamente)
+
+\[
+R_c = \left\{ x \in \mathcal{X} : \sqrt{n} \frac{\bar{x}_n - \mu_0}{\sigma} > \sqrt{n} \frac{k_2/n - \mu_0}{\sigma} \right\}_{k_3}
+\]
+
+\[
+\therefore R_c = \left\{ x \in \mathcal{X} : \sqrt{n} \frac{\bar{x}_n - \mu_0}{\sigma} > k_3 \right\} \tag{1}
+\]
+
+Definimos a função \( Z : \mathcal{X} \to \mathbb{R} \) dada por:
+
+\[
+Z(\mathbf{x}) = \sqrt{n} \frac{\bar{x}_n - \mu_0}{\sigma},
+\]
+em que 
+\[
+\bar{x}_n = \frac{1}{n} \sum_{i=1}^n x_i
+\]
+e \(\mathbf{x} = (x_1, \ldots, x_n)\) como uma v.a.
+
+Quando \( Z(\mathbf{x}) \) é avaliada numa v.a.g., \(\mathbf{X} = (X_1, \ldots, X_n)^T\), a quantidade resultante \( Z(\mathbf{X}) \) é uma estatística de teste com distribuição conhecida sob \( H_0 \):
+
+\[
+Z(\mathbf{X}) \overset{H_0}{\sim} N(0,1).
+\]
+
+A região crítica (1) é então definida (trocando-se \( k_3 \) por \( z_\alpha \)) como:
+
+\[
+R_c = \left\{ x \in \mathcal{X} : Z(\mathbf{x}) > z_\alpha \right\},
+\]
+em que \( z_\alpha \) é um quantil da normal padrão obtido.

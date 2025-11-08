@@ -1,0 +1,35 @@
+em que $\hat{\mu} = \bar{x}$ e $\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \bar{x})^2$ são os estimadores de MV irrestritos para $\mu$ e $\sigma$. Simplificando,
+
+\begin{equation}
+\sup_{(\mu, \sigma \in \Theta)} L(\mu, \sigma) = (2 \pi \hat{\sigma}^2)^{-n/2}.
+\end{equation}
+
+Finalmente,
+
+\begin{equation}
+\Lambda = \frac{\sup_{(\mu, \sigma) \in \Theta_0} L(\mu, \sigma)}{\sup_{(\mu, \sigma) \in \Theta} L(\mu, \sigma)}
+\end{equation}
+
+\begin{equation}
+= \left\{ \frac{\sum_{i=1}^n (x_i - \mu)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right\}^{-n/2}
+\end{equation}
+
+\begin{equation}
+= \left\{ \frac{\sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right\}^{-n/2}
+\end{equation}
+
+\begin{equation}
+= \left\{ 1 + \frac{n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right\}^{-n/2}
+\end{equation}
+
+O TRVU fica definido por: dado um nível $\alpha$, rejeitamos $H_0 \Longleftrightarrow \Lambda < k \quad (0 < k < 1)$.
+
+Logo, como $f(x) = x^{-n/2}$ é estritamente decrescente,
+
+\begin{equation}
+R_c = \left\{ 1 + \frac{n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} ,\; n^{-2/n} \right\} 
+= \left\{ \frac{n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} > k^{-2/n} - 1 \right\}
+\end{equation}
+
+Daí, como $g(x)$ é estritamente crescente, temos que...
+

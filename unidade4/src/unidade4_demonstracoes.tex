@@ -1,0 +1,675 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumerate}
+\usepackage{array}
+
+% Definições de ambientes
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{lema}[teorema]{Lema}
+\theoremstyle{definition}
+\newtheorem{definicao}[teorema]{Definição}
+\theoremstyle{remark}
+\newtheorem{observacao}[teorema]{Observação}
+
+\title{Demonstrações dos Teoremas - Unidade 4\\
+\large Testes de Hipóteses\\
+\normalsize Todas as Provas Apresentadas em Aula}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Este documento contém todas as demonstrações de teoremas apresentadas nas aulas da Unidade 4. O objetivo é fornecer um material de estudo organizado para preparação para as avaliações, onde demonstrações são frequentemente cobradas.
+
+Ao final do documento, apresentamos um \textbf{ranking de prioridade} das demonstrações mais importantes para estudo, considerando complexidade técnica, importância fundamental e aplicabilidade em questões.
+
+\section{Lema de Neyman-Pearson}
+
+\begin{lema}[Neyman-Pearson]
+Seja $\mathbf{X} = (X_1, \ldots, X_n)^T$ uma amostra aleatória de $X$ com fdp (ou fmp) $f(x; \theta)$ para $x \in \mathbb{R}^n$, $\theta \in \Theta \subset \mathbb{R}$. Desejamos testar
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta = \theta_1,
+\]
+onde $\theta_0, \theta_1 \in \Theta$ e $\theta_0 \neq \theta_1$.
+
+Seja $\psi_{\gamma}(x^n)$ uma função crítica que satisfaz:
+\begin{enumerate}
+    \item Para $k \geq 0$, 
+    \[
+    \psi_{\gamma}(x^n) = 
+    \begin{cases}
+    1, & \text{se } L(\theta_1, x^n) > k L(\theta_0, x^n) \\
+    0, & \text{se } L(\theta_1, x^n) < k L(\theta_0, x^n)
+    \end{cases}
+    \]
+    
+    \item O parâmetro $k$ é determinado por
+    \[
+    E_{\theta_0}[\psi_{\gamma}(x^n)] = \alpha
+    \]
+\end{enumerate}
+
+Então, qualquer teste que satisfaz (1) e (2) é um teste \textbf{mais poderoso (MP)} de nível $\alpha$.
+\end{lema}
+
+\begin{proof}[Demonstração (caso contínuo)]
+Note que qualquer teste $\gamma$ que satisfaz (2) tem tamanho $\alpha$ e, portanto, nível $\alpha$. Seja $\gamma^*$ um teste com função de teste $\psi_{\gamma^*}(x^n)$ e nível $\alpha$. Sejam $Q_{\gamma}(\theta)$ e $Q_{\gamma^*}(\theta)$ as funções poder de $\gamma$ e $\gamma^*$, respectivamente.
+
+Vamos primeiramente verificar que
+\begin{equation}
+\left[ \psi_{\gamma}(x^n) - \psi_{\gamma^*}(x^n) \right] \left[ L(\theta_1, x^n) - k L(\theta_0, x^n) \right] \geq 0
+\end{equation}
+para todo $x \in \mathcal{X}^n$. 
+
+Note que:
+\begin{itemize}
+    \item (i) Se $\psi_{\gamma}(x^n) = 1$, então $L(\theta_1, x^n) - k L(\theta_0, x^n) > 0$ pela definição de $\psi_{\gamma}$.
+    
+    Como $\psi_{\gamma^*}(x^n) \in [0,1]$, temos:
+    \[
+    \left[1 - \psi_{\gamma^*}(x^n)\right] \left[L(\theta_1, x^n) - k L(\theta_0, x^n)\right] \geq 0
+    \]
+    
+    \item (ii) Se $\psi_{\gamma}(x^n) = 0$, então $L(\theta_1, x^n) - k L(\theta_0, x^n) < 0$.
+    
+    Como $\psi_{\gamma^*}(x^n) \geq 0$, temos:
+    \[
+    \left[0 - \psi_{\gamma^*}(x^n)\right] \left[L(\theta_1, x^n) - k L(\theta_0, x^n)\right] \geq 0
+    \]
+    
+    \item (iii) Se $\psi_{\gamma}(x^n) \in (0,1)$ (teste aleatorizado na fronteira), então $L(\theta_1, x^n) = k L(\theta_0, x^n)$ e a expressão é zero.
+\end{itemize}
+
+Portanto, a desigualdade (3) é válida.
+
+Agora, integrando ambos os lados de (3) sobre $\mathcal{X}^n$:
+\begin{align}
+0 &\leq \int_{\mathcal{X}^n} \left[ \psi_{\gamma}(x^n) - \psi_{\gamma^*}(x^n) \right] \left[ L(\theta_1, x^n) - k L(\theta_0, x^n) \right] dx^n \\
+&= \int_{\mathcal{X}^n} \psi_{\gamma}(x^n) L(\theta_1, x^n) dx^n - \int_{\mathcal{X}^n} \psi_{\gamma^*}(x^n) L(\theta_1, x^n) dx^n \\
+&\quad - k \left[ \int_{\mathcal{X}^n} \psi_{\gamma}(x^n) L(\theta_0, x^n) dx^n - \int_{\mathcal{X}^n} \psi_{\gamma^*}(x^n) L(\theta_0, x^n) dx^n \right] \\
+&= Q_{\gamma}(\theta_1) - Q_{\gamma^*}(\theta_1) - k \left[ Q_{\gamma}(\theta_0) - Q_{\gamma^*}(\theta_0) \right]
+\end{align}
+
+Como ambos os testes têm nível $\alpha$, temos:
+\[
+Q_{\gamma}(\theta_0) = E_{\theta_0}[\psi_{\gamma}(x^n)] = \alpha
+\]
+\[
+Q_{\gamma^*}(\theta_0) = E_{\theta_0}[\psi_{\gamma^*}(x^n)] = \alpha
+\]
+
+Portanto:
+\[
+Q_{\gamma}(\theta_0) - Q_{\gamma^*}(\theta_0) = 0
+\]
+
+Da desigualdade obtida:
+\[
+Q_{\gamma}(\theta_1) - Q_{\gamma^*}(\theta_1) \geq 0
+\]
+
+Ou seja, $Q_{\gamma}(\theta_1) \geq Q_{\gamma^*}(\theta_1)$. Como $\gamma^*$ era um teste arbitrário de nível $\alpha$, o teste $\gamma$ é MP de nível $\alpha$.
+\end{proof}
+
+\begin{observacao}[Pontos-chave da demonstração]
+\begin{enumerate}
+    \item A ideia central é usar a desigualdade (3) que conecta a diferença entre funções críticas com a diferença entre verossimilhanças.
+    \item A constante $k$ garante que ambos os testes têm o mesmo tamanho $\alpha$ sob $H_0$.
+    \item O LNP garante que, para hipóteses simples, o teste baseado na razão de verossimilhanças é sempre MP.
+    \item No caso discreto, pode ser necessário usar um teste aleatorizado na fronteira para atingir exatamente o nível $\alpha$.
+\end{enumerate}
+\end{observacao}
+
+\begin{observacao}[Aplicações Importantes]
+O LNP é aplicado para construir testes MP quando:
+\begin{itemize}
+    \item Ambas as hipóteses são simples ($H_0: \theta = \theta_0$ vs. $H_1: \theta = \theta_1$)
+    \item Pode ser usado como passo intermediário na construção de testes UMP via RVM
+    \item Permite identificar a estatística suficiente que deve ser usada na região crítica
+\end{itemize}
+\end{observacao}
+
+\section{Teorema de Karlin-Rubin}
+
+Antes de enunciar o teorema, precisamos da definição de Razão de Verossimilhança Monótona (RVM).
+
+\begin{definicao}[Família com Razão de Verossimilhança Monótona]
+Uma família de densidades (ou funções de probabilidade) $\{f(x; \theta): \theta \in \Theta\}$ tem \textbf{razão de verossimilhança monótona não decrescente (RVM)} em uma estatística $T(x)$ se, para $\theta_1 > \theta_0$, a razão
+\[
+\frac{f(x; \theta_1)}{f(x; \theta_0)}
+\]
+é uma função não decrescente de $T(x)$.
+\end{definicao}
+
+\begin{teorema}[Karlin-Rubin]
+Seja $\{f(x; \theta): \theta \in \Theta\}$ uma família de densidades com RVM não decrescente em $T(x)$.
+
+Para testar
+\[
+H_0: \theta \leq \theta_0 \quad \text{vs.} \quad H_1: \theta > \theta_0,
+\]
+o teste $\psi$ com função crítica
+\[
+\psi(x) = 
+\begin{cases}
+1, & \text{se } T(x) > u \\
+\delta, & \text{se } T(x) = u \\
+0, & \text{se } T(x) < u
+\end{cases}
+\]
+onde $u$ e $\delta \in [0,1]$ são escolhidos tais que $E_{\theta_0}[\psi(X)] = \alpha$, é \textbf{uniformemente mais poderoso (UMP)} de nível $\alpha$.
+\end{teorema}
+
+\begin{proof}
+Seja $Y$ o teste definido em (1) com poder
+\[
+Q_Y(\theta) = P_{\theta}(\text{Rejeitar } H_0)
+\]
+e $Q_Y(\theta_0) = \alpha$. 
+
+Sem perda de generalidade, seja $\theta_1 > \theta_0$. Pelo Lema de Neyman-Pearson, o teste MP para
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta = \theta_1
+\]
+é baseado na razão entre verossimilhanças (RV) e, então, rejeita-se $H_0$ se, e só se,
+\begin{equation}
+\frac{L(x; \theta_1)}{L(x; \theta_0)} > u'
+\end{equation}
+para alguma constante $u'$.
+
+Como a família tem RVM não decrescente em $T(x)$, existe uma função $g$ não decrescente tal que:
+\[
+\frac{L(x; \theta_1)}{L(x; \theta_0)} = g(T(x); \theta_1, \theta_0)
+\]
+
+onde $g(\cdot; \theta_1, \theta_0)$ é não decrescente. Portanto, (4) é equivalente a
+\[
+T(x) > c
+\]
+para alguma constante $c$ (que pode depender de $u'$, mas não de $\theta_1$ específico).
+
+Ou seja, o teste MP para $H_0: \theta = \theta_0$ vs. $H_1: \theta = \theta_1$ é da forma $\{T(x) > c\}$ e, como esta forma não depende de $\theta_1$ (apenas da direção $\theta_1 > \theta_0$), o teste é UMP para $H_0: \theta \leq \theta_0$ vs. $H_1: \theta > \theta_0$.
+
+Para completar a prova, deve-se mostrar que $Y$ é UMP não apenas na classe $C$ satisfazendo $Q_Y(\theta_0) \leq \alpha$, mas na classe $C^*$ satisfazendo $\sup_{\theta \in \Theta_0} Q_Y(\theta) \leq \alpha$. 
+
+Pode-se mostrar que $C^* \subset C$, e pela monotonicidade de $Q_Y(\theta)$ (que decorre da RVM), temos que $\forall \theta \in C^*$:
+\begin{equation}
+Q_Y(\theta) \leq Q_Y(\theta_0) \leq \alpha
+\end{equation}
+
+Portanto, o teste $Y$ tem nível $\alpha$ e é UMP dentro de $C^*$.
+\end{proof}
+
+\begin{observacao}[Propriedade de Monotonicidade do Poder]
+Sob as condições do Teorema de Karlin-Rubin, a função poder $Q_Y(\theta)$ é não decrescente para $\theta > \theta_0$. Isto decorre da estrutura da região crítica e da propriedade RVM.
+\end{observacao}
+
+\begin{observacao}[Importância Prática]
+O Teorema de Karlin-Rubin permite:
+\begin{itemize}
+    \item Construir testes UMP para hipóteses unilaterais quando a família tem RVM
+    \item Identificar a estatística suficiente $T(x)$ que deve ser usada na região crítica
+    \item Estender resultados de testes simples vs. simples para testes compostos unilaterais
+\end{itemize}
+\end{observacao}
+
+\section{Construção de Testes MP/UMP para Famílias Clássicas}
+
+\subsection{Teste MP para Normal (Média, Variância Conhecida)}
+
+\begin{teorema}[Teste MP para Normal]
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X_i \sim N(\mu, \sigma^2)$ com $\sigma^2$ conhecido. Para testar
+\[
+H_0: \mu = \mu_0 \quad \text{vs.} \quad H_1: \mu = \mu_1 \quad (\mu_1 > \mu_0),
+\]
+o teste MP de nível $\alpha$ rejeita $H_0$ se, e só se,
+\[
+\bar{X}_n > \mu_0 + \frac{\sigma}{\sqrt{n}} z_{\alpha}
+\]
+ou equivalentemente, se
+\[
+Z = \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} > z_{\alpha}
+\]
+\end{teorema}
+
+\begin{proof}
+Como as hipóteses são simples, o Lema de Neyman-Pearson se aplica. A verossimilhança é:
+\[
+L(\mu; x) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\]
+
+A razão de verossimilhanças é:
+\begin{align}
+\frac{L(\mu_1; x)}{L(\mu_0; x)} &= \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_1)^2 - \sum_{i=1}^n (x_i - \mu_0)^2 \right] \right\} \\
+&= \exp\left\{ -\frac{1}{2\sigma^2} \left[ -2\mu_1 \sum_{i=1}^n x_i + n\mu_1^2 + 2\mu_0 \sum_{i=1}^n x_i - n\mu_0^2 \right] \right\} \\
+&= \exp\left\{ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^n x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\}
+\end{align}
+
+Como $\mu_1 > \mu_0$, a razão $\frac{L(\mu_1; x)}{L(\mu_0; x)} > k$ é equivalente a
+\[
+\sum_{i=1}^n x_i > k_1
+\]
+para alguma constante $k_1$.
+
+Ou, equivalentemente:
+\[
+\bar{X}_n > c
+\]
+para alguma constante $c$.
+
+Como $\bar{X}_n \sim N(\mu, \sigma^2/n)$ sob $H_0$, temos:
+\[
+P_{\mu_0}(\bar{X}_n > c) = P\left( \frac{\bar{X}_n - \mu_0}{\sigma/\sqrt{n}} > \frac{c - \mu_0}{\sigma/\sqrt{n}} \right) = \alpha
+\]
+
+Portanto:
+\[
+\frac{c - \mu_0}{\sigma/\sqrt{n}} = z_{\alpha}
+\]
+\[
+c = \mu_0 + \frac{\sigma}{\sqrt{n}} z_{\alpha}
+\]
+
+O teste MP rejeita $H_0$ se $\bar{X}_n > \mu_0 + \frac{\sigma}{\sqrt{n}} z_{\alpha}$.
+\end{proof}
+
+\begin{observacao}[Extensão para UMP]
+Como a família Normal tem RVM não decrescente em $\bar{X}_n$ (pode ser verificado diretamente), pelo Teorema de Karlin-Rubin, o teste acima é UMP para $H_0: \mu \leq \mu_0$ vs. $H_1: \mu > \mu_0$.
+\end{observacao}
+
+\subsection{Teste MP para Exponencial}
+
+\begin{teorema}[Teste MP para Exponencial via $\chi^2$]
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X_i \sim \text{Exp}(\theta)$ (com parâmetro de escala $\theta$). Para testar
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta = \theta_1 \quad (\theta_1 \neq \theta_0),
+\]
+o teste MP de nível $\alpha$ é baseado na estatística $\sum_{i=1}^n X_i$.
+
+Especificamente, para $H_1: \theta > \theta_0$, o teste rejeita $H_0$ se
+\[
+\frac{2}{\theta_0} \sum_{i=1}^n X_i > \chi^2_{2n,\alpha}
+\]
+onde $\chi^2_{2n,\alpha}$ é o quantil $\alpha$ da distribuição qui-quadrado com $2n$ graus de liberdade.
+\end{teorema}
+
+\begin{proof}
+A verossimilhança é:
+\[
+L(\theta; x) = \prod_{i=1}^n \frac{1}{\theta} e^{-x_i/\theta} = \theta^{-n} \exp\left\{ -\frac{1}{\theta} \sum_{i=1}^n x_i \right\}
+\]
+
+A razão de verossimilhanças é:
+\begin{align}
+\frac{L(\theta_1; x)}{L(\theta_0; x)} &= \left( \frac{\theta_0}{\theta_1} \right)^n \exp\left\{ -\sum_{i=1}^n x_i \left( \frac{1}{\theta_1} - \frac{1}{\theta_0} \right) \right\}
+\end{align}
+
+Para $\theta_1 > \theta_0$, temos $\frac{1}{\theta_1} - \frac{1}{\theta_0} < 0$, então a razão é crescente em $\sum_{i=1}^n x_i$.
+
+Portanto, o teste MP rejeita $H_0$ se $\sum_{i=1}^n X_i > k$ para alguma constante $k$.
+
+Para obter uma estatística com distribuição conhecida sob $H_0$, note que:
+\begin{itemize}
+    \item Se $X_i \sim \text{Exp}(\theta)$, então $\dot{X}_i = X_i/\theta \sim \text{Exp}(1)$ (exponencial padrão).
+    \item Se $\dot{X}_i \sim \text{Exp}(1)$, então $Y_i = 2\dot{X}_i = 2X_i/\theta \sim \chi^2_2$ (qui-quadrado com 2 graus de liberdade).
+\end{itemize}
+
+Portanto, sob $H_0$:
+\[
+\frac{2}{\theta_0} \sum_{i=1}^n X_i = \sum_{i=1}^n \frac{2X_i}{\theta_0} = \sum_{i=1}^n Y_i \sim \chi^2_{2n}
+\]
+
+O teste MP rejeita $H_0$ se $\frac{2}{\theta_0} \sum_{i=1}^n X_i > \chi^2_{2n,\alpha}$.
+\end{proof}
+
+\subsection{Teste MP para Poisson}
+
+\begin{teorema}[Teste MP para Poisson]
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X_i \sim \text{Poisson}(\lambda)$. Para testar
+\[
+H_0: \lambda = \lambda_0 \quad \text{vs.} \quad H_1: \lambda = \lambda_1 \quad (\lambda_1 > \lambda_0),
+\]
+o teste MP de nível $\alpha$ rejeita $H_0$ se $T = \sum_{i=1}^n X_i > k_1$, onde $k_1$ é determinado por
+\[
+P_{\lambda_0}(T > k_1) \leq \alpha \quad \text{e} \quad P_{\lambda_0}(T \geq k_1) > \alpha
+\]
+Se necessário, usa-se aleatorização na fronteira $T = k_1$ para atingir exatamente o nível $\alpha$.
+\end{teorema}
+
+\begin{proof}
+A verossimilhança é:
+\[
+L(\lambda; x) = \prod_{i=1}^n \frac{e^{-\lambda} \lambda^{x_i}}{x_i!} = \frac{e^{-n\lambda} \lambda^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n x_i!}
+\]
+
+A razão de verossimilhanças é:
+\begin{align}
+\frac{L(\lambda_1; x)}{L(\lambda_0; x)} &= \left( \frac{\lambda_0}{\lambda_1} \right)^n \cdot \left( \frac{\lambda_1}{\lambda_0} \right)^{\sum_{i=1}^n x_i} \\
+&= \left( \frac{\lambda_1}{\lambda_0} \right)^{\sum_{i=1}^n x_i - n(\lambda_1 - \lambda_0)}
+\end{align}
+
+Como $\lambda_1 > \lambda_0$, a razão é crescente em $\sum_{i=1}^n x_i$. Portanto, o teste MP rejeita $H_0$ se $T = \sum_{i=1}^n X_i > k_1$.
+
+Sob $H_0$, $T \sim \text{Poisson}(n\lambda_0)$. O limiar $k_1$ é determinado de forma que $P_{\lambda_0}(T > k_1) \leq \alpha$. Como a distribuição é discreta, pode ser necessário usar aleatorização para atingir exatamente $\alpha$.
+\end{proof}
+
+\subsection{Teste MP para Bernoulli}
+
+\begin{teorema}[Teste MP para Bernoulli]
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X_i \sim \text{Bernoulli}(p)$. Para testar
+\[
+H_0: p = p_0 \quad \text{vs.} \quad H_1: p = p_1 \quad (p_1 > p_0),
+\]
+o teste MP de nível $\alpha$ rejeita $H_0$ se $T = \sum_{i=1}^n X_i > k_1$, onde $k_1$ é determinado por
+\[
+P_{p_0}(T > k_1) \leq \alpha \quad \text{e} \quad P_{p_0}(T \geq k_1) > \alpha
+\]
+com aleatorização na fronteira se necessário.
+\end{teorema}
+
+\begin{proof}
+A verossimilhança é:
+\[
+L(p; x) = \prod_{i=1}^n p^{x_i} (1-p)^{1-x_i} = p^{\sum_{i=1}^n x_i} (1-p)^{n - \sum_{i=1}^n x_i}
+\]
+
+A razão de verossimilhanças é:
+\begin{align}
+\frac{L(p_1; x)}{L(p_0; x)} &= \left( \frac{p_1}{p_0} \right)^{\sum_{i=1}^n x_i} \left( \frac{1-p_1}{1-p_0} \right)^{n - \sum_{i=1}^n x_i} \\
+&= \left[ \frac{(1-p_0)p_1}{p_0(1-p_1)} \right]^{\sum_{i=1}^n x_i} \left[ \frac{1-p_1}{1-p_0} \right]^n
+\end{align}
+
+Como $p_1 > p_0$, temos $\frac{p_1}{p_0} > 1$ e $\frac{1-p_1}{1-p_0} < 1$, mas o produto $\frac{(1-p_0)p_1}{p_0(1-p_1)} > 1$, então a razão é crescente em $\sum_{i=1}^n x_i$.
+
+Portanto, o teste MP rejeita $H_0$ se $T = \sum_{i=1}^n X_i > k_1$. Sob $H_0$, $T \sim \text{Binomial}(n, p_0)$, então $k_1$ é determinado conforme descrito.
+\end{proof}
+
+\section{Teste UMP para Distribuição Uniforme}
+
+\begin{teorema}[Teste UMP para Uniforme]
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X_i \sim U(0, \theta)$ com $\theta$ desconhecido. Considere testar
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta > \theta_0,
+\]
+onde $\theta_0 > 0$ é fixado.
+
+O teste $Y^*$ com função crítica
+\[
+\psi_{Y^*}(x) = 
+\begin{cases}
+1, & \text{se } T(x) \geq \theta_0 \text{ ou } T(x) \leq \theta_0 \alpha^{1/n} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+onde $T(x) = X_{(n)} = \max\{X_1, \ldots, X_n\}$, é um teste UMP de nível $\alpha$.
+\end{teorema}
+
+\begin{proof}
+Primeiro, note que $T(X) = X_{(n)}$ é suficiente para $\theta$ e tem densidade:
+\[
+f(t; \theta) = n \cdot t^{n-1} \cdot \theta^{-n} \cdot \mathbb{I}_{(0, \theta)}(t)
+\]
+
+Para mostrar que o teste tem nível $\alpha$, calculamos:
+\[
+E_{\theta_0}[\psi_{Y^*}(X)] = P_{\theta_0}\left( T(X) \geq \theta_0 \right) + P_{\theta_0}\left( T(X) \leq \theta_0 \alpha^{1/n} \right)
+\]
+
+Como $P_{\theta_0}(T(X) > \theta_0) = 0$ (pois $T \leq \theta_0$ com probabilidade 1 sob $H_0$), temos:
+\begin{align}
+E_{\theta_0}[\psi_{Y^*}(X)] &= P_{\theta_0}\left( T(X) \leq \theta_0 \alpha^{1/n} \right) \\
+&= \int_{0}^{\theta_0 \alpha^{1/n}} n t^{n-1} \theta_0^{-n} \, dt \\
+&= \frac{n}{\theta_0^n} \left[ \frac{t^n}{n} \right]_{0}^{\theta_0 \alpha^{1/n}} \\
+&= \frac{1}{\theta_0^n} (\theta_0 \alpha^{1/n})^n = \alpha
+\end{align}
+
+Para mostrar que é UMP, verifica-se que a família tem RVM não decrescente em $T(x)$. Para $\theta_1 > \theta_0$:
+\[
+\frac{f(t; \theta_1)}{f(t; \theta_0)} = \left( \frac{\theta_0}{\theta_1} \right)^n \cdot \frac{\mathbb{I}_{(0, \theta_1)}(t)}{\mathbb{I}_{(0, \theta_0)}(t)}
+\]
+
+Para $t < \theta_0$, ambas as funções indicadoras são 1, então a razão é constante $(\theta_0/\theta_1)^n < 1$.
+
+Para $t \in [\theta_0, \theta_1)$, a razão é $\infty$ (ou não definida na fronteira).
+
+Para $t \geq \theta_1$, a razão é 0/0 ou 0/1.
+
+Pode-se mostrar que a razão é não decrescente em $t$ no sentido apropriado. Pelo Teorema de Karlin-Rubin, o teste é UMP.
+\end{proof}
+
+\begin{observacao}[Características Especiais]
+A distribuição uniforme apresenta particularidades:
+\begin{itemize}
+    \item O suporte depende do parâmetro, o que requer cuidado na verificação de RVM
+    \item A estatística máxima $X_{(n)}$ é suficiente e tem distribuição conhecida
+    \item O teste UMP rejeita tanto para valores muito grandes quanto para valores muito pequenos de $T(X)$ relativos a $\theta_0$
+\end{itemize}
+\end{observacao}
+
+\section{Função Poder e Propriedades}
+
+\begin{definicao}[Função Poder]
+Para um teste $\psi$ com função crítica $\psi(x)$, a \textbf{função poder} é definida por
+\[
+Q_{\psi}(\theta) = E_{\theta}[\psi(X)] = P_{\theta}(\text{Rejeitar } H_0), \quad \theta \in \Theta
+\]
+\end{definicao}
+
+\begin{observacao}[Propriedades da Função Poder]
+\begin{enumerate}
+    \item Para $\theta \in \Theta_0$ (hipótese nula), $Q_{\psi}(\theta)$ é a probabilidade de erro tipo I.
+    \item Para $\theta \in \Theta_1$ (hipótese alternativa), $1 - Q_{\psi}(\theta)$ é a probabilidade de erro tipo II ($\beta$).
+    \item O tamanho do teste é $\sup_{\theta \in \Theta_0} Q_{\psi}(\theta)$.
+    \item Para testes unilaterais com RVM, a função poder é monotônica.
+\end{enumerate}
+\end{observacao}
+
+\subsection{Exemplo: Função Poder para Teste Z}
+
+\begin{teorema}[Função Poder do Teste Z]
+Sejam $X_1, \ldots, X_n \overset{i.i.d.}{\sim} N(\mu, \sigma^2)$ com $\sigma^2$ conhecido. Para o teste $H_0: \mu = \mu_0$ vs. $H_1: \mu > \mu_0$ que rejeita $H_0$ se $\bar{X}_n > \mu_0 + \frac{\sigma}{\sqrt{n}} z_{\alpha}$, a função poder é
+\[
+Q(\mu) = 1 - \Phi\left( z_{\alpha} - \frac{\sqrt{n}(\mu - \mu_0)}{\sigma} \right)
+\]
+\end{teorema}
+
+\begin{proof}
+Temos:
+\begin{align}
+Q(\mu) &= P_{\mu}\left( \bar{X}_n > \mu_0 + \frac{\sigma}{\sqrt{n}} z_{\alpha} \right) \\
+&= P_{\mu}\left( \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} > \frac{\mu_0 + \frac{\sigma}{\sqrt{n}} z_{\alpha} - \mu}{\sigma/\sqrt{n}} \right) \\
+&= P\left( Z > \frac{\mu_0 - \mu}{\sigma/\sqrt{n}} + z_{\alpha} \right) \\
+&= P\left( Z > z_{\alpha} - \frac{\sqrt{n}(\mu - \mu_0)}{\sigma} \right) \\
+&= 1 - \Phi\left( z_{\alpha} - \frac{\sqrt{n}(\mu - \mu_0)}{\sigma} \right)
+\end{align}
+
+onde $Z \sim N(0,1)$.
+\end{proof}
+
+\begin{observacao}[Comportamento da Função Poder]
+\begin{itemize}
+    \item $Q(\mu_0) = 1 - \Phi(z_{\alpha}) = \alpha$ (tamanho do teste)
+    \item $Q(\mu)$ é crescente em $\mu$ para $\mu > \mu_0$
+    \item Quando $\mu \to \infty$, $Q(\mu) \to 1$
+    \item O poder aumenta com $n$ (tamanho da amostra) e diminui com $\sigma$
+\end{itemize}
+\end{observacao}
+
+\newpage
+\section{Ranking de Prioridade das Demonstrações}
+
+Esta seção apresenta um ranking das demonstrações mais importantes para estudo, considerando três critérios com pesos diferentes:
+\begin{itemize}
+    \item \textbf{Complexidade Técnica} (30\%): Dificuldade matemática e número de passos
+    \item \textbf{Importância Fundamental} (40\%): Base para outros resultados e centralidade no curso
+    \item \textbf{Aplicabilidade em Questões} (30\%): Frequência de uso em exercícios e exames
+\end{itemize}
+
+\subsection{Tabela de Avaliação}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Teorema} & \textbf{Compl.} & \textbf{Import.} & \textbf{Aplic.} & \textbf{Nota Final} \\
+ & (0-10) & (0-10) & (0-10) & (ponderada) \\
+\hline
+Lema de Neyman-Pearson & 7.0 & 10 & 9.5 & \textbf{8.85} \\
+\hline
+Teorema de Karlin-Rubin & 8.5 & 9.5 & 9.0 & \textbf{8.95} \\
+\hline
+Teste MP para Normal & 5.0 & 8.5 & 9.0 & \textbf{7.75} \\
+\hline
+Teste MP para Exponencial & 6.0 & 7.5 & 7.5 & \textbf{7.05} \\
+\hline
+Teste UMP para Uniforme & 7.5 & 7.0 & 6.5 & \textbf{6.95} \\
+\hline
+Função Poder (Z-test) & 4.0 & 7.0 & 8.0 & \textbf{6.60} \\
+\hline
+Teste MP para Poisson & 5.5 & 7.0 & 7.0 & \textbf{6.55} \\
+\hline
+Teste MP para Bernoulli & 5.0 & 7.0 & 7.0 & \textbf{6.40} \\
+\hline
+\end{tabular}
+\caption{Avaliação e ranking dos teoremas}
+\end{table}
+
+\subsection{Ranking Final: Top 5 Demonstrações}
+
+\subsubsection{1º Lugar: Teorema de Karlin-Rubin (Nota: 8.95)}
+
+\textbf{Por que estudar em detalhes:}
+\begin{itemize}
+    \item É o teorema que permite construir testes UMP para hipóteses compostas unilaterais
+    \item Demonstração técnica que combina LNP com propriedade de RVM
+    \item Praticamente garantido ser cobrado em avaliações
+    \item Base para toda construção de testes UMP em famílias clássicas
+    \item A prova da monotonicidade é sutil e importante
+\end{itemize}
+
+\textbf{Dica de estudo:} Entenda bem a definição de RVM e como ela conecta com a estrutura do teste ótimo. Veja como o LNP é usado como passo intermediário.
+
+\subsubsection{2º Lugar: Lema de Neyman-Pearson (Nota: 8.85)}
+
+\textbf{Por que estudar em detalhes:}
+\begin{itemize}
+    \item É o resultado fundamental para testes com hipóteses simples
+    \item A prova usa uma técnica elegante com desigualdades
+    \item Fundamento para o Teorema de Karlin-Rubin
+    \item Frequentemente aplicado diretamente em questões
+    \item Mostra como a razão de verossimilhanças aparece naturalmente
+\end{itemize}
+
+\textbf{Dica de estudo:} Foque na desigualdade chave (3) na demonstração e entenda por que ela funciona. Veja como a constante $k$ garante o nível $\alpha$.
+
+\subsubsection{3º Lugar: Teste MP para Normal (Nota: 7.75)}
+
+\textbf{Por que estudar em detalhes:}
+\begin{itemize}
+    \item Aplicação direta e prática do LNP
+    \item Mostra como transformar razão de verossimilhanças em estatística padronizada
+    \item Frequente em questões práticas
+    \item Base para extensão via Karlin-Rubin para UMP
+    \item Demonstração relativamente acessível mas importante
+\end{itemize}
+
+\textbf{Dica de estudo:} Veja como a manipulação algébrica leva naturalmente ao teste Z. Entenda a conexão com distribuições conhecidas.
+
+\subsubsection{4º Lugar: Teste MP para Exponencial (Nota: 7.05)}
+
+\textbf{Por que estudar em detalhes:}
+\begin{itemize}
+    \item Aplicação importante do LNP
+    \item Mostra técnicas de transformação de variáveis ($\chi^2$)
+    \item Combina propriedades de distribuições conhecidas
+    \item Útil para questões que envolvem testes para parâmetros de escala
+\end{itemize}
+
+\textbf{Dica de estudo:} Foque na transformação $2X/\theta \sim \chi^2_2$ e como isso permite usar tabelas conhecidas.
+
+\subsubsection{5º Lugar: Teste UMP para Uniforme (Nota: 6.95)}
+
+\textbf{Por que estudar em detalhes:}
+\begin{itemize}
+    \item Demonstração mais técnica entre as aplicações
+    \item Mostra particularidades de famílias com suporte dependente do parâmetro
+    \item Exemplo interessante de como RVM funciona em casos especiais
+    \item Útil para entender limitações e generalizações
+\end{itemize}
+
+\textbf{Dica de estudo:} Entenda por que o teste rejeita tanto para valores grandes quanto pequenos. Veja como a distribuição de $X_{(n)}$ é calculada.
+
+\subsection{Estratégia de Estudo Recomendada}
+
+\begin{enumerate}
+    \item \textbf{Primeira semana:} Estude profundamente o Lema de Neyman-Pearson (2º lugar) e o Teorema de Karlin-Rubin (1º lugar). Esses são os fundamentos teóricos.
+    
+    \item \textbf{Segunda semana:} Aplique os teoremas para construir testes MP/UMP:
+    \begin{itemize}
+        \item Teste MP para Normal (3º lugar)
+        \item Teste MP para Exponencial (4º lugar)
+        \item Teste MP para Poisson e Bernoulli
+    \end{itemize}
+    
+    \item \textbf{Terceira semana:} Estude casos especiais:
+    \begin{itemize}
+        \item Teste UMP para Uniforme (5º lugar)
+        \item Função poder e seus cálculos
+        \item Propriedades de monotonicidade
+    \end{itemize}
+    
+    \item \textbf{Revisão:} Compare as técnicas comuns:
+    \begin{itemize}
+        \item Como identificar a estatística suficiente via LNP
+        \item Como verificar RVM em diferentes famílias
+        \item Quando usar testes aleatorizados
+    \end{itemize}
+    
+    \item \textbf{Prática:} Resolva exercícios aplicando cada teorema:
+    \begin{itemize}
+        \item Questões que pedem construção de teste MP usando LNP
+        \item Questões que pedem verificação de RVM e aplicação de Karlin-Rubin
+        \item Questões que pedem cálculo de função poder
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Observações Finais}
+
+\begin{itemize}
+    \item O LNP e Karlin-Rubin são os "pilares teóricos" - domine-os e as aplicações ficam mais claras
+    
+    \item As demonstrações de construção de testes MP mostram um padrão comum:
+    \begin{enumerate}
+        \item Calcular razão de verossimilhanças
+        \item Identificar estatística suficiente na qual a razão depende monotonicamente
+        \item Determinar limiar pela distribuição sob $H_0$
+    \end{enumerate}
+    
+    \item Entender \emph{por que} cada teorema é verdadeiro é tão importante quanto saber aplicar
+    
+    \item Em avaliações, provas de LNP e Karlin-Rubin geralmente valem mais pontos
+    
+    \item Os exemplos específicos (Normal, Poisson, etc.) são importantes para fixar as técnicas
+    
+    \item A função poder conecta teoria com prática - saber calculá-la é essencial
+    
+    \item Testes aleatorizados aparecem em distribuições discretas - não os ignore
+    
+    \item A verificação de RVM é uma técnica útil que deve ser dominada
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,23 @@
+\newpage
+
+\section*{4.3 Teste Simples x Simples}
+
+Considere derivar o teste MP para o tipo simples x simples via o Lema de Neyman e Pearson (1933).
+
+Sejam $X = (X_1, \ldots, X_n)^T$ uma a.a. de $X$ com fdp (ou fmp) $f(x; \theta)$ para $x \in \mathcal{X} \subseteq \mathbb{R}$ e $\theta \in \Theta \subseteq \mathbb{R}$ e $x = (x_1, \ldots, x_n)^T$ uma a.o. de $X$. Desejamos testar
+
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{x} \quad H_1: \theta = \theta_1,
+\end{equation}
+
+em que $\theta_0, \theta_1 \in \Theta$ e $\theta_0 \neq \theta_1$. Note que a função de verossimilhança do contexto é dada por
+
+\begin{equation}
+L(\theta_i; x) = \prod_{k=1}^{n} f(x_k; \theta_i), \quad \text{para } i=0,1.
+\end{equation}
+
+Considere comparar os poderes de todos os testes de nível $\alpha$, com $\alpha$ pré-fixado em $(0,1)$. Comumente, escolhe-se os valores $\alpha = 1\%$, $5\%$, $10\%$. Intuitivamente, um teste de $H_0$ x $H_1$ vem de comparar $L(\theta_1; x)$ com $L(\theta_0; x)$ e procurar qual quantidade é superior à outra. Como critério, a hipótese com verossimilhança significativamente maior é mais favorecida.
+
+\subsection*{Teorema (4.3.1) [Lema de Neyman Pearson]}
+
+Considere um teste de $H_0: \theta = \theta_0$ x $H_1: \theta = \theta_1$ com região de rejeição e não rejeição de $H_0$ dados por:

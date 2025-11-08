@@ -1,0 +1,29 @@
+\newpage
+
+\textbf{29/10/25}
+
+Considere $\Upsilon$ um teste para $H_0: \theta \leq \frac{1}{2}$ tal que $H_0$ é rejeitada se só se $\sum x_i > 5$. $\Upsilon$ é um teste aleatorizado com função crítica
+
+\begin{equation}
+\psi(x) = 
+\begin{cases}
+1, & x \in \{z \in \{0,1\}^n : \sum_{i=1}^n z_i > 5\} \\
+\delta, & x \in \{z \in \{0,1\}^n : \sum_{i=1}^n z_i = 5\} \\
+0, & x \in \{z \in \{0,1\}^n : \sum_{i=1}^n z_i < 5\}
+\end{cases}
+\end{equation}
+
+Caso $\psi(x) = \delta \in (0,1)$ a decisão para rejeição de $H_0$ se dará por ``obter cara'' no lançamento de uma moeda com $P(\text{cara}) = \delta$.
+
+\subsection*{4.2.1 O Conceito de Melhor Teste}
+
+Considere testar $H_0: \theta \in \Theta_0$ x $H_1: \theta \in \Theta_1$ tal que $\Theta_0 \cup \Theta_1 = \Theta$, $\Theta_0 \cap \Theta_1 = \varnothing$.
+
+\textbf{Definição (4.2.5)} Seja $\alpha \in (0,1)$ um valor fixado. Um teste $\Upsilon$ para $H_0$ x $H_1$ com função poder $Q_\Upsilon(\theta)$ é chamado de um teste de tamanho $\alpha$ se
+\begin{equation}
+\sup_{\theta \in \Theta_0} \{ Q_\Upsilon(\theta) \} = \alpha
+\end{equation}
+e é chamado de um teste de nível $\alpha$ se
+\begin{equation}
+\sup_{\theta \in \Theta_0} \{ Q_\Upsilon(\theta) \} \leq \alpha
+\end{equation}

@@ -1,0 +1,1143 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\usepackage{enumitem}
+
+% Caixas coloridas
+\newtcolorbox{exerciciobox}[1]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=Exercício #1
+}
+
+\newtcolorbox{solucaobox}[1]{
+    colback=green!5!white,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Solução do Exercício #1
+}
+
+\newtcolorbox{dicabox}{
+    colback=yellow!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Dica
+}
+
+\title{Caderno de Exercícios - Capítulo 4\\
+\large Teste de Hipóteses}
+\author{Curso de Inferência Estatística - PPGEST/UFPE}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ================================================================
+\section*{Introdução}
+\addcontentsline{toc}{section}{Introdução}
+% ================================================================
+
+Este caderno contém exercícios práticos sobre Teste de Hipóteses, abordando desde conceitos fundamentais até aplicações dos testes clássicos. Os exercícios estão organizados por nível de dificuldade e tópico.
+
+\subsection*{Organização}
+
+\begin{itemize}
+    \item \textbf{Seção 1:} Conceitos Fundamentais
+    \item \textbf{Seção 2:} Lema de Neyman-Pearson
+    \item \textbf{Seção 3:} Testes UMP e Karlin-Rubin
+    \item \textbf{Seção 4:} Testes Clássicos (Z, t, $\chi^2$, F)
+    \item \textbf{Seção 5:} Exercícios Integrados
+    \item \textbf{Seção 6:} Respostas Detalhadas (com visualizações)
+\end{itemize}
+
+\newpage
+
+% ================================================================
+\section{Conceitos Fundamentais}
+% ================================================================
+
+\begin{exerciciobox}{1.1}
+Seja $X \sim N(\mu, 9)$ e uma amostra de tamanho $n=16$. Considere o teste:
+\begin{equation*}
+H_0: \mu = 10 \quad \text{vs} \quad H_1: \mu = 13
+\end{equation*}
+com região crítica $R_c = \{\bar{x} > 11\}$.
+
+\textbf{(a)} Calcule o erro Tipo I ($\alpha$).\\
+\textbf{(b)} Calcule o erro Tipo II ($\beta$).\\
+\textbf{(c)} Qual é o poder do teste?
+\end{exerciciobox}
+
+\begin{exerciciobox}{1.2}
+Para o mesmo contexto do Exercício 1.1, determine a função poder $Q(\mu)$ e esboce seu gráfico para $\mu \in [8, 15]$.
+\end{exerciciobox}
+
+\begin{exerciciobox}{1.3}
+Um teste tem $\alpha = 0.05$ e poder de 0.80 para detectar $\mu = \mu_1$.
+
+\textbf{(a)} O que acontece com $\alpha$ e o poder se aumentarmos o tamanho amostral de $n=20$ para $n=50$?\\
+\textbf{(b)} Se fixarmos $n=20$ e reduzirmos $\alpha$ para 0.01, o que acontece com o poder?
+\end{exerciciobox}
+
+% ================================================================
+\section{Lema de Neyman-Pearson}
+% ================================================================
+
+\begin{exerciciobox}{2.1}
+Sejam $X_1, \ldots, X_{10}$ uma amostra de $X \sim N(\theta, 4)$. Use o Lema de Neyman-Pearson para derivar o teste MP de nível $\alpha = 0.05$ para:
+\begin{equation*}
+H_0: \theta = 2 \quad \text{vs} \quad H_1: \theta = 5
+\end{equation*}
+\end{exerciciobox}
+
+\begin{exerciciobox}{2.2}
+Seja $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Exp}(\lambda)$ com densidade $f(x;\lambda) = \lambda e^{-\lambda x}$, $x > 0$.
+
+Encontre o teste MP de nível $\alpha$ para:
+\begin{equation*}
+H_0: \lambda = 1 \quad \text{vs} \quad H_1: \lambda = 2
+\end{equation*}
+\end{exerciciobox}
+
+\begin{exerciciobox}{2.3}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Poisson}(\lambda)$.
+
+Derive o teste MP para $H_0: \lambda = 3$ vs $H_1: \lambda = 5$ com $n=20$ e $\alpha = 0.05$.
+
+Determine $k$ e $\delta$ para o teste aleatorizado.
+\end{exerciciobox}
+
+% ================================================================
+\section{Testes UMP e Teorema de Karlin-Rubin}
+% ================================================================
+
+\begin{exerciciobox}{3.1}
+Sejam $X_1, \ldots, X_{25}$ uma amostra de $X \sim N(\mu, 16)$ com $\mu$ desconhecido.
+
+Use o Teorema de Karlin-Rubin para obter o teste UMP de nível $\alpha = 0.05$ para:
+\begin{equation*}
+H_0: \mu \leq 50 \quad \text{vs} \quad H_1: \mu > 50
+\end{equation*}
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.2}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Bernoulli}(p)$.
+
+\textbf{(a)} Mostre que a família possui RVM em $T = \sum X_i$.\\
+\textbf{(b)} Derive o teste UMP para $H_0: p \leq 0.3$ vs $H_1: p > 0.3$ com $n=30$ e $\alpha=0.05$.
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.3}
+Para $X_1, \ldots, X_n \sim N(0, \sigma^2)$, derive o teste UMP de nível $\alpha$ para:
+\begin{equation*}
+H_0: \sigma^2 \leq \sigma_0^2 \quad \text{vs} \quad H_1: \sigma^2 > \sigma_0^2
+\end{equation*}
+\end{exerciciobox}
+
+% ================================================================
+\section{Testes Clássicos}
+% ================================================================
+
+\subsection{Teste Z}
+
+\begin{exerciciobox}{4.1}
+Uma máquina produz peças com diâmetro médio especificado de 10 cm e desvio padrão conhecido de 0.5 cm. Uma amostra de 36 peças apresentou diâmetro médio de 10.15 cm.
+
+Ao nível de significância de 5\%, teste se o diâmetro médio real difere de 10 cm.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.2}
+Um pesquisador afirma que o tempo médio de reação a um estímulo é menor que 250 ms. Uma amostra de 50 indivíduos apresentou tempo médio de 245 ms, com desvio padrão populacional conhecido de 20 ms.
+
+Teste a afirmação ao nível de 1\%.
+\end{exerciciobox}
+
+\subsection{Teste t de Student}
+
+\begin{exerciciobox}{4.3}
+As notas de 16 alunos em uma prova têm média amostral 7.2 e desvio padrão amostral 1.5. Assuma normalidade.
+
+Teste se a média populacional é diferente de 7.5 ao nível de 5\%.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.4}
+Um novo método de ensino foi aplicado a 25 alunos. As notas tiveram média 78 e desvio padrão 12. O método anterior tinha média histórica de 75.
+
+Há evidência de que o novo método é melhor? Use $\alpha = 0.05$.
+\end{exerciciobox}
+
+\subsection{Teste Qui-Quadrado}
+
+\begin{exerciciobox}{4.5}
+Uma máquina deve produzir peças com variância de diâmetro não superior a 0.04 cm². Uma amostra de 20 peças apresentou variância amostral de 0.055 cm². Assuma normalidade.
+
+Teste se a variância populacional excede o especificado ao nível de 5\%.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.6}
+O desvio padrão das alturas de uma população é alegado ser 10 cm. Uma amostra de 30 indivíduos apresentou $s = 12$ cm.
+
+Teste se o desvio padrão populacional difere de 10 cm ao nível de 10\%.
+\end{exerciciobox}
+
+\subsection{Teste F}
+
+\begin{exerciciobox}{4.7}
+Duas máquinas produzem o mesmo produto. Amostras independentes forneceram:
+\begin{itemize}
+    \item Máquina 1: $n_1 = 15$, $s_1^2 = 2.8$
+    \item Máquina 2: $n_2 = 12$, $s_2^2 = 1.6$
+\end{itemize}
+
+Teste se as variâncias são diferentes ao nível de 5\%. Assuma normalidade.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.8}
+Dois métodos de treinamento foram comparados. O primeiro método foi aplicado a 20 pessoas e o segundo a 25 pessoas. As variâncias amostrais foram 16 e 9, respectivamente.
+
+Há evidência de que o primeiro método produz mais variabilidade? Use $\alpha = 0.05$.
+\end{exerciciobox}
+
+% ================================================================
+\section{Exercícios Integrados}
+% ================================================================
+
+\begin{exerciciobox}{5.1}
+Um laboratório recebeu um lote de chips. Para aceitação, a proporção de defeituosos deve ser no máximo 5\%. Uma amostra de 200 chips revelou 15 defeituosos.
+
+\textbf{(a)} Formule as hipóteses apropriadas.\\
+\textbf{(b)} Qual teste você usaria? Justifique.\\
+\textbf{(c)} Realize o teste ao nível de 5\%.\\
+\textbf{(d)} Calcule e interprete o p-valor.
+\end{exerciciobox}
+
+\begin{exerciciobox}{5.2}
+Uma empresa afirma que seu produto tem vida útil média de pelo menos 1000 horas com desvio padrão de 100 horas. Um teste com 50 unidades revelou vida média de 980 horas.
+
+\textbf{(a)} Teste a afirmação da empresa ao nível de 5\%.\\
+\textbf{(b)} Qual seria a decisão ao nível de 1\%?\\
+\textbf{(c)} Calcule a função poder para $\mu = 950, 975, 1000, 1025, 1050$.\\
+\textbf{(d)} Qual tamanho amostral seria necessário para detectar $\mu = 980$ com poder de 90\%?
+\end{exerciciobox}
+
+\begin{exerciciobox}{5.3}
+Duas variedades de trigo (A e B) foram testadas:
+\begin{itemize}
+    \item Variedade A: $n_A = 20$, $\bar{x}_A = 45$ kg/ha, $s_A = 8$ kg/ha
+    \item Variedade B: $n_B = 25$, $\bar{x}_B = 48$ kg/ha, $s_B = 6$ kg/ha
+\end{itemize}
+
+\textbf{(a)} Teste se as variâncias são iguais ($\alpha = 0.10$).\\
+\textbf{(b)} Dependendo do resultado em (a), teste se as médias diferem ($\alpha = 0.05$).
+\end{exerciciobox}
+
+\newpage
+
+% ================================================================
+\section{Respostas Detalhadas}
+% ================================================================
+
+\begin{solucaobox}{1.1}
+\subsection*{Dados}
+$X \sim N(\mu, 9)$, $n=16$, $\sigma^2 = 9 \Rightarrow \sigma = 3$.
+
+$H_0: \mu = 10$ vs $H_1: \mu = 13$, $R_c = \{\bar{x} > 11\}$.
+
+\subsection*{(a) Erro Tipo I}
+
+Sob $H_0$: $\bar{X} \sim N(10, 9/16) = N(10, 0.5625)$, logo $\sigma_{\bar{X}} = 0.75$.
+
+\begin{align*}
+\alpha &= P_{H_0}[\bar{X} > 11] \\
+&= P\left[\frac{\bar{X} - 10}{0.75} > \frac{11 - 10}{0.75}\right] \\
+&= P[Z > 1.333] \\
+&= 1 - \Phi(1.333) \\
+&= 1 - 0.9088 = 0.0912
+\end{align*}
+
+$\boxed{\alpha \approx 9.12\%}$
+
+\subsection*{(b) Erro Tipo II}
+
+Sob $H_1$: $\bar{X} \sim N(13, 0.5625)$, $\sigma_{\bar{X}} = 0.75$.
+
+\begin{align*}
+\beta &= P_{H_1}[\bar{X} \leq 11] \\
+&= P\left[\frac{\bar{X} - 13}{0.75} \leq \frac{11 - 13}{0.75}\right] \\
+&= P[Z \leq -2.667] \\
+&= \Phi(-2.667) \\
+&= 0.0038
+\end{align*}
+
+$\boxed{\beta \approx 0.38\%}$
+
+\subsection*{(c) Poder}
+
+Poder $= 1 - \beta = 1 - 0.0038 = \boxed{0.9962 \approx 99.62\%}$
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\bar{x}$},
+    ylabel={Densidade},
+    domain=7:16,
+    samples=100,
+    ymax=0.6,
+    xmin=7, xmax=16,
+    legend pos=north west,
+    width=12cm,
+    height=7cm
+]
+
+% Densidade sob H0
+\addplot[blue, thick] {exp(-((x-10)^2)/(2*0.5625))/sqrt(2*pi*0.5625)};
+\addlegendentry{$H_0: \mu=10$}
+
+% Densidade sob H1
+\addplot[red, thick] {exp(-((x-13)^2)/(2*0.5625))/sqrt(2*pi*0.5625)};
+\addlegendentry{$H_1: \mu=13$}
+
+% Região crítica
+\addplot[fill=blue!20, opacity=0.5, domain=11:16] {exp(-((x-10)^2)/(2*0.5625))/sqrt(2*pi*0.5625)} \closedcycle;
+
+% Linha de corte
+\addplot[dashed, black] coordinates {(11,0) (11,0.55)};
+\node at (axis cs:11,0.58) {$k=11$};
+
+% Marcação do alfa e beta
+\node at (axis cs:12,0.15) [blue] {$\alpha$};
+\node at (axis cs:10,0.15) [red] {$\beta$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\begin{solucaobox}{1.2}
+\subsection*{Função Poder}
+
+A função poder é:
+\begin{equation*}
+Q(\mu) = P_\mu[\bar{X} > 11] = P\left[\frac{\bar{X} - \mu}{0.75} > \frac{11 - \mu}{0.75}\right]
+\end{equation*}
+
+Padronizando:
+\begin{equation*}
+Q(\mu) = 1 - \Phi\left(\frac{11 - \mu}{0.75}\right) = 1 - \Phi(14.667 - 1.333\mu)
+\end{equation*}
+
+\subsection*{Valores Específicos}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+$\mu$ & $(11-\mu)/0.75$ & $Q(\mu)$ \\ \hline
+8 & 4.00 & 0.00003 \\
+9 & 2.67 & 0.0038 \\
+10 & 1.33 & 0.0912 \\
+11 & 0 & 0.5000 \\
+12 & -1.33 & 0.9088 \\
+13 & -2.67 & 0.9962 \\
+14 & -4.00 & 0.99997 \\
+15 & -5.33 & 1.0000
+\end{tabular}
+\end{center}
+
+\subsection*{Gráfico da Função Poder}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\mu$},
+    ylabel={$Q(\mu)$},
+    domain=8:15,
+    samples=100,
+    ymin=0, ymax=1.1,
+    xmin=8, xmax=15,
+    width=12cm,
+    height=8cm,
+    grid=major
+]
+
+% Função poder usando aproximação sigmoidal (aproxima a CDF normal)
+\addplot[blue, very thick, smooth] coordinates {
+(8, 0.00003) (8.5, 0.0006) (9, 0.0038) (9.5, 0.0182) 
+(10, 0.0912) (10.5, 0.2266) (11, 0.5) (11.5, 0.7734) 
+(12, 0.9088) (12.5, 0.9818) (13, 0.9962) (13.5, 0.9994) 
+(14, 0.99997) (14.5, 1.0) (15, 1.0)
+};
+
+% Linhas horizontais de referência
+\addplot[dashed, red] coordinates {(8,0.05) (15,0.05)};
+\node at (axis cs:14.5,0.1) [red] {$\alpha=0.05$};
+
+\addplot[dashed, green!60!black] coordinates {(8,0.5) (15,0.5)};
+
+% Pontos importantes
+\addplot[only marks, mark=*, mark size=3pt] coordinates {(10,0.0912) (13,0.9962)};
+\node at (axis cs:10,0.2) {$(\mu_0, \alpha)$};
+\node at (axis cs:13,0.85) {$(\mu_1, \text{poder})$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Observações:}
+\begin{itemize}
+    \item A função é crescente em $\mu$ (teste unilateral à direita)
+    \item $Q(10) = \alpha \approx 0.0912$
+    \item $Q(11) = 0.5$ (ponto de inflexão)
+    \item $Q(13) \approx 0.9962$ (poder contra $H_1$)
+\end{itemize}
+
+\end{solucaobox}
+
+\begin{solucaobox}{1.3}
+\subsection*{(a) Efeito do Aumento de n}
+
+\textbf{Quando $n$ aumenta de 20 para 50:}
+
+\begin{itemize}
+    \item $\alpha$ permanece fixo (por construção do teste)
+    \item O poder AUMENTA significativamente
+\end{itemize}
+
+\textbf{Explicação:} Com mais dados, a distribuição de $\bar{X}$ fica mais concentrada, tornando mais fácil distinguir entre $H_0$ e $H_1$.
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\bar{x}$},
+    ylabel={Densidade},
+    domain=8:16,
+    samples=100,
+    ymax=1.2,
+    legend pos=north west,
+    width=12cm,
+    height=6cm
+]
+
+% n=20
+\addplot[blue, thick] {exp(-((x-10)^2)/(2*0.45))/sqrt(2*pi*0.45)};
+\addlegendentry{$H_0, n=20$}
+
+\addplot[red, thick] {exp(-((x-13)^2)/(2*0.45))/sqrt(2*pi*0.45)};
+\addlegendentry{$H_1, n=20$}
+
+% n=50 (mais concentradas)
+\addplot[blue, dashed, very thick] {exp(-((x-10)^2)/(2*0.18))/sqrt(2*pi*0.18)};
+\addlegendentry{$H_0, n=50$}
+
+\addplot[red, dashed, very thick] {exp(-((x-13)^2)/(2*0.18))/sqrt(2*pi*0.18)};
+\addlegendentry{$H_1, n=50$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Com $n$ maior, há menos sobreposição entre as distribuições sob $H_0$ e $H_1$, aumentando o poder.
+
+\subsection*{(b) Efeito da Redução de $\alpha$}
+
+\textbf{Quando $\alpha$ reduz de 0.05 para 0.01:}
+
+\begin{itemize}
+    \item O valor crítico aumenta (região crítica fica menor)
+    \item O poder DIMINUI
+\end{itemize}
+
+\textbf{Trade-off:} Reduzir $\alpha$ (erro Tipo I) inevitavelmente aumenta $\beta$ (erro Tipo II) para $n$ fixo.
+
+\textbf{Conclusão:} Para melhorar ambos, devemos aumentar $n$.
+
+\end{solucaobox}
+
+\begin{solucaobox}{2.1}
+\subsection*{Aplicação do LNP}
+
+$X \sim N(\theta, 4)$, $n=10$, $H_0: \theta = 2$ vs $H_1: \theta = 5$, $\alpha = 0.05$.
+
+\subsection*{Passo 1: Razão de Verossimilhanças}
+
+\begin{align*}
+\frac{L_1}{L_0} &= \exp\left\{\frac{5-2}{4}\sum x_i - \frac{n(5^2-2^2)}{8}\right\} \\
+&= \exp\left\{\frac{3}{4}\sum x_i - \frac{10 \cdot 21}{8}\right\}
+\end{align*}
+
+\subsection*{Passo 2: Região Crítica}
+
+Rejeitamos quando $\frac{L_1}{L_0} > k$:
+\begin{align*}
+\frac{3}{4}\sum x_i - 26.25 &> \log k \\
+\sum x_i &> \frac{4(\log k + 26.25)}{3} = k_1 \\
+\bar{x} &> \frac{k_1}{10}
+\end{align*}
+
+\subsection*{Passo 3: Determinar o Ponto de Corte}
+
+Sob $H_0$: $\bar{X} \sim N(2, 4/10) = N(2, 0.4)$, $\sigma_{\bar{X}} = \sqrt{0.4} \approx 0.632$.
+
+Para $\alpha = 0.05$:
+\begin{align*}
+P_{H_0}[\bar{X} > c] &= 0.05 \\
+P\left[\frac{\bar{X} - 2}{0.632} > \frac{c - 2}{0.632}\right] &= 0.05 \\
+\frac{c - 2}{0.632} &= 1.645 \\
+c &= 2 + 1.645 \times 0.632 = 3.04
+\end{align*}
+
+\subsection*{Teste Final}
+
+\textbf{Estatística:} $Z = \frac{\bar{X} - 2}{0.632} \overset{H_0}{\sim} N(0,1)$
+
+\textbf{Regra:} Rejeita $H_0$ se $\bar{x} > 3.04$ ou equivalentemente se $Z > 1.645$
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\bar{x}$},
+    ylabel={Densidade},
+    domain=0:7,
+    samples=100,
+    ymax=0.7,
+    legend pos=north west,
+    width=12cm,
+    height=7cm
+]
+
+% H0
+\addplot[blue, thick] {exp(-((x-2)^2)/(2*0.4))/sqrt(2*pi*0.4)};
+\addlegendentry{$H_0: \theta=2$}
+
+% H1
+\addplot[red, thick] {exp(-((x-5)^2)/(2*0.4))/sqrt(2*pi*0.4)};
+\addlegendentry{$H_1: \theta=5$}
+
+% Região crítica
+\addplot[fill=red!20, opacity=0.5, domain=3.04:7] {exp(-((x-2)^2)/(2*0.4))/sqrt(2*pi*0.4)} \closedcycle;
+
+% Linha crítica
+\addplot[dashed, black, very thick] coordinates {(3.04,0) (3.04,0.65)};
+\node at (axis cs:3.04,0.68) {$c=3.04$};
+
+\node at (axis cs:4,0.1) {$R_c$};
+\node at (axis cs:3.5,0.25) [red] {$\alpha=0.05$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\begin{solucaobox}{4.1 (Teste Z - Bilateral)}
+\subsection*{Dados}
+
+$\mu_0 = 10$ cm, $\sigma = 0.5$ cm (conhecido), $n = 36$, $\bar{x} = 10.15$ cm, $\alpha = 0.05$.
+
+\subsection*{Hipóteses}
+
+\begin{equation*}
+H_0: \mu = 10 \quad \text{vs} \quad H_1: \mu \neq 10 \quad \text{(bilateral)}
+\end{equation*}
+
+\subsection*{Estatística de Teste}
+
+\begin{equation*}
+Z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{10.15 - 10}{0.5/\sqrt{36}} = \frac{0.15}{0.0833} = 1.80
+\end{equation*}
+
+\subsection*{Valor Crítico}
+
+Para teste bilateral com $\alpha = 0.05$: $z_{\alpha/2} = z_{0.025} = 1.96$
+
+\textbf{Região crítica:} $|Z| > 1.96$
+
+\subsection*{Decisão}
+
+Como $|1.80| = 1.80 < 1.96$, \textbf{não rejeitamos} $H_0$.
+
+\subsection*{p-valor}
+
+\begin{align*}
+p &= 2 \times P(Z > 1.80) \\
+&= 2 \times (1 - \Phi(1.80)) \\
+&= 2 \times 0.0359 = 0.0718
+\end{align*}
+
+Como $p = 0.0718 > 0.05$, não rejeitamos $H_0$.
+
+\subsection*{Conclusão}
+
+Ao nível de 5\%, não há evidência suficiente para afirmar que o diâmetro médio difere de 10 cm.
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$Z$},
+    ylabel={Densidade},
+    domain=-4:4,
+    samples=100,
+    ymax=0.45,
+    width=12cm,
+    height=7cm,
+    ytick=\empty
+]
+
+% Normal padrão
+\addplot[blue, thick] {exp(-x^2/2)/sqrt(2*pi)};
+
+% Regiões críticas (bilateral)
+\addplot[fill=red!20, opacity=0.5, domain=-4:-1.96] {exp(-x^2/2)/sqrt(2*pi)} \closedcycle;
+\addplot[fill=red!20, opacity=0.5, domain=1.96:4] {exp(-x^2/2)/sqrt(2*pi)} \closedcycle;
+
+% Linhas críticas
+\addplot[dashed, black] coordinates {(-1.96,0) (-1.96,0.4)};
+\addplot[dashed, black] coordinates {(1.96,0) (1.96,0.4)};
+
+% Estatística observada
+\addplot[mark=*, only marks, mark size=4pt, green!60!black] coordinates {(1.80,0)};
+\node at (axis cs:1.80,-0.08) [green!60!black] {$Z_{obs}=1.80$};
+
+% Rótulos
+\node at (axis cs:-1.96,0.42) {$-1.96$};
+\node at (axis cs:1.96,0.42) {$1.96$};
+\node at (axis cs:-3,0.05) [red] {$\alpha/2$};
+\node at (axis cs:3,0.05) [red] {$\alpha/2$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+O valor observado (verde) está dentro da região de não rejeição.
+
+\end{solucaobox}
+
+\begin{solucaobox}{4.3 (Teste t - Bilateral)}
+\subsection*{Dados}
+
+$n = 16$, $\bar{x} = 7.2$, $s = 1.5$, $\mu_0 = 7.5$, $\alpha = 0.05$.
+
+\subsection*{Hipóteses}
+
+\begin{equation*}
+H_0: \mu = 7.5 \quad \text{vs} \quad H_1: \mu \neq 7.5
+\end{equation*}
+
+\subsection*{Estatística de Teste}
+
+\begin{equation*}
+t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{7.2 - 7.5}{1.5/\sqrt{16}} = \frac{-0.3}{0.375} = -0.80
+\end{equation*}
+
+\subsection*{Distribuição e Valor Crítico}
+
+Sob $H_0$: $t \sim t_{15}$ (distribuição t de Student com 15 g.l.)
+
+Para teste bilateral: $t_{15; 0.025} = 2.131$
+
+\textbf{Região crítica:} $|t| > 2.131$
+
+\subsection*{Decisão}
+
+Como $|{-0.80}| = 0.80 < 2.131$, \textbf{não rejeitamos} $H_0$.
+
+\subsection*{p-valor}
+
+$p = 2 \times P(t_{15} > 0.80) \approx 2 \times 0.218 = 0.436$
+
+\subsection*{Conclusão}
+
+Não há evidência significativa de que a média difere de 7.5 pontos.
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$t$},
+    ylabel={Densidade},
+    domain=-4:4,
+    samples=100,
+    ymax=0.42,
+    width=12cm,
+    height=7cm,
+    ytick=\empty
+]
+
+% Normal padrão (aproximação da t com 15 g.l.)
+\addplot[blue, thick] {exp(-x^2/2)/sqrt(2*pi)};
+\addlegendentry{$t_{15} \approx N(0,1)$}
+
+% Regiões críticas (bilateral)
+\addplot[fill=red!20, opacity=0.3, domain=-4:-2.131] {exp(-x^2/2)/sqrt(2*pi)} \closedcycle;
+\addplot[fill=red!20, opacity=0.3, domain=2.131:4] {exp(-x^2/2)/sqrt(2*pi)} \closedcycle;
+
+% Linhas críticas
+\addplot[dashed, black] coordinates {(-2.131,0) (-2.131,0.38)};
+\addplot[dashed, black] coordinates {(2.131,0) (2.131,0.38)};
+
+% Estatística observada
+\addplot[mark=*, only marks, mark size=4pt, green!60!black] coordinates {(-0.80,0)};
+\node at (axis cs:-0.80,-0.08) [green!60!black] {$t_{obs}=-0.80$};
+
+\node at (axis cs:-2.131,0.40) {$-2.131$};
+\node at (axis cs:2.131,0.40) {$2.131$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Nota:} Para 15 graus de liberdade, a distribuição $t$ é muito próxima da Normal padrão, por isso usamos a aproximação $t_{15} \approx N(0,1)$ no gráfico.
+
+\end{solucaobox}
+
+\begin{solucaobox}{4.5 (Teste $\chi^2$ - Unilateral)}
+\subsection*{Dados}
+
+$\sigma_0^2 = 0.04$ cm² (valor especificado), $n = 20$, $s^2 = 0.055$ cm², $\alpha = 0.05$.
+
+\subsection*{Hipóteses}
+
+\begin{equation*}
+H_0: \sigma^2 \leq 0.04 \quad \text{vs} \quad H_1: \sigma^2 > 0.04
+\end{equation*}
+
+\subsection*{Estatística de Teste}
+
+\begin{equation*}
+\chi^2 = \frac{(n-1)s^2}{\sigma_0^2} = \frac{19 \times 0.055}{0.04} = \frac{1.045}{0.04} = 26.125
+\end{equation*}
+
+\subsection*{Distribuição e Valor Crítico}
+
+Sob $H_0$: $\chi^2 \sim \chi^2_{19}$
+
+Para teste unilateral à direita: $\chi^2_{19; 0.95} = 30.14$
+
+\textbf{Região crítica:} $\chi^2 > 30.14$
+
+\subsection*{Decisão}
+
+Como $26.125 < 30.14$, \textbf{não rejeitamos} $H_0$.
+
+\subsection*{p-valor}
+
+$p = P(\chi^2_{19} > 26.125) \approx 0.125$
+
+\subsection*{Conclusão}
+
+Ao nível de 5\%, não há evidência suficiente para afirmar que a variância excede 0.04 cm².
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\chi^2$},
+    ylabel={Densidade},
+    domain=0:50,
+    samples=100,
+    ymax=0.08,
+    xmin=0, xmax=50,
+    width=12cm,
+    height=7cm,
+    ytick=\empty
+]
+
+% Qui-quadrado com 19 g.l. (aproximação)
+\addplot[blue, thick, smooth] coordinates {
+(0,0) (5,0.01) (10,0.035) (15,0.055) (19,0.06) (20,0.059) 
+(25,0.052) (30,0.04) (35,0.03) (40,0.02) (45,0.013) (50,0.008)
+};
+\addlegendentry{$\chi^2_{19}$}
+
+% Região crítica
+\addplot[fill=red!20, opacity=0.5] coordinates {
+(30.14,0) (30.14,0.04) (35,0.03) (40,0.02) (45,0.013) (50,0.008) (50,0)
+} \closedcycle;
+
+% Linha crítica
+\addplot[dashed, black, very thick] coordinates {(30.14,0) (30.14,0.075)};
+\node at (axis cs:30.14,0.078) {$30.14$};
+
+% Estatística observada
+\addplot[mark=*, only marks, mark size=4pt, green!60!black] coordinates {(26.125,0)};
+\node at (axis cs:26.125,-0.01) [green!60!black] {$\chi^2_{obs}=26.125$};
+
+% Rótulos
+\node at (axis cs:38,0.015) [red] {$\alpha=0.05$};
+\node at (axis cs:19,0.04) {Média = 19};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+A distribuição $\chi^2$ é assimétrica à direita. O valor observado está na região de não rejeição.
+
+\end{solucaobox}
+
+\begin{solucaobox}{4.7 (Teste F - Bilateral)}
+\subsection*{Dados}
+
+Máquina 1: $n_1 = 15$, $s_1^2 = 2.8$
+
+Máquina 2: $n_2 = 12$, $s_2^2 = 1.6$
+
+$\alpha = 0.05$
+
+\subsection*{Hipóteses}
+
+\begin{equation*}
+H_0: \sigma_1^2 = \sigma_2^2 \quad \text{vs} \quad H_1: \sigma_1^2 \neq \sigma_2^2
+\end{equation*}
+
+\subsection*{Estatística de Teste}
+
+\begin{equation*}
+F = \frac{s_1^2}{s_2^2} = \frac{2.8}{1.6} = 1.75
+\end{equation*}
+
+\subsection*{Distribuição e Valores Críticos}
+
+Sob $H_0$: $F \sim F_{14, 11}$ (distribuição F com 14 e 11 graus de liberdade)
+
+Para teste bilateral com $\alpha = 0.05$:
+\begin{itemize}
+    \item Limite inferior: $F_{14,11; 0.025} = \frac{1}{F_{11,14; 0.975}} \approx \frac{1}{3.21} \approx 0.311$
+    \item Limite superior: $F_{14,11; 0.975} \approx 3.09$
+\end{itemize}
+
+\textbf{Região crítica:} $F < 0.311$ ou $F > 3.09$
+
+\subsection*{Decisão}
+
+Como $0.311 < 1.75 < 3.09$, \textbf{não rejeitamos} $H_0$.
+
+\subsection*{p-valor}
+
+$p = 2 \times \min\{P(F > 1.75), P(F < 1.75)\} \approx 2 \times 0.189 = 0.378$
+
+\subsection*{Conclusão}
+
+Não há evidência significativa de que as variâncias sejam diferentes ao nível de 5\%.
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$F$},
+    ylabel={Densidade},
+    domain=0:5,
+    samples=100,
+    ymax=1.0,
+    xmin=0, xmax=5,
+    width=12cm,
+    height=7cm,
+    ytick=\empty
+]
+
+% F(14,11) - aproximação por pontos
+\addplot[blue, thick, smooth] coordinates {
+(0.1,0.05) (0.311,0.35) (0.5,0.65) (0.8,0.85) (1.0,0.88) 
+(1.2,0.83) (1.5,0.72) (1.75,0.62) (2.0,0.52) (2.5,0.35) 
+(3.0,0.23) (3.09,0.21) (3.5,0.13) (4.0,0.08) (4.5,0.05) (5.0,0.03)
+};
+\addlegendentry{$F_{14,11}$}
+
+% Regiões críticas
+\addplot[fill=red!20, opacity=0.3] coordinates {
+(0.01,0) (0.1,0.05) (0.311,0.35) (0.311,0)
+} \closedcycle;
+
+\addplot[fill=red!20, opacity=0.3] coordinates {
+(3.09,0) (3.09,0.21) (3.5,0.13) (4.0,0.08) (4.5,0.05) (5.0,0.03) (5.0,0)
+} \closedcycle;
+
+% Linhas críticas
+\addplot[dashed, black] coordinates {(0.311,0) (0.311,0.9)};
+\addplot[dashed, black] coordinates {(3.09,0) (3.09,0.9)};
+
+% Estatística observada
+\addplot[mark=*, only marks, mark size=4pt, green!60!black] coordinates {(1.75,0)};
+\node at (axis cs:1.75,-0.15) [green!60!black] {$F_{obs}=1.75$};
+
+\node at (axis cs:0.311,0.95) [rotate=90] {0.311};
+\node at (axis cs:3.09,0.95) [rotate=90] {3.09};
+
+\node at (axis cs:0.15,0.2) [red] {$\alpha/2$};
+\node at (axis cs:4,0.05) [red] {$\alpha/2$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+A distribuição F é assimétrica, com cauda longa à direita. O valor observado está na região de não rejeição.
+
+\end{solucaobox}
+
+\begin{solucaobox}{5.2 (Análise Completa)}
+\subsection*{Dados}
+
+$\mu_0 = 1000$ h, $\sigma = 100$ h (conhecido), $n = 50$, $\bar{x} = 980$ h
+
+\subsection*{(a) Teste ao Nível 5\%}
+
+\textbf{Hipóteses:} $H_0: \mu \geq 1000$ vs $H_1: \mu < 1000$ (unilateral à esquerda)
+
+\textbf{Estatística:}
+\begin{equation*}
+Z = \frac{980 - 1000}{100/\sqrt{50}} = \frac{-20}{14.142} = -1.414
+\end{equation*}
+
+\textbf{Valor crítico:} $-z_{0.05} = -1.645$
+
+\textbf{Decisão:} Como $-1.414 > -1.645$, não rejeitamos $H_0$ ao nível 5\%.
+
+\subsection*{(b) Teste ao Nível 1\%}
+
+\textbf{Valor crítico:} $-z_{0.01} = -2.326$
+
+\textbf{Decisão:} Como $-1.414 > -2.326$, não rejeitamos $H_0$ ao nível 1\%.
+
+\textbf{Conclusão:} Em ambos os níveis, não há evidência suficiente contra a afirmação da empresa.
+
+\subsection*{(c) Função Poder}
+
+\begin{equation*}
+Q(\mu) = P_\mu\left[Z < -1.645\right] = \Phi\left(\frac{1000 - \mu - 1.645 \times 14.142}{14.142}\right)
+\end{equation*}
+
+Simplificando:
+\begin{equation*}
+Q(\mu) = \Phi\left(\frac{1000 - \mu - 23.26}{14.142}\right) = \Phi\left(\frac{976.74 - \mu}{14.142}\right)
+\end{equation*}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+$\mu$ & $(976.74 - \mu)/14.142$ & $Q(\mu)$ \\ \hline
+950 & 1.89 & 0.9706 \\
+975 & 0.12 & 0.5478 \\
+1000 & -1.65 & 0.0500 \\
+1025 & -3.41 & 0.0003 \\
+1050 & -5.18 & $\approx 0$
+\end{tabular}
+\end{center}
+
+\subsection*{Gráfico da Função Poder}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\mu$ (horas)},
+    ylabel={$Q(\mu)$ (Poder)},
+    domain=900:1100,
+    samples=100,
+    ymin=0, ymax=1.1,
+    xmin=900, xmax=1100,
+    width=12cm,
+    height=7cm,
+    grid=major
+]
+
+% Função poder calculada por pontos (aproxima CDF normal)
+\addplot[blue, very thick, smooth] coordinates {
+(920, 1.0) (930, 0.9996) (940, 0.9954) (950, 0.9706) (960, 0.8819) 
+(970, 0.6843) (975, 0.5478) (980, 0.4179) (990, 0.1997) (1000, 0.05) 
+(1010, 0.0068) (1020, 0.0005) (1025, 0.0003) (1030, 0.00003) 
+(1040, 0.0) (1050, 0.0) (1060, 0.0) (1080, 0.0)
+};
+
+% Pontos calculados
+\addplot[only marks, mark=*, mark size=2pt, red] coordinates {
+    (950,0.9706) (975,0.5478) (1000,0.05) (1025,0.0003) (1050,0)
+};
+
+% Linha horizontal em alfa
+\addplot[dashed, green!60!black] coordinates {(900,0.05) (1100,0.05)};
+\node at (axis cs:1050,0.1) [green!60!black] {$\alpha=0.05$};
+
+% Linha em poder = 0.90
+\addplot[dashed, orange] coordinates {(900,0.90) (1100,0.90)};
+\node at (axis cs:1050,0.85) [orange] {Poder = 0.90};
+
+% Interseção
+\addplot[mark=*, only marks, mark size=3pt, orange] coordinates {(958,0.90)};
+\node at (axis cs:958,0.95) [orange] {$\mu \approx 958$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(d) Tamanho Amostral para Poder = 0.90}
+
+Queremos $Q(980) = 0.90$ com $\alpha = 0.05$.
+
+Para teste unilateral:
+\begin{equation*}
+n = \left(\frac{(z_\alpha + z_\beta)\sigma}{\mu_0 - \mu_1}\right)^2 = \left(\frac{(1.645 + 1.282) \times 100}{1000 - 980}\right)^2
+\end{equation*}
+
+\begin{equation*}
+n = \left(\frac{292.7}{20}\right)^2 = (14.635)^2 \approx 214.2
+\end{equation*}
+
+$\boxed{n \approx 215}$ amostras são necessárias.
+
+\subsection*{Visualização Comparativa}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$\bar{x}$},
+    ylabel={Densidade},
+    domain=920:1060,
+    samples=100,
+    ymax=0.035,
+    legend pos=north west,
+    width=12cm,
+    height=7cm
+]
+
+% Sob H0 (mu=1000)
+\addplot[blue, thick] {exp(-((x-1000)^2)/(2*200))/sqrt(2*pi*200)};
+\addlegendentry{$H_0: \mu=1000$}
+
+% Sob H1 (mu=980)
+\addplot[red, thick] {exp(-((x-980)^2)/(2*200))/sqrt(2*pi*200)};
+\addlegendentry{$\mu=980$}
+
+% Região crítica
+\addplot[fill=blue!20, opacity=0.5, domain=920:976.74] {exp(-((x-1000)^2)/(2*200))/sqrt(2*pi*200)} \closedcycle;
+
+% Linha crítica
+\addplot[dashed, black, very thick] coordinates {(976.74,0) (976.74,0.032)};
+\node at (axis cs:976.74,0.033) {$c=976.74$};
+
+\node at (axis cs:960,0.005) [blue] {$\alpha$};
+\node at (axis cs:990,0.018) [red] {$\beta$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\newpage
+
+% ================================================================
+\section*{Tabelas de Referência}
+\addcontentsline{toc}{section}{Tabelas de Referência}
+% ================================================================
+
+\subsection*{Resumo dos Testes Clássicos}
+
+\begin{center}
+\begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|p{4cm}|}
+\hline
+\textbf{Teste} & \textbf{Condições} & \textbf{Estatística} & \textbf{Distribuição sob $H_0$} \\ \hline
+\textbf{Z} & Normal, $\sigma$ conhecido & $Z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}}$ & $N(0,1)$ \\ \hline
+\textbf{t} & Normal, $\sigma$ desconhecido & $t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$ & $t_{n-1}$ \\ \hline
+\textbf{$\chi^2$} & Normal, teste para $\sigma^2$ & $\chi^2 = \frac{(n-1)s^2}{\sigma_0^2}$ & $\chi^2_{n-1}$ \\ \hline
+\textbf{F} & Normais, comparar variâncias & $F = \frac{s_1^2}{s_2^2}$ & $F_{n_1-1, n_2-1}$ \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Valores Críticos Comuns}
+
+\begin{center}
+\textbf{Distribuição Normal Padrão}
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+$\alpha$ (unilateral) & $z_\alpha$ & $\alpha$ (bilateral) & $z_{\alpha/2}$ \\ \hline
+0.10 & 1.282 & 0.10 & 1.645 \\ \hline
+0.05 & 1.645 & 0.05 & 1.960 \\ \hline
+0.01 & 2.326 & 0.01 & 2.576 \\ \hline
+0.001 & 3.090 & 0.001 & 3.291 \\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+\textbf{Distribuição t de Student (seleção)}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+g.l. & $t_{0.10}$ & $t_{0.05}$ & $t_{0.025}$ & $t_{0.01}$ \\ \hline
+10 & 1.372 & 1.812 & 2.228 & 2.764 \\ \hline
+15 & 1.341 & 1.753 & 2.131 & 2.602 \\ \hline
+20 & 1.325 & 1.725 & 2.086 & 2.528 \\ \hline
+30 & 1.310 & 1.697 & 2.042 & 2.457 \\ \hline
+$\infty$ & 1.282 & 1.645 & 1.960 & 2.326 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Checklist para Escolha do Teste}
+
+\begin{enumerate}
+    \item \textbf{População é Normal?}
+    \begin{itemize}
+        \item Sim $\rightarrow$ Prossiga
+        \item Não, mas $n$ grande $\rightarrow$ Use TCL (aproximação normal)
+        \item Não e $n$ pequeno $\rightarrow$ Use testes não-paramétricos
+    \end{itemize}
+    
+    \item \textbf{O que está sendo testado?}
+    \begin{itemize}
+        \item Média ($\mu$) com $\sigma$ conhecido $\rightarrow$ Teste Z
+        \item Média ($\mu$) com $\sigma$ desconhecido $\rightarrow$ Teste t
+        \item Variância ($\sigma^2$) $\rightarrow$ Teste $\chi^2$
+        \item Comparar duas variâncias $\rightarrow$ Teste F
+    \end{itemize}
+    
+    \item \textbf{Hipótese alternativa}
+    \begin{itemize}
+        \item $H_1: \theta > \theta_0$ $\rightarrow$ Unilateral à direita
+        \item $H_1: \theta < \theta_0$ $\rightarrow$ Unilateral à esquerda
+        \item $H_1: \theta \neq \theta_0$ $\rightarrow$ Bilateral
+    \end{itemize}
+\end{enumerate}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{--- Fim do Caderno de Exercícios ---}
+\end{center}
+
+\end{document}
+

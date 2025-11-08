@@ -1,0 +1,39 @@
+$T(X) = \sum x_i$ é suficiente para $\mu$ e tem densidade induzida:
+
+\begin{equation}
+f(t; \mu) = (2\pi n\sigma^2)^{-\frac{1}{2}} \exp\left\{ -\frac{1}{2n\sigma^2} (t - n\mu)^2 \right\}
+\end{equation}
+
+e para $\mu^* > \mu$:
+
+\begin{equation}
+\frac{f(t; \mu^*)}{f(t; \mu)} = \exp\left\{ \frac{1}{2n\sigma^2} \left[ t^2 - 2n t \mu^* + n^2 (\mu^*)^2 - t^2 + 2n t \mu - n^2 \mu^2 \right] \right\}
+\end{equation}
+
+\begin{equation}
+= \exp\left\{ \frac{1}{2n\sigma^2} \left[ 2n t (\mu - \mu^*) + n^2 \left( (\mu^*)^2 - \mu^2 \right) \right] \right\}
+\end{equation}
+
+que é não decrescente em termos de $t$, e portanto $\{ f(t; \mu) : \mu \in \mathbb{R} \}$ tem RVM.
+
+Pelo Teo K.R., o teste $\Upsilon$ com função crítica:
+
+\begin{equation}
+\psi_{\Upsilon}(x) = 
+\begin{cases}
+1, & \text{se } T(x) > k, \\
+0, & \text{se } T(x) < k
+\end{cases}
+\quad \text{com} \quad E_{\theta_0} \left[ \psi_{\Upsilon}(x) \right] = \alpha
+\end{equation}
+
+ou equivalentemente:
+
+\begin{equation}
+\psi_{\Upsilon}(x) = 
+\begin{cases}
+1, & \text{se } \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} > z_\alpha, \\
+0, & \text{se } \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} < z_\alpha
+\end{cases}
+\end{equation}
+

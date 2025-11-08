@@ -1,0 +1,27 @@
+﻿em que $n_1$ é o menor inteiro tal que
+\begin{equation}
+    P_{H_0} \left( \mathcal{X}(x_1) > n_1 \right) \leq \alpha
+\end{equation}
+
+\begin{equation}
+    \delta = \left[ \alpha - P_{H_0} \left( \mathcal{X}(x_1) > n_1 \right) \right] / P_{H_0} \left( \mathcal{X}(x_1) = n_1 \right)
+\end{equation}
+
+\noindent\textbf{Regra de decisão:}
+
+\noindent (método tradicional) Dado $x_1$, se $\mathcal{X}(x_1) = 1$, rejeitamos $H_0$.
+
+\noindent (método do valor-p) sejam $P_{cal} = \mathcal{X}(x_1)$ e
+\begin{equation}
+    \hat{\alpha} = \delta \cdot P_{H_0} \left( \mathcal{X}(x_1) = P_{cal} \right) + P_{H_0} \left( \mathcal{X}(x_1) > P_{cal} \right)
+\end{equation}
+
+Se $\hat{\alpha} < \alpha$, rejeita-se $H_0$.
+
+Note que um teste NP de nível $\alpha$ sempre depende de uma estatística (completamente) suficiente. Considere uma decisão mais geral.
+
+Pelo TFN no teorema 6.1,
+\begin{equation}
+    L(\theta, x^n) = g(T(x^n), \theta) \cdot h(x^n),
+\end{equation}
+$\forall x^n \in \mathcal{X}^n$, em que $h(x^n)$ independe de $\theta$. Mostra-se no LNP no teorema 3.1, que o teste NP rejeita

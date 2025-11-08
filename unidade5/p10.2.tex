@@ -1,0 +1,26 @@
+\begin{equation}
+P_{\theta} \left( t_{1 - \frac{\alpha}{2}}^{-1} \frac{S_1^2}{S_2^2} < \frac{\sigma_1^2}{\sigma_2^2} < F_{1 - \frac{\alpha}{2}}^{-1} \frac{S_1^2}{S_2^2} \right) = 1 - \alpha
+\end{equation}
+
+isto é,
+
+\begin{equation}
+IC_{1 - \alpha} \left( \frac{\sigma_1^2}{\sigma_2^2} \right) = \left( t_{1 - \frac{\alpha}{2}}^{-1} \frac{S_1^2}{S_2^2}, \; F_{1 - \frac{\alpha}{2}}^{-1} \frac{S_1^2}{S_2^2} \right)
+\end{equation}
+
+\section*{Teste de Hipóteses: Baseado na Razão entre Verossimilhanças}
+
+Discutimos que pode não existir teste UMP para o caso simples bilateral. O teste da razão entre verossimilhanças proposto por Neyman e Pearson (1928, 1933) é um método útil para lidar com este caso.
+
+\subsection*{Construção}
+
+Sejam $x_1, \ldots, x_n$ uma amostra de $X$ com fdp (ou fmpt) dada por $f(x_i; \theta)$, em que $\theta = (\theta_1, \ldots, \theta_p)^T \in \Theta \subset \mathbb{R}^p$ é o vetor de parâmetros desconhecidos. 
+
+Desejamos testar 
+\[
+H_0: \theta \in \Theta_0 \quad \text{e} \quad H_1: \theta \in \Theta_1
+\]
+tal que $\Theta = \Theta_0 \cup \Theta_1$ e $\Theta_0 \cap \Theta_1 = \varnothing$ com nível de significância $\alpha$. 
+
+A função de verossimilhança associada é dada por:
+

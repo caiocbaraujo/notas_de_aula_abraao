@@ -1,0 +1,297 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{definition}{Definição}
+\newtheorem{example}{Exemplo}
+\newtheorem{proposition}{Proposição}
+
+\title{Anotações Completas de Inferência Estatística}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Revisão de Convergência Estocástica}
+
+\subsection{Alguns Resultados de Limites}
+
+\begin{proposition}[Resultados Fundamentais de Limites]
+Sejam $a \in \mathbb{R}$ e $n \in \mathbb{N}$. Então:
+\begin{align}
+\lim_{n \to \infty} n^{1/n} &= 1 \label{eq:lim1} \\
+\lim_{n \to \infty} \left(1 + \frac{a}{n}\right) &= 1 \label{eq:lim2} \\
+\lim_{n \to \infty} \left(1 + \frac{a}{n}\right)^n &= e^a \label{eq:lim3}
+\end{align}
+\end{proposition}
+
+\subsection{Exemplo: Aproximação Binomial $\to$ Poisson}
+
+\begin{example}[Aproximação de Poisson]
+Seja $X \sim \text{Binomial}(n, p_n)$ tal que $p_n = \frac{\lambda}{n} \in (0,1)$. Então $X \xrightarrow{d} \text{Poisson}(\lambda)$ quando $n \to \infty$.
+
+\textbf{Demonstração:}
+\begin{align}
+P(X=k) &= \binom{n}{k} p_n^k (1-p_n)^{n-k} \\
+&= \frac{n!}{(n-k)!k!} \left(\frac{\lambda}{n}\right)^k \left(1 - \frac{\lambda}{n}\right)^{n-k} \\
+&= \frac{n(n-1)\cdots(n-k+1)}{n^k} \cdot \frac{\lambda^k}{k!} \cdot \left(1 - \frac{\lambda}{n}\right)^n \cdot \left(1 - \frac{\lambda}{n}\right)^{-k} \\
+&= \frac{\lambda^k}{k!} \prod_{j=0}^{k-1}\left(1 - \frac{j}{n}\right) \cdot \left(1 - \frac{\lambda}{n}\right)^n \cdot \left(1 - \frac{\lambda}{n}\right)^{-k}
+\end{align}
+
+Usando os resultados de limites (\ref{eq:lim1}) e (\ref{eq:lim3}):
+$$\prod_{j=0}^{k-1}\left(1 - \frac{j}{n}\right) \to 1, \quad \left(1 - \frac{\lambda}{n}\right)^n \to e^{-\lambda}, \quad \left(1 - \frac{\lambda}{n}\right)^{-k} \to 1$$
+
+Portanto: $P(X=k) \to e^{-\lambda} \frac{\lambda^k}{k!}$.
+\end{example}
+
+\section{Tipos de Convergência}
+
+\subsection{Convergência em Probabilidade}
+
+\begin{definition}[Convergência em Probabilidade]
+Uma sequência de variáveis aleatórias $\{X_n\}$ converge em probabilidade para $X$ se:
+$$\lim_{n \to \infty} P(|X_n - X| > \varepsilon) = 0$$
+para todo $\varepsilon > 0$. Notação: $X_n \xrightarrow{P} X$.
+\end{definition}
+
+\subsection{Convergência Quase Certa}
+
+\begin{definition}[Convergência Quase Certa]
+$X_n \xrightarrow{a.s.} X$ se:
+$$P\left(\lim_{n \to \infty} X_n = X\right) = 1$$
+\end{definition}
+
+\subsection{Convergência em Distribuição}
+
+\begin{definition}[Convergência em Distribuição]
+$X_n \xrightarrow{d} X$ se:
+$$\lim_{n \to \infty} F_{X_n}(x) = F_X(x)$$
+para todo ponto de continuidade de $F_X$.
+\end{definition}
+
+\subsection{Relações entre Convergências}
+
+\begin{proposition}[Hierarquia de Convergências]
+\begin{enumerate}
+\item Convergência quase certa $\Rightarrow$ Convergência em probabilidade
+\item Convergência em probabilidade $\Rightarrow$ Convergência em distribuição
+\item Convergência em $L^p$ $\Rightarrow$ Convergência em probabilidade
+\end{enumerate}
+\end{proposition}
+
+\section{Teorema Central do Limite}
+
+\begin{theorem}[Teorema Central do Limite]
+Seja $X_1, X_2, \ldots$ uma sequência de variáveis aleatórias i.i.d. com $E[X_i] = \mu$ e $\text{Var}(X_i) = \sigma^2 < \infty$. Então:
+$$\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{d} N(0,1)$$
+onde $\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i$.
+\end{theorem}
+
+\subsection{Aproximações Práticas}
+
+\subsubsection{Aproximação Normal para Binomial}
+Se $X \sim \text{Binomial}(n,p)$ com $n$ grande e $p$ não muito próximo de 0 ou 1:
+$$X \approx N(np, np(1-p))$$
+
+\subsubsection{Correção de Continuidade}
+Para variáveis discretas:
+$$P(a \leq X \leq b) \approx P\left(a-\frac{1}{2} \leq Y \leq b+\frac{1}{2}\right)$$
+onde $Y \sim N(np, np(1-p))$.
+
+\section{Distribuições Limite}
+
+\subsection{Método Delta}
+
+\begin{theorem}[Método Delta]
+Se $\sqrt{n}(X_n - \theta) \xrightarrow{d} N(0, \sigma^2)$ e $g$ é diferenciável em $\theta$ com $g'(\theta) \neq 0$, então:
+$$\sqrt{n}(g(X_n) - g(\theta)) \xrightarrow{d} N(0, \sigma^2[g'(\theta)]^2)$$
+\end{theorem}
+
+\section{Estimação Pontual}
+
+\subsection{Propriedades dos Estimadores}
+
+\begin{definition}[Estimador Não-Viciado]
+Um estimador $T$ é não-viciado para $\theta$ se $E[T] = \theta$ para todo $\theta$.
+\end{definition}
+
+\begin{definition}[Estimador Consistente]
+Um estimador $T_n$ é consistente para $\theta$ se $T_n \xrightarrow{P} \theta$ quando $n \to \infty$.
+\end{definition}
+
+\subsection{Métodos de Estimação}
+
+\subsubsection{Método dos Momentos}
+Igualar momentos amostrais aos momentos populacionais:
+$$\frac{1}{n}\sum_{i=1}^n X_i^k = E[X^k]$$
+
+\subsubsection{Máxima Verossimilhança}
+Encontrar $\hat{\theta}$ que maximiza:
+$$L(\theta) = \prod_{i=1}^n f(x_i; \theta)$$
+
+\section{Intervalos de Confiança}
+
+\begin{definition}[Intervalo de Confiança]
+Um intervalo de confiança $(L, U)$ para $\theta$ com nível de confiança $(1-\alpha) \times 100\%$ satisfaz:
+$$P(L \leq \theta \leq U) = 1 - \alpha$$
+\end{definition}
+
+\subsection{Intervalos para Média Populacional}
+
+\subsubsection{Variância Conhecida}
+Se $X_1, \ldots, X_n \sim N(\mu, \sigma^2)$ com $\sigma^2$ conhecida:
+$$\bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$$
+
+\subsubsection{Variância Desconhecida}
+$$\bar{X} \pm t_{\alpha/2, n-1} \frac{S}{\sqrt{n}}$$
+onde $S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$.
+
+\section{Testes de Hipóteses}
+
+\subsection{Conceitos Básicos}
+
+\begin{definition}[Tipos de Erro]
+\begin{itemize}
+\item \textbf{Erro Tipo I}: Rejeitar $H_0$ quando é verdadeira ($\alpha = P(\text{Erro I})$)
+\item \textbf{Erro Tipo II}: Aceitar $H_0$ quando é falsa ($\beta = P(\text{Erro II})$)
+\end{itemize}
+\end{definition}
+
+\subsection{Testes para Média}
+
+\subsubsection{Teste Z (Variância Conhecida)}
+\textbf{Estatística}: $Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}}$
+
+\subsubsection{Teste t (Variância Desconhecida)}
+\textbf{Estatística}: $t = \frac{\bar{X} - \mu_0}{S/\sqrt{n}}$
+
+\section{Testes de Aderência}
+
+\subsection{Teste Qui-Quadrado de Aderência}
+
+\textbf{Estatística de Teste}:
+$$\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}$$
+
+onde $O_i$ = frequência observada e $E_i$ = frequência esperada na categoria $i$.
+
+\section{Análise de Variância (ANOVA)}
+
+\subsection{ANOVA de Um Fator}
+
+\textbf{Modelo}: $Y_{ij} = \mu + \alpha_i + \varepsilon_{ij}$
+
+\textbf{Hipóteses}:
+\begin{itemize}
+\item $H_0: \alpha_1 = \alpha_2 = \cdots = \alpha_k = 0$
+\item $H_1$: Pelo menos um $\alpha_i \neq 0$
+\end{itemize}
+
+\textbf{Estatística de Teste}: $F = \frac{\text{QME}}{\text{QMR}} \sim F_{k-1, N-k}$
+
+\section{Regressão Linear}
+
+\subsection{Regressão Linear Simples}
+
+\textbf{Modelo}: $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$
+
+\textbf{Estimadores dos Mínimos Quadrados}:
+$$\hat{\beta}_1 = \frac{S_{XY}}{S_{XX}}, \quad \hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}$$
+
+\textbf{Coeficiente de Determinação}:
+$$R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}$$
+
+\subsection{Regressão Linear Múltipla}
+
+\textbf{Modelo}: $\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$
+
+\textbf{Estimador}: $\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{Y}$
+
+\section{Análise de Resíduos}
+
+\subsection{Resíduos Padronizados}
+$$e_i^* = \frac{e_i}{S\sqrt{1-h_{ii}}}$$
+
+\subsection{Distância de Cook}
+$$D_i = \frac{e_i^2}{(p+1)S^2} \cdot \frac{h_{ii}}{(1-h_{ii})^2}$$
+
+\section{Testes Não-Paramétricos}
+
+\subsection{Teste de Wilcoxon (Mann-Whitney)}
+
+\textbf{Estatística}: $U = n_1 n_2 + \frac{n_1(n_1+1)}{2} - R_1$
+
+\subsection{Teste de Kruskal-Wallis}
+
+\textbf{Estatística}: $H = \frac{12}{N(N+1)} \sum_{i=1}^k \frac{R_i^2}{n_i} - 3(N+1)$
+
+\section{Análise de Séries Temporais}
+
+\subsection{Modelos ARIMA}
+
+\textbf{Modelo AR(1)}: $X_t = \phi X_{t-1} + \varepsilon_t$
+
+\textbf{Modelo MA(1)}: $X_t = \varepsilon_t + \theta \varepsilon_{t-1}$
+
+\section{Análise de Sobrevivência}
+
+\subsection{Função de Sobrevivência}
+$$S(t) = P(T > t) = 1 - F(t)$$
+
+\subsection{Estimador de Kaplan-Meier}
+$$\hat{S}(t) = \prod_{t_i \leq t} \left(1 - \frac{d_i}{n_i}\right)$$
+
+\section{Análise Multivariada}
+
+\subsection{Análise de Componentes Principais}
+
+Primeira componente principal:
+$$\mathbf{a}_1 = \arg\max_{\|\mathbf{a}\|=1} \text{Var}(\mathbf{a}^T \mathbf{X})$$
+
+\subsection{Análise Discriminante}
+
+\textbf{Função Discriminante}:
+$$d_i(\mathbf{x}) = \mathbf{x}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_i - \frac{1}{2} \boldsymbol{\mu}_i^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_i + \log \pi_i$$
+
+\section{Métodos de Bootstrap}
+
+\subsection{Bootstrap Não-Paramétrico}
+
+\textbf{Estimador da Variância}:
+$$\text{Var}^*(\hat{\theta}^*) = \frac{1}{B-1} \sum_{b=1}^B (\hat{\theta}_b^* - \bar{\theta}^*)^2$$
+
+\section{Validação Cruzada e Seleção de Modelos}
+
+\subsection{K-Fold Cross-Validation}
+
+\textbf{Erro de Validação Cruzada}:
+$$CV_{(k)} = \frac{1}{k} \sum_{i=1}^k \text{MSE}_i$$
+
+\subsection{Critérios de Seleção}
+
+\textbf{AIC}: $AIC = -2 \log L + 2p$
+
+\textbf{BIC}: $BIC = -2 \log L + p \log n$
+
+\subsection{Regularização}
+
+\textbf{Ridge Regression}:
+$$\hat{\boldsymbol{\beta}}^{ridge} = \arg\min_{\boldsymbol{\beta}} \left\{\sum_{i=1}^n (y_i - \mathbf{x}_i^T \boldsymbol{\beta})^2 + \lambda \sum_{j=1}^p \beta_j^2\right\}$$
+
+\textbf{Lasso Regression}:
+$$\hat{\boldsymbol{\beta}}^{lasso} = \arg\min_{\boldsymbol{\beta}} \left\{\sum_{i=1}^n (y_i - \mathbf{x}_i^T \boldsymbol{\beta})^2 + \lambda \sum_{j=1}^p |\beta_j|\right\}$$
+
+\end{document}

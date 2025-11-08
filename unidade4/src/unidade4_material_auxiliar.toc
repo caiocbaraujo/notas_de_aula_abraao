@@ -1,0 +1,25 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{2}{section.1}%
+\contentsline {section}{\numberline {2}Conceitos Fundamentais}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Hipóteses, Erros e Poder}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Função crítica e testes aleatorizados}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Lema de Neyman–Pearson}{2}{section.3}%
+\contentsline {section}{\numberline {4}Função Poder e Curvas de Poder}{2}{section.4}%
+\contentsline {section}{\numberline {5}RVM e Teorema de Karlin–Rubin}{3}{section.5}%
+\contentsline {section}{\numberline {6}Famílias Clássicas}{3}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Poisson($\lambda $)}{3}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Exponencial($\theta $)}{3}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Bernoulli($p$)}{3}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Procedimentos Operacionais}{3}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Teste Z (Completo)}{3}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Resumo do Teste Z}{3}{subsubsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.2}Teste $\chi ^2$ (Completo)}{4}{subsection.7.2}%
+\contentsline {subsubsection}{\numberline {7.2.1}Resumo do Teste $\chi ^2$ para Exponencial}{4}{subsubsection.7.2.1}%
+\contentsline {section}{\numberline {8}Construção de Regiões Críticas}{4}{section.8}%
+\contentsline {section}{\numberline {9}Exemplos Guias}{5}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Normal (Z)}{5}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Poisson}{5}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Exponencial}{5}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Exercícios}{5}{section.10}%
+\contentsline {section}{\numberline {11}Apêndice}{5}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Figuras de Cauda (Z)}{5}{subsection.11.1}%

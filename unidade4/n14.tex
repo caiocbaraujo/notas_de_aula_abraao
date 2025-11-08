@@ -1,0 +1,24 @@
+﻿\textbf{Exemplo 7} Seja $X_1, \ldots, X_n$ uma a.a. de $X_i \sim \text{Poisson}(\lambda)$ para $\lambda > 0$ desconhecido. Derive o teste MP para
+\[
+H_0: \lambda = \lambda_0 \quad \text{e} \quad H_1: \lambda = \lambda_1 \ (\lambda_1 > \lambda_0).
+\]
+
+\noindent Id.: como as hipóteses são simples, o LNP se aplica. A verossimilhança é dada por:
+\begin{equation}
+L_{X} \triangleq L(\lambda; x) = \prod_{k=1}^{n} \left\{ \frac{e^{-\lambda} \lambda^{x_k}}{x_k!} \right\}
+= \frac{e^{-n\lambda} \lambda^{\sum_{k=1}^{n} x_k}}{\prod_{k=1}^{n} x_k!}
+\end{equation}
+em que $x_k \in \{0,1,\ldots\}$. O teste MP é da forma:
+
+\noindent Rejeitar $H_0$ se, e só se, $\frac{L_1}{L_0} > k$.
+
+\noindent Note que:
+\begin{equation}
+\frac{L_1}{L_0} = \left[ \frac{\lambda_0}{\lambda_1} \right]^n \cdot \left[ \frac{\lambda_1}{\lambda_0} \right]^{\sum_{k=1}^{n} x_k}
+= \left[ \frac{\lambda_1}{\lambda_0} \right]^{\sum_{k=1}^{n} x_k - n(\lambda_1 - \lambda_0)}
+\end{equation}
+
+\noindent Daí, a região crítica do teste é dada por: $x \in \mathbb{X} \subset \mathbb{Z}^n$, o espaço amostral
+\begin{equation}
+R_c = \left\{ x \in \mathbb{X} : \left[ \frac{\lambda_1}{\lambda_0} \right]^{\sum_{i=1}^{n} x_i - n(\lambda_1 - \lambda_0)} > k \right\} \Rightarrow
+\end{equation}

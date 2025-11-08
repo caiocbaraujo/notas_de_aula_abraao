@@ -1,0 +1,47 @@
+\newpage
+
+\section*{Q(4.1) Alguns exemplos de testes}
+
+Sejam $X_1, \ldots, X_9$ uma amostra de $X \sim N(\theta, 1)$ para $\theta \in \mathbb{R}$ desconhecido. \\
+No contexto, deseja-se testar:
+
+\begin{equation}
+H_0: \theta = 5.5 \quad \text{vs} \quad H_1: \theta = 8
+\end{equation}
+
+Seja 
+\begin{equation}
+\bar{X}_n = 9^{-1} \sum_{i=1}^9 X_i
+\end{equation}
+
+\subsection*{Testes}
+
+\begin{itemize}
+    \item Teste \#1: rejeitam-se $H_0$ se e só se $X_1 > 7$
+    \item Teste \#2: rejeitam-se $H_0$ se e só se $\frac{X_1 + X_2}{2} > 7$
+    \item Teste \#3: rejeitam-se $H_0$ se e só se $\bar{X}_n > 6$
+    \item Teste \#4: rejeitam-se $H_0$ se e só se $\bar{X}_n > 7.5$
+\end{itemize}
+
+\subsection*{Suas regiões críticas}
+
+Para teste \#1:
+\begin{equation}
+R_c = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : x_1 > 7 \}
+\end{equation}
+
+Para teste \#2:
+\begin{equation}
+R_c = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \frac{x_1 + x_2}{2} > 7 \}
+\end{equation}
+
+Para teste \#3:
+\begin{equation}
+R_c = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \bar{x} > 6 \}
+\end{equation}
+
+Para teste \#4:
+\begin{equation}
+R_c = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \bar{x} > 7.5 \}
+\end{equation}
+

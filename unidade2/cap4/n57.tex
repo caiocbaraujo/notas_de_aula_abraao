@@ -1,0 +1,38 @@
+\newpage
+
+\textbf{03/11/25}
+
+\section*{Regra de decisão}
+
+\textbf{(Método tradicional)} Rejeita-se $H_0$ se $Z(x) > z_{\alpha}$.
+
+\textbf{(Método do valor P)} Seja $Z_{cal} = Z(x)$, rejeita-se $H_0$ se 
+\[
+\hat{p} = P(Z \geq Z_{cal}) < \alpha \quad \text{(obs: $\hat{p}$ se chama de valor P)}
+\]
+
+\section*{Q(4.5)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \exp(\theta)$ com densidade
+\begin{equation}
+f(x; \theta) = \frac{1}{\theta} e^{-x/\theta}, \quad x > 0
+\end{equation}
+em que $\theta > 0$ é desconhecido. Encontre o teste MP de nível $\alpha$ para
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta = \theta_1 \quad (\theta_1 > \theta_0)
+\]
+
+\section*{Solução}
+Como o contexto é do tipo simples vs simples, pode-se aplicar o LNP. A verossimilhança é dada por:
+\begin{equation}
+L_i \triangleq L(\theta_i; x) = \theta_i^{-n} \exp\left\{ -\frac{\sum_{j=1}^n X_j}{\theta_i} \right\}, \quad \text{para } i = 0, 1
+\end{equation}
+
+O teste MP é da forma:
+\[
+\left\{
+\begin{array}{ll}
+\text{Rejeita-se } H_0 & \text{se, e somente se} \quad \frac{L_1}{L_0} > k
+\end{array}
+\right.
+\]
+

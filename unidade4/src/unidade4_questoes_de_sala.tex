@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{Questões Resolvidas em Sala - Unidade 4}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+Este documento reúne questões resolvidas em sala referentes à Unidade 4.
+
+\section{Questões}
+
+\subsection{Q1 — Teste Z (Normal com $\sigma^2$ conhecido)}
+\textbf{Enunciado.} Sejam $X_1,\ldots,X_n\overset{i.i.d.}{\sim}N(\mu,\sigma^2)$ com $\sigma^2$ conhecido. Testar
+\[
+H_0:\ \mu=\mu_0\quad \text{vs}\quad H_1:\ \mu>\mu_0.
+\]
+\textbf{Solução.} Estatística de teste
+\[ Z=\sqrt{n}\,\frac{\bar{X}-\mu_0}{\sigma} \overset{H_0}{\sim} N(0,1). \]
+Regra: rejeitar $H_0$ se $Z>z_\alpha$. Valor-p: $\hat{\alpha}=P(Z\ge z_{cal})$. (cf. notas: regiões sombreadas em $z>z_\alpha$)
+
+\subsection{Q2 — Exponencial: teste via soma ($\chi^2$)}
+\textbf{Enunciado.} Sejam $X_1,\ldots,X_n\overset{i.i.d.}{\sim}\mathrm{Exp}(\theta)$. Testar
+\[
+H_0:\ \theta=\theta_0\quad \text{vs}\quad H_1:\ \theta>\theta_0\ (\text{ou }\theta\ne\theta_0).
+\]
+\textbf{Solução.} Pelo LNP a razão depende de $\sum X_i$. Sob $H_0$,
+\[ \frac{2}{\theta_0}\sum_{i=1}^{n} X_i \ \overset{H_0}{\sim}\ \chi^2_{2n}. \]
+Logo, rejeitar para cauda à direita: $\tfrac{2}{\theta_0}\sum X_i>q_{\alpha,\chi^2_{2n}}$. Valor-p: $P\big(\chi^2_{2n}\ge \tfrac{2}{\theta_0}\sum x_i\big)$.
+
+\subsection{Q3 — Poisson: UMP unilateral por soma}
+\textbf{Enunciado.} Sejam $X_1,\ldots,X_n\overset{i.i.d.}{\sim}\mathrm{Poisson}(\lambda)$. Testar
+\[
+H_0:\ \lambda=\lambda_0\quad \text{vs}\quad H_1:\ \lambda>\lambda_0.
+\]
+\textbf{Solução.} $T=\sum X_i\sim\mathrm{Poisson}(n\lambda)$. Pela RVM, o teste que rejeita para $T$ grande é UMP: escolher $u_1$ tal que $P_{\lambda_0}(T>u_1)\le\alpha$ e rejeitar se $T>u_1$. Valor-p: $P_{\lambda_0}(T\ge t_{cal})$.
+
+\subsection{Q4 — Bernoulli: LNP simples $\times$ simples}
+\textbf{Enunciado.} Sejam $X_i\sim \mathrm{Bernoulli}(p)$ i.i.d. Testar
+\[
+H_0:\ p=p_0\quad \text{vs}\quad H_1:\ p=p_1\ (>p_0).
+\]
+\textbf{Solução.} LNP: rejeitar $H_0$ se e somente se
+\[
+\frac{L(p_1;\mathbf{x})}{L(p_0;\mathbf{x})}=\left[\frac{(1-p_0)p_1}{p_0(1-p_1)}\right]^{\sum x_i}\left[\frac{1-p_1}{1-p_0}\right]^n>k,
+\]
+equivalente a $\sum x_i>k_1$ para certo limiar $k_1$ (determinado por $\alpha$). Em unilateral $p>p_0$, a região crítica é $\{\sum x_i>k_1\}$.
+
+\subsection{Q5 — Curva de poder (Normal)}
+\textbf{Enunciado.} Para Q1, derive $Q(\mu)$. \textbf{Solução.}
+\[
+Q(\mu)=P_\mu\!\left(Z>z_\alpha\right)=1-\Phi\!\left(z_\alpha-\frac{\sqrt{n}(\mu-\mu_0)}{\sigma}\right).
+\]
+
+\subsection{Q6 — Regra crítica no caso Exponencial}
+\textbf{Enunciado.} Mostrar a transformação para $\chi^2$. \textbf{Solução.} Note $\dot{X}_i=\theta_0^{-1}X_i\sim \mathrm{Exp}(1)$ e $\ddot{X}_i=2\dot{X}_i\sim \chi^2_2$. Então $\sum\ddot{X}_i\sim\chi^2_{2n}$ e a regra segue.
+
+\subsection{Q7 — Cálculo de $\alpha$ e $\beta$ (Normal, teste simples)}
+\textbf{Enunciado.} Seja $X_1\sim N(\theta,1)$ e teste $H_0:\theta=5{,}5$ vs. $H_1:\theta=8$. Regra: rejeitar $H_0$ se $x_1>7$ ($x_c=7$). Calcule $\alpha$ e $\beta$.
+
+\textbf{Solução.}
+\begin{align*}
+\alpha &= P_{H_0}(x_1 > 7) = P\left(\frac{x_1-5{,}5}{1} > \frac{7-5{,}5}{1}\right) = P(Z > 1{,}5)\\
+&= 1-\Phi(1{,}5) = 0{,}06671.
+\end{align*}
+\begin{align*}
+\beta &= P_{H_1}(x_1 \leq 7) = P\left(\frac{x_1-8}{1} \leq \frac{7-8}{1}\right) = P(Z \leq -1)\\
+&= \Phi(-1) = 0{,}15866.
+\end{align*}
+
+\subsection{Q8 — Função poder (Exemplo 3)}
+\textbf{Enunciado.} Sejam $X_1,\ldots,X_n\overset{i.i.d.}{\sim}N(\theta,1)$ e teste $H_0:\theta=5{,}5$ vs. $H_1:\theta=8$. Regra: rejeitar $H_0$ se $\bar{X}_n>7{,}5$. Derive a função poder $Q(\theta)$.
+
+\textbf{Solução.}
+\begin{align*}
+Q(\theta) &= P_\theta(\bar{X}_n > 7{,}5)\\
+&= P\left(\frac{\bar{X}_n-\theta}{1/\sqrt{n}} > \frac{7{,}5-\theta}{1/\sqrt{n}}\right)\\
+&= P\left(Z > \sqrt{n}(7{,}5-\theta)\right)\\
+&= 1-\Phi\left(\sqrt{n}(7{,}5-\theta)\right).
+\end{align*}
+Note que $Q(5{,}5)=\alpha$ e $Q(8)=1-\beta$.
+
+\subsection{Q9 — Comparação de múltiplos testes (Exemplo 1)}
+\textbf{Enunciado.} Sejam $X_i\overset{i.i.d.}{\sim}N(\theta,1)$ e $H_0:\theta=5{,}5$ vs. $H_1:\theta=8$. Compare as regiões críticas:
+\begin{itemize}
+  \item Teste \#1: $R_C=\{x:x_1>7\}$
+  \item Teste \#2: $R_C=\{x:(x_1+x_2)/2>7\}$
+  \item Teste \#3: $R_C=\{x:\bar{X}_n>6\}$
+  \item Teste \#4: $R_C=\{x:\bar{X}_n>7{,}5\}$
+\end{itemize}
+
+\textbf{Discussão.} O teste \#4 usa toda a informação via média amostral e é mais poderoso quando o nível $\alpha$ é fixado. O teste \#1 desperdiça informação usando apenas $x_1$. O teste \#3 tem região crítica maior que \#4, logo maior poder mas também maior $\alpha$ (se não ajustado).
+
+\subsection{Q10 — Teste MP para densidades diferentes}
+\textbf{Enunciado.} Sejam $X_1,X_2$ duas v.a.s independentes com densidade $f(x)$. Determine o teste MP de nível $\alpha$ para
+\[
+H_0:\ f_{X_1}=f_0(x)\quad \text{e}\quad H_1:\ f_{X_1}=f_1(x),
+\]
+onde $f_0$ e $f_1$ são densidades distintas conhecidas.
+
+\textbf{Solução.} Como é simples vs. simples, usar LNP: rejeitar $H_0$ se e somente se
+\[
+\frac{L_1(x_1,x_2)}{L_0(x_1,x_2)} = \frac{f_1(x_1)f_1(x_2)}{f_0(x_1)f_0(x_2)} > k,
+\]
+onde $k$ é determinado por $P_{H_0}(L_1/L_0 > k) = \alpha$.
+
+\subsection{Q11 — Teste para variância (Normal, $\sigma^2$ desconhecido)}
+\textbf{Enunciado.} Sejam $X_1,\ldots,X_n\overset{i.i.d.}{\sim}N(0,\sigma^2)$ e teste $H_0:\sigma=\sigma_0$ vs. $H_1:\sigma<\sigma_0$. Derive a região crítica usando LNP.
+
+\textbf{Solução.} Adotando $H_1:\sigma=\sigma_1<\sigma_0$ (simples), a razão é:
+\[
+\frac{L(\sigma_1,\mathbf{x})}{L(\sigma_0,\mathbf{x})} = \left(\frac{\sigma_0}{\sigma_1}\right)^n \exp\left\{-\frac{1}{2}\sum_{i=1}^n x_i^2\left(\frac{1}{\sigma_1^2}-\frac{1}{\sigma_0^2}\right)\right\}.
+\]
+Como $\sigma_1<\sigma_0$, temos $\frac{1}{\sigma_1^2}>\frac{1}{\sigma_0^2}$, logo a razão é crescente em $\sum x_i^2$. A região crítica é $\{\sum x_i^2/\sigma_0^2 < k_1\}$, que sob $H_0$ segue $\chi^2_n$. Definindo $Q(\mathbf{x})=\sum_{i=1}^n(x_i/\sigma_0)^2\sim\chi^2_n$, rejeitar se $Q(\mathbf{x})<\chi^2_{n,\alpha}$ (quantil inferior).
+
+\subsection{Q12 — Função crítica e testes aleatorizados}
+\textbf{Enunciado.} Defina função crítica $\psi_\gamma:\mathcal{X}^n\to[0,1]$ e relacione com poder $Q_\gamma(\theta)$.
+
+\textbf{Solução.} A função crítica $\psi_\gamma(x)$ dá a probabilidade de rejeitar $H_0$ ao observar $x$. Então
+\[
+Q_\gamma(\theta) = E_\theta[\psi_\gamma(X)] = \int \psi_\gamma(x) f(x;\theta)\,dx.
+\]
+Testes determinísticos têm $\psi\in\{0,1\}$; testes aleatorizados admitem $\psi=\delta\in(0,1)$ numa fronteira (ex.: quando a estatística suficiente assume um valor limite que igualaria o nível exatamente).
+
+\subsection{Q13 — Prova de monotonicidade do poder (UMP)}
+\textbf{Enunciado.} Mostre que, sob condições de RVM, a função poder $Q_Y(\theta)$ é não decrescente para testes UMP unilaterais.
+
+\textbf{Esboço de Solução.} Para $\theta''>\theta'>\theta_0$, considere classes $C$ de testes de nível $\alpha$ para $H_0':\theta=\theta'$ vs. $H_1':\theta=\theta''$. Pelo LNP, o teste MP em $C$ tem poder maior ou igual ao teste aleatorizado trivial $Y_0$ com poder constante $\alpha$. Como $Y$ é UMP, $Q_Y(\theta'')\ge Q_{Y_0}(\theta'')=\alpha=Q_Y(\theta')$, mostrando que $Q_Y$ é não decrescente.
+
+\section{Comentários Adicionais}
+\begin{itemize}
+  \item Para testes bilaterais, UMP geralmente não existe; use-se testes não-viesados ou razão de verossimilhança generalizada.
+  \item A função poder ajuda a comparar testes quando múltiplas alternativas são consideradas.
+  \item Estatísticas suficientes simplificam a construção de regiões críticas via LNP ou Karlin–Rubin.
+\end{itemize}
+
+\newpage
+\section{Questões Adicionais Resolvidas em Sala}
+
+\subsection{Q14 — Teste para Bernoulli (Questão 4.6)}
+
+\textbf{Enunciado.} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Bernoulli}(p)$ para $p \in (0,1)$ desconhecido. Encontre o teste MP para:
+\[
+H_0: p = p_0 \quad \text{vs} \quad H_1: p > p_0
+\]
+
+\textbf{Solução.} Como o contexto é do tipo simples vs simples (fixando $p_1 > p_0$ na alternativa), aplica-se o LNP. A verossimilhança associada é dada por:
+\begin{equation}
+L_i \triangleq L(p_i; x) = \prod_{k=1}^n \left[ p_i^{x_k} (1 - p_i)^{1 - x_k} \right] = p_i^{\sum_{k=1}^n x_k} (1-p_i)^{n - \sum_{k=1}^n x_k}
+\end{equation}
+
+O teste MP tem a forma: Rejeitar $H_0$ se e somente se $\frac{L_1}{L_0} > k$.
+
+Calculando a razão:
+\[
+\frac{L_1}{L_0} = \left(\frac{p_1}{p_0}\right)^{\sum x_k} \left(\frac{1-p_1}{1-p_0}\right)^{n - \sum x_k}
+\]
+
+Como $p_1 > p_0$, a razão é crescente em $T = \sum_{k=1}^n X_k$. Portanto, a região crítica é:
+\[
+R_c = \left\{ x : \sum_{k=1}^n x_k > k_1 \right\}
+\]
+
+onde $k_1$ é determinado por $P_{p_0}(T > k_1) \leq \alpha$ e $T \sim \text{Binomial}(n, p_0)$ sob $H_0$.
+
+Se necessário, usa-se aleatorização na fronteira para atingir exatamente o nível $\alpha$:
+\begin{equation}
+\delta = \frac{\alpha - P_{p_0}(T > k_1)}{P_{p_0}(T = k_1)}
+\end{equation}
+
+\subsection{Q15 — Q(4.5): Exemplo Prático de Teste Z}
+
+\textbf{Enunciado.} Dada uma amostra de $n=25$ observações de $X \sim N(\mu, 16)$ com $\bar{x} = 52.3$. Testar $H_0: \mu = 50$ vs $H_1: \mu > 50$ ao nível $\alpha = 0.05$.
+
+\textbf{Solução.}
+
+\textbf{Passo 1:} Calcular a estatística de teste.
+\[
+Z_{cal} = \sqrt{25} \frac{52.3 - 50}{4} = 5 \cdot \frac{2.3}{4} = 2.875
+\]
+
+\textbf{Passo 2:} Método tradicional.
+
+Quantil crítico: $z_{0.05} = 1.645$.
+
+Como $Z_{cal} = 2.875 > 1.645$, rejeitamos $H_0$ ao nível 5\%.
+
+\textbf{Passo 3:} Método do valor-p.
+\[
+\hat{\alpha} = P(Z > 2.875) \approx 0.002
+\]
+
+Como $\hat{\alpha} = 0.002 < 0.05$, rejeitamos $H_0$.
+
+\textbf{Conclusão:} Há evidência estatística significativa (valor-p = 0.002) de que $\mu > 50$.
+
+\subsection{Q16 — Derivação da Região Crítica via LNP}
+
+\textbf{Enunciado.} Mostre a derivação completa da região crítica para o teste Z via Lema de Neyman-Pearson.
+
+\textbf{Solução.} Para $H_0: \mu = \mu_0$ vs $H_1: \mu = \mu_1$ com $\mu_1 > \mu_0$ e $\sigma^2$ conhecido.
+
+A razão de verossimilhanças é:
+\[
+\frac{L(\mu_1; x)}{L(\mu_0; x)} = \exp\left\{ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^n x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\}
+\]
+
+O teste MP rejeita $H_0$ se $\frac{L(\mu_1; x)}{L(\mu_0; x)} > k$, que é equivalente a:
+\[
+\sum_{i=1}^n x_i > k_2
+\]
+
+para alguma constante $k_2$. Dividindo por $n$:
+\[
+\bar{x}_n > c
+\]
+
+Como $\mu_1 > \mu_0$, valores grandes de $\bar{x}_n$ favorecem $H_1$. A região crítica é:
+\[
+R_c = \left\{ x \in \mathcal{X} : \sqrt{n} \frac{\bar{x}_n - \mu_0}{\sigma} > k_3 \right\}
+\]
+
+Definindo a estatística:
+\[
+Z(x) \triangleq \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma}
+\]
+
+temos $Z(X) \overset{H_0}{\sim} N(0,1)$.
+
+A região crítica é então:
+\[
+R_c = \left\{ x \in \mathcal{X} : Z(x) > z_\alpha \right\}
+\]
+
+onde $z_\alpha$ é tal que $P(Z > z_\alpha) = \alpha$ sob $H_0$.
+
+\section{Comentários Adicionais Atualizados}
+\begin{itemize}
+  \item Para testes bilaterais, UMP geralmente não existe; use-se testes não-viesados ou razão de verossimilhança generalizada.
+  \item A função poder ajuda a comparar testes quando múltiplas alternativas são consideradas.
+  \item Estatísticas suficientes simplificam a construção de regiões críticas via LNP ou Karlin–Rubin.
+  \item Os resumos operacionais (Teste Z e $\chi^2$) fornecem receitas práticas para aplicação direta.
+  \item Sempre verifique as condições: i.i.d., distribuição conhecida, parâmetros conhecidos/desconhecidos.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,38 @@
+\textbf{Q(4.8)} Seja $X$ uma v.a com densidade $f(x)$ para $x \in \mathbb{R}$. Considere duas outras densidades:
+
+\[
+f_0(x) = 
+\begin{cases}
+\frac{3x^2}{64}, & 0 < x < 4 \\
+0, & \text{c.c.}
+\end{cases}
+\quad \text{e} \quad
+f_1(x) = 
+\begin{cases}
+\frac{3}{16} \sqrt{x}, & 0 < x < 4 \\
+0, & \text{c.c.}
+\end{cases}
+\]
+
+Determine o teste MP de nível $\alpha$ para
+
+\[
+H_0: f(x) = f_0(x), \quad H_1: f(x) = f_1(x)
+\]
+
+\textbf{Solução:}
+
+Como as hipóteses são do tipo simples x simples, aplica-se LNP. Assim:
+
+\[
+\text{Rejeita-se } H_0 \text{ se e só se } \left[ \frac{f_1(x)}{f_0(x)} > k \right]
+\]
+
+Note que:
+
+\begin{equation}
+\frac{f_1(x)}{f_0(x)} = \frac{\frac{3}{16} x^{1/2}}{\frac{3}{64} x^2} 
+= \frac{3 \cdot 64 \cdot x^{1/2}}{3 \cdot 16 \cdot x^2} 
+= 4 \cdot x^{-3/2}
+\end{equation}
+

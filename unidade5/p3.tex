@@ -1,0 +1,33 @@
+\begin{equation}
+P_{\mu_0} \left( \bar{X}_n - \delta_\alpha \frac{\sigma}{\sqrt{n}} \leq \mu_0 \right) = 1 - \alpha
+\end{equation}
+
+Daí,
+
+\begin{equation}
+P_{\mu} \left( \mu \geq \bar{X}_n - \delta_\alpha \frac{\sigma}{\sqrt{n}} \right) = 1 - \alpha, \quad \forall \mu \in \mathbb{R}.
+\end{equation}
+
+Isto é,
+
+\begin{equation}
+\text{i.c.}_{1-\alpha}(\mu) = \left( \bar{X}_n - \delta_\alpha \frac{\sigma}{\sqrt{n}}, \infty \right).
+\end{equation}
+
+\textbf{Exemplo 3:} Sejam $X_1, \ldots, X_n$ uma a.c. de $X \sim \text{Exp}(\theta)$, para $\theta > 0$ desconhecido. Considera que se deseja testar $H_0: \theta = \theta_0$ vs $H_1: \theta > \theta_0$. Encontrar o estimador relacionado para o intervalo de confiança de $1 - \alpha$.
+
+\textbf{Jd1:} já foi discutido que o teste UMP para $H_0$ e $H_1$ de nível $\alpha$ tem função crítica
+
+\begin{equation}
+\psi(x) = 
+\begin{cases}
+1, & \frac{2}{\theta_0} \sum_{i=1}^n x_i > \chi^2_{2n,\alpha} \\
+0, & \frac{2}{\theta_0} \sum_{i=1}^n x_i < \chi^2_{2n,\alpha}
+\end{cases}
+\end{equation}
+
+A região de não rejeição é dada por: para $\alpha \in \mathbb{R}^n$,
+
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : \frac{2}{\theta_0} \sum_{i=1}^n x_i < \chi^2_{2n,\alpha} \right\}
+\end{equation}

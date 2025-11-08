@@ -1,0 +1,47 @@
+\[
+f_U(u) = n u^{n-1} \mathbb{I}_{(0,1)}(u)
+\]
+
+que independe de $\theta$, portanto $U$ é um pivô. Pode-se determinar $a$ e $b$ com $0 < a < b < 1$ tais que
+
+\[
+P(U < a) = P(U > a) = \frac{\alpha}{2}
+\]
+
+e, portanto,
+
+\[
+P(a < U < b) = 1 - \alpha
+\]
+
+Temos que:
+
+\[
+P(U < a) = \int_{0}^{a} n u^{n-1} \, du = u^n \bigg|_{0}^{a} = a^n = \frac{\alpha}{2} \quad \Rightarrow \quad a = \left( \frac{\alpha}{2} \right)^{1/n}
+\]
+
+e
+
+\[
+P(U > b) = \int_{b}^{1} n u^{n-1} \, du = u^n \bigg|_{b}^{1} = 1 - b^n = \frac{\alpha}{2} \quad \Rightarrow \quad b = \left( 1 - \frac{\alpha}{2} \right)^{1/n}
+\]
+
+Note que
+
+\[
+P(a < U < b) = 1 - \alpha \quad \Rightarrow \quad P\left( a < \frac{T}{\theta} < b \right) = 1 - \alpha
+\]
+
+\[
+\Rightarrow \quad P\left( \frac{1}{b} < \frac{\theta}{T} < \frac{1}{a} \right) = 1 - \alpha
+\]
+
+\[
+\Rightarrow \quad P\left( \frac{T}{b} < \theta < \frac{T}{a} \right) = 1 - \alpha
+\]
+
+e, portanto,
+
+\[
+IC_{1-\alpha}(\theta) = \left( b^{-1} x_{\min}, \; a^{-1} x_{\min} \right)
+\]

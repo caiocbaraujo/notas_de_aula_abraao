@@ -1,0 +1,48 @@
+Logo, para
+\begin{equation}
+T(X) = \sum_{i=1}^{n} \frac{(x_i - \mu)^2}{\sigma_0} \sim \chi^2_n,
+\end{equation}
+rejeita-se $H_0$ se, e só se, (para $a, b \in \mathbb{R}$, $a < b$)
+\[
+[T(X) < a] \quad \text{ou} \quad [T(X) > b]
+\]
+tal que
+\begin{equation}
+P_{H_0}(T < a) = \frac{\alpha}{2} \quad \Rightarrow \quad a = \chi^2_{n,\, 1 - \alpha/2}
+\end{equation}
+e
+\begin{equation}
+P_{H_0}(T > b) = \frac{\alpha}{2} \quad \Rightarrow \quad b = \chi^2_{n,\, \alpha/2}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+% Left plot
+\draw[->] (0,0) -- (3.5,0);
+\draw[->] (0,0) -- (0,2.5);
+\draw[domain=0:3,smooth,variable=\x] plot ({\x},{2*exp(-(\x-1)^2)});
+\draw[pattern=north east lines] (0,0) -- plot[domain=0:0.7] ({\x},{2*exp(-(\x-1)^2)}) -- (0.7,0) -- cycle;
+\node at (-0.3,1.2) {$\alpha/2$};
+\node at (2.5,2) {$1 - \alpha/2$};
+
+% Right plot
+\begin{scope}[xshift=6cm]
+\draw[->] (0,0) -- (3.5,0);
+\draw[->] (0,0) -- (0,2.5);
+\draw[domain=0:3,smooth,variable=\x] plot ({\x},{2*exp(-(\x-1)^2)});
+\draw[pattern=north east lines] (2.3,0) -- plot[domain=2.3:3] ({\x},{2*exp(-(\x-1)^2)}) -- (3,0) -- cycle;
+\node at (3.2,1.2) {$\alpha/2$};
+\node at (2.3,-0.3) {$\chi^2_{n,\, \alpha/2}$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+A função crítica é dada por:
+\begin{equation}
+\psi(x) =
+\begin{cases}
+1, & T < \chi^2_{n,\, 1 - \alpha/2} \ \text{ou} \ T > \chi^2_{n,\, \alpha/2}, \\
+0, & \text{caso contrário}.
+\end{cases}
+\end{equation}
+

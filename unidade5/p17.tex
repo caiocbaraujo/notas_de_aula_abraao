@@ -1,0 +1,36 @@
+\[
+\bar{X} = n^{-1} \sum_{i=1}^{n} x_i, \quad \bar{Y} = m^{-1} \sum_{i=1}^{m} y_i, \quad S_X^2 = (n-1)^{-1} \sum_{i=1}^{n} (x_i - \bar{X})^2,
+\]
+\[
+S_Y^2 = (m-1)^{-1} \sum_{i=1}^{m} (y_i - \bar{Y})^2,
+\]
+\[
+S^2 = \frac{(n-1) S_X^2 + (m-1) S_Y^2}{n + m - 2}
+\]
+
+São estimadores para $\mu_X / \mu_Y$, $\sigma_X^2$, $\sigma_Y^2$ e $\sigma^2$, respectivamente. Neste caso,
+
+\[
+\Theta_0 = \{ (\mu_X, \mu_Y, \sigma^2) : \mu_X = \mu_Y = \mu \in \mathbb{R} \ \text{e} \ \sigma^2 \in \mathbb{R}_+ \}
+\]
+\[
+\Theta = \{ (\mu_X, \mu_Y, \sigma^2) : \mu_X, \mu_Y \in \mathbb{R} \ \text{e} \ \sigma^2 > 0 \}
+\]
+
+A verossimilhança é dada por:
+
+\begin{equation}
+L(\mu_X, \mu_Y, \sigma^2) \triangleq L(\mu_X, \mu_Y, \sigma^2; x^n, y^m) = (2\pi\sigma^2)^{-\frac{n+m}{2}} \cdot \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^{n} (x_i - \mu_X)^2 + \sum_{j=1}^{m} (y_j - \mu_Y)^2 \right] \right\}
+\end{equation}
+
+para $(\mu_X, \mu_Y, \sigma^2) \in \mathbb{R}^2 \times \mathbb{R}_+$, em que $x^n$ é uma amostra de $X$ e $y^m$ é uma amostra de $Y$. Assim,
+
+\begin{equation}
+\sup_{\{L(\mu_X, \mu_Y, \sigma^2)\}} = \sup \left\{ (2\pi\sigma^2)^{-\frac{n+m}{2}} \cdot \exp\left[ -\frac{1}{2\sigma^2} \left( \sum_{i=1}^{n} (x_i - \mu)^2 + \sum_{j=1}^{m} (y_j - \mu)^2 \right) \right] \right\}
+\end{equation}
+
+\[
+\text{para} \quad (\mu_X, \mu_Y, \sigma^2) \in \Theta_0
+\]
+
+Pode-se obter (fica como exercício!) que os estimadores...

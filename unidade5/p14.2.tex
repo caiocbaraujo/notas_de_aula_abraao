@@ -1,0 +1,40 @@
+\begin{equation}
+R_c = \left\{ \frac{\sqrt{n} \, \left| \bar{x} - \mu_0 \right|}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}} > \sqrt{k'} \right\}
+\end{equation}
+
+\noindent como \quad $A$:
+
+\begin{equation}
+A = \frac{\frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}}{\sqrt{\sum_{i=1}^n \left( \frac{x_i - \bar{x}}{\sigma} \right)^2}} 
+= \frac{\frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}}{\sqrt{\frac{n}{n-1}}} 
+= \frac{\frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}}{\sqrt{\frac{s^2}{\sigma^2}}}
+\end{equation}
+
+\noindent para \quad $\delta_c = (n-1)^{-1} \sum_{i=1}^n (x_i - \bar{x})^2$,
+
+\begin{equation}
+R_c = \left\{ (n-1)^{-1/2} \, \left| T(x) \right| > \sqrt{k'} \right\}
+\end{equation}
+
+\noindent para \quad $T(x) = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$ \quad e \quad $x = (x_1, \ldots, x_n)^T$. \quad Logo:
+
+\begin{equation}
+R_c = \left\{ \left| T(x) \right| > \sqrt{\frac{(n-1) k'}{n''}} \right\} 
+\quad \Rightarrow \quad 
+R_c = \left\{ \left| T(x) \right| > k'' \right\}
+\end{equation}
+
+\noindent Note que:
+
+\begin{equation}
+T(X) \ \text{sob} \ H_0 \ \sim \ t_{n-1}.
+\end{equation}
+
+\noindent Seja $t_{n-1, \alpha/2}$ tal que:
+
+\begin{equation}
+P_{H_0} \left( T > t_{n-1, \alpha/2} \right) = \frac{\alpha}{2}.
+\end{equation}
+
+\noindent Então o TRV tem fronteira crítica.
+

@@ -1,0 +1,31 @@
+\section*{Aula 31 (02/07/2020)}
+
+\subsection*{TRV para $H_0: \sigma_x = \sigma_y$}
+
+Sejam $x_1, \ldots, x_n$ e $y_1, \ldots, y_m$ a.a.s. de $X \sim N(\mu_x, \sigma_x)$ e $Y \sim N(\mu_y, \sigma_y)$. Assuma que
+\[
+\theta = (\mu_x, \mu_y, \sigma_x, \sigma_y)^T \in \mathbb{R}^2 \times \mathbb{R}_+^2
+\]
+é desconhecido. Dado que $\alpha \in (0,1)$ como nível de significância, vamos derivar o TRV para
+\[
+H_0: \sigma_x^2 = \sigma_y^2 \quad \text{e} \quad H_1: \sigma_x^2 \neq \sigma_y^2.
+\]
+
+A verossimilhança é dada por:
+\begin{equation}
+\begin{aligned}
+L(\theta) &= L(\theta; \vec{x}, \vec{y}) \\
+&= (2\pi)^{-\frac{n+m}{2}} \cdot (\sigma_x^n \sigma_y^m)^{-1} \cdot \exp\left\{ -\frac{1}{2} \left[ \sum_{i=1}^n \left( \frac{x_i - \mu_x}{\sigma_x} \right)^2 + \sum_{i=1}^m \left( \frac{y_i - \mu_y}{\sigma_y} \right)^2 \right] \right\}.
+\end{aligned}
+\end{equation}
+
+Em que $\vec{x}$ é uma a.o. de $X$ e $\vec{y}$ uma a.o. de $Y$. Note que o estimador de máxima verossimilhança restrito para $\mu_x, \mu_y$ e $\sigma$ é dado por:
+\[
+\hat{\mu}_x = \bar{X}, \quad \hat{\mu}_y = \bar{Y}, \quad \hat{\sigma}^2 = \frac{(n-1)S_X^2 + (m-1)S_Y^2}{n+m}
+\]
+tal que
+\[
+S_X^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{X})^2, \quad S_Y^2 = \frac{1}{m-1} \sum_{i=1}^m (y_i - \bar{Y})^2
+\]
+respectivamente.
+

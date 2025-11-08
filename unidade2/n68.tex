@@ -1,0 +1,38 @@
+\newpage
+
+\section*{Q(4.9)}
+Sejam $X_1$ e $X_2$ duas v.a.'s independentes com densidade $f(x)$. Determine o teste MP de nível $\alpha$ para
+
+\begin{equation}
+H_0: f(x) = f_0(x) \quad \text{vs} \quad H_1: f(x) = f_1(x)
+\end{equation}
+
+\subsection*{Solução}
+Do LNP, rejeita-se $H_0$ para $(x_1, x_2)$ em
+
+\begin{equation}
+R_c = \left\{ (x_1, x_2) \in (0,4) \times (0,4) : \frac{f_1(x_1) f_1(x_2)}{f_0(x_1) f_0(x_2)} > k \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ (x_1, x_2) \in (0,4) \times (0,4) : 4x_1^{-3/2} \cdot 4x_2^{-3/2} > k \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ (x_1, x_2) \in (0,4) \times (0,4) : \left( \frac{16}{k} \right)^{2/3} > x_1 x_2 \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ (x_1, x_2) \in (0,4) \times (0,4) : x_1 x_2 < K_1 \right\}
+\end{equation}
+
+\subsection*{Note que}
+\begin{equation}
+F_0(x) =
+\begin{cases}
+0, & x \leq 0 \\
+\frac{x^3}{64}, & 0 < x < 4 \\
+1, & x \geq 4
+\end{cases}
+\end{equation}
+

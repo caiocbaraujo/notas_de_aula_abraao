@@ -1,0 +1,36 @@
+﻿\[
+\psi_Y(x) =
+\begin{cases}
+1, & x \in R_{c_i}, \\
+0, & x \in R_{c_i}^c
+\end{cases}
+\]
+
+b) $Y$ aleatorizado: O teste é definido pela função crítica:
+
+\[
+\psi_Y(x) =
+\begin{cases}
+1, & x \in R_{c_i}, \\
+\delta, & x \in R_{\delta_i}, \\
+0, & x \in (R_{c_i} \cup R_{\delta_i})^c
+\end{cases}
+\]
+
+\textbf{Exemplo 4:} Sejam $X_1, \ldots, X_n$ i.i.d. $X \sim N(\theta, 25)$. Neste caso, $\alpha = 1.2^n$. Considere o teste $Y$: Rejeitar $H_0: \theta \leq 17$ se $\alpha$, i.e.,
+
+\[
+\bar{X}_n > 17 + \frac{5}{\sqrt{n}}
+\]
+
+$Y$ não aleatorizado com função crítica:
+
+\[
+\psi(x) =
+\begin{cases}
+1, & x \in \{ x \in \mathbb{R}^n : \bar{x}_n > 17 + \frac{5}{\sqrt{n}} \}, \\
+0, & \text{c.c.}
+\end{cases}
+\]
+
+\textbf{Exemplo 5:} Sejam $X_1, \ldots, X_n$ uma a.a. de $X_i \sim \text{Bernoulli}(p)$. Neste caso $\alpha = \sum_{i=1}^n X_i \in \{0, \ldots, n\}$. Considere um teste $Y$ para ...

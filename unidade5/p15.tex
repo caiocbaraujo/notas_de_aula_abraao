@@ -1,0 +1,34 @@
+\[
+\psi(X^1) = 
+\begin{cases} 
+1, & |T(X^1)| > t_{n-1, \alpha/2} \\
+0, & \text{c.c.}
+\end{cases}
+\]
+
+\section*{TRV para $\sigma^2$ com $\mu$ conhecido}
+
+Sejam $X_1, \ldots, X_n$ v.a. de $X \sim N(\mu, \sigma^2)$ com média conhecida e $\sigma^2 \in \mathbb{R}^+$ desconhecido. Dado um nível $\alpha \in (0,1)$, considere a derivação do TRV para
+
+\[
+H_0: \sigma^2 = \sigma_0^2 \quad \text{vs} \quad H_1: \sigma^2 \neq \sigma_0^2.
+\]
+
+A função de verossimilhança é dada por:
+\begin{equation}
+l(\sigma^2) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\end{equation}
+
+Daí, temos:
+\begin{equation}
+\sup_{(\mu, \sigma^2) \in \Theta} l(\sigma^2) = (2\pi \sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\end{equation}
+em que
+\[
+\Theta_0 = \{ (\mu, \sigma^2) \;|\; \mu \text{ é fixado e } \sigma^2 = \sigma_0^2 \text{ é fixado} \}
+\]
+
+\begin{equation}
+\sup_{(\mu, \sigma^2) \in \Theta_0} l(\sigma^2) = (2\pi \sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\end{equation}
+

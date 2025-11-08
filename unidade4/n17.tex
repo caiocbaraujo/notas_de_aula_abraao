@@ -1,0 +1,36 @@
+﻿\begin{equation}
+\alpha = P_{\theta_0}(X < q) = \int_{0}^{q} \frac{3}{64} x^2 \, dx = \frac{3}{64} \cdot \frac{q^3}{3} = \frac{q^3}{64}
+\end{equation}
+
+Donde,
+
+\begin{equation}
+k_1 = (64 \cdot \alpha)^{1/3} = 4 \cdot \alpha^{1/3}
+\end{equation}
+
+O poder associado é dado por:
+
+\begin{equation}
+P_{\theta_1}(X \leq k_1) = \int_{0}^{k_1} \frac{3}{16} \sqrt{x} \, dx = \frac{3}{16} \cdot \frac{x^{3/2}}{3/2} = \frac{4}{8} \, k_1^{3/2} = \alpha
+\end{equation}
+
+\textbf{Exercício:} Sejam $X_1, X_2$ duas v.a.s independentes com densidade $f(x)$. Determine o teste MP de nível $\alpha$ para
+
+\[
+H_0: f_{X_1} = f_{X_2} \quad \text{e} \quad H_1: f_{X_1} \neq f_{X_2}.
+\]
+
+\textit{Teste para $H_1$ composta unilateral}
+
+Considere hipÃ³teses do tipo:
+
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad 
+\begin{cases}
+H_1: \theta > \theta_0 \\
+H_1: \theta < \theta_0
+\end{cases}
+\tag{1}
+\end{equation}
+
+No que segue, apresentamos as abordagens para deduzir o teste UMP para (1).

@@ -1,0 +1,31 @@
+﻿$Y$ tem função crítica dada por:
+\begin{equation}
+\psi_Y(x) =
+\begin{cases}
+1, & \text{se } T(x) > u, \\
+\delta, & \text{se } T(x) = u, \\
+0, & \text{se } T(x) < u,
+\end{cases}
+\end{equation}
+em que $u$ é o menor inteiro tal que
+\begin{equation}
+P(T(X) > k) < \alpha
+\end{equation}
+\begin{equation}
+\delta = \frac{\alpha - P(T(X) > k)}{P(T(X) = k)}
+\end{equation}
+
+\section*{Teste para $H_1$ composta bilateral}
+
+\textbf{Condição testar}
+
+\begin{equation*}
+H_0: \theta = \theta_0 \quad \text{e} \quad H_1: \theta \neq \theta_0
+\end{equation*}
+para $\theta_0$ fixado. Existe teste UMP? Sim, em algumas situaÃ§Ãµes. Dois exemplos:
+
+\textbf{Exemplo:} Para $x_1, \ldots, x_n$ i.i.d. tal que $X \sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma^2 > 0$ conhecido. Para
+\begin{equation*}
+H_0: \mu = \mu_0 \quad \text{e} \quad H_1: \mu \neq \mu_0,
+\end{equation*}
+não há um teste UMP.

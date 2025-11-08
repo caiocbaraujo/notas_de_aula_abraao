@@ -1,0 +1,32 @@
+﻿\begin{equation}
+\frac{l(\theta', x)}{l(\theta, x)} = \left( \frac{\theta}{\theta'} \right)^n \frac{\prod_{(0,\theta')} T(x_i)}{\prod_{(0,\theta)} T(x_i)},
+\end{equation}
+
+que é não decrescente em $T(x)$ para $\theta' > \theta$. Logo, $l(x, \theta)$ tem RVM.
+
+Exemplo: Sejam $X_1, \ldots, X_n$ uma a.a. de $X$ tendo uma família de PDFs em forma $f$ dada por:
+
+\begin{equation}
+g(x; \theta) = a(\theta) \cdot c(x) \cdot e^{x \cdot b(\theta)},
+\end{equation}
+
+para $x \in \mathbb{X}$ e $\theta \in \Theta$. Para $\theta' > \theta$:
+
+\begin{equation}
+\frac{l(\theta'; x)}{l(\theta; x)} = \frac{\prod_{i=1}^n g(x_i; \theta')}{\prod_{i=1}^n g(x_i; \theta)} 
+= \frac{a^n(\theta')}{a^n(\theta)} \cdot \frac{e^{\sum_i b(\theta') x_i}}{e^{\sum_i b(\theta) x_i}}
+\end{equation}
+
+\begin{equation}
+= \left( \frac{a(\theta')}{a(\theta)} \right)^n \exp \left\{ \sum_i x_i \left[ b(\theta') - b(\theta) \right] \right\}.
+\end{equation}
+
+Assim, $g(x; \theta)$ tem RVM se $b(\theta)$ é não decrescente.
+
+Por exemplo:
+
+\begin{equation}
+g(x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!} = e^{-\lambda} \cdot \frac{1}{x!} \cdot e^{x \log(\lambda)}
+\end{equation}
+
+tem RVM uma vez que $b(\lambda) = \log(\lambda)$ é não decrescente.

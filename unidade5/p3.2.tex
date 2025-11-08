@@ -1,0 +1,51 @@
+\newpage
+
+\begin{tikzpicture}[scale=1.2]
+    % Axes
+    \draw[->] (0,0) -- (6,0);
+    \draw[->] (0,0) -- (0,3);
+    
+    % Curve
+    \draw[thick,domain=0:5,smooth] plot(\x,{2.5*exp(-(\x-2.5)^2/2)});
+    
+    % Vertical line at chi^2_{n,\alpha}
+    \draw[dashed] (4.5,0) -- (4.5,2.0);
+    
+    % Shaded area
+    \fill[pattern=north east lines] (4.5,0) -- (4.5,1.2) -- (5,0) -- cycle;
+    
+    % Labels
+    \node at (4.5,-0.3) {$\chi^2_{n,\alpha}$};
+    \node at (5.3,1.2) {$\alpha$};
+\end{tikzpicture}
+
+Note que:
+\begin{equation}
+    P_{\theta} \left( \frac{\alpha}{\theta} \sum_{i=1}^n X_i < \chi^2_{n,\alpha} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+
+\begin{equation}
+    P_{\theta} \left( \frac{\alpha}{\theta} \sum_{i=1}^n X_i < \chi^2_{n,\alpha} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+
+\begin{equation}
+    P_{\theta} \left( \theta > \frac{\alpha \sum_{i=1}^n X_i}{\chi^2_{n,\alpha}} \right) = 1 - \alpha, \quad \forall \theta \in \mathbb{R}^+.
+\end{equation}
+
+Isto é:
+\begin{equation}
+    IC_{1-\alpha}(\theta) = \left( \frac{\alpha \sum_{i=1}^n X_i}{\chi^2_{n,\alpha}}, \infty \right).
+\end{equation}
+
+Obs.: Se o contraste fosse $H_0: \theta = \theta_0$ e $H_1: \theta < \theta_0$, teríamos como região de não rejeição:
+\begin{equation}
+    \mathcal{R} = \left\{ x \in \mathbb{R}^n : \frac{\alpha}{\theta_0} \sum_{i=1}^n x_i > \chi^2_{n,1-\alpha} \right\}
+\end{equation}
+
+\begin{equation}
+    P_{\theta} \left( \theta < \frac{\alpha \sum_{i=1}^n X_i}{\chi^2_{n,1-\alpha}} \right) = 1 - \alpha
+\end{equation}
+
+\begin{equation}
+    IC_{1-\alpha}(\theta) = \left( 0, \frac{\alpha \sum_{i=1}^n X_i}{\chi^2_{n,1-\alpha}} \right).
+\end{equation}

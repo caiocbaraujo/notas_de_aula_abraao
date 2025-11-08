@@ -1,0 +1,35 @@
+\[
+P_{\theta_0} \left( \left| \hat{\theta}_n - \theta^* \right| \leq \varepsilon \right) \leq P_{\theta_0} \left( \left| \hat{\theta}_n - \theta_0 \right| \leq \varepsilon \right) \xrightarrow[n \to \infty]{} 1
+\]
+
+Usando isso e o fato de 
+\[
+\frac{1}{n} \sum_{i=1}^n g(X_i) \xrightarrow{P} E \left[ g(X_i) \right] \leq \infty, 
+\]
+tem-se
+\[
+\frac{1}{n} g(\hat{\theta}_n) \quad \text{permanece limitada em probabilidade quando } n \to \infty.
+\]
+
+\textbf{Obs:} Uma sequência de v.a.'s $Y_n$ é limitada em probabilidade se $\forall \varepsilon > 0, \ \exists A(\varepsilon)$ tal que $P(|Y_n| > A) \leq \varepsilon$. Como consequência, se $E[Y_n]$ é uma sequência limitada, $\{Y_n, n \geq 1\}$ é limitada em probabilidade.
+
+Como $\hat{\theta}_n \xrightarrow{P} \theta_0$, vale-se que
+\[
+\frac{1}{n} \sum_{i=1}^n \frac{\partial}{\partial \theta} g(\theta) \xrightarrow{P} \frac{\partial}{\partial \theta} g(\theta_0).
+\]
+Aplicando (3.4.1(b)) em (3.4.1(a)):
+
+\[
+\sqrt{n} (\hat{\theta}_n - \theta_0) \approx \frac{\sqrt{n} \frac{\partial l(\theta)}{\partial \theta} \big|_{\theta = \theta_0}}{I_X(\theta_0)}.
+\]
+
+\[
+\frac{1}{\sqrt{n}} \sum_{i=1}^n \frac{\partial \log f(X_i; \theta)}{\partial \theta} \bigg|_{\theta = \theta_0} \xrightarrow{P} \frac{1}{I_X(\theta_0)}.
+\]
+
+Note que 
+\[
+\frac{\partial \log f(X_i; \theta)}{\partial \theta} \bigg|_{\theta = \theta_0}
+\]
+para $i = 1, \dots, n$ são v.a.'s i.i.d.
+

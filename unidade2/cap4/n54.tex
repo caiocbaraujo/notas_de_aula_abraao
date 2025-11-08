@@ -1,0 +1,30 @@
+\textbf{Solução} \\
+Como as hipóteses são do tipo simples x simples, o LNP se aplica. \\
+A verossimilhança em questão é
+\begin{equation}
+L(\mu; x) = (2\pi\sigma^2)^{-\frac{n}{2}} \exp\left\{-\frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2 \right\}
+\end{equation}
+
+Para $i = 0,1$ \\
+O teste MP tem a seguinte forma:
+\[
+\text{Rejeitar } H_0 \text{ se } \frac{L_1}{L_0} > k
+\]
+
+Note que:
+\begin{equation}
+\frac{L_1}{L_0} = \frac{L(\mu_1; x)}{L(\mu_0; x)} = \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^{n} (x_i - \mu_1)^2 - \sum_{i=1}^{n} (x_i - \mu_0)^2 \right] \right\}
+\end{equation}
+
+\begin{equation}
+= \exp\left\{ -\frac{1}{2\sigma^2} \left[ -2\mu_1 \sum_{i=1}^{n} x_i + n\mu_1^2 + 2\mu_0 \sum_{i=1}^{n} x_i - n\mu_0^2 \right] \right\}
+\end{equation}
+
+\begin{equation}
+= \exp\left\{ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^{n} x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\}
+\end{equation}
+
+Daí, a região crítica deste teste é dada por: \\
+Para $\mathcal{X} = \mathbb{R}^n$ como o espaço amostral.
+
+

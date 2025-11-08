@@ -1,0 +1,35 @@
+\[
+\psi_{\Upsilon}(x) = 
+\begin{cases}
+1, & \text{se } \sqrt{n} \frac{(\bar{X}_n - \mu_0)}{\sigma} > z_{\alpha} \\
+0, & \text{o.c.}
+\end{cases}
+\]
+
+Por outro lado, para testar $H_0: \mu = \mu_0$ vs $H_1: \mu < \mu_0$, vale-se o seguinte argumento, para $\mu^* < \mu$:
+
+\[
+\frac{f(t; \mu^*)}{f(t; \mu)} = \exp\left\{ \frac{1}{2n\sigma^2} \left[ 2n t (\mu^* - \mu) + n^2 (\mu^{*2} - \mu^2) \right] \right\}
+\]
+
+Tem RVM não crescente, então o seguinte teste de nível $\alpha$ é UMP.
+
+Pelo teorema KR, $\psi_{\Upsilon}$ tal que
+
+\[
+\psi_{\Upsilon}(x) = 
+\begin{cases}
+1, & \sqrt{n} \frac{(\bar{X}_n - \mu_0)}{\sigma} < - z_{\alpha} \\
+0, & \sqrt{n} \frac{(\bar{X}_n - \mu_0)}{\sigma} \geq - z_{\alpha}
+\end{cases}
+\]
+
+Suponha que $x$ é uma amostra tal que a estatística calculada
+
+\[
+z_{\text{cal}} = \sqrt{n} \frac{(\bar{X}_n - \mu_0)}{\sigma}
+\]
+não excede $- z_{\alpha}$.
+
+Então $\psi_{\Upsilon}(x) = 0$ e $\psi_{\Upsilon}(x) = 1$ e, portanto, $\psi_{\Upsilon}(x)$ fica indefinido.
+

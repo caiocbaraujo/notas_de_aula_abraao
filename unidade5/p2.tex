@@ -1,0 +1,35 @@
+\begin{equation}
+P_{\alpha}(\mu \in I_{\alpha}) = P_{\mu} \left( \bar{X} - \frac{1.96}{\sqrt{\nu}} < \mu < \bar{X} + \frac{1.96}{\sqrt{\nu}} \right)
+\end{equation}
+
+\begin{equation}
+= P_{\mu} \left[ \frac{\bar{X} - \mu}{\sqrt{\nu}} < 1.96 \right] \cap \left[ \frac{\bar{X} - \mu}{\sqrt{\nu}} > -1.96 \right]
+\end{equation}
+
+\begin{equation}
+= P_{\mu} \left( \left| \frac{\bar{X} - \mu}{\sqrt{\nu}} \right| < 1.96 \right)
+\end{equation}
+
+\begin{equation}
+= P_{\mu} \left( |Z| < 1.96 \right) = 95\%
+\end{equation}
+
+\textbf{Aula 21 (25/06/2025)}
+
+Para construção de intervalos de confiança, podem-se utilizar duas abordagens: (i) inversão do procedimento de teste de hipótese e (ii) usando quantidade pivotal.
+
+\textbf{Inversão de um procedimento de teste}
+
+Em teste de hipótese, a região de não rejeição de $H_0$ foi denotada como
+
+\begin{equation}
+R_C^C = 
+\begin{cases}
+\{ x \in \mathcal{X}^n; \ T(x|\theta) \leq k \}^C & \text{para } H_1: \theta > \theta_0, \\
+\{ x \in \mathcal{X}^n; \ T(x|\theta) \geq k \}^C & \text{para } H_1: \theta < \theta_0, \\
+\text{(como uma solução plausível)} \\
+\{ x \in \mathcal{X}^n; \ |T(x|\theta)| \leq k \}^C & \text{para } H_1: \theta \neq \theta_0.
+\end{cases}
+\end{equation}
+
+O intervalo de confiança é bastante relacionado com $R_C$.

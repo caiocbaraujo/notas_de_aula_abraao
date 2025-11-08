@@ -1,0 +1,33 @@
+
+
+\textbf{Ex:} Sejam $x_1, \ldots, x_n$ uma amostra de $X$ tendo uma família de fdp (ou fmp)
+\[
+g(x; \theta) = a(\theta) \cdot c(x) \cdot e^{t(x) \cdot b(\theta)}, \quad \text{para } t \in \mathbb{X} \subset \mathbb{R} \text{ e } \theta \in \Theta.
+\]
+Para $\theta^*, \theta \in \Theta$ tal que $\theta^* \geq \theta$,
+
+\begin{equation}
+\frac{l(\theta^*; \mathbf{x})}{l(\theta; \mathbf{x})} 
+= \frac{\prod_{i=1}^n g(x_i; \theta^*)}{\prod_{i=1}^n g(x_i; \theta)}
+= \frac{a^n(\theta^*) \prod_{i=1}^n c(x_i) \cdot \exp\left\{ \sum_{i=1}^n t(x_i) b(\theta^*) \right\}}
+{a^n(\theta) \prod_{i=1}^n c(x_i) \cdot \exp\left\{ \sum_{i=1}^n t(x_i) b(\theta) \right\}}
+\end{equation}
+
+\[
+= \frac{a^n(\theta^*)}{a^n(\theta)} \cdot \exp\left\{ \sum_{i=1}^n t(x_i) \left[ b(\theta^*) - b(\theta) \right] \right\}.
+\]
+
+Assim $\{ g(x; \theta) : \theta \in \Theta \}$ tem RVM se $b(\theta)$ é não decrescente.
+
+\textbf{Exemplo (Poisson):} Seja $X \sim \text{Poisson}(\lambda)$, então
+\[
+f(x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!} = e^{-\lambda} \cdot \frac{1}{x!} \cdot e^{x \log \lambda},
+\]
+ou seja,
+\[
+f(x; \lambda) = a(\lambda) \cdot c(x) \cdot e^{t(x) \cdot b(\lambda)},
+\]
+onde $a(\lambda) = e^{-\lambda}$, $c(x) = \frac{1}{x!}$, $t(x) = x$ e $b(\lambda) = \log \lambda$.
+
+Como $b(\lambda) = \log \lambda$ é uma função não decrescente em $\lambda > 0$, a família Poisson tem RVM.
+

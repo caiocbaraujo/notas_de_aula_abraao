@@ -1,0 +1,35 @@
+Uma vez que (para $x \in (0,4)$)
+\begin{equation}
+F_0(x) = \int_0^x \frac{3}{64} t^2 \, dt = \frac{3}{64} \left[ \frac{t^3}{3} \right]_0^x = \frac{x^3}{64}
+\end{equation}
+
+Como discutido sob $H_0$
+\begin{equation}
+-2 \log F_0(x_i) \sim \chi^2_2, \quad \text{para } i = 1, 2
+\end{equation}
+
+Daí,
+\begin{equation}
+R_c = \{ (x_1, x_2) \in (0,4) \times (0,4) ; \, F_0(x_1) \cdot F_0(x_2) < k_2 \}
+\end{equation}
+\begin{equation}
+F_0(x) = \frac{x^3}{64} \quad \Rightarrow \quad \frac{x_1^3}{64} \cdot \frac{x_2^3}{64} < k_2
+\end{equation}
+
+\begin{equation}
+\{ (x_1, x_2) \in (0,4) \times (0,4) ; \, \sum_{i=1}^2 -2 \log F_0(x_i) > -2 \log k_2 \}
+\end{equation}
+
+Note que
+\begin{equation}
+Q(x_1, x_2) \triangleq -2 \sum_{i=1}^2 \log F_0(x_i) \sim \chi^2_4
+\end{equation}
+
+Daí, o teste MP de nível $\alpha$ é:
+\begin{equation}
+\text{Rejeita-se } H_0 \text{ se e só se } Q(x_1, x_2) > \chi^2_{4, \alpha}
+\end{equation}
+tal que
+\begin{equation}
+P_2(Q > \chi^2_{4, \alpha}) = \alpha \quad \text{e} \quad Q \sim \chi^2_4
+\end{equation}

@@ -1,0 +1,43 @@
+\[
+= \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i^2 \left( \frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2} \right) < \underbrace{-2\log \left[ k \left( \frac{\sigma_1^2}{\sigma_0^2} \right)^{n/2} \right]}_{k_1} \right\}
+\]
+\[
+= \left\{ x \in \mathcal{X} : \sum_{i=1}^n \frac{x_i^2}{\sigma_0^2} < \underbrace{\frac{\sigma_0^2}{\sigma_0^2 - \sigma_1^2} k_1}_{k_2} \right\}
+\]
+
+Definamos a função $Q : \mathcal{X} \to \mathbb{R}^*$ tal que
+\[
+Q(x) = \sum_{i=1}^n \left( \frac{x_i}{\sigma_0} \right)^2
+\]
+
+Note que para $X = (x_1, \ldots, x_n)^T$, $Q(X) \overset{\text{sob } H_0}{\sim} \chi^2_n$. Assim o teste fica definido como: rejeita-se $H_0$ se
+\[
+x \in \mathcal{R}_c := \{ x \in \mathcal{X} : Q(x) < \chi^2_{n, 1-\alpha} \}
+\]
+em que $\chi^2_{n, 1-\alpha}$ é solução de
+\[
+P_{H_0} \left\{ Q < \chi^2_{n, 1-\alpha} \right\} = \alpha
+\]
+
+Finalmente
+\[
+\psi(x) = 
+\begin{cases}
+1, & Q(x) < \chi^2_{n, 1-\alpha} \\
+0, & Q(x) \geq \chi^2_{n, 1-\alpha}
+\end{cases}
+\]
+é a função crítica do teste UMP para $H_0 \times H_1$, também além de ser o teste MP para $H_0 \times H_1$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-0.5,0) -- (6,0) node[right] {};
+\draw[->] (0,-0.2) -- (0,1.5) node[above] {};
+\draw[domain=0.5:5.5,smooth,variable=\x] plot ({\x},{exp(-(\x-3)^2)});
+\draw[dashed] (4.2,0) -- (4.2,{exp(-(4.2-3)^2)});
+\node at (4.2,-0.2) {$\chi^2_{n,1-\alpha}$};
+\fill[pattern=north east lines] (4.2,0) -- (4.2,{exp(-(4.2-3)^2)}) plot[domain=4.2:5.5] ({\x},{exp(-(\x-3)^2)}) -- (5.5,0) -- cycle;
+\node at (5,0.5) {$\alpha$};
+\node at (2,0.5) {$1-\alpha$};
+\end{tikzpicture}
+\end{center}

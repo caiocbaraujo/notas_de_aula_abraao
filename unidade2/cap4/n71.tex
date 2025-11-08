@@ -1,0 +1,31 @@
+\newpage
+
+\section*{07/11/25}
+
+\subsection*{Q(4.10)}
+Sejam $x_1, \ldots, x_n$ uma amostra de $X \sim N(0, \sigma^2)$, em que $\sigma^2 > 0$ e é desconhecido. Fixando $\alpha \in (0,1)$, considere obter o teste \textbf{UMP} de nível $\alpha$ para
+\begin{equation}
+H_0 : \sigma = \sigma_0 \quad \text{vs} \quad H_1 : \sigma < \sigma_0, \quad \text{em que} \quad \sigma_0 > 0.
+\end{equation}
+
+\subsection*{Solução}
+Fixemos $\sigma_1 \in \Theta = \mathbb{R}^+$ tal que $\sigma_1 < \sigma_0$ e reescrevemos a hipótese alternativa como
+\begin{equation}
+H_1' : \sigma = \sigma_1 \ (\sigma_1 < \sigma_0).
+\end{equation}
+Assim, o LNP pode ser aplicado para $H_0 \times H_1'$.
+
+A função de verossimilhança é dada por:
+\begin{equation}
+L_k \triangleq L(\sigma_k; x) = \prod_{j=1}^n f(x_j; \sigma_k) = \prod_{j=1}^n (2\pi \sigma_k^2)^{-1/2} \exp\left\{ -\frac{1}{2\sigma_k^2} \sum_{j=1}^n x_j^2 \right\}, \quad k=0,1.
+\end{equation}
+
+Portanto, $H_0$ é rejeitada quando o vetor $x = (x_1, \ldots, x_n)^T$ pertence a (para $\mathcal{X} = \mathbb{R}^n$):
+\begin{equation}
+\begin{aligned}
+R &= \left\{ x \in \mathcal{X} : \frac{L_1}{L_0} > k \right\} \\
+&= \left\{ x \in \mathcal{X} : \left( \frac{\sigma_1^2}{\sigma_0^2} \right)^{-n/2} e^{-\frac{1}{2} \sum_{i=1}^n x_i^2 \left( \frac{1}{\sigma_0^2} - \frac{1}{\sigma_1^2} \right)} > k \right\} \\
+&= \left\{ x \in \mathcal{X} : -\frac{1}{2} \sum_{i=1}^n x_i^2 \left( \frac{\sigma_0^2 - \sigma_1^2}{\sigma_0^2 \sigma_1^2} \right) > \log\left[ k \left( \frac{\sigma_1^2}{\sigma_0^2} \right)^{n/2} \right] \right\}.
+\end{aligned}
+\end{equation}
+

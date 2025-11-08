@@ -1,0 +1,32 @@
+﻿para $\theta_0' < \theta_1'$.
+
+Agora, estamos em posição de mostrar o seguinte resultado.
+
+\textbf{Teorema:} Sejam $X_1, \ldots, X_n$ uma amostra de $X_i \sim U(0, \theta)$. Considere testar
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta > \theta_0
+\end{equation}
+tal que $\theta_0$ é fixado. O teste $Y^*$ com função crítica
+\begin{equation}
+\psi_{Y^*}(x) = 
+\begin{cases}
+1, & \text{se } T(x) \geq \theta_0 \ \text{ou} \ T(x) \leq \theta_0 \alpha^{1/n} \\
+0, & \text{c.c.}
+\end{cases}
+\end{equation}
+é um UMP de nível $\alpha$.
+
+\textit{Prova:} Como $P_{\theta_0}(T(X) > \theta_0) = 0$,
+\begin{equation}
+\begin{aligned}
+E_{\theta_0}[\psi_{Y^*}(X)] &= P_{\theta_0}\left( T(X) \leq \theta_0 \alpha^{1/n} \right) \\
+&= \int_{0}^{\theta_0 \alpha^{1/n}} u \cdot u^{n-1} \theta_0^{-n} \, du \\
+&= \left[ \frac{u^n}{\theta_0^n} \right]_{0}^{\theta_0 \alpha^{1/n}} \\
+&= \alpha.
+\end{aligned}
+\end{equation}
+
+Pelo Teorema K.R., um teste $Y^{**}$ UMP para 
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \leq \theta_0
+\end{equation}

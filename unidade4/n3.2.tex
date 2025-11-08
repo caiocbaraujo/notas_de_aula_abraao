@@ -1,0 +1,37 @@
+﻿$H_0: \theta = 5,5 \quad H_1: \theta = 8$
+
+Para tal considere o teste: Rejeitar-se $H_0$ se $x_1 > x_c$, $x_c = 7$. Calcule $\alpha$ e $\beta$.
+
+\textbf{Solução:} Temos:
+
+\begin{equation}
+\alpha = P_{H_0}(\text{erro tipo I}) = P(x_1 > 7) = P\left( \frac{x_1 - 5,5}{\sigma} > \frac{7 - 5,5}{\sigma} \right) \quad \sigma = 1, \quad Z \sim N(0,1)
+\end{equation}
+
+\begin{equation}
+\alpha = P(Z > 1,5) = 1 - P(Z \leq 1,5)
+\end{equation}
+
+\begin{equation}
+\alpha = 1 - \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{1,5} e^{-t^2/2} \, dt = 1 - \Phi(1,5)
+\end{equation}
+
+\begin{equation}
+\alpha = 0,06671
+\end{equation}
+
+\begin{equation}
+\beta = P_{H_1}(\text{não rejeitar } H_0) = P(x_1 \leq 7) = P\left( \frac{x_1 - 8}{\sigma} \leq \frac{7 - 8}{\sigma} \right) \quad \sigma = 1, \quad Z \sim N(0,1)
+\end{equation}
+
+\begin{equation}
+\beta = P(Z \leq -1) = \Phi(-1)
+\end{equation}
+
+\begin{equation}
+\beta = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{-1} e^{-t^2/2} \, dt = 0,15866
+\end{equation}
+
+Outra quantidade importante em teste de hipótese é a função poder.
+
+\textbf{Definição:} O poder é a função poder de um teste $T$, denotada por $Q_T(\theta)$, e é a probabilidade de rejeitar $H_0$ quando $\theta \in \Theta_1$.

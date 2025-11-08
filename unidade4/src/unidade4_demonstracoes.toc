@@ -1,0 +1,22 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{2}{section.1}%
+\contentsline {section}{\numberline {2}Lema de Neyman-Pearson}{2}{section.2}%
+\contentsline {section}{\numberline {3}Teorema de Karlin-Rubin}{4}{section.3}%
+\contentsline {section}{\numberline {4}Construção de Testes MP/UMP para Famílias Clássicas}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Teste MP para Normal (Média, Variância Conhecida)}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Teste MP para Exponencial}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Teste MP para Poisson}{7}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Teste MP para Bernoulli}{8}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Teste UMP para Distribuição Uniforme}{8}{section.5}%
+\contentsline {section}{\numberline {6}Função Poder e Propriedades}{9}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Exemplo: Função Poder para Teste Z}{10}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Ranking de Prioridade das Demonstrações}{11}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Tabela de Avaliação}{11}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Ranking Final: Top 5 Demonstrações}{11}{subsection.7.2}%
+\contentsline {subsubsection}{\numberline {7.2.1}1º Lugar: Teorema de Karlin-Rubin (Nota: 8.95)}{11}{subsubsection.7.2.1}%
+\contentsline {subsubsection}{\numberline {7.2.2}2º Lugar: Lema de Neyman-Pearson (Nota: 8.85)}{12}{subsubsection.7.2.2}%
+\contentsline {subsubsection}{\numberline {7.2.3}3º Lugar: Teste MP para Normal (Nota: 7.75)}{12}{subsubsection.7.2.3}%
+\contentsline {subsubsection}{\numberline {7.2.4}4º Lugar: Teste MP para Exponencial (Nota: 7.05)}{12}{subsubsection.7.2.4}%
+\contentsline {subsubsection}{\numberline {7.2.5}5º Lugar: Teste UMP para Uniforme (Nota: 6.95)}{13}{subsubsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.3}Estratégia de Estudo Recomendada}{13}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Observações Finais}{14}{subsection.7.4}%

@@ -1,0 +1,37 @@
+em que
+\[
+\Theta = \{\mu, \sigma\} : \mu \text{ fixado e } \sigma \in \mathbb{R}_+
+\]
+e
+\[
+\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \mu)^2.
+\]
+Finalmente,
+\begin{equation}
+\Lambda = \left\{ \frac{\hat{\sigma}^2}{\sigma_0^2} \right\}^{n/2} \exp \left\{ -\frac{1}{2} \sum_{i=1}^n \frac{(x_i - \mu)^2}{\sigma_0^2} + \frac{n}{2} \right\}
+\end{equation}
+\[
+= \left[ \frac{\hat{\sigma}^2}{\sigma_0^2} \right]^{n/2} \exp \left( 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2}.
+\]
+
+Deste modo, o TRV fica definido como
+
+\[
+\text{rejeita-se } H_0 \Longleftrightarrow \Lambda < k \quad (\alpha \in (0,1)).
+\]
+
+Como $x^{1/x}$ para $x>0$ é inicialmente crescente, da relação acima, temos:
+
+\begin{equation}
+R_c = \left\{ \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right) \exp \left\{ 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right\} < k^{2/n} \right\}
+\end{equation}
+
+A fim de apresentar o RV em uma forma implementável, vamos proceder como segue. Considere que
+\[
+g(u) = u e^{1-u}, \quad u > 0
+\]
+Note que
+\[
+\lim_{u \to 0} g(u) = 0 \quad \text{e} \quad \lim_{u \to \infty} g(u) = 0.
+\]
+

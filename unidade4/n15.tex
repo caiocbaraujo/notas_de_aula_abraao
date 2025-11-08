@@ -1,0 +1,40 @@
+﻿Um que
+\begin{equation}
+P_{H_0} \left( \sum_{i=1}^n X_i = k_1 \right) = e^{-n\lambda_0} \frac{(n\lambda_0)^{k_1}}{k_1!}
+\end{equation}
+
+\begin{equation}
+P_{H_0} \left( \sum_{i=1}^n X_i > k_1 \right) = \sum_{l = k_1 + 1}^{\infty} \frac{e^{-n\lambda_0} (n\lambda_0)^l}{l!}
+\end{equation}
+
+Da discussão anterior, a probabilidade do erro tipo 1 é dada por:
+\begin{equation}
+\alpha = \delta \, P_{H_0} \left( \sum_{i=1}^n X_i = k_1 \right) + P_{H_0} \left( \sum_{i=1}^n X_i > k_1 \right)
+\end{equation}
+
+\textbf{Resumo:}
+
+\textbf{Contexto:} $X_1, \ldots, X_n$ a.c. tal que $X_i \sim \text{Poisson}(\lambda)$
+
+\textbf{Hipóteses:}
+\[
+\begin{cases}
+H_0: \lambda = \lambda_0 \\
+H_1: \lambda = \lambda_1
+\end{cases}
+\]
+
+\textbf{Estatística de teste:}
+\[
+T(X) = \left( \sum_{i=1}^n X_i \right) \sim \text{Poisson}(n\lambda)
+\]
+
+\textbf{Função crítica:}
+\[
+\psi(T) =
+\begin{cases}
+1, & \text{se } T > k_1, \\
+\delta, & \text{se } T = k_1, \\
+0, & \text{se } T < k_1
+\end{cases}
+\]

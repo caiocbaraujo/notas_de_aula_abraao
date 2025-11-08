@@ -1,0 +1,45 @@
+\begin{equation}
+\sum_{i=1}^n (x_i - c)^2 = \sum_{i=1}^n (x_i - \bar{x} + \bar{x} - c)^2
+\end{equation}
+
+\begin{equation}
+= \sum_{i=1}^n \left\{ (x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - c) + (\bar{x} - c)^2 \right\}
+\end{equation}
+
+\begin{equation}
+= \sum_{i=1}^n (x_i - \bar{x})^2 + n (\bar{x} - c)^2
+\end{equation}
+
+Assim,
+
+\begin{equation}
+\Lambda = \exp \left\{ -\frac{1}{2\sigma^2} \left[ n (\bar{x} - \mu_0)^2 \right] \right\}
+\end{equation}
+
+O TRU fica definido por
+
+\textit{"Rejeitar $H_0$ se, e só se, $\Lambda < k'$"}
+
+\begin{equation}
+\Leftrightarrow \left\{ n \left( \frac{\bar{x} - \mu_0}{\sigma} \right)^2 > -2 \log k' \right\}
+\end{equation}
+
+\begin{equation}
+\Leftrightarrow \left\{ \sqrt{n} \left| \frac{\bar{x} - \mu_0}{\sigma} \right| > \sqrt{-2 \log k'} \right\}
+\end{equation}
+
+\begin{equation}
+\Leftrightarrow \left\{ |Z(x_1)| > k'' \right\}
+\end{equation}
+
+em que 
+\begin{equation}
+Z(x_1) = \sqrt{n} \left( \frac{\bar{x} - \mu_0}{\sigma} \right)
+\end{equation}
+
+Note como $k'' = z_{\alpha/2}$ e satisfaz 
+
+\begin{equation}
+P_{H_0} \left( |Z| > z_{\alpha/2} \right) = \alpha
+\end{equation}
+

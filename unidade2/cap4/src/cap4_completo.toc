@@ -1,0 +1,17 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {paragraph}{4.1 Introdução e Conceitos Fundamentais}{1}{section*.4}%
+\contentsline {paragraph}{4.2 Probabilidade de Erro e Função Poder}{2}{section*.5}%
+\contentsline {paragraph}{4.3 Lema de Neyman-Pearson (LNP)}{2}{section*.6}%
+\contentsline {paragraph}{4.4 Testes para Hipóteses Compostas Unilaterais}{2}{section*.7}%
+\contentsline {paragraph}{4.5 Testes para Hipóteses Bilaterais}{2}{section*.8}%
+\contentsline {paragraph}{4.6 Estatísticas de Teste Clássicas}{2}{section*.9}%
+\contentsline {paragraph}{Definição (4.1.1)}{5}{section*.16}%
+\contentsline {paragraph}{Exemplo:}{30}{section*.57}%
+\contentsline {paragraph}{Etapa 1: Formulação do Problema}{35}{section*.70}%
+\contentsline {paragraph}{Etapa 2: Escolha do Método de Teste}{36}{section*.71}%
+\contentsline {paragraph}{Etapa 3: Cálculo da Estatística de Teste}{36}{section*.72}%
+\contentsline {paragraph}{Etapa 4: Tomada de Decisão}{37}{section*.73}%
+\contentsline {paragraph}{Etapa 5: Interpretação}{37}{section*.74}%
+\contentsline {paragraph}{Relação entre Estatísticas Suficientes e Testes Ótimos}{37}{section*.77}%
+\contentsline {paragraph}{Função Poder e Comparação de Testes}{37}{section*.78}%
+\contentsline {paragraph}{Trade-off entre Erros Tipo I e II}{37}{section*.79}%

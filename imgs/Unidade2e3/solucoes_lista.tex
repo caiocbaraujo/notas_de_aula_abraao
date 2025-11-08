@@ -1,0 +1,388 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumitem}
+
+\newtheorem{solution}{Solução}
+
+\title{Gabarito - Lista de Exercícios de Inferência Estatística}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+\maketitle
+
+\section{Convergência Estocástica}
+
+\begin{solution}[Exercício 1]
+Para qualquer $\varepsilon > 0$:
+$$P(|X_n| > \varepsilon) = P(X_n > \varepsilon) = \begin{cases}
+1 - n\varepsilon & \text{se } \varepsilon < 1/n \\
+0 & \text{se } \varepsilon \geq 1/n
+\end{cases}$$
+
+Quando $n \to \infty$, temos $1/n \to 0$, então para qualquer $\varepsilon > 0$ fixo, eventualmente $\varepsilon \geq 1/n$, e portanto $P(|X_n| > \varepsilon) \to 0$.
+\end{solution}
+
+\begin{solution}[Exercício 2]
+$E[X_i] = \frac{1}{i}$ e $\text{Var}(X_i) = \frac{1}{i^2}$.
+
+$E\left[\frac{1}{n}\sum_{i=1}^n X_i\right] = \frac{1}{n}\sum_{i=1}^n \frac{1}{i} \to 1$ (pois $\sum_{i=1}^n \frac{1}{i} \sim \log n$).
+
+$\text{Var}\left(\frac{1}{n}\sum_{i=1}^n X_i\right) = \frac{1}{n^2}\sum_{i=1}^n \frac{1}{i^2} \to 0$.
+
+Pela desigualdade de Chebyshev: $P\left(\left|\frac{1}{n}\sum_{i=1}^n X_i - 1\right| > \varepsilon\right) \leq \frac{\text{Var}}{\varepsilon^2} \to 0$.
+\end{solution}
+
+\begin{solution}[Exercício 3]
+$X_n \sim \text{Binomial}(n, 1/n)$.
+
+$P(X_n = k) = \binom{n}{k} \left(\frac{1}{n}\right)^k \left(1 - \frac{1}{n}\right)^{n-k}$
+
+Quando $n \to \infty$:
+$$\binom{n}{k} \left(\frac{1}{n}\right)^k = \frac{n(n-1)\cdots(n-k+1)}{k!} \cdot \frac{1}{n^k} \to \frac{1}{k!}$$
+
+$$\left(1 - \frac{1}{n}\right)^{n-k} = \left(1 - \frac{1}{n}\right)^n \cdot \left(1 - \frac{1}{n}\right)^{-k} \to e^{-1} \cdot 1 = e^{-1}$$
+
+Portanto: $X_n \xrightarrow{d} \text{Poisson}(1)$.
+\end{solution}
+
+\begin{solution}[Exercício 4]
+Pelo Teorema Central do Limite:
+$$\frac{\sum_{i=1}^n X_i - n \cdot 0}{\sqrt{n} \cdot 1} = \frac{1}{\sqrt{n}}\sum_{i=1}^n X_i \xrightarrow{d} N(0,1)$$
+\end{solution}
+
+\section{Teorema Central do Limite e Aproximações}
+
+\begin{solution}[Exercício 5]
+$\bar{X} \sim N(5, \frac{0.1^2}{100}) = N(5, 0.01)$.
+
+$P(4.98 \leq \bar{X} \leq 5.02) = P\left(\frac{4.98-5}{0.1} \leq \frac{\bar{X}-5}{0.1} \leq \frac{5.02-5}{0.1}\right)$
+
+$= P(-0.2 \leq Z \leq 0.2) = 2\Phi(0.2) - 1 = 2 \cdot 0.5793 - 1 = 0.1586$
+\end{solution}
+
+\begin{solution}[Exercício 6]
+$X \sim \text{Binomial}(50, 0.25)$ com $E[X] = 12.5$ e $\text{Var}(X) = 9.375$.
+
+$P(10 \leq X \leq 15) = P(9.5 \leq X \leq 15.5)$ (correção de continuidade)
+
+$= P\left(\frac{9.5-12.5}{3.06} \leq \frac{X-12.5}{3.06} \leq \frac{15.5-12.5}{3.06}\right)$
+
+$= P(-0.98 \leq Z \leq 0.98) = 2\Phi(0.98) - 1 = 2 \cdot 0.8365 - 1 = 0.673$
+\end{solution}
+
+\begin{solution}[Exercício 7]
+$X \sim \text{Poisson}(100) \approx N(100, 100)$.
+
+$P(95 \leq X \leq 105) = P(94.5 \leq X \leq 105.5)$
+
+$= P\left(\frac{94.5-100}{10} \leq \frac{X-100}{10} \leq \frac{105.5-100}{10}\right)$
+
+$= P(-0.55 \leq Z \leq 0.55) = 2\Phi(0.55) - 1 = 2 \cdot 0.7088 - 1 = 0.4176$
+\end{solution}
+
+\begin{solution}[Exercício 8]
+Aplicando o método delta com $g(x) = \log x$:
+
+$g'(\mu) = \frac{1}{\mu}$
+
+Portanto: $\sqrt{n}(\log \bar{X}_n - \log \mu) \xrightarrow{d} N\left(0, \frac{\sigma^2}{\mu^2}\right)$
+\end{solution}
+
+\section{Estimação Pontual}
+
+\begin{solution}[Exercício 9]
+$f(x; \theta) = 1$ para $\theta \leq x \leq \theta + 1$.
+
+$L(\theta) = \begin{cases}
+1 & \text{se } \theta \leq \min(x_i) \text{ e } \max(x_i) \leq \theta + 1 \\
+0 & \text{caso contrário}
+\end{cases}$
+
+Para maximizar $L(\theta)$, precisamos de $\theta \leq \min(x_i)$ e $\theta \geq \max(x_i) - 1$.
+
+Portanto: $\hat{\theta} = \max(x_i) - 1$.
+\end{solution}
+
+\begin{solution}[Exercício 10]
+$\ell(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2$
+
+$\frac{\partial \ell}{\partial \mu} = \frac{1}{\sigma^2}\sum_{i=1}^n (x_i - \mu) = 0 \Rightarrow \hat{\mu} = \bar{x}$
+
+$\frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2}\sum_{i=1}^n (x_i - \mu)^2 = 0$
+
+$\Rightarrow \hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2$
+\end{solution}
+
+\begin{solution}[Exercício 11]
+$f(x; \beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}$
+
+$\ell(\beta) = \log\Gamma(\alpha + \beta) - \log\Gamma(\beta) + (\alpha-1)\sum\log x_i + (\beta-1)\sum\log(1-x_i)$
+
+$\frac{\partial \ell}{\partial \beta} = \psi(\alpha + \beta) - \psi(\beta) + \sum\log(1-x_i) = 0$
+
+onde $\psi$ é a função digama. A solução deve ser encontrada numericamente.
+\end{solution}
+
+\begin{solution}[Exercício 12]
+$f(x; \beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$
+
+$\ell(\beta) = \alpha\log\beta - \log\Gamma(\alpha) + (\alpha-1)\sum\log x_i - \beta\sum x_i$
+
+$\frac{\partial \ell}{\partial \beta} = \frac{\alpha}{\beta} - \sum x_i = 0 \Rightarrow \hat{\beta} = \frac{\alpha}{\bar{x}}$
+\end{solution}
+
+\section{Intervalos de Confiança}
+
+\begin{solution}[Exercício 13]
+$t_{0.05, 29} = 1.699$
+
+$IC_{90\%} = 15.3 \pm 1.699 \cdot \frac{2.8}{\sqrt{30}} = 15.3 \pm 0.87 = [14.43, 16.17]$
+\end{solution}
+
+\begin{solution}[Exercício 14]
+$\hat{p} = \frac{180}{500} = 0.36$
+
+$z_{0.025} = 1.96$
+
+$IC_{95\%} = 0.36 \pm 1.96 \sqrt{\frac{0.36 \cdot 0.64}{500}} = 0.36 \pm 0.042 = [0.318, 0.402]$
+\end{solution}
+
+\begin{solution}[Exercício 15]
+$\chi^2_{0.005, 19} = 38.582$, $\chi^2_{0.995, 19} = 6.844$
+
+$IC_{99\%} = \left[\frac{19 \cdot 4.5}{38.582}, \frac{19 \cdot 4.5}{6.844}\right] = [2.22, 12.50]$
+\end{solution}
+
+\begin{solution}[Exercício 16]
+$s_p^2 = \frac{24 \cdot 2.1^2 + 29 \cdot 2.8^2}{53} = \frac{105.84 + 227.36}{53} = 6.28$
+
+$t_{0.025, 53} \approx 2.01$
+
+$IC_{95\%} = (12.5 - 14.2) \pm 2.01 \sqrt{6.28\left(\frac{1}{25} + \frac{1}{30}\right)} = -1.7 \pm 0.78 = [-2.48, -0.92]$
+\end{solution}
+
+\section{Testes de Hipóteses}
+
+\begin{solution}[Exercício 17]
+$t = \frac{9.8 - 10}{0.3/\sqrt{16}} = \frac{-0.2}{0.075} = -2.67$
+
+$t_{0.025, 15} = 2.131$
+
+Como $|t| = 2.67 > 2.131$, rejeitamos $H_0$.
+
+Valor-p: $2P(T_{15} < -2.67) \approx 0.017$
+\end{solution}
+
+\begin{solution}[Exercício 18]
+$\hat{p} = \frac{150}{200} = 0.75$
+
+$Z = \frac{0.75 - 0.80}{\sqrt{0.80 \cdot 0.20/200}} = \frac{-0.05}{0.0283} = -1.77$
+
+$z_{0.01} = 2.326$
+
+Como $Z = -1.77 > -2.326$, não rejeitamos $H_0$.
+
+Valor-p: $P(Z < -1.77) = 0.038$
+\end{solution}
+
+\begin{solution}[Exercício 19]
+$s_p^2 = \frac{19 \cdot 1.2^2 + 24 \cdot 1.5^2}{43} = \frac{27.36 + 54}{43} = 1.89$
+
+$t = \frac{12.5 - 13.1}{1.37\sqrt{\frac{1}{20} + \frac{1}{25}}} = \frac{-0.6}{0.41} = -1.46$
+
+$t_{0.025, 43} \approx 2.02$
+
+Como $|t| = 1.46 < 2.02$, não rejeitamos $H_0$.
+\end{solution}
+
+\begin{solution}[Exercício 20]
+$E_i = 20$ para cada face.
+
+$\chi^2 = \frac{(18-20)^2 + (22-20)^2 + (19-20)^2 + (21-20)^2 + (20-20)^2 + (20-20)^2}{20} = \frac{4+4+1+1+0+0}{20} = 0.5$
+
+$\chi^2_{0.05, 5} = 11.07$
+
+Como $\chi^2 = 0.5 < 11.07$, não rejeitamos $H_0$.
+\end{solution}
+
+\section{Análise de Variância}
+
+\begin{solution}[Exercício 21]
+$\bar{x}_A = 48.75$, $\bar{x}_B = 41$, $\bar{x}_C = 58.75$, $\bar{x}_{total} = 49.5$
+
+$SQE = 8[(48.75-49.5)^2 + (41-49.5)^2 + (58.75-49.5)^2] = 8[0.56 + 72.25 + 85.56] = 1266.96$
+
+$SQR = \sum_{i=1}^3 \sum_{j=1}^4 (x_{ij} - \bar{x}_i)^2 = 14 + 14 + 14 = 42$
+
+$F = \frac{SQE/2}{SQR/21} = \frac{633.48}{2} = 316.74$
+
+$F_{0.05, 2, 21} = 3.47$
+
+Como $F = 316.74 > 3.47$, rejeitamos $H_0$.
+\end{solution}
+
+\begin{solution}[Exercício 22]
+$\bar{x}_1 = 27.67$, $\bar{x}_2 = 24$, $\bar{x}_3 = 32.33$, $\bar{x}_4 = 22.67$, $\bar{x}_{total} = 26.67$
+
+$SQE = 3[(27.67-26.67)^2 + (24-26.67)^2 + (32.33-26.67)^2 + (22.67-26.67)^2] = 3[1 + 7.11 + 32.11 + 16] = 192.66$
+
+$SQR = \sum_{i=1}^4 \sum_{j=1}^3 (x_{ij} - \bar{x}_i)^2 = 14 + 8 + 14 + 14 = 50$
+
+$F = \frac{SQE/3}{SQR/8} = \frac{64.22}{6.25} = 10.28$
+
+$F_{0.01, 3, 8} = 7.59$
+
+Como $F = 10.28 > 7.59$, rejeitamos $H_0$.
+\end{solution}
+
+\section{Regressão Linear}
+
+\begin{solution}[Exercício 23]
+$\bar{x} = 6$, $\bar{y} = 13$
+
+$S_{xx} = 40$, $S_{xy} = 80$, $S_{yy} = 160$
+
+$\hat{\beta}_1 = \frac{80}{40} = 2$, $\hat{\beta}_0 = 13 - 2 \cdot 6 = 1$
+
+$R^2 = \frac{80^2}{40 \cdot 160} = \frac{6400}{6400} = 1$
+
+$F = \frac{MSR}{MSE} = \frac{160/1}{0/3} = \infty$ (regressão perfeita)
+\end{solution}
+
+\begin{solution}[Exercício 24]
+$\bar{x} = 5.5$, $\bar{y} = 8.19$
+
+$S_{xx} = 42$, $S_{xy} = 8.4$, $S_{yy} = 1.68$
+
+$\hat{\beta}_1 = \frac{8.4}{42} = 0.2$, $\hat{\beta}_0 = 8.19 - 0.2 \cdot 5.5 = 7.09$
+
+$SE(\hat{\beta}_1) = \sqrt{\frac{MSE}{S_{xx}}} = \sqrt{\frac{0.01}{42}} = 0.015$
+
+$IC_{95\%} = 0.2 \pm 2.447 \cdot 0.015 = 0.2 \pm 0.037 = [0.163, 0.237]$
+\end{solution}
+
+\begin{solution}[Exercício 25]
+$F = \frac{R^2/p}{(1-R^2)/(n-p-1)} = \frac{0.75/3}{(1-0.75)/(20-3-1)} = \frac{0.25}{0.25/16} = 16$
+
+$F_{0.05, 3, 16} = 3.24$
+
+Como $F = 16 > 3.24$, rejeitamos $H_0$.
+\end{solution}
+
+\section{Testes Não-Paramétricos}
+
+\begin{solution}[Exercício 26]
+Postos: A: 3, 6, 8, 10, 12; B: 1, 2, 4, 7, 9
+
+$R_A = 39$, $R_B = 23$
+
+$U = 5 \cdot 5 + \frac{5 \cdot 6}{2} - 39 = 25 + 15 - 39 = 1$
+
+$U_{0.05} = 2$
+
+Como $U = 1 < 2$, rejeitamos $H_0$.
+\end{solution}
+
+\begin{solution}[Exercício 27]
+Postos: Grupo 1: 2, 4, 6, 8; Grupo 2: 1, 3, 5, 7; Grupo 3: 9, 10, 11, 12
+
+$R_1 = 20$, $R_2 = 16$, $R_3 = 42$
+
+$H = \frac{12}{12 \cdot 13} \left[\frac{20^2}{4} + \frac{16^2}{4} + \frac{42^2}{4}\right] - 3 \cdot 13 = \frac{12}{156}[100 + 64 + 441] - 39 = 46.38 - 39 = 7.38$
+
+$\chi^2_{0.05, 2} = 5.99$
+
+Como $H = 7.38 > 5.99$, rejeitamos $H_0$.
+\end{solution}
+
+\begin{solution}[Exercício 28]
+Postos de X: 1, 2, 3, 4, 5, 6, 7, 8
+Postos de Y: 2, 4, 1, 3, 6, 5, 8, 7
+
+$d_i$: -1, -2, 2, 1, -1, 1, -1, 1
+
+$\sum d_i^2 = 1 + 4 + 4 + 1 + 1 + 1 + 1 + 1 = 18$
+
+$r_s = 1 - \frac{6 \cdot 18}{8 \cdot 63} = 1 - \frac{108}{504} = 1 - 0.214 = 0.786$
+\end{solution}
+
+\section{Análise de Séries Temporais}
+
+\begin{solution}[Exercício 29]
+Para AR(1): $\rho_k = \phi^k$
+
+$\rho_1 = 0.7$, $\rho_2 = 0.49$, $\rho_3 = 0.343$
+\end{solution}
+
+\begin{solution}[Exercício 30]
+Para MA(1): $\rho_1 = \frac{\theta}{1+\theta^2} = \frac{0.5}{1.25} = 0.4$
+
+$\rho_2 = \rho_3 = 0$
+\end{solution}
+
+\section{Análise de Sobrevivência}
+
+\begin{solution}[Exercício 31]
+$\hat{S}(2) = 1$, $\hat{S}(3) = \frac{7}{8}$, $\hat{S}(5) = \frac{6}{8} \cdot \frac{7}{8} = \frac{42}{64}$, $\hat{S}(7) = \frac{5}{8} \cdot \frac{42}{64} = \frac{210}{512}$, etc.
+\end{solution}
+
+\begin{solution}[Exercício 32]
+$\hat{S}(10) = \prod_{i=1}^{10} \left(1 - \frac{1}{20-i+1}\right) = \prod_{i=1}^{10} \frac{19-i+1}{20-i+1} = \frac{19 \cdot 18 \cdots 10}{20 \cdot 19 \cdots 11} = \frac{10}{20} = 0.5$
+\end{solution}
+
+\section{Análise Multivariada}
+
+\begin{solution}[Exercício 33]
+$\bar{x} = 3$, $\bar{y} = 6$
+
+Matriz de covariância: $\mathbf{S} = \begin{pmatrix} 2.5 & 5 \\ 5 & 10 \end{pmatrix}$
+
+Autovalores: $\lambda_1 = 12.5$, $\lambda_2 = 0$
+
+Primeira componente: $\mathbf{a}_1 = \frac{1}{\sqrt{5}}(1, 2)^T$
+\end{solution}
+
+\begin{solution}[Exercício 34]
+$d_1(\mathbf{x}) = (3,4) \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \end{pmatrix} - \frac{1}{2}(2,3) \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} \begin{pmatrix} 2 \\ 3 \end{pmatrix} + \log \pi_1$
+
+$d_2(\mathbf{x}) = (3,4) \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} \begin{pmatrix} 4 \\ 5 \end{pmatrix} - \frac{1}{2}(4,5) \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} \begin{pmatrix} 4 \\ 5 \end{pmatrix} + \log \pi_2$
+
+Classificar na classe com maior $d_i$.
+\end{solution}
+
+\section{Métodos de Bootstrap}
+
+\begin{solution}[Exercício 35]
+Com $B = 1000$ replicações bootstrap, estimar:
+$$\text{Var}^*(\bar{X}^*) = \frac{1}{999} \sum_{b=1}^{1000} (\bar{X}_b^* - \bar{X}^*)^2$$
+
+onde $\bar{X}^*$ é a média das médias bootstrap.
+\end{solution}
+
+\begin{solution}[Exercício 36]
+Ordenar as $B = 1000$ médias bootstrap e tomar os percentis 2.5\% e 97.5\%:
+
+$IC_{95\%} = [\bar{X}_{(25)}, \bar{X}_{(975)}]$
+\end{solution}
+
+\section{Validação Cruzada e Seleção de Modelos}
+
+\begin{solution}[Exercício 37]
+$AIC = -2\log L + 2p = -2\log(100) + 2 \cdot 5 = -2 \cdot 4.605 + 10 = -9.21 + 10 = 0.79$
+
+$BIC = -2\log L + p\log n = -9.21 + 5 \cdot \log(50) = -9.21 + 5 \cdot 3.912 = -9.21 + 19.56 = 10.35$
+\end{solution}
+
+\begin{solution}[Exercício 38]
+Penalização Ridge = $\lambda \sum_{j=1}^5 \beta_j^2 = 1 \cdot (4 + 1 + 0.25 + 9 + 0.64) = 14.89$
+\end{solution}
+
+\end{document}

@@ -1,0 +1,27 @@
+De MV restrito para $\mu$ e $\sigma^2$ são dados por:
+\begin{equation}
+\hat{\mu} = \frac{n\bar{x} + m\bar{y}}{n+m}, \quad \hat{\sigma}^2 = \frac{(n-1)\Delta^2_{x;\mu} + (m-1)\Delta^2_{y;\mu}}{n+m}
+\end{equation}
+em que
+\begin{equation}
+\Delta^2_{x;\mu} = (n-1)^{-1} \sum_{i=1}^{n} (x_i - \mu)^2, \quad \Delta^2_{y;\mu} = (m-1)^{-1} \sum_{i=1}^{m} (y_i - \mu)^2
+\end{equation}
+
+Aplicando (2) em (1), temos que:
+\begin{equation}
+\sup \{ L(\mu_x, \mu_y, \sigma^2) \} = (2\pi \sigma^2)^{-\frac{m n}{2}} \cdot e^{-\frac{m n}{2}}, \quad (\mu_x, \mu_y, \sigma^2) \in \Theta
+\end{equation}
+
+Por outro lado, temos que:
+\begin{equation}
+\sup \{ L(\mu_x, \mu_y, \sigma^2) \} = (2\pi \hat{\sigma}^2)^{-\frac{n+m}{2}} \cdot \exp \left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^{n} (x_i - \hat{\mu}_x)^2 + \sum_{i=1}^{m} (y_i - \hat{\mu}_y)^2 \right\}
+\end{equation}
+\begin{equation*}
+= (2\pi \hat{\sigma}^2)^{-\frac{n+m}{2}} \cdot e^{-\frac{n+m}{2}},
+\end{equation*}
+uma vez que $\hat{\mu}_x = \bar{x}$, $\hat{\mu}_y = \bar{y}$ e
+\begin{equation}
+\hat{\sigma}^2_{x,y} = \frac{(n-1)\Delta^2_x + (m-1)\Delta^2_y}{n+m},
+\end{equation}
+para $s^2_x$ como uma observação de $S^2_x$ e $s^2_y$ como uma observação de $S^2_y$, são estimativas de MV irrestritas para $\mu_x$, $\mu_y$ e $\sigma^2$.
+

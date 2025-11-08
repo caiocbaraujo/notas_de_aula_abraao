@@ -1,0 +1,3 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {paragraph}{Definição (4.1.1)}{24}{section*.32}%
+\contentsline {paragraph}{Exemplo:}{49}{section*.73}%

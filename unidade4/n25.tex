@@ -1,0 +1,35 @@
+﻿Considere o problema de definir o teste UMP de nível $\alpha$ para
+\begin{equation}
+    H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \neq \theta_0.
+\end{equation}
+
+Primeiramente, vamos mostrar que algum teste $\psi^*$ com $\psi^*(x)$ tal que:
+\begin{itemize}
+    \item[i)] $E_{\theta_0} \left[ \psi(x) \right] = \alpha$;
+    \item[ii)] $E_{\theta} \left[ \psi(x) \right] \leq \alpha \quad \text{para} \quad \theta \leq \theta_0$;
+    \item[iii)] $\psi^*(x) = 1, \quad x \quad T(x) > \theta_0$
+\end{itemize}
+
+são suficientes para um teste UMP de nível $\alpha$ para
+\begin{equation}
+    H_0': \theta \leq \theta_0 \quad \text{vs} \quad H_1': \theta > \theta_0.
+\end{equation}
+
+Pelo Teorema de Karlin-Rubin, um teste UMP, $\psi^*_0$, para $H_0'$ e $H_1'$ tem função crítica:
+\begin{equation}
+    \psi^*_0(x) = 
+    \begin{cases}
+        1, & \text{se } T(x) > \theta_0 (1 - \alpha)^{1/n}, \\
+        0, & \text{se } T(x) < \theta_0 (1 - \alpha)^{1/n}.
+    \end{cases}
+\end{equation}
+
+Daí, a função poder associada é:
+\begin{equation}
+    \pi_{\psi^*_0}(\theta) = E_{\theta} \left[ \psi^*_0(x) \right] = P_{\theta} \left( T(x) > \theta_0 (1 - \alpha)^{1/n} \right)
+\end{equation}
+
+\begin{equation}
+    = \int_{\theta_0 (1 - \alpha)^{1/n}}^{\infty} \frac{n}{\theta^n} t^{n-1} \, dt 
+    = \frac{n}{\theta^n} \left[ \frac{t^n}{n} \right]_{\theta_0 (1 - \alpha)^{1/n}}^{\infty}.
+\end{equation}

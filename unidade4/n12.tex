@@ -1,0 +1,31 @@
+﻿Estatística do teste:
+\begin{equation}
+    Q(\vec{x}) = \frac{2}{\theta_0} \sum_{i=1}^{n} \hat{x}_i \quad \text{s.t. } H_0 = \alpha_n^2
+\end{equation}
+
+\textbf{Regra de decisão:} (\textit{Método tradicional}) Dada uma $\alpha_0 = (\alpha_1, \ldots, \alpha_n)^T$, rejeita-se $H_0$ se $Q(\vec{x}) > q_\alpha$.
+
+(\textit{Método do valor p}) Seja $Q_{\text{cal}} = Q(\vec{x})$. Rejeita-se $H_0$ se
+\begin{equation}
+    \hat{\alpha} = P(Q > Q_{\text{cal}}) < \alpha
+\end{equation}
+
+Obs.: $\hat{\alpha}$ é chamado de valor p.
+
+\textbf{Aula 22} (04/06/2021)
+
+\textbf{Exemplo 6:} Sejam $X_1, \ldots, X_n$ uma a.a. de v.a. Bernoulli($p$) para $0 < p < 1$ desconhecido. Derive o teste MP para
+\[
+H_0: p = p_0 \quad \text{e} \quad H_1: p > p_0.
+\]
+
+\textbf{Solução:} Como as hipóteses são simples, o LNP se aplica. A verossimilhança é dada por:
+\begin{equation}
+    L_p \triangleq L(p; \vec{x}) = \prod_{i=1}^{n} p^{x_i} (1-p)^{1-x_i}
+\end{equation}
+\begin{equation}
+    = p^{\sum_{i=1}^{n} x_i} (1-p)^{n - \sum_{i=1}^{n} x_i}
+\end{equation}
+\begin{equation}
+    = \left( \frac{p}{1-p} \right)^{\sum_{i=1}^{n} x_i} (1-p)^n
+\end{equation}

@@ -1,0 +1,36 @@
+Seja $x = (x_1, \ldots, x_n)^T$ uma possível realização de 
+$\mathbf{X} = (X_1, \ldots, X_n)^T$.
+
+\textbf{a) $\Upsilon$ não aleatorizados:} Rejeita-se $H_0$ se e só se $x \in R_c$ ou tem função crítica
+\[
+\Upsilon(x) = 
+\begin{cases}
+1, & x \in R_c \\
+0, & x \in R_c^c
+\end{cases}
+\]
+
+\textbf{b) $\Upsilon$ aleatorizado:} O teste é definido por uma função crítica dada por:
+\[
+\Upsilon(x) = 
+\begin{cases}
+1, & x \in R_c \\
+\delta, & x \in R_\delta \\
+0, & x \in (R_c \cup R_\delta)^c
+\end{cases}
+\]
+
+\textbf{Exemplo:} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\theta, 25)$. \\
+Neste caso $\mathbb{X} = \mathbb{R}^n$ é o espaço amostral. Considere o teste ``Rejeitar $H_0: \theta \leq 17$ se e só se $\bar{X}_n > 17 + \frac{5}{\sqrt{n}}$''. \\
+$\Upsilon$ é não aleatorizado com função crítica dada por:
+\[
+\Upsilon(x) = 
+\begin{cases}
+1, & x \in \{ z \in \mathbb{R}^n : \bar{z}_n > 17 + \frac{5}{\sqrt{n}} \} \\
+0, & x \in \{ z \in \mathbb{R}^n : \bar{z}_n \leq 17 + \frac{5}{\sqrt{n}} \}
+\end{cases}
+\]
+
+\textbf{Exemplo:} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Bernoulli}(\theta)$ para $\theta \in (0,1)$. \\
+Neste caso $\mathbb{X} = \{0,1\}^n$ é o espaço amostral.
+

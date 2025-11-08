@@ -1,0 +1,27 @@
+﻿1\textsuperscript{a} verdade. Esta função é dada por:
+\begin{equation}
+    Q_{\gamma}(\theta) = P_{\theta}(\hat{X} \in R_c), \quad \forall \theta \in \Theta.
+\end{equation}
+
+\textbf{Obs.:} Note que $\alpha = Q_{\gamma}(\theta_0)$ e $1 - \beta = Q_{\gamma}(\theta_1)$ para
+\begin{equation}
+    H_0: \theta = \theta_0 \quad \text{e} \quad H_1: \theta = \theta_1.
+\end{equation}
+
+\textbf{Exemplo 3:} Sejam $X_1, \ldots, X_n$ uma a.a. de $X \sim N(\theta, 1)$. Considere o teste
+\begin{equation}
+    H_0: \theta = 5,5 \quad \text{e} \quad H_1: \theta = 8.
+\end{equation}
+
+Para tal, considere o teste: rejeita-se $H_0$ se $\bar{X}_n > 7,5$. Calcule a função poder.
+
+\textbf{Solução:} Temos:
+\begin{equation}
+\begin{aligned}
+    Q_{\gamma}(\theta) &= P_{\theta}(\hat{X} \in R_c) = P_{\theta}(\bar{X}_n > 7,5) \\
+    &= P\left( \frac{\bar{X} - \theta}{1/\sqrt{n}} > \frac{7,5 - \theta}{1/\sqrt{n}} \right) \\
+    & Z \sim N(0,1) \\
+    &= P\left( Z > \sqrt{n}(7,5 - \theta) \right) \\
+    &= 1 - \Phi\left( \sqrt{n}(7,5 - \theta) \right)
+\end{aligned}
+\end{equation}

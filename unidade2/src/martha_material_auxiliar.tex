@@ -1,0 +1,1226 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumerate}
+
+% Definições de ambientes
+\theoremstyle{definition}
+\newtheorem{definicao}{Definição}[section]
+\newtheorem{exemplo}{Exemplo}[section]
+\theoremstyle{plain}
+\newtheorem{observacao}{Observação}[section]
+
+\title{Material Auxiliar - Unidade 2\\
+\large Convergência Estocástica e Resultados Limite\\
+\normalsize Explicações Detalhadas e Didáticas}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Este material auxiliar complementa as notas de aula da Unidade 2, fornecendo explicações mais detalhadas e didáticas dos principais conceitos abordados. O objetivo é facilitar a compreensão dos teoremas de convergência e suas aplicações práticas.
+
+\section{Notação O($\cdot$) e o($\cdot$) - Big O e Little o}
+
+\subsection{Motivação e Intuição}
+
+A notação $O(\cdot)$ e $o(\cdot)$ é fundamental para descrever o comportamento assintótico de sequências e funções. Intuitivamente:
+
+\begin{itemize}
+    \item \textbf{$a_n = O(b_n)$}: "$a_n$ cresce \emph{no máximo} tão rápido quanto $b_n$"
+    \item \textbf{$a_n = o(b_n)$}: "$a_n$ cresce \emph{mais devagar} que $b_n$"
+\end{itemize}
+
+\subsection{Definições Formais}
+
+\begin{definicao}[Big O para sequências]
+Sejam $\{a_n, n \geq 1\}$ e $\{b_n, n \geq 1\}$ sequências de números reais. Dizemos que
+\[
+a_n = O(b_n) \quad \text{se e somente se} \quad \exists\, k > 0,\, n_0 \in \mathbb{N} : \left|\frac{a_n}{b_n}\right| \leq k, \quad \forall n \geq n_0
+\]
+Isto é, a razão $|a_n/b_n|$ é limitada para $n$ suficientemente grande.
+\end{definicao}
+
+\begin{definicao}[Little o para sequências]
+Dizemos que
+\[
+a_n = o(b_n) \quad \text{se e somente se} \quad \lim_{n \to \infty} \frac{a_n}{b_n} = 0
+\]
+Isto é, $a_n$ é desprezível comparado a $b_n$ quando $n$ é grande.
+\end{definicao}
+
+\begin{exemplo}[Comparações Comuns]
+\begin{enumerate}
+    \item $10n^2 + n = O(n^2)$ porque $\frac{10n^2 + n}{n^2} = 10 + \frac{1}{n} \leq 11$ para $n \geq 1$
+    
+    \item $n = o(n^2)$ porque $\lim_{n \to \infty} \frac{n}{n^2} = \lim_{n \to \infty} \frac{1}{n} = 0$
+    
+    \item $\log(n) = o(n)$ porque $\lim_{n \to \infty} \frac{\log(n)}{n} = 0$
+    
+    \item $n^{1/2} = O(n)$ mas $n \neq O(n^{1/2})$
+\end{enumerate}
+\end{exemplo}
+
+\subsection{Propriedades Importantes}
+
+\begin{observacao}[Álgebra de O e o]
+\begin{enumerate}
+    \item Se $a_n = o(b_n)$, então $a_n = O(b_n)$ (mas a recíproca é falsa)
+    
+    \item Se $a_n = O(b_n)$ e $c_n = O(d_n)$, então:
+    \begin{itemize}
+        \item $a_n \cdot c_n = O(b_n \cdot d_n)$
+        \item $a_n + c_n = O(\max\{|b_n|, |d_n|\})$
+    \end{itemize}
+    
+    \item $O(1)$ significa limitado: $|a_n| \leq k$ para algum $k > 0$ e $n$ grande
+    
+    \item $o(1)$ significa que $a_n \to 0$
+\end{enumerate}
+\end{observacao}
+
+\subsection{Aplicação em Séries de Taylor}
+
+A notação $O(\cdot)$ é essencial para expressar aproximações via série de Taylor:
+
+\begin{exemplo}[Série de Taylor]
+Para uma função $F(x)$ derivável até ordem $n$ em torno de $x_0$:
+\[
+F(x) = \sum_{k=0}^{n} \frac{F^{(k)}(x_0)}{k!}(x - x_0)^k + o\left((x - x_0)^n\right)
+\]
+quando $x \to x_0$.
+
+Por exemplo:
+\begin{itemize}
+    \item $e^x = 1 + x + \frac{x^2}{2} + O(x^3)$ quando $x \to 0$
+    \item $\log(1+x) = x - \frac{x^2}{2} + O(x^3)$ quando $x \to 0$
+\end{itemize}
+\end{exemplo}
+
+\section{Convergência em Probabilidade}
+
+\subsection{Intuição e Definição}
+
+A convergência em probabilidade expressa a ideia de que, à medida que $n$ cresce, a probabilidade de $U_n$ estar "longe" de $u$ torna-se arbitrariamente pequena.
+
+\begin{definicao}[Convergência em Probabilidade]
+Uma sequência de variáveis aleatórias $\{U_n, n \geq 1\}$ converge em probabilidade para um número $u$ se
+\[
+P\left(|U_n - u| \geq \varepsilon\right) \xrightarrow{n \to \infty} 0, \quad \forall\, \varepsilon > 0
+\]
+Notação: $U_n \xrightarrow{P} u$
+\end{definicao}
+
+\subsection{Interpretação Prática}
+
+Pense em $U_n$ como uma estimativa de $u$ baseada em $n$ observações. Convergência em probabilidade significa que:
+\begin{itemize}
+    \item Com $n$ grande, é \emph{altamente improvável} que $U_n$ esteja longe de $u$
+    \item Para qualquer margem de erro $\varepsilon > 0$ que você escolha, a probabilidade de erro pode ser tornada arbitrariamente pequena aumentando $n$
+\end{itemize}
+
+\begin{exemplo}[Média Amostral]
+Se $X_1, X_2, \ldots$ são v.a.'s i.i.d. com $E[X_i] = \mu$ e $\text{Var}(X_i) = \sigma^2 < \infty$, então
+\[
+\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{P} \mu
+\]
+Isso significa que a média amostral converge para a média populacional.
+\end{exemplo}
+
+\subsection{Métodos para Provar Convergência em Probabilidade}
+
+\begin{enumerate}
+    \item \textbf{Desigualdade de Chebyshev:} Se $E[U_n] \to u$ e $\text{Var}(U_n) \to 0$, então $U_n \xrightarrow{P} u$
+    
+    \item \textbf{Convergência de momentos:} Se $E[|U_n - u|^r] \to 0$ para algum $r > 0$, então $U_n \xrightarrow{P} u$
+    
+    \item \textbf{Função geradora de momentos:} Se $M_{U_n}(t) \to e^{tu}$ para todo $t$, então $U_n \xrightarrow{P} u$
+\end{enumerate}
+
+\subsection{Propriedades Algébricas}
+
+\begin{observacao}[Álgebra da Convergência em Probabilidade]
+Se $U_n \xrightarrow{P} u$ e $V_n \xrightarrow{P} v$, então:
+\begin{enumerate}
+    \item $U_n + V_n \xrightarrow{P} u + v$
+    \item $U_n \cdot V_n \xrightarrow{P} u \cdot v$
+    \item $\frac{U_n}{V_n} \xrightarrow{P} \frac{u}{v}$ (se $P(V_n = 0) = 0$ e $v \neq 0$)
+    \item Se $g(\cdot)$ é contínua, então $g(U_n) \xrightarrow{P} g(u)$
+\end{enumerate}
+\end{observacao}
+
+\section{Convergência em Distribuição}
+
+\subsection{Definição e Diferenças}
+
+A convergência em distribuição é um conceito mais fraco que convergência em probabilidade.
+
+\begin{definicao}[Convergência em Distribuição]
+Uma sequência $\{U_n, n \geq 1\}$ com f.d.a. $F_n(u)$ converge em distribuição para uma v.a. $U$ com f.d.a. $F(u)$ se
+\[
+F_n(u) \xrightarrow{n \to \infty} F(u)
+\]
+em todos os pontos de continuidade de $F(\cdot)$.
+
+Notação: $U_n \xrightarrow{D} U$
+\end{definicao}
+
+\subsection{Diferenças entre Convergências}
+
+\begin{itemize}
+    \item \textbf{Convergência em Probabilidade $\Rightarrow$ Convergência em Distribuição}
+    
+    \item \textbf{Convergência em Distribuição $\not\Rightarrow$ Convergência em Probabilidade} (em geral)
+    
+    \item \textbf{Exceção:} Se $U_n \xrightarrow{D} c$ (constante), então $U_n \xrightarrow{P} c$
+\end{itemize}
+
+\begin{exemplo}[Distinção Importante]
+Considere $X \sim N(0,1)$ e defina $U_n = X$ para todo $n$. Então:
+\begin{itemize}
+    \item $U_n \xrightarrow{D} X$ (trivialmente, pois $F_n = F$ para todo $n$)
+    \item $U_n \not\xrightarrow{P} X$ (não faz sentido: $U_n - X = 0$ sempre!)
+\end{itemize}
+
+Agora considere $U_n = (-1)^n X$:
+\begin{itemize}
+    \item $U_n \xrightarrow{D} X$ (ambos têm distribuição $N(0,1)$)
+    \item $U_n \not\xrightarrow{P} X$ (pois $|U_n - X|$ não vai para zero)
+\end{itemize}
+\end{exemplo}
+
+\subsection{Método da Função Geradora de Momentos}
+
+Um método poderoso para provar convergência em distribuição:
+
+\begin{observacao}[Teorema de Continuidade de Lévy]
+Se $M_{U_n}(t) \to M_U(t)$ para todo $t$ em uma vizinhança de zero, então $U_n \xrightarrow{D} U$.
+\end{observacao}
+
+Este método é frequentemente usado nas provas do TCL.
+
+\section{Lei Fraca dos Grandes Números}
+
+\subsection{Versões e Interpretação}
+
+A Lei Fraca dos Grandes Números (LFGN) é um dos resultados fundamentais da probabilidade.
+
+\begin{observacao}[LFGN - Versão Simples]
+Se $X_1, \ldots, X_n$ são v.a.'s i.i.d. com $E[X_i] = \mu < \infty$ e $\text{Var}(X_i) = \sigma^2 < \infty$, então
+\[
+\bar{X}_n \xrightarrow{P} \mu
+\]
+\end{observacao}
+
+\begin{observacao}[LFGN de Khinchin]
+A condição de variância finita pode ser relaxada: basta $E[X_i] = \mu < \infty$.
+\end{observacao}
+
+\subsection{Interpretação Prática}
+
+\begin{itemize}
+    \item A média amostral é um estimador \emph{consistente} da média populacional
+    \item Quanto maior a amostra, mais confiável é a estimativa
+    \item Justifica a "Lei dos Grandes Números" empírica: frequências relativas convergem para probabilidades
+\end{itemize}
+
+\begin{exemplo}[Lançamento de Moedas]
+Se $X_i = 1$ (cara) ou $X_i = 0$ (coroa) com $P(X_i = 1) = p$, então
+\[
+\frac{\text{número de caras em } n \text{ lançamentos}}{n} = \bar{X}_n \xrightarrow{P} p
+\]
+\end{exemplo}
+
+\subsection{Aplicações}
+
+\begin{enumerate}
+    \item \textbf{Estimação de parâmetros:} $\bar{X}_n$ estima $\mu$, $S_n^2$ estima $\sigma^2$
+    
+    \item \textbf{Simulação Monte Carlo:} Aproximar $E[g(X)]$ por $\frac{1}{n}\sum_{i=1}^n g(X_i)$
+    
+    \item \textbf{Testes de hipóteses:} Proporções amostrais convergem para proporções populacionais
+\end{enumerate}
+
+\section{Teorema Central do Limite}
+
+\subsection{Enunciado e Importância}
+
+O Teorema Central do Limite (TCL) é possivelmente o teorema mais importante da estatística.
+
+\begin{observacao}[TCL - Versão Clássica]
+Se $X_1, \ldots, X_n$ são v.a.'s i.i.d. com $E[X_i] = \mu$ e $\text{Var}(X_i) = \sigma^2 < \infty$, então
+\[
+\frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} = \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0, 1)
+\]
+\end{observacao}
+
+\subsection{Por Que é Tão Importante?}
+
+\begin{enumerate}
+    \item \textbf{Universalidade:} Funciona para \emph{qualquer} distribuição com variância finita
+    
+    \item \textbf{Base para inferência:} Justifica o uso da distribuição normal em intervalos de confiança e testes
+    
+    \item \textbf{Aproximação prática:} Com $n$ moderadamente grande ($n \geq 30$), $\bar{X}_n$ tem distribuição aproximadamente normal
+\end{enumerate}
+
+\subsection{Interpretação Geométrica}
+
+O TCL diz que:
+\begin{itemize}
+    \item A distribuição de $\bar{X}_n$ fica mais concentrada em torno de $\mu$ (taxa $1/\sqrt{n}$)
+    \item A forma da distribuição de $\frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}}$ converge para a curva normal
+    \item Não importa a distribuição original dos $X_i$!
+\end{itemize}
+
+\begin{exemplo}[Distribuição Uniforme]
+Se $X_i \sim U(0,1)$ (distribuição uniforme), então $E[X_i] = 1/2$ e $\text{Var}(X_i) = 1/12$.
+\[
+\frac{\bar{X}_n - 1/2}{\sqrt{1/(12n)}} = \sqrt{12n}\left(\bar{X}_n - \frac{1}{2}\right) \xrightarrow{D} N(0,1)
+\]
+Embora $X_i$ seja uniforme (nada parecido com normal), $\bar{X}_n$ tem distribuição aproximadamente $N(1/2, 1/(12n))$ para $n$ grande.
+\end{exemplo}
+
+\subsection{Versões Padronizadas}
+
+\begin{itemize}
+    \item \textbf{$\sigma$ conhecido:} $Z_n = \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)$
+    
+    \item \textbf{$\sigma$ desconhecido:} $T_n = \frac{\sqrt{n}(\bar{X}_n - \mu)}{S_n} \xrightarrow{D} N(0,1)$
+    
+    (onde $S_n$ é o desvio padrão amostral)
+\end{itemize}
+
+\section{Teorema de Slutsky}
+
+\subsection{Enunciado e Utilidade}
+
+O Teorema de Slutsky permite combinar convergências de tipos diferentes.
+
+\begin{observacao}[Teorema de Slutsky]
+Se $U_n \xrightarrow{D} U$ e $V_n \xrightarrow{P} c$ (constante), então:
+\begin{enumerate}
+    \item $U_n + V_n \xrightarrow{D} U + c$
+    \item $U_n \cdot V_n \xrightarrow{D} c \cdot U$
+    \item $\frac{U_n}{V_n} \xrightarrow{D} \frac{U}{c}$ (se $c \neq 0$)
+\end{enumerate}
+\end{observacao}
+
+\subsection{Por Que é Útil?}
+
+O teorema de Slutsky é crucial quando:
+\begin{itemize}
+    \item Temos uma convergência em distribuição mas precisamos fazer operações algébricas
+    \item Queremos substituir parâmetros desconhecidos por estimadores consistentes
+    \item Provamos distribuições assintóticas de estatísticas de teste
+\end{itemize}
+
+\begin{exemplo}[Substituição do Desvio Padrão]
+Pelo TCL: $\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)$
+
+Como $S_n \xrightarrow{P} \sigma$, pelo Slutsky:
+\[
+\frac{\sqrt{n}(\bar{X}_n - \mu)}{S_n} = \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \cdot \frac{\sigma}{S_n} \xrightarrow{D} N(0,1) \cdot 1 = N(0,1)
+\]
+Isso justifica usar $S_n$ quando $\sigma$ é desconhecido!
+\end{exemplo}
+
+\subsection{Aplicação em Testes de Hipóteses}
+
+O teorema de Slutsky permite construir estatísticas de teste quando parâmetros são desconhecidos, substituindo-os por estimadores consistentes sem alterar a distribuição assintótica.
+
+\section{Teorema de Mann-Wald (Método Delta)}
+
+\subsection{Enunciado}
+
+O Método Delta é uma ferramenta para encontrar a distribuição assintótica de transformações de estimadores.
+
+\begin{observacao}[Teorema de Mann-Wald]
+Se $\sqrt{n}(T_n - \theta) \xrightarrow{D} N(0, \sigma^2(\theta))$ e $g(\cdot)$ é uma função diferenciável com $g'(\theta) \neq 0$, então
+\[
+\sqrt{n}\left[g(T_n) - g(\theta)\right] \xrightarrow{D} N\left(0, \sigma^2(\theta) \cdot [g'(\theta)]^2\right)
+\]
+\end{observacao}
+
+\subsection{Interpretação}
+
+O método delta diz que:
+\begin{itemize}
+    \item Se $T_n$ é aproximadamente normal com taxa $1/\sqrt{n}$
+    \item Então $g(T_n)$ também é aproximadamente normal com taxa $1/\sqrt{n}$
+    \item A variância é "inflada" por $[g'(\theta)]^2$
+\end{itemize}
+
+\subsection{Ideia da Prova}
+
+A prova usa aproximação de Taylor de primeira ordem:
+\[
+g(T_n) \approx g(\theta) + g'(\theta)(T_n - \theta)
+\]
+Multiplicando por $\sqrt{n}$:
+\[
+\sqrt{n}[g(T_n) - g(\theta)] \approx g'(\theta) \cdot \sqrt{n}(T_n - \theta)
+\]
+Como $\sqrt{n}(T_n - \theta) \xrightarrow{D} N(0, \sigma^2)$, o resultado segue.
+
+\begin{exemplo}[Transformação Logarítmica]
+Se $\bar{X}_n$ estima $\mu > 0$ e queremos estimar $\log(\mu)$, tome $g(x) = \log(x)$.
+
+Como $g'(x) = 1/x$, temos:
+\[
+\sqrt{n}\left[\log(\bar{X}_n) - \log(\mu)\right] \xrightarrow{D} N\left(0, \frac{\sigma^2}{\mu^2}\right)
+\]
+\end{exemplo}
+
+\begin{exemplo}[Transformação de Variância]
+Para estimar a variância $\sigma^2$, usamos $S_n^2$. Se queremos estimar o desvio padrão $\sigma = \sqrt{\sigma^2}$, usamos $g(x) = \sqrt{x}$ com $g'(x) = \frac{1}{2\sqrt{x}}$.
+\end{exemplo}
+
+\subsection{Aplicações Práticas}
+
+\begin{enumerate}
+    \item \textbf{Transformações estabilizadoras de variância}
+    \item \textbf{Intervalos de confiança para funções de parâmetros}
+    \item \textbf{Testes de hipóteses sobre transformações}
+    \item \textbf{Modelos não-lineares}
+\end{enumerate}
+
+\section{Teorema Central do Limite para Variância Amostral}
+
+\subsection{Motivação}
+
+Enquanto o TCL clássico trata da distribuição assintótica de $\bar{X}_n$, é natural perguntar: qual a distribuição assintótica de $S_n^2$ (a variância amostral)?
+
+\begin{observacao}[TCL para $S_n^2$]
+Se $X_1, \ldots, X_n$ são v.a.'s i.i.d. com $E[X_i] = \mu$, $\text{Var}(X_i) = \sigma^2$, e $\mu_4 = E[(X_i - \mu)^4] < \infty$, então
+\[
+\sqrt{n}(S_n^2 - \sigma^2) \xrightarrow[n \to \infty]{d} N(0, \mu_4 - \sigma^4)
+\]
+\end{observacao}
+
+\subsection{Interpretação}
+
+\begin{itemize}
+    \item A variância assintótica é $\mu_4 - \sigma^4$, que depende do quarto momento central
+    \item Para distribuições simétricas, $\mu_4$ mede o "peso nas caudas"
+    \item Distribuições com caudas pesadas têm $\mu_4$ maior, logo maior variabilidade em $S_n^2$
+\end{itemize}
+
+\subsection{Comparação com Normalidade}
+
+Para $X_i \sim N(\mu, \sigma^2)$:
+\begin{itemize}
+    \item $\mu_4 = 3\sigma^4$, logo a variância assintótica é $3\sigma^4 - \sigma^4 = 2\sigma^4$
+    \item Isto coincide com a variância exata de $\frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1}$
+\end{itemize}
+
+\subsection{Ideia da Prova}
+
+A prova combina o TCL clássico com o Teorema de Slutsky:
+
+\begin{enumerate}
+    \item Defina $W_n = \frac{n-1}{n}S_n^2$ e $Y_i = (X_i - \mu)^2$
+    
+    \item Mostre que $W_n = \bar{Y}_n - (\bar{X}_n - \mu)^2$
+    
+    \item Aplique TCL a $\bar{Y}_n$: $\sqrt{n}(\bar{Y}_n - \sigma^2) \xrightarrow{d} N(0, \mu_4 - \sigma^4)$
+    
+    \item Note que $\sqrt{n}(\bar{X}_n - \mu)^2 \xrightarrow{P} 0$ (é de ordem $O_P(1/\sqrt{n})$)
+    
+    \item Use Slutsky para concluir sobre $W_n$, depois relate a $S_n^2$
+\end{enumerate}
+
+\subsection{Aplicação Prática}
+
+Este teorema permite construir intervalos de confiança assintóticos para $\sigma^2$:
+\[
+IC_{1-\alpha}(\sigma^2) = S_n^2 \pm z_{\alpha/2} \cdot \frac{\sqrt{\mu_4 - \sigma^4}}{\sqrt{n}}
+\]
+onde $\mu_4$ pode ser estimado por $\frac{1}{n}\sum_{i=1}^n (X_i - \bar{X}_n)^4$.
+
+\section{Estimadores Consistentes}
+
+\subsection{Definição e Intuição}
+
+Consistência é uma propriedade fundamental de estimadores que garante convergência para o parâmetro verdadeiro.
+
+\begin{definicao}[Estimador Consistente]
+Um estimador $T_n = T_n(X_1, \ldots, X_n)$ de $\tau(\theta)$ é \textbf{consistente} (no sentido fraco) se
+\[
+T_n \xrightarrow[n \to \infty]{P} \tau(\theta), \quad \forall\, \theta \in \Theta
+\]
+\end{definicao}
+
+\subsection{Interpretação Prática}
+
+Um estimador consistente significa que:
+\begin{itemize}
+    \item Com amostras grandes, a probabilidade de erro significativo torna-se desprezível
+    \item É um requisito mínimo para que um estimador seja considerado "bom"
+    \item Diferente de não-viesamento (propriedade de amostra finita), consistência é assintótica
+\end{itemize}
+
+\subsection{Relação entre Viés, Variância e Consistência}
+
+\begin{observacao}[Consistência via EQM]
+Se $EQM_\theta[T_n] = E_\theta[(T_n - \tau(\theta))^2] \to 0$, então $T_n$ é consistente.
+
+Como $EQM = \text{Viés}^2 + \text{Variância}$, temos consistência quando:
+\[
+B_\theta^2[T_n] \to 0 \quad \text{e} \quad \text{Var}_\theta[T_n] \to 0
+\]
+\end{observacao}
+
+\begin{exemplo}[Estimadores Clássicos]
+\begin{enumerate}
+    \item $\bar{X}_n$ é consistente para $\mu$ (pela LFGN)
+    \item $S_n^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X}_n)^2$ é consistente para $\sigma^2$
+    \item O EMV é geralmente consistente sob condições de regularidade
+\end{enumerate}
+\end{exemplo}
+
+\subsection{Exemplo Detalhado: Máximo da Uniforme (Questão 3.23)}
+
+\begin{exemplo}[Consistência de $X_{n:n}$ para $U(0, \theta)$]
+Se $X_1, \ldots, X_n \sim U(0, \theta)$, o EMV de $\theta$ é $\hat{\theta} = X_{n:n} = \max\{X_1, \ldots, X_n\}$.
+
+\textbf{Demonstração completa da consistência:}
+
+\textbf{Passo 1:} A f.d.a. de $X_{n:n}$ é:
+\[
+F_{T_n}(t) = P_\theta(T_n \leq t) = P_\theta \left\{ \bigcap_{i=1}^n X_i \leq t \right\} = \left[ F_{X_1}(t) \right]^n = 
+\begin{cases}
+0, & t < 0 \\
+\left(\frac{t}{\theta}\right)^n, & 0 \leq t \leq \theta \\
+1, & t > \theta
+\end{cases}
+\]
+
+\textbf{Passo 2:} Para $\varepsilon > 0$:
+\begin{align}
+P_\theta \left\{ |X_{n:n} - \theta| < \varepsilon \right\} &= P_\theta \left\{ \theta - \varepsilon < X_{n:n} < \theta + \varepsilon \right\} \\
+&= P_\theta \left\{ \theta - \varepsilon < X_{n:n} < \theta \right\} \quad \text{(pois } X_{n:n} \leq \theta \text{ sempre)} \\
+&= F_{X_{n:n}}(\theta) - F_{X_{n:n}}(\theta - \varepsilon) \\
+&= 
+\begin{cases}
+1, & \varepsilon \geq \theta \\
+1 - \left( \frac{\theta - \varepsilon}{\theta} \right)^n = 1 - \left(1 - \frac{\varepsilon}{\theta}\right)^n, & \varepsilon < \theta
+\end{cases}
+\end{align}
+
+\textbf{Passo 3:} Quando $n \to \infty$:
+\[
+\lim_{n \to \infty} P_\theta \left\{ |X_{n:n} - \theta| < \varepsilon \right\} = \lim_{n \to \infty} \left[1 - \left(1 - \frac{\varepsilon}{\theta}\right)^n\right] = 1 - 0 = 1
+\]
+
+pois $0 < 1 - \frac{\varepsilon}{\theta} < 1$ quando $\varepsilon < \theta$.
+
+\textbf{Conclusão:} Logo, $X_{n:n} \xrightarrow{P} \theta$. $\square$
+\end{exemplo}
+
+\begin{observacao}[Observações Importantes sobre Consistência]
+\textbf{Obs 1:} Dados $\varepsilon > 0$ e $\delta \in (0,1)$, existe $n_0 = n_0(\varepsilon, \delta, \theta)$ tal que:
+\[
+P_\theta\{|T_n - \theta| > \varepsilon\} \leq \delta \quad \Longleftrightarrow \quad P_\theta\{|T_n - \theta| \leq \varepsilon\} \geq 1 - \delta, \quad \forall n \geq n_0
+\]
+
+\textbf{Obs 2:} $T_n$ é consistente se, e só se:
+\[
+\lim_{n \to \infty} P_\theta\{|T_n - \theta| > \varepsilon\} = 0 \quad \text{ou equivalentemente} \quad \lim_{n \to \infty} P_\theta\{|T_n - \theta| \leq \varepsilon\} = 1
+\]
+
+\textbf{Obs 3 (Consistência via EQM):} $T_n \xrightarrow{P} \theta$ se $EQM_\theta[T_n] \xrightarrow{n \to \infty} 0$.
+
+Isto pode ser verificado pela desigualdade de Chebyshev. Para qualquer $\varepsilon > 0$ e $\theta \in \Theta$:
+\[
+P_\theta\left( |T_n - \theta| > \varepsilon \right) \leq \frac{E_\theta\left[ (T_n - \theta)^2 \right]}{\varepsilon^2} = \frac{EQM_\theta[T_n]}{\varepsilon^2} \xrightarrow{n \to \infty} 0
+\]
+
+Como $EQM = \text{Viés}^2 + \text{Variância}$, se $T_n$ é centrado (não-viesado), basta checar:
+\[
+Var_\theta[T_n] \xrightarrow{n \to \infty} 0
+\]
+\end{observacao}
+
+\subsection{Tamanho Amostral Mínimo}
+
+Um aspecto prático interessante: dado $\varepsilon > 0$ e $\delta \in (0,1)$, qual o tamanho amostral mínimo $n_0$ para garantir
+\[
+P(|X_{n:n} - \theta| < \varepsilon) \geq 1 - \delta?
+\]
+
+Solução: De $1 - (1 - \varepsilon/\theta)^n \geq 1 - \delta$, obtemos
+\[
+n \geq \frac{\log \delta}{\log(1 - \varepsilon/\theta)}
+\]
+
+Assim:
+\[
+n_0 = \left\lceil \frac{\log \delta}{\log(1 - \varepsilon/\theta)} \right\rceil + 1
+\]
+
+\begin{exemplo}[Cálculo Numérico]
+Para $\theta = 1$, $\varepsilon = 0.1$, $\delta = 0.05$:
+\[
+n_0 = \left\lceil \frac{\log(0.05)}{\log(0.9)} \right\rceil + 1 = \left\lceil \frac{-2.996}{-0.105} \right\rceil + 1 = 29
+\]
+Com 29 observações, temos 95\% de chance de $X_{n:n}$ estar a menos de 0.1 de $\theta = 1$.
+\end{exemplo}
+
+\section{Propriedades Assintóticas dos Estimadores de Máxima Verossimilhança}
+
+\subsection{Introdução}
+
+Os EMVs possuem propriedades assintóticas excepcionais que justificam sua popularidade na prática estatística.
+
+\subsection{Eficiência Relativa Assintótica}
+
+\begin{definicao}[Eficiência Relativa Assintótica]
+Se dois estimadores $T_n^{(1)}$ e $T_n^{(2)}$ para $g(\theta)$ são assintoticamente normais:
+\[
+\sqrt{n}(T_n^{(i)} - g(\theta)) \xrightarrow[n \to \infty]{d} N(0, \sigma_i^2(\theta)), \quad i = 1, 2
+\]
+a eficiência relativa assintótica (ERA) de $T_n^{(2)}$ em relação a $T_n^{(1)}$ é:
+\[
+\text{ERA} = \frac{\sigma_1^2(\theta)}{\sigma_2^2(\theta)}
+\]
+\end{definicao}
+
+\subsection{Interpretação}
+
+\begin{itemize}
+    \item ERA $> 1$: $T_n^{(2)}$ é mais eficiente (menor variância assintótica)
+    \item ERA $= 1$: Ambos são igualmente eficientes
+    \item ERA $< 1$: $T_n^{(1)}$ é mais eficiente
+\end{itemize}
+
+\subsection{Teorema Central do Limite para EMVs}
+
+\begin{observacao}[TCL para EMVs]
+Sob condições de regularidade, se $\hat{\theta}_n$ é o EMV de $\theta$, então:
+\[
+\sqrt{n}(\hat{\theta}_n - \theta) \xrightarrow[n \to \infty]{d} N(0, I_X^{-1}(\theta))
+\]
+onde $I_X(\theta)$ é a informação de Fisher:
+\[
+I_X(\theta) = E_\theta\left[\left(\frac{\partial \log f(X; \theta)}{\partial \theta}\right)^2\right]
+\]
+\end{observacao}
+
+\subsection{Condições de Regularidade (Detalhadas)}
+
+As condições necessárias para o Teorema 3.8.1 (caso univariado) incluem:
+
+\begin{enumerate}
+    \item \textbf{(A1) Diferenciabilidade:} $\theta \mapsto f(x; \theta)$ é três vezes diferenciável sobre $\Theta$, $\forall x \in \mathbb{X}$.
+    
+    \item \textbf{(A2) Troca de derivação e integração:} É válido trocar $\frac{\partial}{\partial \theta}$ com $\int$:
+    \[
+    \int_{\mathbb{X}} \frac{\partial}{\partial \theta} f(x; \theta) \, dx = \frac{\partial}{\partial \theta} \int_{\mathbb{X}} f(x; \theta) \, dx = 0
+    \]
+    e
+    \[
+    \int_{\mathbb{X}} \frac{\partial^2}{\partial \theta^2} f(x; \theta) \, dx = \frac{\partial^2}{\partial \theta^2} \int_{\mathbb{X}} f(x; \theta) \, dx = 0
+    \]
+    
+    \item \textbf{(A3) Informação de Fisher finita e positiva:} 
+    \[
+    0 < I_X(\theta) \triangleq E_{\theta} \left[ \left( \frac{\partial \log f(x; \theta)}{\partial \theta} \right)^2 \right] < \infty, \quad \forall \theta \in \Theta
+    \]
+    
+    \item \textbf{(A4) Dominação local:} Para cada $\theta_0 \in \Theta$, existe $\varepsilon = \varepsilon(\theta_0) > 0$ tal que
+    \[
+    \left| \frac{\partial^3 \log f(x; \theta)}{\partial \theta^3} \right| \leq g(x), \quad \forall \theta \in [\theta_0 - \varepsilon, \theta_0 + \varepsilon],
+    \]
+    em que $\int_X g(x) f(x; \theta) \, dx < \infty$.
+    
+    \item \textbf{(A5) Existência de solução consistente:} A equação de verossimilhança
+    \[
+    \frac{\partial l(\theta)}{\partial \theta} = 0 \quad \Leftrightarrow \quad \sum_{i=1}^n \frac{\partial \log f(x_i; \theta)}{\partial \theta} = 0
+    \]
+    tem uma solução consistente $\hat{\theta}_n \xrightarrow{P} \theta$.
+\end{enumerate}
+
+\begin{observacao}[Caso Multivariado - Teorema 3.9.2]
+Para o caso multivariado ($\theta \in \mathbb{R}^p$), as condições análogas são:
+
+\textbf{(B1)} $\mathcal{C} = \{x : f(x; \theta) > 0 \}$ independe de $\theta$.
+
+\textbf{(B2)} $f(x; \theta)$ é três vezes diferenciável em $\theta$ para todo $x \in \mathcal{C}$.
+
+\textbf{(B3)} Troca de derivação e integração válida:
+\[
+\frac{\partial}{\partial \theta_r} \int_{\mathcal{C}} f(x; \theta) dx = \int_{\mathcal{C}} \frac{\partial}{\partial \theta_r} f(x; \theta) dx = 0
+\]
+e
+\[
+\int_{\mathcal{C}} \frac{\partial^2}{\partial \theta_r \partial \theta_s} f(x; \theta) dx = 0, \quad r, s = 1, \ldots, p
+\]
+
+\textbf{(B4)} A matriz de informação de Fisher
+\[
+I_{X_i}(\theta) = \left[ E \left( \frac{\partial \log f(X_i; \theta)}{\partial \theta_r} \frac{\partial \log f(X_i; \theta)}{\partial \theta_s} \right) \right]_{r,s=1}^p
+\]
+é finita e não singular para todo $\theta \in \Theta$.
+
+\textbf{(B5)} Condições de dominação para derivadas de terceira ordem.
+
+Então, existe uma sequência $\hat{\theta}_n$ tal que:
+\[
+\sqrt{n} (\hat{\theta}_n - \theta_0) \xrightarrow{d} N_p \left( 0, I^{-1}(\theta_0) \right)
+\]
+onde $N_p$ denota a distribuição normal multivariada de dimensão $p$.
+\end{observacao}
+
+\subsection{Propriedades dos EMVs}
+
+Sob as condições de regularidade, os EMVs são:
+
+\begin{enumerate}
+    \item \textbf{Consistentes:} $\hat{\theta}_n \xrightarrow{P} \theta$
+    
+    \item \textbf{Assintoticamente não-viesados:} $\lim_{n \to \infty} E[\hat{\theta}_n] = \theta$
+    
+    \item \textbf{Assintoticamente normais:} A distribuição converge para normal
+    
+    \item \textbf{Assintoticamente eficientes:} Atingem o limite inferior de Cramér-Rao assintótico
+\end{enumerate}
+
+\subsection{Limite Inferior de Cramér-Rao Assintótico}
+
+Para qualquer estimador não-viesado $T_n$ de $\theta$:
+\[
+\text{Var}(T_n) \geq \frac{1}{n \cdot I_X(\theta)}
+\]
+
+Os EMVs atingem este limite assintoticamente!
+
+\subsection{Aplicação Prática}
+
+\begin{exemplo}[Intervalo de Confiança via EMV]
+Se $\hat{\theta}_n$ é o EMV, um IC assintótico de nível $1-\alpha$ para $\theta$ é:
+\[
+IC_{1-\alpha}(\theta) = \hat{\theta}_n \pm z_{\alpha/2} \cdot \frac{1}{\sqrt{n \cdot I_X(\hat{\theta}_n)}}
+\]
+onde $I_X(\hat{\theta}_n)$ é a informação de Fisher avaliada em $\hat{\theta}_n$.
+\end{exemplo}
+
+\begin{exemplo}[Distribuição Normal]
+Para $X_i \sim N(\mu, \sigma^2)$ com $\sigma^2$ conhecido:
+\begin{itemize}
+    \item EMV: $\hat{\mu}_n = \bar{X}_n$
+    \item Informação de Fisher: $I_X(\mu) = 1/\sigma^2$
+    \item Distribuição assintótica: $\sqrt{n}(\bar{X}_n - \mu) \sim N(0, \sigma^2)$
+\end{itemize}
+
+Neste caso, a distribuição assintótica coincide com a exata!
+\end{exemplo}
+
+\subsection{Vantagens e Limitações}
+
+\textbf{Vantagens:}
+\begin{itemize}
+    \item Propriedades ótimas assintoticamente
+    \item Princípio unificado para construir estimadores
+    \item Aproximação normal facilita inferência
+\end{itemize}
+
+\textbf{Limitações:}
+\begin{itemize}
+    \item Requer condições de regularidade
+    \item Propriedades são assintóticas (podem não valer para $n$ pequeno)
+    \item Computação pode ser complexa (requer otimização numérica)
+\end{itemize}
+
+\section{Resumo e Conexões}
+
+\subsection{Hierarquia das Convergências}
+
+\[
+\text{Convergência quase certa} \Rightarrow \text{Convergência em Probabilidade} \Rightarrow \text{Convergência em Distribuição}
+\]
+
+\subsection{Teoremas Principais e Suas Relações}
+
+\begin{enumerate}
+    \item \textbf{LFGN:} $\bar{X}_n \xrightarrow{P} \mu$ (onde está o valor)
+    
+    \item \textbf{TCL clássico:} $\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)$ (quão rápido chega lá e qual a forma da distribuição)
+    
+    \item \textbf{TCL para $S_n^2$:} $\sqrt{n}(S_n^2 - \sigma^2) \xrightarrow{d} N(0, \mu_4 - \sigma^4)$ (distribuição assintótica da variância amostral)
+    
+    \item \textbf{Slutsky:} Permite combinações algébricas de convergências diferentes
+    
+    \item \textbf{Método Delta:} Estende para transformações não-lineares
+    
+    \item \textbf{Consistência:} Propriedade fundamental de estimadores ($T_n \xrightarrow{P} \theta$)
+    
+    \item \textbf{TCL para EMVs:} Propriedades assintóticas ótimas dos estimadores de máxima verossimilhança
+\end{enumerate}
+
+\subsection{Estratégia de Resolução de Problemas}
+
+\begin{enumerate}
+    \item \textbf{Identificar o tipo de problema:}
+    \begin{itemize}
+        \item Convergência pontual? $\to$ Usar LFGN ou consistência
+        \item Distribuição assintótica? $\to$ Usar TCL
+        \item Variância/segunda ordem? $\to$ TCL para $S_n^2$
+    \end{itemize}
+    
+    \item \textbf{Verificar condições:}
+    \begin{itemize}
+        \item Variáveis i.i.d.?
+        \item Momentos necessários existem?
+        \item Condições de regularidade satisfeitas?
+    \end{itemize}
+    
+    \item \textbf{Aplicar teoremas apropriados:}
+    \begin{itemize}
+        \item Para médias: LFGN ou TCL clássico
+        \item Para variâncias: TCL para $S_n^2$
+        \item Para EMVs: TCL para EMVs
+    \end{itemize}
+    
+    \item \textbf{Lidar com complicações:}
+    \begin{itemize}
+        \item Parâmetros desconhecidos? $\to$ Slutsky
+        \item Transformações não-lineares? $\to$ Método Delta
+        \item Múltiplas convergências? $\to$ Algebra de convergências
+    \end{itemize}
+    
+    \item \textbf{Construir inferência:}
+    \begin{itemize}
+        \item Intervalos de confiança assintóticos
+        \item Testes de hipóteses assintóticos
+        \item Regiões de confiança
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Quadro Sinótico: Quando Usar Cada Teorema}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Objetivo} & \textbf{Teorema} & \textbf{Condições} \\
+\hline
+Estimador consistente? & LFGN ou EQM $\to 0$ & Momentos finitos \\
+\hline
+Distribuição de $\bar{X}_n$? & TCL clássico & $E[X_i^2] < \infty$ \\
+\hline
+Distribuição de $S_n^2$? & TCL para $S_n^2$ & $E[X_i^4] < \infty$ \\
+\hline
+$\sigma$ desconhecido? & Slutsky & $S_n \xrightarrow{P} \sigma$ \\
+\hline
+Função $g(\bar{X}_n)$? & Método Delta & $g'(\mu) \neq 0$ \\
+\hline
+EMV? & TCL para EMVs & Regularidade \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Mensagem Final - Unidade 2}
+
+Este material auxiliar complementa as notas de aula, fornecendo:
+\begin{itemize}
+    \item Explicações detalhadas dos conceitos principais
+    \item Interpretações práticas dos resultados teóricos
+    \item Exemplos numéricos e aplicações
+    \item Estratégias para resolução de problemas
+\end{itemize}
+
+Os teoremas de convergência formam a base da inferência estatística moderna. Compreendê-los profundamente permite:
+\begin{itemize}
+    \item Justificar procedimentos estatísticos comuns
+    \item Desenvolver novos métodos para problemas específicos
+    \item Avaliar propriedades de estimadores e testes
+    \item Construir aproximações úteis para cálculos práticos
+\end{itemize}
+
+\newpage
+\section{Capítulo 4 - Testes de Hipóteses}
+
+\subsection{Introdução aos Testes de Hipóteses}
+
+\subsubsection{Definições Fundamentais}
+
+\begin{definicao}[Hipótese Estatística (4.1.1)]
+Uma hipótese é uma afirmação sobre o parâmetro desconhecido $\theta$. Por exemplo:
+\[
+H: \mu = \mu_0, \quad H: \sigma^2 > \sigma_0^2, \quad H: \lambda \neq \alpha
+\]
+\end{definicao}
+
+\begin{definicao}[Formulação de Neyman-Pearson]
+Neyman e Pearson formularam o problema de testar hipóteses como segue. Considere que se deseja escolher entre:
+\begin{equation}
+\begin{cases}
+H_0: \theta \in \Theta_0, \\
+H_1: \theta \in \Theta_1,
+\end{cases}
+\end{equation}
+tal que $\Theta = \Theta_0 \cup \Theta_1$ e $\Theta_0 \cap \Theta_1 = \varnothing$.
+
+Então, baseando-se numa amostra aleatória $X_1, \ldots, X_n$ de $X$, deve-se tomar a decisão de \underline{rejeitar $H_0$} ou \underline{não rejeitar $H_0$}.
+\end{definicao}
+
+\subsubsection{Tipos de Hipóteses}
+
+\begin{itemize}
+    \item \textbf{Hipótese Simples:} Especifica completamente a distribuição (ex: $H_0: \theta = \theta_0$)
+    \item \textbf{Hipótese Composta:} Não especifica completamente (ex: $H_0: \theta > \theta_0$)
+    \item \textbf{Unilateral:} $H_1: \theta > \theta_0$ ou $H_1: \theta < \theta_0$
+    \item \textbf{Bilateral:} $H_1: \theta \neq \theta_0$
+\end{itemize}
+
+\subsection{Seção 4.2 - Probabilidade de Erro e Função Poder}
+
+\begin{definicao}[Teste de Hipóteses (4.2.1)]
+Sejam $X_1, \ldots, X_n$ uma amostra de $X$ com fdp (ou fmp) $f(x; \theta)$. Um teste de hipóteses é definido por uma região crítica $R_C$ e sua complementar $R_C^c$ tais que:
+\[
+R_C \cup R_C^c = \mathbb{R}^n \quad \text{e} \quad R_C \cap R_C^c = \emptyset
+\]
+
+Se $x \in R_C$, rejeitamos $H_0$; caso contrário, não rejeitamos $H_0$.
+\end{definicao}
+
+\subsubsection{Erros em Testes de Hipóteses}
+
+\begin{definicao}[Erro Tipo I]
+\[
+\alpha = P(\text{Erro tipo I}) = P_{H_0}(\text{Rejeitar } H_0) = P_{H_0}(X \in R_C)
+\]
+É a probabilidade de rejeitar $H_0$ quando $H_0$ é verdadeira.
+\end{definicao}
+
+\begin{definicao}[Erro Tipo II]
+\[
+\beta = P(\text{Erro tipo II}) = P_{H_1}(\text{Não rejeitar } H_0) = P_{H_1}(X \notin R_C)
+\]
+É a probabilidade de não rejeitar $H_0$ quando $H_1$ é verdadeira.
+\end{definicao}
+
+\begin{definicao}[Função Poder (4.2.2)]
+O poder ou função poder de um teste $\gamma$, denotada como $Q_\gamma(\theta)$, é a probabilidade de rejeitar $H_0$ quando a verdade é $\theta$:
+\[
+Q_{\gamma}(\theta) = P_{\theta}(X \in R_C), \quad \forall \theta \in \Theta
+\]
+\end{definicao}
+
+\begin{observacao}[Interpretação da Função Poder]
+\begin{itemize}
+    \item Para $\theta \in \Theta_0$: $Q_\gamma(\theta) = \alpha$ (probabilidade de erro tipo I)
+    \item Para $\theta \in \Theta_1$: $Q_\gamma(\theta) = 1 - \beta$ (poder do teste)
+    \item Queremos: $\alpha$ pequeno e $Q_\gamma(\theta)$ grande para $\theta \in \Theta_1$
+\end{itemize}
+\end{observacao}
+
+\subsubsection{Função Crítica e Testes Aleatorizados}
+
+\begin{definicao}[Função Crítica (4.2.3)]
+A função $\psi: \mathbb{R}^n \to [0,1]$ é chamada de função crítica ou função de teste se $\psi(x)$ representa a probabilidade com a qual $H_0$ é rejeitada quando $X = x$ é observada.
+\end{definicao}
+
+\begin{definicao}[Tipos de Teste (4.2.4)]
+Um teste $\gamma$ para a hipótese $H_0$ pode ser:
+\begin{itemize}
+    \item \textbf{Não aleatorizado:} $\psi(x) \in \{0, 1\}$ (decisão determinística)
+    \item \textbf{Aleatorizado:} $\psi(x) \in (0, 1)$ em alguma fronteira (usado em distribuições discretas)
+\end{itemize}
+\end{definicao}
+
+\begin{definicao}[Tamanho e Nível do Teste (4.2.5)]
+Um teste $\gamma$ é chamado de:
+\begin{itemize}
+    \item \textbf{Tamanho $\alpha$:} se $\sup_{\theta \in \Theta_0} Q_\gamma(\theta) = \alpha$
+    \item \textbf{Nível $\alpha$:} se $\sup_{\theta \in \Theta_0} Q_\gamma(\theta) \leq \alpha$
+\end{itemize}
+
+Equivalentemente usando função crítica:
+\[
+\sup_{\theta \in \Theta_0} E_{\theta} [\psi(X)] = \alpha \quad \text{(tamanho)} \quad \text{ou} \quad \leq \alpha \quad \text{(nível)}
+\]
+\end{definicao}
+
+\subsubsection{Melhor Teste e Teste UMP}
+
+\begin{definicao}[Teste Uniformemente Mais Poderoso (4.2.6)]
+Considere uma classe $\mathcal{C}$ de todos os testes de nível $\alpha$ para $H_0$ vs $H_1$. Um teste $\gamma \in \mathcal{C}$ com função poder $Q_{\gamma}(\theta)$ é o \textbf{melhor teste de nível $\alpha$} ou o \textbf{teste uniformemente mais poderoso (UMP)} de nível $\alpha$ se, e só se:
+\[
+Q_\gamma(\theta) \geq Q_{\gamma^*}(\theta), \quad \forall \theta \in \Theta_1, \quad \forall \gamma^* \in \mathcal{C}
+\]
+\end{definicao}
+
+\subsection{Seção 4.3 - Lema de Neyman-Pearson}
+
+\begin{observacao}[Lema de Neyman-Pearson (4.3.1)]
+Para testar hipóteses simples
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta = \theta_1,
+\]
+seja $\psi(x)$ uma função crítica que satisfaz:
+
+\textbf{(1)} Para $k \geq 0$:
+\[
+\psi(x) = 
+\begin{cases}
+1, & \text{se } L(\theta_1; x) > k \, L(\theta_0; x) \\
+0, & \text{se } L(\theta_1; x) < k \, L(\theta_0; x)
+\end{cases}
+\]
+
+\textbf{(2)} $k$ é determinado por:
+\[
+E_{\theta_0} [\psi(x)] = \alpha
+\]
+
+Então, qualquer teste satisfazendo (1) e (2) é um teste MP de nível $\alpha$.
+\end{observacao}
+
+\subsubsection{Estrutura da Prova do LNP}
+
+\textbf{Ideia central:} Mostrar que
+\[
+\left[ \psi_{\gamma}(x) - \psi_{\gamma^*}(x) \right] \left[ L(\theta_1, x) - k L(\theta_0, x) \right] \geq 0
+\]
+
+para todo $x$, onde $\gamma$ é o teste LNP e $\gamma^*$ é qualquer outro teste de nível $\alpha$.
+
+\textbf{Passos principais:}
+\begin{enumerate}
+    \item Verificar a desigualdade em três casos: $\psi_\gamma = 1$, $\psi_\gamma = 0$, $\psi_\gamma \in (0,1)$
+    \item Integrar ambos os lados sobre o espaço amostral
+    \item Usar que ambos os testes têm nível $\alpha$: $Q_\gamma(\theta_0) = Q_{\gamma^*}(\theta_0) = \alpha$
+    \item Concluir que $Q_\gamma(\theta_1) \geq Q_{\gamma^*}(\theta_1)$
+\end{enumerate}
+
+\subsection{Seção 4.4 - Teste para Hipótese Composta Unilateral}
+
+\subsubsection{Teste UMP via Lema de Neyman-Pearson}
+
+Para hipóteses do tipo:
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta > \theta_0 \quad \text{(ou } \theta < \theta_0\text{)}
+\]
+
+\textbf{Estratégia:}
+\begin{enumerate}
+    \item Fixar um valor arbitrário $\theta_1 \in \Theta_1$ (ex: $\theta_1 > \theta_0$)
+    \item Aplicar o LNP para obter teste MP para $H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$
+    \item Se o teste resultante não depende da escolha específica de $\theta_1$, então ele é UMP
+\end{enumerate}
+
+\subsubsection{Razão de Verossimilhança Monótona (RVM)}
+
+\begin{definicao}[RVM]
+Uma família $\{f(x;\theta): \theta \in \Theta\}$ tem \textbf{razão de verossimilhança monótona (RVM)} em $T(x)$ se, para $\theta_1 > \theta_0$, a razão
+\[
+\frac{L(\theta_1; x)}{L(\theta_0; x)}
+\]
+é uma função não decrescente de $T(x)$.
+\end{definicao}
+
+\subsection{Procedimentos Operacionais de Testes}
+
+\subsubsection{Teste Z (Normal com $\sigma^2$ conhecido)}
+
+\textbf{Contexto:} $X_1, \ldots, X_n \overset{i.i.d.}{\sim} N(\mu, \sigma^2)$ com $\sigma^2 > 0$ conhecido.
+
+\textbf{Hipóteses típicas:}
+\begin{itemize}
+    \item Unilateral: $H_0: \mu = \mu_0$ vs $H_1: \mu > \mu_0$ (ou $\mu < \mu_0$)
+    \item Bilateral: $H_0: \mu = \mu_0$ vs $H_1: \mu \neq \mu_0$
+\end{itemize}
+
+\textbf{Estatística de teste:}
+\[
+Z(X) = \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \overset{H_0}{\sim} N(0,1)
+\]
+
+\textbf{Regras de decisão:}
+\begin{itemize}
+    \item \textit{Unilateral à direita:} Rejeitar $H_0$ se $Z_{cal} > z_{\alpha}$
+    \item \textit{Unilateral à esquerda:} Rejeitar $H_0$ se $Z_{cal} < -z_{\alpha}$
+    \item \textit{Bilateral:} Rejeitar $H_0$ se $|Z_{cal}| > z_{\alpha/2}$
+\end{itemize}
+
+\textbf{Valor-p:}
+\begin{itemize}
+    \item Unilateral (direita): $\hat{\alpha} = P(Z > Z_{cal})$
+    \item Unilateral (esquerda): $\hat{\alpha} = P(Z < Z_{cal})$
+    \item Bilateral: $\hat{\alpha} = 2 \cdot P(Z > |Z_{cal}|)$
+\end{itemize}
+
+\subsubsection{Teste $\chi^2$ (Exponencial)}
+
+\textbf{Contexto:} $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \text{Exp}(\theta)$
+
+\textbf{Hipóteses:}
+\[
+H_0: \theta = \theta_0 \quad \text{vs.} \quad H_1: \theta = \theta_1 \quad (\theta_1 > \theta_0)
+\]
+
+\textbf{Estatística de teste:}
+\[
+Q(X) = \frac{2}{\theta_0} \sum_{i=1}^n X_i \sim \chi^2_{2n} \quad \text{sob } H_0
+\]
+
+\textbf{Justificativa:} Se $X_i \sim \text{Exp}(\theta)$, então $\frac{2X_i}{\theta} \sim \chi^2_2$, logo $\sum_{i=1}^n \frac{2X_i}{\theta} \sim \chi^2_{2n}$.
+
+\textbf{Regra de decisão:}
+\begin{itemize}
+    \item Rejeitar $H_0$ se $Q_{cal} > \chi^2_{2n,\alpha}$ (quantil superior)
+    \item Valor-p: $\hat{\alpha} = P(\chi^2_{2n} > Q_{cal})$
+\end{itemize}
+
+\subsubsection{Teste para Bernoulli/Proporções}
+
+\textbf{Contexto:} $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \text{Bernoulli}(p)$ para $p \in (0,1)$ desconhecido.
+
+\textbf{Hipóteses:}
+\[
+H_0: p = p_0 \quad \text{vs.} \quad H_1: p > p_0 \quad \text{(ou } p = p_1 > p_0\text{)}
+\]
+
+\textbf{Estatística suficiente:} $T = \sum_{i=1}^n X_i \sim \text{Binomial}(n, p)$
+
+\textbf{Via LNP:} A razão de verossimilhanças é crescente em $T$, logo o teste MP rejeita $H_0$ se $T > k_1$.
+
+\textbf{Determinação de $k_1$:} Escolher o menor inteiro $k_1$ tal que:
+\[
+P_{p_0}(T > k_1) \leq \alpha
+\]
+
+Se necessário, usar aleatorização na fronteira:
+\[
+\delta = \frac{\alpha - P_{p_0}(T > k_1)}{P_{p_0}(T = k_1)}
+\]
+
+\subsection{Exemplos Práticos de Testes}
+
+\begin{exemplo}[Exemplo Q(4.1): Comparação de Testes para Normal]
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\theta, 1)$ com $\theta \in \mathbb{R}$ desconhecido. Para testar $H_0: \theta = 5.5$ vs $H_1: \theta = 8$, considere quatro testes:
+
+\begin{itemize}
+    \item \textbf{Teste \#1:} Rejeitar $H_0$ se $x_1 > 7$
+    \item \textbf{Teste \#2:} Rejeitar $H_0$ se $\frac{x_1 + x_2}{2} > 7$
+    \item \textbf{Teste \#3:} Rejeitar $H_0$ se $\bar{X}_n > 6$
+    \item \textbf{Teste \#4:} Rejeitar $H_0$ se $\bar{X}_n > 7.5$
+\end{itemize}
+
+\textbf{Análise:}
+\begin{itemize}
+    \item Teste \#1 usa apenas $x_1$ (desperdiça informação)
+    \item Teste \#2 usa apenas duas observações
+    \item Teste \#3 usa toda a amostra mas tem $\alpha$ muito alto
+    \item Teste \#4 usa toda a amostra e tem $\alpha$ controlado - é o teste MP!
+\end{itemize}
+\end{exemplo}
+
+\begin{exemplo}[Cálculo de $\alpha$ e $\beta$]
+Para Teste \#1 ($n=1$, rejeitar se $x_1 > 7$):
+
+$\alpha = P_{H_0}(x_1 > 7) = P(Z > (7-5.5)/1) = P(Z > 1.5) = 0.0668$
+
+$\beta = P_{H_1}(x_1 \leq 7) = P(Z \leq (7-8)/1) = P(Z \leq -1) = 0.1587$
+
+Logo, poder $= 1 - \beta = 0.8413$.
+\end{exemplo}
+
+\subsection{Resumo de Conceitos-Chave}
+
+\begin{center}
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Conceito} & \textbf{Definição/Fórmula} \\
+\hline
+Hipótese Nula & $H_0: \theta \in \Theta_0$ (a ser testada) \\
+\hline
+Hipótese Alternativa & $H_1: \theta \in \Theta_1$ (oposta a $H_0$) \\
+\hline
+Região Crítica & $R_C$: região onde rejeitamos $H_0$ \\
+\hline
+Erro Tipo I & $\alpha = P_{H_0}(\text{rejeitar } H_0)$ \\
+\hline
+Erro Tipo II & $\beta = P_{H_1}(\text{não rejeitar } H_0)$ \\
+\hline
+Poder & $1 - \beta = P_{H_1}(\text{rejeitar } H_0)$ \\
+\hline
+Função Poder & $Q_\gamma(\theta) = P_\theta(X \in R_C)$ \\
+\hline
+Teste MP & Maximiza poder para hipóteses simples vs simples \\
+\hline
+Teste UMP & Maximiza poder uniformemente para $\theta \in \Theta_1$ \\
+\hline
+LNP & Teste MP baseado em $L(\theta_1)/L(\theta_0) > k$ \\
+\hline
+RVM & Razão de verossimilhança monótona em estatística $T$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Estratégias para Resolver Problemas de Testes}
+
+\begin{enumerate}
+    \item \textbf{Identificar o tipo de teste:}
+    \begin{itemize}
+        \item Simples vs Simples? $\to$ LNP
+        \item Simples vs Composta Unilateral? $\to$ Verificar RVM + Karlin-Rubin
+        \item Bilateral? $\to$ Teste RV (não existe UMP geralmente)
+    \end{itemize}
+    
+    \item \textbf{Encontrar a estatística apropriada:}
+    \begin{itemize}
+        \item Usar estatística suficiente quando possível
+        \item Para Normal: $\bar{X}_n$ ou $S_n^2$
+        \item Para Exponencial: $\sum X_i$ (transformar para $\chi^2$)
+        \item Para Poisson/Bernoulli: $\sum X_i$
+    \end{itemize}
+    
+    \item \textbf{Determinar distribuição sob $H_0$:}
+    \begin{itemize}
+        \item Padronizar para distribuições conhecidas (Z, t, $\chi^2$, F)
+        \item Usar transformações quando necessário
+    \end{itemize}
+    
+    \item \textbf{Construir região crítica:}
+    \begin{itemize}
+        \item Via LNP para casos simples
+        \item Via quantis da distribuição sob $H_0$
+        \item Garantir nível $\alpha$ especificado
+    \end{itemize}
+    
+    \item \textbf{Calcular valor-p quando aplicável:}
+    \begin{itemize}
+        \item Valor-p = probabilidade sob $H_0$ de obter evidência tão ou mais extrema
+        \item Comparar com $\alpha$ para decisão
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Conexão entre Unidades 2 e 4}
+
+Os testes de hipóteses (Unidade 4) dependem fundamentalmente dos resultados de convergência (Unidade 2):
+
+\begin{itemize}
+    \item \textbf{TCL} justifica o uso da distribuição normal em testes Z
+    \item \textbf{Slutsky} permite substituir $\sigma$ por $S_n$ (teste t)
+    \item \textbf{Consistência} garante que estimadores usados em testes convergem
+    \item \textbf{Propriedades assintóticas} validam testes para amostras grandes
+\end{itemize}
+
+\textbf{Estude com atenção, pratique muito, e boa sorte!}
+
+\end{document}
+

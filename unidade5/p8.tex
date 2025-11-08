@@ -1,0 +1,26 @@
+\newpage
+
+\section*{Aula 29 (02/07/2023)}
+
+Se $\sigma$ é conhecido, podemos obter $a, b$ tais que
+\begin{equation}
+P_{\theta} \left( a < \frac{\hat{\kappa}(\theta) - \kappa(\theta)}{\sigma} < b \right) = 1 - \alpha
+\end{equation}
+
+Desta última identidade, obtém-se o intervalo de confiança $1 - \alpha$ para $\kappa(\theta)$.
+
+Para $\sigma$ desconhecido:
+\begin{equation}
+P_{\theta} \left( a < \frac{\hat{\kappa}(\theta) - \kappa(\theta)}{\hat{\sigma}} < b \right) = 1 - \alpha
+\end{equation}
+
+Desta identidade, obtém-se o intervalo de confiança.
+
+Os resultados anteriores são locação. Quando a inferência é sobre o parâmetro de escala, costuma-se utilizar o pivô
+\begin{equation}
+U = \frac{\hat{\kappa}(\theta)}{\kappa(\theta)}
+\end{equation}
+cuja distribuição geralmente independe de $\theta$. Para este caso, usa-se
+\begin{equation}
+P_{\theta} \left( a < \frac{\hat{\kappa}(\theta)}{\kappa(\theta)} < b \right) = 1 - \alpha
+\end{equation}

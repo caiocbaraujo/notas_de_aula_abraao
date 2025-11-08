@@ -1,0 +1,44 @@
+\newpage
+
+\section*{4.5 Teste para $H_1$ composta bilateral}
+
+Considere testar:
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \neq \theta_0
+\end{equation}
+
+Para $\theta$ fixado. Existe teste UMP? \\
+Sim em algumas situações e não em outras. \\
+Vamos considerar dois exemplos.
+
+\textbf{Ex.} Para $X_1, \ldots, X_n \overset{i.i.d.}{\sim} X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecido e $\sigma^2$ conhecido. Para
+\begin{equation}
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0
+\end{equation}
+não existe teste UMP.
+
+\textbf{Ex.} Para $X_1, \ldots, X_n \overset{i.i.d.}{\sim} X \sim U(0, \theta)$. Há um teste UMP para
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \neq \theta_0
+\end{equation}
+
+\section*{4.5.1 Exemplo de não existência do teste UMP}
+
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecido e $\sigma^2 > 0$ conhecido. Como discutido, 
+\begin{equation}
+T(x) = \sum_{i=1}^n x_i
+\end{equation}
+é suficiente para $\mu$.
+
+Considere testar:
+\begin{equation}
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0
+\end{equation}
+
+Admita que existe o teste UMP se quiséssemos testar:
+\begin{equation}
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu > \mu_0
+\end{equation}
+
+Prova-se que o seguinte teste é UMP para $\alpha \in (0,1)$ nível nominal $\alpha$ tal que:
+

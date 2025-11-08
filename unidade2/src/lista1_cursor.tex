@@ -1,0 +1,257 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumitem}
+
+\newtheorem{exercise}{Exercício}
+
+\title{Lista de Exercícios - Inferência Estatística}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+\maketitle
+
+\section{Convergência Estocástica}
+
+\begin{exercise}
+Seja $X_n$ uma sequência de variáveis aleatórias tal que $X_n \sim \text{Uniforme}(0, 1/n)$. Mostre que $X_n \xrightarrow{P} 0$.
+\end{exercise}
+
+\begin{exercise}
+Seja $X_1, X_2, \ldots$ uma sequência de variáveis aleatórias independentes com $X_i \sim \text{Exp}(i)$. Mostre que $\frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{P} 1$.
+\end{exercise}
+
+\begin{exercise}
+Seja $X_n \sim \text{Binomial}(n, 1/n)$. Encontre a distribuição limite de $X_n$ quando $n \to \infty$.
+\end{exercise}
+
+\begin{exercise}
+Seja $X_1, X_2, \ldots$ uma sequência de variáveis aleatórias i.i.d. com $E[X_i] = 0$ e $\text{Var}(X_i) = 1$. Mostre que $\frac{1}{\sqrt{n}}\sum_{i=1}^n X_i \xrightarrow{d} N(0,1)$.
+\end{exercise}
+
+\section{Teorema Central do Limite e Aproximações}
+
+\begin{exercise}
+Uma empresa produz parafusos com diâmetro médio de 5mm e desvio padrão de 0.1mm. Qual é a probabilidade de que em uma amostra de 100 parafusos, a média dos diâmetros esteja entre 4.98mm e 5.02mm?
+\end{exercise}
+
+\begin{exercise}
+Um teste tem 50 questões de múltipla escolha com 4 alternativas cada. Um aluno responde aleatoriamente. Use o TCL para aproximar a probabilidade de que ele acerte entre 10 e 15 questões.
+\end{exercise}
+
+\begin{exercise}
+Seja $X \sim \text{Poisson}(100)$. Use a aproximação normal para calcular $P(95 \leq X \leq 105)$.
+\end{exercise}
+
+\begin{exercise}
+Aplicando o método delta, encontre a distribuição limite de $\sqrt{n}(\log \bar{X}_n - \log \mu)$ quando $\sqrt{n}(\bar{X}_n - \mu) \xrightarrow{d} N(0, \sigma^2)$.
+\end{exercise}
+
+\section{Estimação Pontual}
+
+\begin{exercise}
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Uniforme}(\theta, \theta+1)$. Encontre o estimador de máxima verossimilhança de $\theta$.
+\end{exercise}
+
+\begin{exercise}
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu, \sigma^2)$. Encontre os estimadores de máxima verossimilhança de $\mu$ e $\sigma^2$.
+\end{exercise}
+
+\begin{exercise}
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Beta}(\alpha, \beta)$ com $\alpha$ conhecido. Encontre o estimador de máxima verossimilhança de $\beta$.
+\end{exercise}
+
+\begin{exercise}
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Gamma}(\alpha, \beta)$ com $\alpha$ conhecido. Encontre o estimador de máxima verossimilhança de $\beta$.
+\end{exercise}
+
+\section{Intervalos de Confiança}
+
+\begin{exercise}
+Uma amostra de 30 observações de uma população normal forneceu $\bar{x} = 15.3$ e $s = 2.8$. Construa um intervalo de confiança de 90\% para a média populacional.
+\end{exercise}
+
+\begin{exercise}
+Em uma pesquisa com 500 pessoas, 180 disseram preferir o produto A. Construa um intervalo de confiança de 95\% para a proporção populacional que prefere o produto A.
+\end{exercise}
+
+\begin{exercise}
+Uma amostra de 20 observações de uma população normal forneceu $s^2 = 4.5$. Construa um intervalo de confiança de 99\% para a variância populacional.
+\end{exercise}
+
+\begin{exercise}
+Duas amostras independentes de tamanhos $n_1 = 25$ e $n_2 = 30$ forneceram $\bar{x}_1 = 12.5$, $s_1 = 2.1$, $\bar{x}_2 = 14.2$, $s_2 = 2.8$. Construa um IC de 95\% para $\mu_1 - \mu_2$.
+\end{exercise}
+
+\section{Testes de Hipóteses}
+
+\begin{exercise}
+Uma máquina deve produzir parafusos com diâmetro médio de 10mm. Uma amostra de 16 parafusos forneceu $\bar{x} = 9.8$mm e $s = 0.3$mm. Teste $H_0: \mu = 10$ vs $H_1: \mu \neq 10$ com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{exercise}
+Um fabricante afirma que pelo menos 80\% de seus produtos são aprovados no controle de qualidade. Em uma amostra de 200 produtos, 150 foram aprovados. Teste a afirmação do fabricante com $\alpha = 0.01$.
+\end{exercise}
+
+\begin{exercise}
+Duas máquinas produzem o mesmo tipo de peça. Amostras de tamanhos $n_1 = 20$ e $n_2 = 25$ forneceram $\bar{x}_1 = 12.5$, $s_1 = 1.2$, $\bar{x}_2 = 13.1$, $s_2 = 1.5$. Teste se há diferença entre as máquinas com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{exercise}
+Um dado é lançado 120 vezes. As frequências observadas foram: 18, 22, 19, 21, 20, 20. Teste se o dado é honesto com $\alpha = 0.05$.
+\end{exercise}
+
+\section{Análise de Variância}
+
+\begin{exercise}
+Três métodos de produção foram testados em grupos de 8 operários cada. Os resultados (tempo em minutos) foram:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Método A & Método B & Método C \\
+\hline
+45, 48, 50, 52 & 38, 40, 42, 44 & 55, 58, 60, 62 \\
+\hline
+\end{tabular}
+\end{center}
+Teste se há diferença entre os métodos com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{exercise}
+Quatro tipos de fertilizante foram testados em parcelas de mesmo tamanho. Os rendimentos (kg) foram:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Fertilizante 1 & Fertilizante 2 & Fertilizante 3 & Fertilizante 4 \\
+\hline
+25, 28, 30 & 22, 24, 26 & 32, 35, 37 & 20, 23, 25 \\
+\hline
+\end{tabular}
+\end{center}
+Teste se há diferença entre os fertilizantes com $\alpha = 0.01$.
+\end{exercise}
+
+\section{Regressão Linear}
+
+\begin{exercise}
+Dados os pares $(x_i, y_i)$: (2,5), (4,9), (6,13), (8,17), (10,21). Encontre a reta de regressão, calcule $R^2$ e teste a significância da regressão com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{exercise}
+Em um estudo sobre horas de estudo e notas, foram coletados os dados:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Horas & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+\hline
+Nota & 6.5 & 7.2 & 7.8 & 8.1 & 8.5 & 8.9 & 9.2 & 9.5 \\
+\hline
+\end{tabular}
+\end{center}
+Encontre a reta de regressão e construa um IC de 95\% para o coeficiente angular.
+\end{exercise}
+
+\begin{exercise}
+Em uma regressão múltipla com 3 variáveis independentes e 20 observações, obtivemos $R^2 = 0.75$. Teste a significância global da regressão com $\alpha = 0.05$.
+\end{exercise}
+
+\section{Testes Não-Paramétricos}
+
+\begin{exercise}
+Compare dois grupos usando o teste de Wilcoxon:
+Grupo A: 15, 18, 20, 22, 25
+Grupo B: 12, 14, 16, 19, 21
+Teste com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{exercise}
+Três grupos foram comparados usando o teste de Kruskal-Wallis:
+Grupo 1: 10, 12, 14, 16
+Grupo 2: 8, 9, 11, 13
+Grupo 3: 15, 17, 19, 21
+Teste com $\alpha = 0.05$.
+\end{exercise}
+
+\begin{exercise}
+Calcule o coeficiente de correlação de Spearman para os dados:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+X & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+\hline
+Y & 2 & 4 & 1 & 3 & 6 & 5 & 8 & 7 \\
+\hline
+\end{tabular}
+\end{center}
+\end{exercise}
+
+\section{Análise de Séries Temporais}
+
+\begin{exercise}
+Para o modelo AR(1) $X_t = 0.7X_{t-1} + \varepsilon_t$ com $\varepsilon_t \sim N(0,1)$, calcule a função de autocorrelação $\rho_k$ para $k = 1, 2, 3$.
+\end{exercise}
+
+\begin{exercise}
+Para o modelo MA(1) $X_t = \varepsilon_t + 0.5\varepsilon_{t-1}$ com $\varepsilon_t \sim N(0,1)$, calcule a função de autocorrelação $\rho_k$ para $k = 1, 2, 3$.
+\end{exercise}
+
+\section{Análise de Sobrevivência}
+
+\begin{exercise}
+Em um estudo de sobrevivência, os tempos observados foram: 2, 3, 5, 7, 8, 10, 12, 15. Calcule a função de sobrevivência de Kaplan-Meier.
+\end{exercise}
+
+\begin{exercise}
+Em um estudo com 20 pacientes, 12 faleceram nos tempos: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12. Os outros 8 foram censurados no tempo 15. Calcule $\hat{S}(10)$.
+\end{exercise}
+
+\section{Análise Multivariada}
+
+\begin{exercise}
+Para os dados bivariados:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+X & 1 & 2 & 3 & 4 & 5 \\
+\hline
+Y & 2 & 4 & 6 & 8 & 10 \\
+\hline
+\end{tabular}
+\end{center}
+Calcule a primeira componente principal.
+\end{exercise}
+
+\begin{exercise}
+Em uma análise discriminante com duas classes, temos:
+$\boldsymbol{\mu}_1 = (2, 3)^T$, $\boldsymbol{\mu}_2 = (4, 5)^T$, $\boldsymbol{\Sigma} = \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}$.
+Classifique o ponto $\mathbf{x} = (3, 4)^T$.
+\end{exercise}
+
+\section{Métodos de Bootstrap}
+
+\begin{exercise}
+Uma amostra de tamanho 10 forneceu: 2.1, 2.3, 2.5, 2.7, 2.9, 3.1, 3.3, 3.5, 3.7, 3.9. Use bootstrap para estimar a variância da média amostral com $B = 1000$ replicações.
+\end{exercise}
+
+\begin{exercise}
+Para a mesma amostra do exercício anterior, construa um intervalo de confiança bootstrap de 95\% para a média populacional usando o método percentil.
+\end{exercise}
+
+\section{Validação Cruzada e Seleção de Modelos}
+
+\begin{exercise}
+Para um modelo de regressão com 5 variáveis independentes e 50 observações, calcule o AIC e BIC sabendo que $SSE = 100$.
+\end{exercise}
+
+\begin{exercise}
+Em uma regressão Ridge com $\lambda = 1$, os coeficientes estimados foram $\hat{\boldsymbol{\beta}} = (2, -1, 0.5, 3, -0.8)^T$. Calcule a penalização Ridge.
+\end{exercise}
+
+\end{document}

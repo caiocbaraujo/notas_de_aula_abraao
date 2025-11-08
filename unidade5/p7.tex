@@ -1,0 +1,45 @@
+\newpage
+
+\textbf{Exemplo 8:} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ e $\sigma \in \mathbb{R}_+$ desconhecidos. Encontre o intervalo de confiança $1 - \alpha$ para $\sigma$.
+
+\textbf{Solução:} Note que
+\begin{equation}
+    U = \frac{(n-1) S_n^2}{\sigma^2} \sim \chi^2_{n-1}.
+\end{equation}
+
+Sejam $\chi^2_{n-1, \alpha/2}$ e $\chi^2_{n-1, 1 - \alpha/2}$ tais que
+\begin{equation}
+    P\left( U < \chi^2_{n-1, \alpha/2} \right) = \frac{\alpha}{2}
+    \quad \text{e} \quad
+    P\left( U > \chi^2_{n-1, 1 - \alpha/2} \right) = \frac{\alpha}{2}.
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[->] (-0.5,0) -- (6.5,0) node[right] {};
+    \draw[domain=0.5:6, smooth, variable=\x] plot ({\x}, {2*exp(-(\x-3.25)^2/2)});
+    \draw[dashed] (1.2,0) -- (1.2,1.2);
+    \draw[dashed] (5.3,0) -- (5.3,1.2);
+    \node at (1.2,-0.3) {$\chi^2_{n-1, \alpha/2}$};
+    \node at (5.3,-0.3) {$\chi^2_{n-1, 1-\alpha/2}$};
+    \node at (3.25,1.8) {$1 - \alpha$};
+    \node at (0.8,0.8) {$\alpha/2$};
+    \node at (5.9,0.8) {$\alpha/2$};
+\end{tikzpicture}
+\end{center}
+
+Então,
+\begin{equation}
+    P\left( \chi^2_{n-1, \alpha/2} < U < \chi^2_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
+\end{equation}
+\begin{equation}
+    P\left( \chi^2_{n-1, \alpha/2} < \frac{(n-1) S_n^2}{\sigma^2} < \chi^2_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
+\end{equation}
+\begin{equation}
+    P\left( \frac{(n-1) S_n^2}{\chi^2_{n-1, 1 - \alpha/2}} < \sigma^2 < \frac{(n-1) S_n^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
+\end{equation}
+
+Portanto,
+\begin{equation}
+    IC_{1-\alpha}(\sigma) = \left[ \sqrt{\frac{(n-1) S_n^2}{\chi^2_{n-1, 1 - \alpha/2}}}, \sqrt{\frac{(n-1) S_n^2}{\chi^2_{n-1, \alpha/2}}} \right].
+\end{equation}

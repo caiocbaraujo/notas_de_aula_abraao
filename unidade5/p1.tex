@@ -1,0 +1,20 @@
+\section*{Aula 26 (27/06/2025) \\ Unidade 5 - Intervalo de Confiança}
+
+Vamos começar com o importante conceito de \textit{probabilidade de cobertura}.
+
+\subsection*{Def. 1}
+Sejam $T_L(\hat{X})$ e $T_U(\hat{X})$ duas estatísticas baseadas numa a.a. $\hat{X} = (X_1, \ldots, X_n)$, a probabilidade de cobertura do intervalo aleatório
+\begin{equation}
+J = \left[ T_L(\hat{X}), T_U(\hat{X}) \right]
+\end{equation}
+para o parâmetro desconhecido $\theta \in \Theta \subset \mathbb{R}$ é dada por:
+\begin{equation}
+P_{\theta} \left( \theta \in \left[ T_L(\hat{X}), T_U(\hat{X}) \right] \right)
+\end{equation}
+
+Na verdade, o \textit{coeficiente de confiança} de $J$ é dado por:
+\begin{equation}
+\inf_{\theta \in \Theta} \left\{ P_{\theta} \left( \theta \in \left[ T_L(\hat{X}), T_U(\hat{X}) \right] \right) \right\}
+\end{equation}
+
+Na maioria das aplicações, a probabilidade de cobertura não depende do parâmetro e será equivalente ao coeficiente de confiança.

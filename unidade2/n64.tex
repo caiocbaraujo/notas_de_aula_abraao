@@ -1,0 +1,39 @@
+Daí, a região crítica, é dada por:
+
+Para $\mathcal{X} = \mathbb{Z}_+^n$:
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \left(\frac{\lambda_1}{\lambda_0}\right)^{\sum x_i} e^{-n(\lambda_1 - \lambda_0)} > k \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ x \in \mathcal{X} : \sum x_i \log\left( \frac{\lambda_1}{\lambda_0} \right) > n(\lambda_1 - \lambda_0) + \log k \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ x \in \mathcal{X} : \sum x_i > \frac{n(\lambda_1 - \lambda_0) + \log k}{\log(\lambda_1 / \lambda_0)} \right\}
+\end{equation}
+
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > k_1 \right\}
+\end{equation}
+
+A função crítica corresponde a:
+\begin{equation}
+\psi(x) = 
+\begin{cases}
+1, & \sum_{i=1}^n x_i > k_1 \\
+\delta, & \sum_{i=1}^n x_i = k_1 \\
+0, & \sum_{i=1}^n x_i < k_1
+\end{cases}
+\end{equation}
+
+Note que sob $H_0$, 
+\begin{equation}
+\sum_{i=1}^n x_i \sim \text{Poisson}(n\lambda_0)
+\end{equation}
+
+Primeiramente, determine o menor inteiro $k_1$ tal que:
+\begin{equation}
+P_{n\lambda_0} \left\{ \sum_{i=1}^n x_i > k_1 \right\} < \alpha
+\end{equation}
+

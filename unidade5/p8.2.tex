@@ -1,0 +1,22 @@
+Desta última identidade, obtemos o intervalo de confiança para $u(\theta)$.
+
+\textbf{\underline{Comparando parâmetros de locação}}
+
+Vamos analisar diferença de médias entre duas populações normais.
+
+\textbf{Exemplo 10:} Suponha $x_{i1}, \ldots, x_{in_i}$ para $i=1,2$ duas amostras aleatórias de $X_i \sim N(\mu_i, \sigma^2)$ e independentes entre elas $X_1 \perp X_2$. Vamos assumir que $\theta = (\mu_1, \mu_2, \sigma) \in \mathbb{R}^2 \times \mathbb{R}^+$ é desconhecido, encontrar o intervalo bilateral com confiança $1-\alpha$ para $u(\theta) = \mu_1 - \mu_2$.
+
+\textbf{Solução:} Note que:
+
+\begin{equation}
+\begin{aligned}
+f_{X_1, X_2}(x_1, x_2) &= f_{X_1}(x_1) \cdot f_{X_2}(x_2) \\
+&= (2\pi\sigma^2)^{-1} \exp\left\{ -\frac{1}{2} \left( \frac{x_1 - \mu_1}{\sigma} \right)^2 \right\} \cdot \exp\left\{ -\frac{1}{2} \left( \frac{x_2 - \mu_2}{\sigma} \right)^2 \right\} \\
+&= (2\pi\sigma^2)^{-1} \exp\left\{ -\frac{1}{2} \left( \frac{x_1^2 - 2x_1\mu_1 + \mu_1^2}{\sigma^2} + \frac{x_2^2 - 2x_2\mu_2 + \mu_2^2}{\sigma^2} \right) \right\} \\
+&= (2\pi\sigma^2)^{-1} \exp\left\{ -\frac{1}{2} \left( \frac{x_1^2}{\sigma^2} - \frac{2x_1\mu_1}{\sigma^2} + \frac{\mu_1^2}{\sigma^2} + \frac{x_2^2}{\sigma^2} - \frac{2x_2\mu_2}{\sigma^2} + \frac{\mu_2^2}{\sigma^2} \right) \right\}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\Rightarrow f_{X_1, X_2}(x_1, x_2) = (2\pi\sigma^2)^{-1} \exp\left\{ -\frac{1}{2\sigma^2} \left[ (x_1 - x_2) - (\mu_1 - \mu_2) \right]^2 \right\} \cdot \exp\left\{ -\frac{\mu_1^2 + \mu_2^2}{2\sigma^2} \right\}
+\end{equation}

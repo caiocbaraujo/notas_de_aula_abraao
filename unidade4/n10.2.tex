@@ -1,0 +1,27 @@
+﻿\textbf{Exemplo 5:} Sejam $x_1, \ldots, x_n$ uma amostra de $Exp(\theta)$ com densidade
+\begin{equation}
+    f(x_i; \theta) = \frac{1}{\theta} e^{-x_i / \theta}, \quad \text{para } x > 0
+\end{equation}
+e $\theta > 0$ desconhecido. Encontre o teste MP de nível $\alpha$ para
+\begin{equation}
+    H_0: \theta = \theta_0 \quad \text{e} \quad H_1: \theta = \theta_1 \ (> \theta_0)
+\end{equation}
+
+\noindent Dica: Como as hipóteses $H_0$ e $H_1$ são simples, o LNP se aplica. A verossimilhança no caso é:
+\begin{equation}
+    L_i = L(\theta_i, x) = \frac{1}{\theta_i^n} \exp\left\{ -\frac{\sum_{i=1}^n x_i}{\theta_i} \right\}, \quad i = 0, 1
+\end{equation}
+
+\noindent O teste MP terá a seguinte forma:
+
+\noindent Rejeita-se $H_0$ se, e somente se, $\frac{L_1}{L_0} > k$.
+
+\noindent Note que:
+\begin{equation}
+    \frac{L_1}{L_0} = \left( \frac{\theta_0}{\theta_1} \right)^n \exp\left\{ \sum_{i=1}^n x_i \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) \right\}
+\end{equation}
+
+\noindent Daí, a região crítica do teste é dada por: para $\alpha$ fixo,
+\begin{equation}
+    RC = \left\{ x \in \mathbb{R}^n : \left( \frac{\theta_0}{\theta_1} \right)^n \exp\left[ \sum_{i=1}^n x_i \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) \right] > k \right\}
+\end{equation}

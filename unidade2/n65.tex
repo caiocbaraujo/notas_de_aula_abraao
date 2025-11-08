@@ -1,0 +1,30 @@
+e
+\begin{equation}
+\delta = \frac{\alpha - P_{n\lambda_0} \left[ \sum_{i=1}^n X_i > k_1 \right]}{P_{n\lambda_0} \left[ \sum_{i=1}^n X_i = k_1 \right]}
+\end{equation}
+
+em que,
+\begin{equation}
+P_{n\lambda_0} \left[ \sum_{i=1}^n X_i = k_1 \right] = \frac{(n\lambda_0)^{k_1} e^{-n\lambda_0}}{k_1!}
+\end{equation}
+e
+\begin{equation}
+P_{n\lambda_0} \left[ \sum_{i=1}^n X_i > k_1 \right] = \sum_{l = k_1 + 1}^{\infty} \frac{(n\lambda_0)^l e^{-n\lambda_0}}{l!}
+\end{equation}
+
+Note que um teste MP de nível $\alpha$ simples depende de uma estatística (conjuntamente) suficiente.
+
+Considere uma discussão mais geral. Pelo LFN, seja $L(\cdot; x)$ a verossimilhança associada a $x \in \mathcal{X}^n$. Então:
+\begin{equation}
+L(\theta; x) = g(T(x); \theta) \cdot h(x), \quad \forall x \in \mathcal{X}^n, \text{ em que } h(x) \text{ independe de } \theta.
+\end{equation}
+
+Mostramos que LNP o teste MP rejeita $H_0: \theta = \theta_0$ em favor de $H_1: \theta = \theta_1$ para valores grandes de $L(\theta_1; x) / L(\theta_0; x)$:
+\begin{equation}
+\frac{L(\theta_1; x)}{L(\theta_0; x)} = \frac{g(T(x); \theta_1)}{g(T(x); \theta_0)}
+\end{equation}
+
+que implica que a rejeição de $H_0$ acontece também se $\frac{g(T(x); \theta_1)}{g(T(x); \theta_0)}$ é grande.
+
+O LNP também pode ser utilizado para comparar distribuições com densidade distintas.
+

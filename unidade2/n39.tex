@@ -1,0 +1,32 @@
+\newpage
+
+\textbf{27/10/25}
+
+\noindent
+\textbf{(65)} Para cada $\theta_0 \in \Theta$, $\exists \varepsilon > 0$ e uma função integrável $g(x)$ tal que, $\forall x, y^1, y^2, \dots, y^p$
+\begin{equation}
+    \frac{\partial^3 \log f(x; \theta)}{\partial \theta^j \partial \theta^l \partial \theta^m} \leq g(x), \quad \text{se} \quad |\theta - \theta_0| < \varepsilon
+\end{equation}
+
+\noindent
+Então para cada $\theta_0 \in \Theta$, existe uma sequência $\hat{\theta}_n$ que satisfaz:
+\begin{enumerate}
+    \item $\hat{\theta}_n$ é solução da equação de verossimilhança
+    \begin{equation}
+        \left. \frac{\partial}{\partial \theta} \sum_{i=1}^n \log f(x_i; \theta) \right|_{\theta = \hat{\theta}_n} = 0 \quad (\text{para } x_1, \dots, x_n)
+    \end{equation}
+    \item $\hat{\theta}_n \xrightarrow{P} \theta_0 \quad \text{quando} \quad n \to \infty$
+    \item $\sqrt{n} (\hat{\theta}_n - \theta_0) \xrightarrow{d} N_p \left( 0, I^{-1}(\theta_0) \right)$
+\end{enumerate}
+
+\section*{Capítulo 4}
+\subsection*{Teste de Hipótese}
+\subsubsection*{4.1 Introdução}
+
+Seja $X$ uma v.a. populacional com fdp (ou fmp) $f(x; \theta)$ para $x \in \mathbb{R}$ e $\theta \in \Theta \subset \mathbb{R}$.
+
+\paragraph{Definição (4.1.1)} Uma hipótese é uma afirmação sobre o parâmetro desconhecido $\theta$. Por exemplo:
+\[
+H: \mu = \mu_0, \quad H: \sigma^2 > \sigma_0^2, \quad H: \alpha \neq \alpha_0
+\]
+

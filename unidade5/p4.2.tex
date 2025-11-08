@@ -1,0 +1,38 @@
+\newpage
+
+\textbf{Exemplo 4:} Seja $X \sim \text{Exp}(\theta)$ com densidade
+\begin{equation}
+    f(x \mid \theta) = \frac{1}{\theta} e^{-x/\theta} I_{(0,\infty)}(x).
+\end{equation}
+
+Encontrar um intervalo de confiança $1 - \alpha$ bilateral para $\theta$.
+
+\textbf{Solução:} Note que $U := \frac{X}{\theta}$ tem densidade
+\begin{equation}
+    f_U(u) = \frac{d F_U(u)}{du} = \frac{d \mathbb{P}(X \leq u\theta)}{du} = \theta \cdot \frac{1}{\theta} e^{-u} I_{(0,\infty)}(u).
+\end{equation}
+
+Logo:
+\begin{equation}
+    f_U(u) = e^{-u} I_{(0,\infty)}(u).
+\end{equation}
+
+Portanto $U$ pode ser entendido como um pivô. Note que é possível definir $a,b \in \mathbb{R}$ com $a < b$ tais que
+\begin{equation}
+    \mathbb{P}(U < a) = \mathbb{P}(U > b) = \frac{\alpha}{2}.
+\end{equation}
+
+E, portanto:
+\begin{equation}
+    \mathbb{P}(a < U < b) = 1 - \alpha.
+\end{equation}
+
+Com $\alpha \in (0,1)$ fixado:
+
+\begin{equation}
+    \int_{0}^{a} e^{-u} \, du = 1 - e^{-a} = \frac{\alpha}{2} \quad \Rightarrow \quad e^{-a} = 1 - \frac{\alpha}{2} \quad \Rightarrow \quad a = -\log\left(1 - \frac{\alpha}{2}\right).
+\end{equation}
+
+\begin{equation}
+    \int_{b}^{\infty} e^{-u} \, du = e^{-b} = \frac{\alpha}{2} \quad \Rightarrow \quad b = -\log\left(\frac{\alpha}{2}\right).
+\end{equation}

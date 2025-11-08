@@ -1,0 +1,36 @@
+﻿em que $x_i \in \{0,1\}$, $\forall i$. O teste NP é da forma:
+
+Rejeitamos $H_0$ se, e só se, $\frac{L_1}{L_0} > k$.
+
+Note que:
+\begin{equation}
+\frac{L_1}{L_0} = \left[ \frac{(1-p_0) p_1}{p_0 (1-p_1)} \right]^{\sum_{i=1}^n x_i} \left[ \frac{1-p_1}{1-p_0} \right]^n
+\end{equation}
+\[
+A_1 \quad\quad\quad\quad\quad\quad\quad\quad A_2
+\]
+
+Daí, a região crítica do teste é dada por: Seja $\mathcal{X} = \{0,1\}^n$ o espaço amostral,
+\begin{equation}
+\begin{aligned}
+R_c &= \left\{ x \in \mathcal{X} : A_1^{\sum_{i=1}^n x_i} \cdot A_2^n > k \right\} \\
+&= \left\{ x \in \mathcal{X} : A_1^{\sum_{i=1}^n x_i} > k \cdot A_2^{-n} \right\} \\
+&= \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > \frac{\log\left(k \cdot A_2^{-n}\right)}{\log A_1} \right\} \\
+&= \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > k_1 \right\}
+\end{aligned}
+\end{equation}
+
+Onde,
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > k_1 \right\}
+\end{equation}
+
+A função crítica é dada por:
+\begin{equation}
+\psi(x) = 
+\begin{cases}
+1, & \text{se } \sum_{i=1}^n x_i > k_1 \\
+\delta, & \text{se } \sum_{i=1}^n x_i = k_1 \\
+0, & \text{se } \sum_{i=1}^n x_i < k_1
+\end{cases}
+\end{equation}

@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{Anotações de Aula\\Revisão de Convergência Estocástica}
+\author{}
+\date{13/10/2025}
+
+\begin{document}
+\maketitle
+
+\section*{Revisão}
+James\\
+Seção 3.7(a): Revisão de convergência estocástica.
+
+\subsection*{3.7(1a) Alguns resultados de limites}
+\begin{align}
+\lim_{n\to\infty} n^{1/n} &= 1, \\
+\lim_{n\to\infty} \left(1+\tfrac{1}{n}\right)^{n} &= e, \\
+\lim_{n\to\infty} \left(1+\tfrac{x}{n}\right)^{n} &= e^{x} .
+\end{align}
+
+\subsection*{Exemplo: Aproximação Binomial $\to$ Poisson}
+Seja $X \sim \operatorname{Binomial}(n,p_n)$ com $p_n = \lambda/n \in (0,1)$. Para $k\in\{0,1,2,\dots\}$,
+\begin{align}
+\mathbb{P}(X=k) &= \binom{n}{k} p_n^k (1-p_n)^{n-k} \\
+&= \frac{n!}{(n-k)!\,k!} \left(\frac{\lambda}{n}\right)^k \left(1-\frac{\lambda}{n}\right)^{n-k} \\
+&= \frac{\lambda^k}{k!}\, \frac{n(n-1)\cdots(n-k+1)}{n^k}\, \left(1-\frac{\lambda}{n}\right)^{n}\,\left(1-\frac{\lambda}{n}\right)^{-k} \\
+&= \frac{\lambda^k}{k!}\, \prod_{j=0}^{k-1}\left(1-\frac{j}{n}\right)\, \left(1-\frac{\lambda}{n}\right)^{n}\,\left(1-\frac{\lambda}{n}\right)^{-k}.
+\end{align}
+Pelos resultados de limites acima,
+\[
+\prod_{j=0}^{k-1}\left(1-\frac{j}{n}\right) \to 1,\quad \left(1-\frac{\lambda}{n}\right)^{n} \to e^{-\lambda},\quad \left(1-\frac{\lambda}{n}\right)^{-k} \to 1.
+\]
+Portanto,
+\[
+\mathbb{P}(X=k) \to e^{-\lambda}\, \frac{\lambda^k}{k!},\quad \text{isto é, } X \overset{d}{\longrightarrow} \operatorname{Poisson}(\lambda).
+\]
+
+\vspace{1ex}
+\noindent
+Observação: As fórmulas acima ilustram a aproximação clássica de Poisson para a Binomial quando $n\to\infty$ e $p_n=\lambda/n$.
+
+\end{document}

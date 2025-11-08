@@ -1,0 +1,43 @@
+﻿\begin{equation}
+= \left\{ E_{\theta_1} \left[ \psi_Y(X|) \right] - k E_{\theta_1} \left[ \psi_{Y^*}(X|) \right] \right\} - \left\{ E_{\theta_0} \left[ \psi_Y(X|) \right] - k E_{\theta_0} \left[ \psi_{Y^*}(X|) \right] \right\}
+\end{equation}
+
+Dando,
+
+\begin{equation}
+0 \leq \left\{ Q_Y(\theta_1) - k Q_{Y^*}(\theta_1) \right\} - \left\{ Q_Y(\theta_0) - k Q_{Y^*}(\theta_0) \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ Q_Y(\theta_1) - Q_{Y^*}(\theta_1) \right\} - k \left\{ Q_Y(\theta_0) - Q_{Y^*}(\theta_0) \right\}
+\tag{4}
+\end{equation}
+
+Note que $Q_Y(\theta_0) = \alpha$ e $Q_{Y^*}(\theta_0) \leq \alpha$, portanto,
+
+\[
+Q_Y(\theta_0) - Q_{Y^*}(\theta_0) \geq 0.
+\]
+
+A desigualdade (4) pode ser reescrita como
+
+\[
+Q_Y(\theta_1) - Q_{Y^*}(\theta_1) \geq k \left\{ Q_Y(\theta_0) - Q_{Y^*}(\theta_0) \right\} \geq 0
+\]
+
+O que mostra que $Y$ é no mínimo tão poderoso quanto $Y^*$.
+
+\[
+\Box
+\]
+
+\textbf{Aula 22 (02/06/2025)}
+
+\textbf{Exemplo 4:} Sejam $X_1, \ldots, X_n$ uma a.a. de $X_i \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecido e $\sigma > 0$ conhecido. Encontre o teste MP de nível $\alpha$ para:
+
+\[
+\begin{cases}
+H_0: \mu = \mu_0 \\
+H_1: \mu > \mu_0
+\end{cases}
+\]

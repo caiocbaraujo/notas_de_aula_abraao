@@ -1,0 +1,211 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+% Ambientes
+\theoremstyle{definition}
+\newtheorem{definicao}{Definição}[section]
+\newtheorem{exemplo}{Exemplo}[section]
+\theoremstyle{plain}
+\newtheorem{observacao}{Observação}[section]
+
+\title{Material Auxiliar - Unidade 4\\
+\large Testes de Hipóteses (Neyman–Pearson, MP/UMP, Karlin–Rubin)\\
+\normalsize Explicações Detalhadas e Didáticas}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Este material complementa as notas de aula da Unidade 4. Sistematizamos: (i) a formulação de testes, (ii) o Lema de Neyman–Pearson (LNP), (iii) função poder, (iv) Razão de Verossimilhança Monótona (RVM) e o teorema de Karlin–Rubin, (v) construção de testes MP/UMP em famílias clássicas (Normal, Poisson, Exponencial, Bernoulli), e (vi) procedimentos operacionais (Z, $\chi^2$) com exemplos e exercícios.
+
+\section{Conceitos Fundamentais}
+\subsection{Hipóteses, Erros e Poder}
+\begin{definicao}
+Dados $H_0: \theta\in\Theta_0$ e $H_1: \theta\in\Theta_1$, define-se região crítica $R_c$ e seu complemento $R_c^c$. O \textbf{nível} é $\alpha = \sup_{\theta\in\Theta_0} P_\theta(R_c)$ e o \textbf{poder} é $Q(\theta) = P_\theta(R_c)$.
+\end{definicao}
+
+\begin{observacao}[Valor-p]
+Para estatística $T$ e observação $t_{cal}$, o valor-p é a probabilidade, sob $H_0$, de obter evidência tão extrema quanto $t_{cal}$ na direção de $H_1$.
+\end{observacao}
+
+\subsection{Função crítica e testes aleatorizados}
+\begin{definicao}[Função crítica]
+Uma função $\psi: \mathcal{X}\to[0,1]$ dá a probabilidade de rejeitar $H_0$ ao observar $x$. Testes determinísticos têm $\psi\in\{0,1\}$; testes aleatorizados admitem $\psi=\delta\in(0,1)$ numa fronteira.
+\end{definicao}
+
+\section{Lema de Neyman–Pearson}
+\begin{observacao}[Enunciado]
+Para hipóteses simples $H_0: \theta=\theta_0$ vs. $H_1: \theta=\theta_1$, o teste de razão de verossimilhanças
+\[ R_c=\{x: L(\theta_1,x) > k\,L(\theta_0,x)\} \]
+é MP entre os de nível $\alpha$.
+\end{observacao}
+
+\begin{exemplo}[Teste Z]
+Se $X_i\sim N(\mu,\sigma^2)$ com $\sigma$ conhecido, $H_0: \mu=\mu_0$ vs. $H_1: \mu>\mu_0$. Estatística $Z=\sqrt{n}(\bar{X}-\mu_0)/\sigma\sim N(0,1)$ sob $H_0$. Regra: rejeitar se $Z>z_\alpha$. Valor-p $=P(Z\ge z_{cal})$.
+\end{exemplo}
+
+\section{Função Poder e Curvas de Poder}
+\begin{definicao}
+Para teste $\psi$, o poder $Q(\theta)=E_\theta[\psi(X)]$. Em exemplos gaussianos, pode-se obter $Q(\mu)=1-\Phi(\cdot)$ explicitamente.
+\end{definicao}
+
+\begin{exemplo}[Curva de poder, caso Normal]
+Considere a regra $\bar{X}_n>c$. Então $Q(\mu)=P_\mu(\bar{X}_n>c)=1-\Phi\big(\sqrt{n}(c-\mu)/\sigma\big)$.
+\end{exemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (0,0) -- (6,0) node[right] {$\mu$};
+\draw[->] (0,0) -- (0,2.5) node[above] {$Q(\mu)$};
+\draw[domain=0.5:5.5,smooth,variable=\x] plot (\x,{1/(1+exp(-1.4*(\x-3)))+0.2});
+\draw[dashed] (1,0) -- (1,2.2);
+\node at (1,-0.2) {$\mu_0$};
+\end{tikzpicture}
+\end{center}
+
+\section{RVM e Teorema de Karlin–Rubin}
+\begin{definicao}[RVM]
+Uma família $\{f(x;\theta)\}$ tem RVM em $T(x)$ se $\log L(\theta_1,x)-\log L(\theta_0,x)$ é não decrescente em $T(x)$ para $\theta_1>\theta_0$.
+\end{definicao}
+
+\begin{observacao}[Karlin–Rubin]
+Se há RVM não decrescente em $T(x)$, o teste de nível $\alpha$ que rejeita para $T(x)$ grande é UMP para $H_1:\theta>\theta_0$.
+\end{observacao}
+
+\section{Famílias Clássicas}
+\subsection{Poisson($\lambda$)}
+Com $T=\sum X_i\sim\text{Poisson}(n\lambda)$, rejeitar $H_0: \lambda=\lambda_0$ para $T>u_1$ com $P_{\lambda_0}(T>u_1)\le\alpha$. Valor-p $=P_{\lambda_0}(T\ge T_{cal})$.
+
+\subsection{Exponencial($\theta$)}
+Razão $L(\theta_1,x)/L(\theta_0,x)$ é função crescente de $\sum X_i$. Sob $H_0$, $\frac{2}{\theta_0}\sum X_i\sim \chi^2_{2n}$; decide-se por quantis $\chi^2$.
+
+\subsection{Bernoulli($p$)}
+Com $T=\sum X_i\sim\text{Binomial}(n,p)$, rejeitar para $T>k_1$ (unilateral). Em simples vs. simples, aplicar LNP diretamente.
+
+\section{Procedimentos Operacionais}
+
+\subsection{Teste Z (Completo)}
+
+\subsubsection{Resumo do Teste Z}
+
+\textbf{Suposição:} $X_1, \ldots, X_n \overset{i.i.d.}{\sim} N(\mu, \sigma^2)$ e $\sigma^2 > 0$ é conhecido.
+
+\textbf{Hipóteses:}
+\[
+\begin{cases}
+H_0: \mu = \mu_0 \\
+H_1: \mu = \mu_1 \quad (> \mu_0) \quad \text{[unilateral à direita]}
+\end{cases}
+\]
+ou
+\[
+\begin{cases}
+H_0: \mu = \mu_0 \\
+H_1: \mu \neq \mu_0 \quad \text{[bilateral]}
+\end{cases}
+\]
+
+\textbf{Estatística de Teste:}
+\[
+Z(X) = \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \overset{H_0}{\sim} N(0,1)
+\]
+
+\textbf{Regra de Decisão:}
+
+\textit{Método tradicional:} 
+\begin{itemize}
+    \item Unilateral (à direita): Rejeitar $H_0$ se $Z(x) > z_{\alpha}$
+    \item Unilateral (à esquerda): Rejeitar $H_0$ se $Z(x) < -z_{\alpha}$
+    \item Bilateral: Rejeitar $H_0$ se $|Z(x)| > z_{\alpha/2}$
+\end{itemize}
+
+\textit{Método do valor-p:} Seja $z_{cal} = Z(x)$ o valor calculado. Rejeitar $H_0$ se:
+\begin{itemize}
+    \item Unilateral (à direita): $\hat{\alpha} = P(Z > z_{cal}) < \alpha$
+    \item Unilateral (à esquerda): $\hat{\alpha} = P(Z < z_{cal}) < \alpha$
+    \item Bilateral: $\hat{\alpha} = 2 \cdot P(|Z| > |z_{cal}|) < \alpha$
+\end{itemize}
+
+\subsection{Teste $\chi^2$ (Completo)}
+
+\subsubsection{Resumo do Teste $\chi^2$ para Exponencial}
+
+\textbf{Suposição:}
+\[
+X_1, \ldots, X_n \overset{i.i.d.}{\sim} \text{Exp}(\theta)
+\]
+
+\textbf{Hipóteses:}
+\[
+H_0: \theta = \theta_0
+\]
+\[
+H_1: \theta = \theta_1 \quad (\theta_1 > \theta_0)
+\]
+
+\textbf{Estatística de Teste:}
+\[
+Q(X) = \frac{2}{\theta_0} \sum_{i=1}^n X_i \sim \chi^2_{2n} \quad \text{sob } H_0
+\]
+
+\textbf{Regra de decisão:}
+\begin{itemize}
+    \item \textit{Método tradicional:} Rejeitar $H_0$ se $Q_{cal} > \chi^2_{2n,\alpha}$ (quantil $\alpha$ superior)
+    \item \textit{Método do valor-p:} Rejeitar $H_0$ se $\hat{\alpha} = P(Q > Q_{cal}) < \alpha$
+\end{itemize}
+
+onde $Q_{cal} = Q(x)$ é o valor calculado da estatística na amostra observada.
+
+\section{Construção de Regiões Críticas}
+\begin{enumerate}
+  \item Identificar $T(x)$ e/ou a razão de verossimilhanças
+  \item Usar LNP ou RVM+Karlin–Rubin
+  \item Determinar limiar por nível $\alpha$ (quantis)
+  \item Calcular valor-p correspondente
+\end{enumerate}
+
+\section{Exemplos Guias}
+\subsection{Normal (Z)} Demonstrar derivação da regra e cálculo de valor-p.
+\subsection{Poisson} Determinar $u_1$ por $P_{\lambda_0}(T>u_1)\le\alpha$.
+\subsection{Exponencial} Transformar soma para $\chi^2$ e decidir.
+
+\section{Exercícios}
+\subsection*{Ex. 1 (Normal)} Para $\sigma$ conhecido, derive a curva de poder do teste $H_0: \mu=\mu_0$ vs. $H_1: \mu>\mu_0$.
+\subsection*{Ex. 2 (Poisson)} Para $n=20$, $\lambda_0=2$, encontre $u_1$ tal que $P_{\lambda_0}(T>u_1)\le 0{,}05$.
+\subsection*{Ex. 3 (Exponencial)} Mostre que $\frac{2}{\theta_0}\sum X_i\sim \chi^2_{2n}$ sob $H_0$.
+
+\subsection*{Soluções Resumidas}
+\begin{itemize}
+  \item Ex. 1: $Q(\mu)=1-\Phi\big(z_\alpha-\sqrt{n}(\mu-\mu_0)/\sigma\big)$.
+  \item Ex. 2: Usar quantis de Poisson para $\text{Poisson}(n\lambda_0)$ e achar o menor $u_1$ que satisfaz a cauda.
+  \item Ex. 3: Se $Y_i=2X_i/\theta_0\sim\chi^2_2$ i.i.d., então $\sum Y_i\sim\chi^2_{2n}$.
+\end{itemize}
+
+\section{Apêndice}
+\subsection{Figuras de Cauda (Z)}
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+\draw[->] (-3.5,0) -- (3.5,0) node[right] {$z$};
+\draw[domain=-3:3,smooth,variable=\x] plot (\x,{1.2*exp(-\x*\x/2)});
+\draw[pattern=north east lines, pattern color=gray] (1.1,0) -- plot[domain=1.1:3] (\x,{1.2*exp(-\x*\x/2)}) -- (3,0) -- cycle;
+\node at (1.2,-0.25) {$z_\alpha$};
+\end{tikzpicture}
+\end{center}
+
+\end{document}

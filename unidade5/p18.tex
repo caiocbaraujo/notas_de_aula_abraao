@@ -1,0 +1,41 @@
+Finalmente,
+\begin{equation}
+\Lambda = \left\{ \frac{\hat{\sigma}^2_c}{\hat{\sigma}^2} \right\}^{\frac{n+m}{2}} 
+= \left\{ \frac{\frac{\sum_{i=1}^n (x_i - \bar{x})^2 + \sum_{i=1}^m (y_i - \bar{y})^2}{n+m}}{\frac{\sum_{i=1}^n (x_i - \hat{\mu})^2 + \sum_{i=1}^m (y_i - \hat{\mu})^2}{n+m}} \right\}^{\frac{n+m}{2}}.
+\end{equation}
+
+Note que
+\begin{equation}
+\sum_{i=1}^n (x_i - \hat{\mu}_x)^2 + \sum_{i=1}^m (y_i - \hat{\mu}_y)^2 
+= \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \hat{\mu})^2 
++ \sum_{i=1}^m (y_i - \bar{y})^2 + m(\bar{y} - \hat{\mu})^2
+\end{equation}
+\[
+\underbrace{(n-1) s_x^2}_{\text{variância amostral de $x$}} \quad\quad \underbrace{(m-1) s_y^2}_{\text{variância amostral de $y$}}
+\]
+
+E, para
+\begin{equation}
+R(\bar{x}, \bar{y}) = \frac{n(\bar{x} - \hat{\mu})^2 + m(\bar{y} - \hat{\mu})^2}{(n-1) s_x^2 + (m-1) s_y^2},
+\end{equation}
+temos
+\begin{equation}
+\Lambda = \left\{ \frac{1}{1 + R(\bar{x}, \bar{y})} \right\}^{\frac{n+m}{2}} 
+= \left\{ 1 + R(\bar{x}, \bar{y}) \right\}^{-\frac{n+m}{2}}.
+\end{equation}
+
+Ainda,
+\begin{equation}
+n(\bar{x} - \hat{\mu})^2 + m(\bar{y} - \hat{\mu})^2 
+= n\left[ \bar{x} - \frac{n\bar{x} + m\bar{y}}{n+m} \right]^2 
++ m\left[ \bar{y} - \frac{n\bar{x} + m\bar{y}}{n+m} \right]^2
+\end{equation}
+\begin{equation}
+= n\left[ \frac{m\bar{x} - m\bar{y}}{n+m} \right]^2 
++ m\left[ \frac{n\bar{y} - n\bar{x}}{n+m} \right]^2
+\end{equation}
+\begin{equation}
+= \frac{nm^2}{(n+m)^2} (\bar{x} - \bar{y})^2 + \frac{mn^2}{(n+m)^2} (\bar{x} - \bar{y})^2 
+= \frac{nm}{n+m} (\bar{x} - \bar{y})^2.
+\end{equation}
+

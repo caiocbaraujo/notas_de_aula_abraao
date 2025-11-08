@@ -1,0 +1,31 @@
+A função correspondente é dada por
+\begin{equation}
+\psi(x) =
+\begin{cases}
+1, & \text{se } \sum_{i=1}^n x_i > k_1, \\
+\delta, & \text{se } \sum_{i=1}^n x_i = k_1, \\
+0, & \text{se } \sum_{i=1}^n x_i < k_1.
+\end{cases}
+\end{equation}
+
+Em que o inteiro positivo $k_1$ e $\delta \in (0,1)$ são escolhidos tais que o teste tem tamanho $\alpha$.
+
+Note que sob $H_0$, $\sum_{i=1}^n X_i \sim \text{Binomial}(n, p_0)$.
+
+Primeiramente, determine o menor inteiro $k_1$ tal que
+\begin{equation}
+P_{p_0} \left[ \sum_{i=1}^n X_i > k_1 \right] < \alpha,
+\end{equation}
+então
+\begin{equation}
+\delta = \frac{\alpha - P_{p_0} \left[ \sum_{i=1}^n X_i > k_1 \right]}{P_{p_0} \left[ \sum_{i=1}^n X_i = k_1 \right]},
+\end{equation}
+em que
+\begin{equation}
+P_{p_0} \left[ \sum_{i=1}^n X_i = k_1 \right] = \binom{n}{k_1} p_0^{k_1} (1-p_0)^{n-k_1},
+\end{equation}
+e
+\begin{equation}
+P_{p_0} \left[ \sum_{i=1}^n X_i > k_1 \right] = \sum_{j=k_1+1}^n \binom{n}{j} p_0^j (1-p_0)^{n-j}.
+\end{equation}
+

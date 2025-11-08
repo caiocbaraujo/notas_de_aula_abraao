@@ -1,0 +1,35 @@
+﻿\subsection*{Unidade 4}
+
+\noindent Dado,
+
+\begin{equation}
+R_{C} = \left\{ x \in \mathcal{X} : \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) \sum_{i=1}^n x_i > \log \left[ \left( \frac{\theta_1}{\theta_0} \right)^n \right] \right\} \Rightarrow
+\end{equation}
+
+\begin{equation}
+R_{C} = \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > \frac{\log \left( \frac{\theta_1}{\theta_0} \right)^n}{\left( \frac{\theta_0 - \theta_1}{\theta_0 \theta_1} \right)} = u_2 \right\} \Rightarrow
+\end{equation}
+
+\begin{equation}
+R_{C} = \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > u_2 \right\}
+\end{equation}
+
+Para se ter uma estatística manipulável, requer-se que na distribuição sob $H_0$ não dependa do parâmetro. Note que $\dot{X}_i := \theta^{-1} X_i$ tem densidade
+
+\begin{equation}
+f_{\dot{X}_i}(x) = \theta f_{X_i}(\theta x) = \theta \left( \frac{1}{\theta} e^{ - \frac{\theta x}{\theta} } \right) = e^{-x},
+\end{equation}
+
+conhecida como exponencial padrão. Ainda, note que $\ddot{X}_i := 2 \dot{X}_i = 2 \theta^{-1} X_i$ tem densidade
+
+\begin{equation}
+f_{\ddot{X}_i}(x) = \frac{1}{2} f_{\dot{X}_i} \left( \frac{x}{2} \right) = \frac{1}{2} e^{-x/2},
+\end{equation}
+
+então $\ddot{X}_i \sim \chi^2_2$. Assim, $\sum_{i=1}^n \ddot{X}_i \sim \chi^2_{2n}$. Com isso,
+
+\begin{equation}
+R_{C} = \left\{ x \in \mathcal{X} : \frac{2}{\theta_0} \sum_{i=1}^n x_i > \frac{2}{\theta_0} u_2 \right\}
+\end{equation}
+
+\noindent Dado,

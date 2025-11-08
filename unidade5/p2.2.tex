@@ -1,0 +1,32 @@
+\newpage
+
+\textbf{Exemplo 2:} Seja $X_1, \ldots, X_n$ uma a.a. de $X_i \sim N(\mu, \sigma^2)$ para média desconhecida e $\sigma > 0$ conhecida. Considere que $X$ obedece tanto $H_0: \mu = \mu_0$ quanto $H_1: \mu > \mu_0$. Encontre o estimador intervalar para $\mu$ de confiança $1 - \alpha$ para $\alpha \in (0,1)$ pré-fixado.
+
+\textbf{Solução:} Já foi discutido que o teste UMP para $H_0 < H_1$ de nível $\alpha$ tem função crítica:
+\begin{equation}
+\Psi(x) = 
+\begin{cases}
+1, & \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} > z_\alpha, \\
+0, & \text{c.c.}
+\end{cases}
+\end{equation}
+em que $\bar{X}_n = n^{-1} \sum_{i=1}^n x_i$ e $x = (x_1, \ldots, x_n)$ é uma a.a. A região de não rejeição é dada por:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \leq z_\alpha \right\}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-3,0) -- (3,0);
+\draw[->] (0,0) -- (0,1.5);
+\draw[domain=-2.5:2.5,smooth,variable=\x] plot ({\x},{1.2*exp(-\x*\x/2)});
+\fill[pattern=north east lines] (1.2,0) -- (1.2,0.4) -- (2.5,0.4) -- (2.5,0) -- cycle;
+\node at (2.2,0.5) {$\alpha$};
+\node at (1.2,-0.2) {$z_\alpha$};
+\end{tikzpicture}
+\end{center}
+
+Note que:
+\begin{equation}
+P_{\mu_0} \left( \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \leq z_\alpha \right) = 1 - \alpha \implies
+\end{equation}

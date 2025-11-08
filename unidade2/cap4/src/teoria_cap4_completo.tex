@@ -1,0 +1,1396 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+% Definindo caixas coloridas para teoria
+\newtcolorbox{definicaobox}[1]{
+    enhanced,
+    breakable,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=blue!75!black}
+}
+
+\newtcolorbox{teoremabox}[1]{
+    enhanced,
+    breakable,
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=red!75!black}
+}
+
+\newtcolorbox{provabox}{
+    enhanced,
+    breakable,
+    colback=green!5!white,
+    colframe=green!60!black,
+    fonttitle=\bfseries,
+    title=Demonstração Detalhada
+}
+
+\newtcolorbox{observacaobox}{
+    enhanced,
+    breakable,
+    colback=yellow!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Observações e Comentários
+}
+
+\newtcolorbox{importantebox}{
+    enhanced,
+    breakable,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    fonttitle=\bfseries,
+    title=MUITO IMPORTANTE PARA A PROVA
+}
+
+% Título
+\title{Material Auxiliar de Teoria\\
+\Large Capítulo 4 - Teste de Hipóteses\\
+\large Definições, Conceitos e Teoremas}
+\author{Curso de Inferência Estatística - PPGEST/UFPE\\
+\small Material de Apoio para Estudo}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{
+\textbf{AVISO IMPORTANTE:} Este documento contém toda a teoria fundamental do Capítulo 4, com ênfase especial na demonstração COMPLETA e DETALHADA do Lema de Neyman-Pearson (LNP), que tem alta probabilidade de ser cobrado na prova. Estude com atenção cada passo da demonstração.
+}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+% ================================================================
+\section{Conceitos Fundamentais}
+% ================================================================
+
+\subsection{Definições Básicas}
+
+\begin{definicaobox}{Definição 4.1.1: Hipótese Estatística}
+Uma \textbf{hipótese estatística} é uma afirmação sobre o parâmetro desconhecido $\theta$ de uma distribuição populacional.
+
+\textbf{Exemplos:}
+\begin{itemize}
+    \item $H: \mu = \mu_0$ (hipótese sobre a média)
+    \item $H: \sigma^2 > \sigma_0^2$ (hipótese sobre a variância)
+    \item $H: \alpha \neq \alpha_0$ (hipótese de diferença)
+\end{itemize}
+\end{definicaobox}
+
+\begin{definicaobox}{Classificação de Hipóteses}
+Seja $\theta \in \Theta$ um parâmetro desconhecido. As hipóteses podem ser classificadas como:
+
+\paragraph{1. Hipótese Simples:} Especifica completamente o valor de $\theta$.
+\begin{equation}
+H_0: \theta = \theta_0
+\end{equation}
+
+\paragraph{2. Hipótese Composta Unilateral:} Especifica um intervalo semi-infinito.
+\begin{align}
+H_0: \theta \leq \theta_0 \quad &\text{ou} \quad H_0: \theta \geq \theta_0 \\
+H_1: \theta > \theta_0 \quad &\text{ou} \quad H_1: \theta < \theta_0
+\end{align}
+
+\paragraph{3. Hipótese Composta Bilateral:} Especifica valores em ambos os lados.
+\begin{equation}
+H_0: \theta \neq \theta_0 \quad \text{ou} \quad H_0: |\theta - \theta_0| > c
+\end{equation}
+
+\textbf{Nomenclatura:}
+\begin{itemize}
+    \item $H_0$ é chamada de \textbf{hipótese nula}
+    \item $H_1$ (ou $H_a$) é chamada de \textbf{hipótese alternativa}
+\end{itemize}
+\end{definicaobox}
+
+\begin{definicaobox}{Definição 4.2.1: Teste de Hipóteses}
+Um \textbf{teste} $\Upsilon$ para uma hipótese $H$ é uma regra ou processo para decidir se $H$ deve ser rejeitada.
+
+Formalmente, um teste particiona o espaço amostral $\mathcal{X}^n$ em dois conjuntos disjuntos:
+\begin{itemize}
+    \item \textbf{Região Crítica} $R_c \subset \mathcal{X}^n$: região de rejeição de $H_0$
+    \item \textbf{Região de Aceitação} $R_c^c = \mathcal{X}^n \setminus R_c$: região de não-rejeição de $H_0$
+\end{itemize}
+
+tal que:
+\begin{equation}
+R_c \cup R_c^c = \mathcal{X}^n \quad \text{e} \quad R_c \cap R_c^c = \varnothing
+\end{equation}
+
+\textbf{Regra de decisão:} Se $X \in R_c$, rejeita-se $H_0$.
+\end{definicaobox}
+
+\subsection{Tipos de Erro}
+
+\begin{definicaobox}{Erros Tipo I e Tipo II}
+Em um teste de hipóteses, podem ocorrer dois tipos de erro:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\toprule
+\textbf{Decisão} & \textbf{$H_0$ verdadeira} & \textbf{$H_1$ verdadeira} \\ 
+\midrule
+Não rejeitar $H_0$ & Decisão correta & \textcolor{red}{Erro Tipo II} ($\beta$) \\
+Rejeitar $H_0$ & \textcolor{red}{Erro Tipo I} ($\alpha$) & Decisão correta (Poder) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Erro Tipo I:}
+Probabilidade de rejeitar $H_0$ quando ela é verdadeira.
+\begin{equation}
+\alpha = P_{\theta \in \Theta_0}\{\text{Rejeitar } H_0\} = P_{H_0}\{X \in R_c\}
+\end{equation}
+
+\paragraph{Erro Tipo II:}
+Probabilidade de não rejeitar $H_0$ quando ela é falsa (i.e., $H_1$ verdadeira).
+\begin{equation}
+\beta = P_{\theta \in \Theta_1}\{\text{Não rejeitar } H_0\} = P_{H_1}\{X \in R_c^c\}
+\end{equation}
+
+\paragraph{Poder do Teste:}
+Probabilidade de rejeitar $H_0$ quando ela é falsa.
+\begin{equation}
+\text{Poder} = 1 - \beta = P_{H_1}\{X \in R_c\}
+\end{equation}
+\end{definicaobox}
+
+\begin{definicaobox}{Definição 4.2.2: Função Poder}
+A \textbf{função poder} de um teste $\Upsilon$, denotada por $Q_\Upsilon(\theta)$, é a probabilidade de rejeitar $H_0$ quando o verdadeiro valor do parâmetro é $\theta$.
+
+\begin{equation}
+Q_\Upsilon(\theta) = P_\theta[X \in R_c], \quad \forall \theta \in \Theta
+\end{equation}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Para $\theta \in \Theta_0$: $Q_\Upsilon(\theta)$ representa a probabilidade de Erro Tipo I
+    \item Para $\theta \in \Theta_1$: $Q_\Upsilon(\theta) = 1 - \beta(\theta)$ representa o poder
+    \item $Q_\Upsilon(\theta) \in [0, 1]$ para todo $\theta$
+\end{itemize}
+\end{definicaobox}
+
+\begin{definicaobox}{Definição 4.2.3: Função Crítica}
+A \textbf{função crítica} ou \textbf{função do teste} $\psi_\Upsilon: \mathcal{X}^n \to [0,1]$ representa a probabilidade com a qual $H_0$ é rejeitada quando $X = x$ é observada.
+
+\begin{equation}
+\psi_\Upsilon(x) = P[\text{Rejeitar } H_0 \mid X = x]
+\end{equation}
+
+\textbf{Relação com a função poder:}
+\begin{equation}
+Q_\Upsilon(\theta) = E_\theta[\psi_\Upsilon(X)] = \int_{\mathcal{X}^n} \psi_\Upsilon(x) f(x; \theta)\,dx
+\end{equation}
+\end{definicaobox}
+
+\begin{definicaobox}{Definição 4.2.4: Tipos de Teste}
+Um teste $\Upsilon$ pode ser classificado como:
+
+\paragraph{a) Teste Não Aleatorizado:}
+A decisão é determinística. A função crítica é:
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } x \in R_c \\
+0, & \text{se } x \in R_c^c
+\end{cases}
+\end{equation}
+
+\paragraph{b) Teste Aleatorizado:}
+A decisão pode envolver aleatorização. A função crítica é:
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } x \in R_c \\
+\delta, & \text{se } x \in R_\delta \quad (0 < \delta < 1) \\
+0, & \text{se } x \in (R_c \cup R_\delta)^c
+\end{cases}
+\end{equation}
+
+onde $\delta$ é a probabilidade de rejeitar $H_0$ quando $x \in R_\delta$.
+
+\textbf{Interpretação prática:} Quando $x \in R_\delta$, lança-se uma moeda com $P(\text{cara}) = \delta$ e rejeita-se $H_0$ se der cara.
+\end{definicaobox}
+
+\newpage
+
+\begin{definicaobox}{Definição 4.2.5: Tamanho e Nível de um Teste}
+Seja $\alpha \in (0,1)$ fixado e $\Upsilon$ um teste com função poder $Q_\Upsilon(\theta)$.
+
+\paragraph{Tamanho do Teste:}
+\begin{equation}
+\text{Tamanho} = \sup_{\theta \in \Theta_0} Q_\Upsilon(\theta) = \sup_{\theta \in \Theta_0} P_\theta[X \in R_c]
+\end{equation}
+
+O teste tem \textbf{tamanho $\alpha$} se:
+\begin{equation}
+\sup_{\theta \in \Theta_0} Q_\Upsilon(\theta) = \alpha
+\end{equation}
+
+\paragraph{Nível do Teste:}
+O teste tem \textbf{nível $\alpha$} se:
+\begin{equation}
+\sup_{\theta \in \Theta_0} Q_\Upsilon(\theta) \leq \alpha
+\end{equation}
+
+\textbf{Interpretação:}
+\begin{itemize}
+    \item Tamanho $\alpha$: a máxima probabilidade de Erro Tipo I é exatamente $\alpha$
+    \item Nível $\alpha$: a máxima probabilidade de Erro Tipo I é no máximo $\alpha$
+    \item Todo teste de tamanho $\alpha$ é de nível $\alpha$, mas a recíproca não é verdadeira
+\end{itemize}
+\end{definicaobox}
+
+\begin{definicaobox}{Definição 4.2.6: Teste Uniformemente Mais Poderoso (UMP)}
+Seja $\mathcal{C}$ a classe de todos os testes de nível $\alpha$ para $H_0$ vs $H_1$.
+
+Um teste $\Upsilon \in \mathcal{C}$ com função poder $Q_\Upsilon(\theta)$ é chamado de \textbf{Teste Uniformemente Mais Poderoso (UMP) de nível $\alpha$} se e somente se:
+\begin{equation}
+Q_\Upsilon(\theta) \geq Q_{\Upsilon^*}(\theta), \quad \forall \theta \in \Theta_1, \quad \forall \Upsilon^* \in \mathcal{C}
+\end{equation}
+
+\textbf{Caso Especial:} Se $H_1$ é simples ($H_1: \theta = \theta_1$), o melhor teste é chamado de \textbf{Teste Mais Poderoso (MP)}.
+
+\textbf{Interpretação:} Um teste UMP tem o maior poder possível entre todos os testes de mesmo nível, para qualquer valor de $\theta$ em $\Theta_1$.
+\end{definicaobox}
+
+\newpage
+
+% ================================================================
+\section{LEMA DE NEYMAN-PEARSON (LNP)}
+% ================================================================
+
+\begin{importantebox}
+\textbf{ATENÇÃO:} Este é um dos teoremas mais importantes do capítulo e tem ALTA PROBABILIDADE de ser cobrado na prova com demonstração completa. Estude cada detalhe da demonstração apresentada a seguir.
+
+O Lema de Neyman-Pearson (LNP) fornece o teste MAIS PODEROSO para testar hipóteses simples vs simples. É a base fundamental da teoria de testes ótimos.
+\end{importantebox}
+
+\subsection{Contexto e Motivação}
+
+Queremos testar duas hipóteses \textbf{simples}:
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta = \theta_1
+\end{equation}
+
+onde $\theta_0, \theta_1 \in \Theta$ são valores conhecidos e $\theta_0 \neq \theta_1$.
+
+\textbf{Questão fundamental:} Dado um nível de significância $\alpha$ fixado, qual é o teste que maximiza o poder (i.e., minimiza $\beta$)?
+
+\textbf{Resposta:} O Lema de Neyman-Pearson!
+
+\subsection{Enunciado do Teorema}
+
+\begin{teoremabox}{Teorema 4.3.1: Lema de Neyman-Pearson (LNP)}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X$ com fdp (ou fmp) $f(x; \theta)$ para $x \in \mathcal{X} \subset \mathbb{R}$ e $\theta \in \Theta \subset \mathbb{R}$.
+
+Considere testar:
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta = \theta_1 \tag{4.3.1}
+\end{equation}
+
+Seja $L(\theta; x) = \prod_{i=1}^{n} f(x_i; \theta)$ a função de verossimilhança.
+
+Considere um teste $\Upsilon$ com região crítica e região de não-rejeição dadas por:
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X}^n : L(\theta_1; x) > k \cdot L(\theta_0; x) \right\}
+\end{equation}
+\begin{equation}
+R_c^c = \left\{ x \in \mathcal{X}^n : L(\theta_1; x) < k \cdot L(\theta_0; x) \right\}
+\end{equation}
+
+ou, equivalentemente, usando a função crítica:
+\begin{equation}
+\psi_\Upsilon(x) = \begin{cases}
+1, & \text{se } L(\theta_1; x) > k \cdot L(\theta_0; x) \\
+\gamma, & \text{se } L(\theta_1; x) = k \cdot L(\theta_0; x) \\
+0, & \text{se } L(\theta_1; x) < k \cdot L(\theta_0; x)
+\end{cases}
+\end{equation}
+
+onde $k \geq 0$ e $0 \leq \gamma \leq 1$ são escolhidos tal que:
+\begin{equation}
+E_{\theta_0}[\psi_\Upsilon(X)] = \alpha \tag{4.3.2}
+\end{equation}
+
+\textbf{Conclusão:} Qualquer teste $\Upsilon$ satisfazendo (4.3.1) e (4.3.2) é um \textbf{teste Mais Poderoso (MP) de nível $\alpha$}.
+
+\textbf{Em outras palavras:} Entre todos os testes de nível $\alpha$, o teste baseado na razão de verossimilhanças $\frac{L(\theta_1; x)}{L(\theta_0; x)}$ tem o maior poder.
+\end{teoremabox}
+
+\newpage
+
+\subsection{Demonstração Completa do LNP}
+
+\begin{importantebox}
+\textbf{ESTUDE COM MUITA ATENÇÃO!}
+
+Esta demonstração tem ALTA probabilidade de cair na prova. Você deve ser capaz de:
+\begin{enumerate}
+    \item Reproduzir todos os passos
+    \item Justificar cada desigualdade
+    \item Explicar a lógica de cada etapa
+    \item Interpretar o significado matemático
+\end{enumerate}
+\end{importantebox}
+
+\begin{provabox}
+\subsection*{Demonstração do Lema de Neyman-Pearson}
+
+Apresentaremos a prova para o caso contínuo. O caso discreto é análogo, substituindo integrais por somas.
+
+\paragraph{Objetivo:} Mostrar que o teste $\Upsilon$ baseado na razão de verossimilhanças é MP, ou seja, tem poder máximo entre todos os testes de nível $\alpha$.
+
+\paragraph{Configuração:}
+\begin{itemize}
+    \item $\Upsilon$ é o teste proposto (baseado em $\frac{L_1}{L_0}$)
+    \item $\Upsilon^*$ é qualquer outro teste de nível $\alpha$
+    \item $\psi_\Upsilon(x)$ é a função crítica de $\Upsilon$
+    \item $\psi_{\Upsilon^*}(x)$ é a função crítica de $\Upsilon^*$
+    \item $Q_\Upsilon(\theta)$ e $Q_{\Upsilon^*}(\theta)$ são as respectivas funções poder
+\end{itemize}
+
+\paragraph{O que queremos provar:}
+\begin{equation}
+Q_\Upsilon(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)
+\end{equation}
+
+Isso significa que $\Upsilon$ tem poder maior (ou igual) que qualquer outro teste $\Upsilon^*$ de nível $\alpha$.
+
+\subsection*{Passo 1: Estabelecer uma Desigualdade Fundamental}
+
+\textbf{Afirmação:} Para todo $x \in \mathcal{X}^n$, vale:
+\begin{equation}
+\left[\psi_\Upsilon(x) - \psi_{\Upsilon^*}(x)\right] \cdot \left[L(\theta_1; x) - k \cdot L(\theta_0; x)\right] \geq 0 \tag{4.3.3}
+\end{equation}
+
+\textbf{Prova da desigualdade (4.3.3):} 
+
+Vamos analisar os três casos possíveis para $\psi_\Upsilon(x)$:
+
+\paragraph{Caso [i]: $\psi_\Upsilon(x) = 1$}
+
+Pela definição do teste $\Upsilon$ (equação da região crítica):
+\begin{equation}
+\psi_\Upsilon(x) = 1 \quad \Rightarrow \quad L(\theta_1; x) > k \cdot L(\theta_0; x)
+\end{equation}
+
+Portanto:
+\begin{equation}
+L(\theta_1; x) - k \cdot L(\theta_0; x) > 0 \quad \text{(primeiro fator positivo)}
+\end{equation}
+
+Além disso, como $\psi_{\Upsilon^*}(x) \in [0,1]$ (por definição de função crítica):
+\begin{equation}
+\psi_\Upsilon(x) - \psi_{\Upsilon^*}(x) = 1 - \psi_{\Upsilon^*}(x) \geq 0 \quad \text{(segundo fator não-negativo)}
+\end{equation}
+
+Conclusão: produto de não-negativo por positivo $\geq 0$. Logo (4.3.3) vale. \checkmark
+
+\paragraph{Caso [ii]: $\psi_\Upsilon(x) = 0$}
+
+Pela definição do teste $\Upsilon$:
+\begin{equation}
+\psi_\Upsilon(x) = 0 \quad \Rightarrow \quad L(\theta_1; x) < k \cdot L(\theta_0; x)
+\end{equation}
+
+Portanto:
+\begin{equation}
+L(\theta_1; x) - k \cdot L(\theta_0; x) < 0 \quad \text{(primeiro fator negativo)}
+\end{equation}
+
+Além disso:
+\begin{equation}
+\psi_\Upsilon(x) - \psi_{\Upsilon^*}(x) = 0 - \psi_{\Upsilon^*}(x) \leq 0 \quad \text{(segundo fator não-positivo)}
+\end{equation}
+
+Conclusão: produto de não-positivo por negativo $\geq 0$. Logo (4.3.3) vale. \checkmark
+
+\paragraph{Caso [iii]: $0 < \psi_\Upsilon(x) < 1$ (teste aleatorizado)}
+
+Pela definição do teste $\Upsilon$:
+\begin{equation}
+0 < \psi_\Upsilon(x) < 1 \quad \Rightarrow \quad L(\theta_1; x) = k \cdot L(\theta_0; x)
+\end{equation}
+
+Portanto:
+\begin{equation}
+L(\theta_1; x) - k \cdot L(\theta_0; x) = 0 \quad \text{(primeiro fator zero)}
+\end{equation}
+
+Conclusão: produto com zero é zero $\geq 0$. Logo (4.3.3) vale. \checkmark
+
+\textbf{Conclusão do Passo 1:} A desigualdade (4.3.3) vale para todo $x \in \mathcal{X}^n$, independentemente do valor de $\psi_\Upsilon(x)$.
+
+\subsection*{Passo 2: Integrar a Desigualdade}
+
+Como (4.3.3) vale para todo $x$, podemos integrar ambos os lados sobre todo o espaço amostral:
+
+\begin{equation}
+\int_{\mathcal{X}^n} \left[\psi_\Upsilon(x) - \psi_{\Upsilon^*}(x)\right] \left[L(\theta_1; x) - k \cdot L(\theta_0; x)\right]\,dx \geq 0
+\end{equation}
+
+\textbf{Expandindo o produto dentro da integral:}
+\begin{align}
+&\int_{\mathcal{X}^n} \left[\psi_\Upsilon(x) - \psi_{\Upsilon^*}(x)\right] \left[L(\theta_1; x) - k \cdot L(\theta_0; x)\right]\,dx \\
+&= \int_{\mathcal{X}^n} \psi_\Upsilon(x) \cdot L(\theta_1; x)\,dx 
+- \int_{\mathcal{X}^n} \psi_\Upsilon(x) \cdot k \cdot L(\theta_0; x)\,dx \\
+&\quad - \int_{\mathcal{X}^n} \psi_{\Upsilon^*}(x) \cdot L(\theta_1; x)\,dx 
++ \int_{\mathcal{X}^n} \psi_{\Upsilon^*}(x) \cdot k \cdot L(\theta_0; x)\,dx
+\end{align}
+
+Reorganizando:
+\begin{equation}
+\begin{aligned}
+&= \int_{\mathcal{X}^n} \psi_\Upsilon(x) \cdot L(\theta_1; x)\,dx 
+- \int_{\mathcal{X}^n} \psi_{\Upsilon^*}(x) \cdot L(\theta_1; x)\,dx \\
+&\quad - k \left[\int_{\mathcal{X}^n} \psi_\Upsilon(x) \cdot L(\theta_0; x)\,dx 
+- \int_{\mathcal{X}^n} \psi_{\Upsilon^*}(x) \cdot L(\theta_0; x)\,dx \right]
+\end{aligned}
+\end{equation}
+
+\subsection*{Passo 3: Reconhecer as Funções Poder}
+
+\textbf{Observação crucial:} A integral $\int \psi(x) \cdot L(\theta; x)\,dx$ é exatamente a função poder!
+
+Lembre que $L(\theta; x)$ é a densidade conjunta sob $\theta$. Portanto:
+\begin{align}
+\int_{\mathcal{X}^n} \psi(x) \cdot L(\theta; x)\,dx &= E_\theta[\psi(X)] \\
+&= Q(\theta) \quad \text{(função poder)}
+\end{align}
+
+\textbf{Aplicando essa observação:}
+\begin{equation}
+\begin{aligned}
+&\int \psi_\Upsilon(x) L(\theta_1; x)\,dx = E_{\theta_1}[\psi_\Upsilon(X)] = Q_\Upsilon(\theta_1) \\
+&\int \psi_{\Upsilon^*}(x) L(\theta_1; x)\,dx = E_{\theta_1}[\psi_{\Upsilon^*}(X)] = Q_{\Upsilon^*}(\theta_1) \\
+&\int \psi_\Upsilon(x) L(\theta_0; x)\,dx = E_{\theta_0}[\psi_\Upsilon(X)] = Q_\Upsilon(\theta_0) \\
+&\int \psi_{\Upsilon^*}(x) L(\theta_0; x)\,dx = E_{\theta_0}[\psi_{\Upsilon^*}(X)] = Q_{\Upsilon^*}(\theta_0)
+\end{aligned}
+\end{equation}
+
+\subsection*{Passo 4: Reescrever em Termos das Funções Poder}
+
+Substituindo na desigualdade do Passo 2:
+\begin{equation}
+\begin{aligned}
+0 &\leq Q_\Upsilon(\theta_1) - Q_{\Upsilon^*}(\theta_1) \\
+&\quad - k \left[Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0)\right]
+\end{aligned}
+\tag{4.3.4}
+\end{equation}
+
+Rearranjando:
+\begin{equation}
+Q_\Upsilon(\theta_1) - Q_{\Upsilon^*}(\theta_1) \geq k \left[Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0)\right] \tag{4.3.5}
+\end{equation}
+
+\subsection*{Passo 5: Usar as Condições de Tamanho/Nível}
+
+Pela construção do teste $\Upsilon$ (condição 4.3.2):
+\begin{equation}
+Q_\Upsilon(\theta_0) = E_{\theta_0}[\psi_\Upsilon(X)] = \alpha
+\end{equation}
+
+Como $\Upsilon^*$ é um teste de \textbf{nível} $\alpha$:
+\begin{equation}
+Q_{\Upsilon^*}(\theta_0) \leq \alpha
+\end{equation}
+
+\textbf{Portanto:}
+\begin{equation}
+Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0) = \alpha - Q_{\Upsilon^*}(\theta_0) \geq 0
+\end{equation}
+
+\subsection*{Passo 6: Concluir a Demonstração}
+
+Da desigualdade (4.3.5):
+\begin{equation}
+Q_\Upsilon(\theta_1) - Q_{\Upsilon^*}(\theta_1) \geq k \underbrace{\left[Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0)\right]}_{\geq 0}
+\end{equation}
+
+Como $k \geq 0$ e o termo entre colchetes é $\geq 0$, temos:
+\begin{equation}
+k \left[Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0)\right] \geq 0
+\end{equation}
+
+Logo:
+\begin{equation}
+Q_\Upsilon(\theta_1) - Q_{\Upsilon^*}(\theta_1) \geq 0
+\end{equation}
+
+\textbf{Conclusão:}
+\begin{equation}
+\boxed{Q_\Upsilon(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)}
+\end{equation}
+
+Isso prova que o teste $\Upsilon$ tem poder maior ou igual ao de qualquer outro teste $\Upsilon^*$ de nível $\alpha$.
+
+Como $\Upsilon^*$ foi escolhido arbitrariamente, isso vale para \textbf{todos} os testes de nível $\alpha$.
+
+Portanto, $\Upsilon$ é o \textbf{Teste Mais Poderoso (MP) de nível $\alpha$}. $\square$
+\end{provabox}
+
+\newpage
+
+\subsection{Análise Detalhada da Demonstração}
+
+\begin{observacaobox}
+\subsection*{Pontos-Chave da Demonstração}
+
+\paragraph{1. A Desigualdade Fundamental (4.3.3)}
+
+A demonstração começa provando que:
+\begin{equation}
+[\psi_\Upsilon(x) - \psi_{\Upsilon^*}(x)] \cdot [L(\theta_1; x) - k \cdot L(\theta_0; x)] \geq 0
+\end{equation}
+
+\textbf{Por que isso é verdade?} 
+
+A chave está em observar que os dois fatores do produto têm sinais correlacionados:
+\begin{itemize}
+    \item Quando $\psi_\Upsilon = 1$: temos $L_1 > kL_0$, então ambos os fatores são $\geq 0$ $\Rightarrow$ produto $\geq 0$
+    \item Quando $\psi_\Upsilon = 0$: temos $L_1 < kL_0$, então ambos os fatores são $\leq 0$ $\Rightarrow$ produto $\geq 0$
+    \item Quando $0 < \psi_\Upsilon < 1$: temos $L_1 = kL_0$, então um fator é zero $\Rightarrow$ produto $= 0$
+\end{itemize}
+
+\paragraph{2. A Técnica da Integração}
+
+Integramos a desigualdade (4.3.3) sobre todo o espaço amostral. Como a desigualdade vale para cada $x$, ela também vale para a integral.
+
+\textbf{Truque importante:} A integral de $\psi(x) \cdot L(\theta; x)$ é precisamente a função poder!
+
+\paragraph{3. O Papel de $k$}
+
+A constante $k$ é determinada pela condição de tamanho:
+\begin{equation}
+E_{\theta_0}[\psi_\Upsilon(X)] = \alpha
+\end{equation}
+
+Isso garante que o teste tem exatamente nível $\alpha$.
+
+\paragraph{4. A Comparação Final}
+
+A desigualdade (4.3.5) compara os poderes dos dois testes:
+\begin{equation}
+Q_\Upsilon(\theta_1) - Q_{\Upsilon^*}(\theta_1) \geq k \underbrace{[Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0)]}_{\geq 0}
+\end{equation}
+
+O termo $[Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0)]$ é a diferença entre os tamanhos:
+\begin{itemize}
+    \item $Q_\Upsilon(\theta_0) = \alpha$ (tamanho exato)
+    \item $Q_{\Upsilon^*}(\theta_0) \leq \alpha$ (no máximo $\alpha$)
+\end{itemize}
+
+Portanto $Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0) \geq 0$, e multiplicado por $k \geq 0$ permanece $\geq 0$.
+\end{observacaobox}
+
+\begin{importantebox}
+\subsection*{Resumo da Lógica da Demonstração (MEMORIZE)}
+
+A demonstração do LNP segue esta estrutura lógica:
+
+\begin{enumerate}
+    \item \textbf{Estabelecer desigualdade fundamental:} Mostrar que 
+    \[[\psi - \psi^*] \cdot [L_1 - kL_0] \geq 0\]
+    por análise de casos ($\psi = 0, 1$ ou entre 0 e 1)
+    
+    \item \textbf{Integrar:} Como vale para todo $x$, integrar sobre $\mathcal{X}^n$
+    
+    \item \textbf{Reconhecer funções poder:} $\int \psi L(\theta) = Q(\theta)$
+    
+    \item \textbf{Simplificar:} Obter $Q(\theta_1) - Q^*(\theta_1) \geq k[Q(\theta_0) - Q^*(\theta_0)]$
+    
+    \item \textbf{Usar condições de nível:} $Q(\theta_0) = \alpha$ e $Q^*(\theta_0) \leq \alpha$
+    
+    \item \textbf{Concluir:} $Q(\theta_1) \geq Q^*(\theta_1)$ (teste $\Upsilon$ é MP)
+\end{enumerate}
+
+\textbf{Mensagem central:} O teste baseado na razão de verossimilhanças $\frac{L_1}{L_0}$ é ótimo porque:
+\begin{itemize}
+    \item Rejeita $H_0$ quando $L_1$ é muito maior que $L_0$ (evidência favorece $H_1$)
+    \item Controla o erro Tipo I em exatamente $\alpha$
+    \item Maximiza o poder (minimiza o erro Tipo II)
+\end{itemize}
+\end{importantebox}
+
+\newpage
+
+\subsection{Interpretação Geométrica do LNP}
+
+\begin{observacaobox}
+\subsection*{Visualização da Razão de Verossimilhanças}
+
+A região crítica do LNP é definida por:
+\begin{equation}
+R_c = \left\{x : \frac{L(\theta_1; x)}{L(\theta_0; x)} > k\right\}
+\end{equation}
+
+\textbf{Interpretação:}
+\begin{itemize}
+    \item Se $\frac{L_1}{L_0}$ é grande: os dados favorecem fortemente $H_1$ sobre $H_0$ $\Rightarrow$ rejeitamos $H_0$
+    \item Se $\frac{L_1}{L_0}$ é pequeno: os dados favorecem $H_0$ sobre $H_1$ $\Rightarrow$ não rejeitamos $H_0$
+    \item O limiar $k$ é ajustado para que o teste tenha tamanho $\alpha$
+\end{itemize}
+
+\subsection*{Exemplo Visual}
+
+Considere $X \sim N(\theta, 1)$ com $n=1$, $\theta_0 = 0$, $\theta_1 = 2$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+% Densidades
+\draw[->] (-3,0) -- (5,0) node[right] {$x$};
+\draw[->] (0,-0.2) -- (0,2) node[above] {densidade};
+
+% f(x; θ_0 = 0)
+\draw[thick, blue, domain=-3:3, samples=100] plot (\x, {1.5*exp(-\x*\x/2)});
+\node at (-1.5,1.2) [blue] {$L(\theta_0; x)$};
+
+% f(x; θ_1 = 2)
+\draw[thick, red, domain=-1:5, samples=100] plot (\x, {1.5*exp(-(\x-2)*(\x-2)/2)});
+\node at (3.5,1.2) [red] {$L(\theta_1; x)$};
+
+% Região crítica
+\fill[green!20, opacity=0.4] (1,0) rectangle (5,2);
+\draw[dashed, thick] (1,-0.2) -- (1,2);
+\node at (1,-0.4) {$k$};
+\node at (3,0.3) {$R_c$};
+\node at (3,0.7) {\small Rejeita $H_0$};
+\node at (-1.5,0.3) {$R_c^c$};
+\end{tikzpicture}
+\end{center}
+
+Para valores de $x$ na região verde ($R_c$), a verossimilhança sob $H_1$ domina significativamente a verossimilhança sob $H_0$.
+\end{observacaobox}
+
+\newpage
+
+\subsection{Observações Importantes sobre o LNP}
+
+\begin{definicaobox}{Observação 1: Caso de Igualdade na Razão}
+No enunciado do LNP, nada é dito sobre o conjunto:
+\begin{equation}
+R^* = \left\{x \in \mathcal{X}^n : L(\theta_1; x) = k \cdot L(\theta_0; x)\right\}
+\end{equation}
+
+\paragraph{Caso Contínuo:} Quando $X$ é contínua, $P(X \in R^*) = 0$ e esse detalhe não tem importância prática.
+
+\paragraph{Caso Discreto:} Quando $X$ é discreta, deve-se aleatorizar o evento $X \in R^*$ (usando $\psi(x) = \gamma$ para $0 < \gamma < 1$) para que o teste tenha tamanho exato $\alpha \in (0,1)$.
+
+\textbf{Exemplo:} Para distribuições Bernoulli e Poisson, a aleatorização é necessária.
+\end{definicaobox}
+
+\begin{definicaobox}{Observação 2: Unicidade do Teste MP}
+O teste MP proposto pelo LNP é \textbf{essencialmente único}.
+
+\textbf{Precisamente:} Se dois testes $\Upsilon_1$ e $\Upsilon_2$ são ambos MP de nível $\alpha$, então:
+\begin{equation}
+Q_{\Upsilon_1}(\theta_1) = Q_{\Upsilon_2}(\theta_1)
+\end{equation}
+
+Ou seja, têm o mesmo poder. As regiões críticas podem diferir em conjuntos de probabilidade zero.
+\end{definicaobox}
+
+\begin{definicaobox}{Observação 3: Relação com Estatísticas Suficientes}
+Seja $T(X)$ uma estatística suficiente para $\theta$. Pelo Teorema da Fatoração:
+\begin{equation}
+L(\theta; x) = g(T(x); \theta) \cdot h(x)
+\end{equation}
+
+onde $h(x)$ não depende de $\theta$.
+
+Então a razão de verossimilhanças é:
+\begin{equation}
+\frac{L(\theta_1; x)}{L(\theta_0; x)} = \frac{g(T(x); \theta_1) \cdot h(x)}{g(T(x); \theta_0) \cdot h(x)} = \frac{g(T(x); \theta_1)}{g(T(x); \theta_0)}
+\end{equation}
+
+\textbf{Conclusão:} O teste MP depende apenas de $T(x)$, confirmando o princípio da suficiência: estatísticas suficientes contêm toda a informação relevante para testes.
+\end{definicaobox}
+
+\newpage
+
+% ================================================================
+\section{Teste para Hipóteses Compostas Unilaterais}
+% ================================================================
+
+\subsection{Razão de Verossimilhança Monótona (RVM)}
+
+\begin{definicaobox}{Definição 4.4.2.1: Razão de Verossimilhança Monótona}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X$ com fdp (ou fmp) $f(x; \theta)$ para $\theta \in \Theta \subset \mathbb{R}$ e $x \in \mathcal{X} \subset \mathbb{R}$.
+
+A família $\{f(x; \theta) : \theta \in \Theta\}$ possui \textbf{Razão de Verossimilhança Monótona (RVM)} em uma estatística $T(X) \in \mathbb{R}$ se:
+
+Para todo $\theta^*, \theta \in \Theta$ com $\theta^* > \theta$ e todo $x \in \mathcal{X}^n$:
+\begin{equation}
+\frac{L(\theta^*; x)}{L(\theta; x)} \text{ é função não-decrescente de } T(x)
+\end{equation}
+
+\textbf{Em outras palavras:} Se $T(x_1) < T(x_2)$, então:
+\begin{equation}
+\frac{L(\theta^*; x_1)}{L(\theta; x_1)} \leq \frac{L(\theta^*; x_2)}{L(\theta; x_2)}
+\end{equation}
+\end{definicaobox}
+
+\begin{observacaobox}
+\subsection*{Intuição da RVM}
+
+A propriedade RVM significa que valores maiores de $T(x)$ tornam a razão $\frac{L(\theta^*)}{L(\theta)}$ maior, favorecendo mais $\theta^*$ sobre $\theta$.
+
+\textbf{Importância:} Quando uma família tem RVM, podemos construir testes UMP simples baseados apenas em $T(x)$.
+\end{observacaobox}
+
+\subsection{RVM na Família Exponencial}
+
+\begin{teoremabox}{Propriedade: Família Exponencial tem RVM}
+Seja $X$ com densidade (ou fmp) na forma:
+\begin{equation}
+f(x; \theta) = a(\theta) \cdot c(x) \cdot e^{t(x) \cdot b(\theta)}
+\end{equation}
+
+para $x \in \mathcal{X} \subset \mathbb{R}$ e $\theta \in \Theta \subset \mathbb{R}$.
+
+\textbf{Resultado:} Se $b(\theta)$ é função não-decrescente de $\theta$, então a família $\{f(x; \theta) : \theta \in \Theta\}$ possui RVM em $T(x) = \sum_{i=1}^{n} t(x_i)$.
+
+\textbf{Demonstração:}
+
+Para $\theta^* > \theta$:
+\begin{align}
+\frac{L(\theta^*; x)}{L(\theta; x)} &= \frac{\prod_{i=1}^{n} a(\theta^*) c(x_i) e^{t(x_i)b(\theta^*)}}{\prod_{i=1}^{n} a(\theta) c(x_i) e^{t(x_i)b(\theta)}} \\
+&= \frac{[a(\theta^*)]^n}{[a(\theta)]^n} \cdot \exp\left\{\sum_{i=1}^{n} t(x_i)[b(\theta^*) - b(\theta)]\right\} \\
+&= \frac{[a(\theta^*)]^n}{[a(\theta)]^n} \cdot \exp\left\{T(x)[b(\theta^*) - b(\theta)]\right\}
+\end{align}
+
+Como $\theta^* > \theta$ e $b(\cdot)$ é não-decrescente: $b(\theta^*) \geq b(\theta)$, logo $b(\theta^*) - b(\theta) \geq 0$.
+
+Portanto, $\frac{L(\theta^*)}{L(\theta)}$ é função não-decrescente de $T(x)$. $\square$
+\end{teoremabox}
+
+\begin{observacaobox}
+\subsection*{Distribuições com RVM}
+
+As seguintes distribuições importantes possuem RVM:
+
+\begin{enumerate}
+    \item \textbf{Normal} $N(\mu, \sigma^2)$ com $\sigma^2$ conhecido: RVM em $\sum X_i$ (parâmetro $\mu$)
+    \item \textbf{Normal} $N(\mu, \sigma^2)$ com $\mu$ conhecido: RVM em $\sum X_i^2$ (parâmetro $\sigma^2$)
+    \item \textbf{Bernoulli}$(p)$: RVM em $\sum X_i$
+    \item \textbf{Poisson}$(\lambda)$: RVM em $\sum X_i$
+    \item \textbf{Exponencial}$(\theta)$: RVM em $\sum X_i$
+    \item \textbf{Gamma}$(\alpha, \beta)$: RVM em $\sum X_i$ ou $\sum \log X_i$ (depende do parâmetro)
+\end{enumerate}
+
+\textbf{Contraexemplo:} Uniforme$(0, \theta)$ NÃO possui RVM, mas ainda assim existe teste UMP (baseado em $\max X_i$).
+\end{observacaobox}
+
+\newpage
+
+% ================================================================
+\section{Teorema de Karlin-Rubin}
+% ================================================================
+
+\begin{teoremabox}{Teorema 4.4.2.1: Teorema de Karlin-Rubin}
+Assuma que se deseja testar:
+\begin{equation}
+H_0: \theta \leq \theta_0 \quad \text{vs} \quad H_1: \theta > \theta_0
+\end{equation}
+
+Sejam:
+\begin{itemize}
+    \item $T = T(X) \in \mathbb{R}$ uma estatística suficiente para $\theta \in \Theta \subset \mathbb{R}$
+    \item $g(t; \theta)$ a densidade (ou fmp) induzida de $T$
+    \item $\{g(t; \theta) : \theta \in \Theta\}$ possui RVM
+\end{itemize}
+
+Então o teste $\Upsilon$ com função crítica:
+\begin{equation}
+\psi_\Upsilon(x) = \begin{cases}
+1, & \text{se } T(x) > c \\
+\gamma, & \text{se } T(x) = c \\
+0, & \text{se } T(x) < c
+\end{cases}
+\end{equation}
+
+onde $c$ e $0 \leq \gamma \leq 1$ são escolhidos tal que:
+\begin{equation}
+E_{\theta_0}[\psi_\Upsilon(X)] = \alpha
+\end{equation}
+
+é um \textbf{teste UMP de nível $\alpha$}.
+
+\textbf{Em outras palavras:} Quando há RVM, o teste UMP rejeita $H_0$ para valores grandes da estatística suficiente $T(x)$.
+\end{teoremabox}
+
+\begin{observacaobox}
+\subsection*{Comparação: LNP vs Karlin-Rubin}
+
+\begin{center}
+\begin{tabular}{p{5cm}|p{5cm}|p{4cm}}
+\toprule
+\textbf{Aspecto} & \textbf{LNP} & \textbf{Karlin-Rubin} \\
+\midrule
+Tipo de hipóteses & Simples vs Simples & Composta vs Composta \\
+& $H_0: \theta = \theta_0$ & $H_0: \theta \leq \theta_0$ \\
+& $H_1: \theta = \theta_1$ & $H_1: \theta > \theta_0$ \\
+\midrule
+Requisito & Nenhum (sempre aplicável) & Requer RVM \\
+\midrule
+Resultado & Teste MP & Teste UMP \\
+\midrule
+Estatística & Razão $\frac{L_1}{L_0}$ & Estatística suficiente $T(x)$ \\
+\midrule
+Aplicabilidade & Mais limitada & Mais ampla (hipóteses compostas) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Relação:} O TKR generaliza o LNP para hipóteses compostas unilaterais.
+\end{observacaobox}
+
+\newpage
+
+% ================================================================
+\section{Todas as Definições Importantes}
+% ================================================================
+
+\begin{definicaobox}{Definição: p-valor}
+O \textbf{p-valor} (ou valor-p) é o menor nível de significância $\alpha$ para o qual os dados observados levariam à rejeição de $H_0$.
+
+Equivalentemente, para uma estatística de teste $T$ com valor observado $t_{\text{obs}}$:
+\begin{equation}
+\text{p-valor} = P_{H_0}[T \geq t_{\text{obs}}] \quad \text{(teste unilateral à direita)}
+\end{equation}
+
+\textbf{Regra de decisão:} Rejeita-se $H_0$ ao nível $\alpha$ se e somente se:
+\begin{equation}
+\text{p-valor} < \alpha
+\end{equation}
+
+\textbf{Interpretação:}
+\begin{itemize}
+    \item p-valor pequeno ($< 0.01$): evidência muito forte contra $H_0$
+    \item p-valor moderado ($0.01$ a $0.05$): evidência moderada contra $H_0$
+    \item p-valor grande ($> 0.10$): evidência fraca ou nenhuma contra $H_0$
+\end{itemize}
+\end{definicaobox}
+
+\begin{definicaobox}{Definição: Teste UMPNV}
+Um teste é chamado de \textbf{Uniformemente Mais Poderoso Não-Viesado (UMPNV)} se:
+
+\begin{enumerate}
+    \item É UMP entre todos os testes de nível $\alpha$
+    \item É não-viesado: $Q(\theta) \geq \alpha$ para todo $\theta \in \Theta_1$
+\end{enumerate}
+
+\textbf{Aplicação:} Testes UMPNV são úteis para hipóteses bilaterais onde não existe teste UMP.
+\end{definicaobox}
+
+\newpage
+
+% ================================================================
+\section{Resumo de Todos os Teoremas Principais}
+% ================================================================
+
+\subsection{Quadro Comparativo dos Teoremas}
+
+\begin{table}[h!]
+\centering
+\caption{Principais Teoremas do Capítulo 4}
+\begin{tabular}{@{}p{3.5cm}p{4.5cm}p{5.5cm}@{}}
+\toprule
+\textbf{Teorema} & \textbf{Hipóteses} & \textbf{Resultado} \\
+\midrule
+\textbf{LNP} & 
+Simples vs Simples: $H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$ & 
+Teste MP rejeita quando $\frac{L(\theta_1; x)}{L(\theta_0; x)} > k$ \\
+\midrule
+\textbf{Karlin-Rubin} & 
+Composta unilateral: $H_0: \theta \leq \theta_0$ vs $H_1: \theta > \theta_0$ (com RVM) & 
+Teste UMP rejeita quando $T(x) > c$ onde $T$ é suficiente \\
+\midrule
+\textbf{Teste UMPNV} & 
+Bilateral: $H_0: \theta = \theta_0$ vs $H_1: \theta \neq \theta_0$ & 
+Para famílias com RVM, teste baseado em $|T - c|$ pode ser UMPNV \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+% ================================================================
+\section{Guia de Estudo para a Prova}
+% ================================================================
+
+\subsection{Checklist de Conteúdos para Dominar}
+
+\paragraph{Nível 1: Definições Fundamentais (ESSENCIAL)}
+\begin{itemize}
+    \item[$\square$] Definição de hipótese estatística
+    \item[$\square$] Classificação: simples, composta unilateral, bilateral
+    \item[$\square$] Região crítica e região de aceitação
+    \item[$\square$] Erro Tipo I e Erro Tipo II
+    \item[$\square$] Função poder $Q(\theta)$
+    \item[$\square$] Função crítica $\psi(x)$
+    \item[$\square$] Tamanho e nível de um teste
+    \item[$\square$] Teste aleatorizado vs não-aleatorizado
+\end{itemize}
+
+\paragraph{Nível 2: Teoremas Principais (MUITO IMPORTANTE)}
+\begin{itemize}
+    \item[$\square$] \textbf{Lema de Neyman-Pearson} - enunciado
+    \item[$\square$] \textbf{Lema de Neyman-Pearson} - demonstração completa
+    \item[$\square$] Teorema de Karlin-Rubin - enunciado
+    \item[$\square$] Definição de RVM
+    \item[$\square$] RVM na família exponencial
+\end{itemize}
+
+\paragraph{Nível 3: Aplicações (IMPORTANTE)}
+\begin{itemize}
+    \item[$\square$] Teste Z para média (Normal com $\sigma^2$ conhecido)
+    \item[$\square$] Teste para Exponencial (usando $\chi^2$)
+    \item[$\square$] Teste para Bernoulli (com aleatorização)
+    \item[$\square$] Teste para Poisson (com aleatorização)
+    \item[$\square$] Relação entre suficiência e testes ótimos
+\end{itemize}
+
+\subsection{Estratégias para Demonstrações na Prova}
+
+\begin{importantebox}
+\subsection*{Se pedirem para demonstrar o LNP:}
+
+\textbf{Estrutura da resposta (em ordem):}
+
+\begin{enumerate}
+    \item \textbf{Setup inicial} (2-3 linhas):
+    \begin{itemize}
+        \item Considere $\Upsilon$ o teste proposto e $\Upsilon^*$ qualquer outro teste de nível $\alpha$
+        \item Objetivo: mostrar $Q_\Upsilon(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)$
+    \end{itemize}
+    
+    \item \textbf{Desigualdade fundamental} (5-10 linhas):
+    \begin{itemize}
+        \item Mostrar que $[\psi - \psi^*][L_1 - kL_0] \geq 0$
+        \item Análise de casos: $\psi = 1$, $\psi = 0$, $0 < \psi < 1$
+    \end{itemize}
+    
+    \item \textbf{Integração} (3-5 linhas):
+    \begin{itemize}
+        \item Integrar a desigualdade sobre $\mathcal{X}^n$
+        \item Expandir o produto
+    \end{itemize}
+    
+    \item \textbf{Reconhecer funções poder} (2-3 linhas):
+    \begin{itemize}
+        \item $\int \psi L(\theta) = Q(\theta)$
+        \item Reescrever em termos de $Q_\Upsilon$ e $Q_{\Upsilon^*}$
+    \end{itemize}
+    
+    \item \textbf{Usar condições de nível} (2-3 linhas):
+    \begin{itemize}
+        \item $Q_\Upsilon(\theta_0) = \alpha$
+        \item $Q_{\Upsilon^*}(\theta_0) \leq \alpha$
+    \end{itemize}
+    
+    \item \textbf{Conclusão} (1-2 linhas):
+    \begin{itemize}
+        \item $Q_\Upsilon(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)$ $\square$
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Tempo estimado:} 15-20 minutos para escrever completamente.
+
+\textbf{Pontos que não podem faltar:}
+\begin{itemize}
+    \item Análise dos três casos para $\psi$
+    \item Justificativa de por que cada caso satisfaz a desigualdade
+    \item Reconhecimento de que $\int \psi L = Q$
+    \item Uso explícito de $Q(\theta_0) = \alpha$ e $Q^*(\theta_0) \leq \alpha$
+\end{itemize}
+\end{importantebox}
+
+\newpage
+
+% ================================================================
+\section{Formulário de Referência Rápida}
+% ================================================================
+
+\subsection{Estatísticas de Teste Principais}
+
+\begin{table}[h!]
+\centering
+\caption{Estatísticas Clássicas e Suas Distribuições}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Situação} & \textbf{Estatística} & \textbf{Distribuição} & \textbf{Nome} \\
+\midrule
+$X_i \sim N(\mu, \sigma^2)$, $\sigma^2$ conhecido & $\frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}}$ & $N(0,1)$ & Teste Z \\
+\midrule
+$X_i \sim N(\mu, \sigma^2)$, $\sigma^2$ desconhecido & $\frac{\bar{X} - \mu_0}{S/\sqrt{n}}$ & $t_{n-1}$ & Teste t \\
+\midrule
+$X_i \sim N(\mu, \sigma^2)$, teste para $\sigma^2$ & $\frac{(n-1)S^2}{\sigma_0^2}$ & $\chi^2_{n-1}$ & Teste $\chi^2$ \\
+\midrule
+$X_i \sim \text{Exp}(\theta)$ & $\frac{2}{\theta_0}\sum X_i$ & $\chi^2_{2n}$ & Teste $\chi^2$ \\
+\midrule
+$X_i \sim \text{Bernoulli}(p)$ & $\sum X_i$ & Binomial$(n,p_0)$ & Teste Binomial \\
+\midrule
+$X_i \sim \text{Poisson}(\lambda)$ & $\sum X_i$ & Poisson$(n\lambda_0)$ & Teste Poisson \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Fórmulas Importantes}
+
+\begin{tcolorbox}[title=Fórmulas para Memorizar, colback=gray!10]
+\paragraph{Razão de Verossimilhanças:}
+\begin{equation}
+\Lambda(x) = \frac{L(\theta_1; x)}{L(\theta_0; x)}
+\end{equation}
+
+\paragraph{Função Poder:}
+\begin{equation}
+Q(\theta) = P_\theta[\text{Rejeitar } H_0] = E_\theta[\psi(X)]
+\end{equation}
+
+\paragraph{Relação Poder-Erro Tipo II:}
+\begin{equation}
+\text{Poder}(\theta) = 1 - \beta(\theta), \quad \theta \in \Theta_1
+\end{equation}
+
+\paragraph{Quantis Normais Comuns:}
+\begin{itemize}
+    \item $z_{0.10} = 1.282$ (90\% de confiança)
+    \item $z_{0.05} = 1.645$ (95\% de confiança)
+    \item $z_{0.025} = 1.960$ (97.5\% de confiança)
+    \item $z_{0.01} = 2.326$ (99\% de confiança)
+\end{itemize}
+\end{tcolorbox}
+
+\newpage
+
+% ================================================================
+\section{Exemplos Trabalhados da Teoria}
+% ================================================================
+
+\subsection{Exemplo 1: Verificando RVM para Normal}
+
+\begin{tcolorbox}[title={Exemplo: RVM na Normal}]
+\textbf{Problema:} Mostrar que $f(x; \mu) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}$ (com $\sigma^2$ fixo) tem RVM em $T(x) = \sum x_i$.
+
+\textbf{Solução:}
+
+Para $\mu^* > \mu$, calcule a razão:
+\begin{align}
+\frac{L(\mu^*; x)}{L(\mu; x)} &= \exp\left\{\frac{1}{2\sigma^2}\left[\sum(x_i - \mu)^2 - \sum(x_i - \mu^*)^2\right]\right\} \\
+&= \exp\left\{\frac{1}{2\sigma^2}\left[2(\mu^* - \mu)\sum x_i - n(\mu^*)^2 + n\mu^2\right]\right\} \\
+&= \exp\left\{\frac{\mu^* - \mu}{\sigma^2} T(x) + \frac{n(\mu^2 - (\mu^*)^2)}{2\sigma^2}\right\}
+\end{align}
+
+Como $\mu^* > \mu$, o coeficiente $\frac{\mu^* - \mu}{\sigma^2} > 0$.
+
+Logo, $\frac{L(\mu^*)}{L(\mu)}$ é função crescente de $T(x) = \sum x_i$. \checkmark
+
+\textbf{Conclusão:} A família Normal tem RVM em $\sum X_i$ para o parâmetro $\mu$.
+\end{tcolorbox}
+
+\subsection{Exemplo 2: Aplicando LNP para Normal}
+
+\begin{tcolorbox}[title=Exemplo: Teste MP via LNP]
+\textbf{Problema:} $X_1, \ldots, X_n \sim N(\mu, \sigma^2)$ com $\sigma^2$ conhecido. Teste MP para $H_0: \mu = \mu_0$ vs $H_1: \mu = \mu_1$ ($\mu_1 > \mu_0$) ao nível $\alpha$.
+
+\textbf{Solução via LNP:}
+
+\paragraph{Passo 1:} Razão de verossimilhanças:
+\begin{equation}
+\frac{L_1}{L_0} = \exp\left\{\frac{(\mu_1 - \mu_0)}{\sigma^2}\sum x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2}\right\}
+\end{equation}
+
+\paragraph{Passo 2:} Região crítica ($\frac{L_1}{L_0} > k$):
+\begin{equation}
+\sum x_i > \text{constante} \quad \Leftrightarrow \quad \bar{x} > c \quad \Leftrightarrow \quad \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} > z_\alpha
+\end{equation}
+
+\paragraph{Passo 3:} Teste final:
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } Z = \frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} > z_\alpha
+\end{equation}
+
+onde $z_\alpha$ satisfaz $P(Z > z_\alpha) = \alpha$ para $Z \sim N(0,1)$.
+
+\textbf{Resultado:} Este é o teste Z clássico, e o LNP prova que ele é MP!
+\end{tcolorbox}
+
+\newpage
+
+% ================================================================
+\section{Conexões Entre os Conceitos}
+% ================================================================
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, text width=3.5cm, align=center, minimum height=1.2cm},
+    arrow/.style={->, thick}
+]
+
+\node[box, fill=blue!20] (hip) at (0,0) {Hipótese\\Simples/Composta};
+\node[box, fill=green!20] (lnp) at (5,2) {LNP\\(Simples)};
+\node[box, fill=green!20] (tkr) at (5,-2) {Karlin-Rubin\\(Composta + RVM)};
+\node[box, fill=red!20] (mp) at (10,2) {Teste MP};
+\node[box, fill=red!20] (ump) at (10,-2) {Teste UMP};
+\node[box, fill=yellow!20] (suf) at (5,0) {Estatística\\Suficiente};
+
+\draw[arrow] (hip) -- node[above] {Simples} (lnp);
+\draw[arrow] (hip) -- node[below] {Composta} (tkr);
+\draw[arrow] (lnp) -- (mp);
+\draw[arrow] (tkr) -- (ump);
+\draw[arrow] (suf) -- (lnp);
+\draw[arrow] (suf) -- (tkr);
+\draw[arrow, dashed] (mp) -- node[right] {RVM?} (ump);
+
+\end{tikzpicture}
+\end{center}
+
+\textbf{Fluxo lógico:}
+\begin{enumerate}
+    \item Identifique se as hipóteses são simples ou compostas
+    \item Determine a estatística suficiente
+    \item Se simples: use LNP $\rightarrow$ obtém teste MP
+    \item Se composta unilateral: verifique RVM
+    \item Se tem RVM: use Karlin-Rubin $\rightarrow$ obtém teste UMP
+    \item Se bilateral: considere teste UMPNV ou razão de verossimilhanças
+\end{enumerate}
+
+\newpage
+
+% ================================================================
+\section{Perguntas Frequentes para a Prova}
+% ================================================================
+
+\subsection{Dúvidas Comuns sobre o LNP}
+
+\begin{tcolorbox}[title=FAQ 1: Por que a desigualdade (4.3.3) vale?]
+\textbf{Pergunta:} Como garantimos que $[\psi - \psi^*][L_1 - kL_0] \geq 0$?
+
+\textbf{Resposta:} Pela análise de casos. O ponto crucial é que:
+\begin{itemize}
+    \item $\psi = 1 \Rightarrow L_1 - kL_0 > 0$ (por construção)
+    \item $\psi = 0 \Rightarrow L_1 - kL_0 < 0$ (por construção)
+    \item $\psi \in (0,1) \Rightarrow L_1 - kL_0 = 0$ (por construção)
+\end{itemize}
+
+Em cada caso, os sinais são compatíveis, resultando em produto $\geq 0$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=FAQ 2: Por que $Q(\theta_0) - Q^*(\theta_0) \geq 0$?]
+\textbf{Pergunta:} Como sabemos que $Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0) \geq 0$?
+
+\textbf{Resposta:} Por construção:
+\begin{itemize}
+    \item $Q_\Upsilon(\theta_0) = \alpha$ (teste tem tamanho exato $\alpha$)
+    \item $Q_{\Upsilon^*}(\theta_0) \leq \alpha$ ($\Upsilon^*$ é de nível $\alpha$)
+\end{itemize}
+
+Logo: $Q_\Upsilon(\theta_0) - Q_{\Upsilon^*}(\theta_0) = \alpha - Q_{\Upsilon^*}(\theta_0) \geq 0$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=FAQ 3: O que acontece se $k < 0$?]
+\textbf{Pergunta:} O LNP permite $k < 0$?
+
+\textbf{Resposta:} NÃO. No enunciado, especificamos $k \geq 0$. 
+
+\textbf{Justificativa:} A razão de verossimilhanças $\frac{L_1}{L_0}$ é sempre não-negativa (é um produto de densidades/probabilidades). Portanto, comparar com $k < 0$ não faria sentido.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=FAQ 4: LNP se aplica a hipóteses compostas?]
+\textbf{Pergunta:} Posso usar LNP para $H_0: \theta \leq \theta_0$ vs $H_1: \theta > \theta_0$?
+
+\textbf{Resposta:} NÃO diretamente. O LNP é apenas para hipóteses simples.
+
+\textbf{Solução:} Para hipóteses compostas unilaterais, use o Teorema de Karlin-Rubin (se houver RVM).
+\end{tcolorbox}
+
+\newpage
+
+% ================================================================
+\section{Material de Revisão Final}
+% ================================================================
+
+\subsection{Principais Equações para Memorizar}
+
+\begin{importantebox}
+\subsection*{TOP 10 Equações Mais Importantes}
+
+\begin{enumerate}
+    \item \textbf{Erro Tipo I:}
+    \begin{equation}
+    \alpha = P_{H_0}[X \in R_c]
+    \end{equation}
+    
+    \item \textbf{Erro Tipo II:}
+    \begin{equation}
+    \beta = P_{H_1}[X \notin R_c]
+    \end{equation}
+    
+    \item \textbf{Função Poder:}
+    \begin{equation}
+    Q(\theta) = P_\theta[X \in R_c] = E_\theta[\psi(X)]
+    \end{equation}
+    
+    \item \textbf{LNP - Região Crítica:}
+    \begin{equation}
+    R_c = \left\{x : \frac{L(\theta_1; x)}{L(\theta_0; x)} > k\right\}
+    \end{equation}
+    
+    \item \textbf{LNP - Condição de Tamanho:}
+    \begin{equation}
+    E_{\theta_0}[\psi(X)] = \alpha
+    \end{equation}
+    
+    \item \textbf{RVM - Definição:}
+    \begin{equation}
+    \frac{L(\theta^*; x)}{L(\theta; x)} \text{ não-decrescente em } T(x) \text{ quando } \theta^* > \theta
+    \end{equation}
+    
+    \item \textbf{Karlin-Rubin - Região Crítica:}
+    \begin{equation}
+    R_c = \{x : T(x) > c\} \text{ com } E_{\theta_0}[\psi(X)] = \alpha
+    \end{equation}
+    
+    \item \textbf{Teste Z:}
+    \begin{equation}
+    Z = \frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} \sim N(0,1) \text{ sob } H_0
+    \end{equation}
+    
+    \item \textbf{Qui-Quadrado (Exponencial):}
+    \begin{equation}
+    Q = \frac{2}{\theta_0}\sum X_i \sim \chi^2_{2n} \text{ sob } H_0
+    \end{equation}
+    
+    \item \textbf{p-valor:}
+    \begin{equation}
+    p = P_{H_0}[T \geq t_{\text{obs}}]
+    \end{equation}
+\end{enumerate}
+\end{importantebox}
+
+\newpage
+
+\subsection{Simulado de Questões Teóricas}
+
+\begin{tcolorbox}[title=Questões Tipo Prova, colback=blue!5]
+
+\paragraph{Questão 1 (Peso 3.0):} Enuncie e demonstre completamente o Lema de Neyman-Pearson.
+
+\paragraph{Questão 2 (Peso 1.5):} Defina função poder e explique sua relação com os erros Tipo I e II.
+
+\paragraph{Questão 3 (Peso 1.5):} O que é RVM? Mostre que a distribuição Poisson possui RVM.
+
+\paragraph{Questão 4 (Peso 2.0):} Enuncie o Teorema de Karlin-Rubin e explique sua relação com o LNP.
+
+\paragraph{Questão 5 (Peso 2.0):} Derive o teste MP para $H_0: p = p_0$ vs $H_1: p = p_1$ ($p_1 > p_0$) quando $X_i \sim \text{Bernoulli}(p)$.
+\end{tcolorbox}
+
+\subsection{Gabarito Resumido}
+
+\begin{tcolorbox}[title=Respostas Esperadas]
+\textbf{Q1:} Seguir a estrutura da Seção 2 (demonstração em 6 passos).
+
+\textbf{Q2:} $Q(\theta) = P_\theta[\text{Rej } H_0]$. Para $\theta \in \Theta_0$: $Q(\theta) = \alpha$. Para $\theta \in \Theta_1$: $Q(\theta) = 1-\beta$.
+
+\textbf{Q3:} RVM: $\frac{L(\theta^*)}{L(\theta)}$ não-dec em $T$ para $\theta^* > \theta$. Para Poisson: $\frac{L(\lambda^*)}{L(\lambda)} = e^{-n(\lambda^* - \lambda)}(\frac{\lambda^*}{\lambda})^{\sum x_i}$ é crescente em $\sum x_i$.
+
+\textbf{Q4:} TKR fornece teste UMP para hipóteses compostas unilaterais quando há RVM. Generaliza LNP de simples para composta.
+
+\textbf{Q5:} Aplicar LNP: $\frac{L_1}{L_0} > k \Rightarrow \sum X_i > k_1$ com $\sum X_i \sim \text{Binomial}(n, p_0)$ sob $H_0$.
+\end{tcolorbox}
+
+\newpage
+
+% ================================================================
+\section{Conclusão e Recomendações}
+% ================================================================
+
+\subsection{Prioridades de Estudo}
+
+\begin{enumerate}
+    \item \textbf{PRIORIDADE MÁXIMA:}
+    \begin{itemize}
+        \item Demonstração completa do LNP (saiba fazer de olhos fechados)
+        \item Definições de erro Tipo I, II, função poder, tamanho, nível
+        \item Enunciado do LNP e do TKR
+    \end{itemize}
+    
+    \item \textbf{PRIORIDADE ALTA:}
+    \begin{itemize}
+        \item Definição de RVM e exemplos
+        \item Aplicações do LNP (Normal, Exponencial, Bernoulli, Poisson)
+        \item Relação entre suficiência e testes ótimos
+    \end{itemize}
+    
+    \item \textbf{PRIORIDADE MÉDIA:}
+    \begin{itemize}
+        \item Testes bilaterais e UMPNV
+        \item p-valor e interpretação
+        \item Comparação de testes
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Como Estudar para a Prova}
+
+\begin{enumerate}
+    \item \textbf{Dia 1-2:} Memorize todas as definições. Escreva-as sem consultar.
+    
+    \item \textbf{Dia 3-4:} Pratique a demonstração do LNP 5-10 vezes até conseguir fazer fluentemente.
+    
+    \item \textbf{Dia 5-6:} Resolva as questões Q(4.1) a Q(4.12) sem consultar.
+    
+    \item \textbf{Dia 7:} Revise os teoremas (LNP, TKR) e faça o simulado.
+    
+    \item \textbf{Dia da prova:} Releia apenas este material auxiliar (resume tudo).
+\end{enumerate}
+
+\subsection{Frases para Lembrar}
+
+\begin{itemize}
+    \item \textit{``O LNP é para hipóteses simples, Karlin-Rubin para compostas com RVM''}
+    \item \textit{``Teste MP maximiza poder mantendo tamanho $\alpha$ fixo''}
+    \item \textit{``RVM + suficiência $\Rightarrow$ teste UMP simples''}
+    \item \textit{``Razão de verossimilhanças compara qual hipótese é mais plausível''}
+    \item \textit{``Testes ótimos dependem apenas de estatísticas suficientes''}
+\end{itemize}
+
+\vspace{2cm}
+
+\begin{center}
+\fbox{\parbox{0.85\textwidth}{
+\centering
+\textbf{BOA PROVA!}
+
+Lembre-se: a demonstração do LNP é fundamental. \\
+Pratique até dominar completamente!
+}}
+\end{center}
+
+\end{document}

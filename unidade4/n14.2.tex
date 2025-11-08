@@ -1,0 +1,36 @@
+﻿\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \left( \sum_{i=1}^n x_i \right) \log \left[ \frac{\lambda_1}{\lambda_0} \right] > \log \left[ k \cdot e^{-n(\lambda_1 - \lambda_0)} \right] \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > \frac{\log \left[ k \cdot e^{-n(\lambda_1 - \lambda_0)} \right]}{\log \left[ \frac{\lambda_1}{\lambda_0} \right]} \right\}
+\end{equation}
+
+Dado,
+
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > u_1 \right\}
+\end{equation}
+
+A função crítica correspondente é dada por:
+
+\[
+\psi(x) =
+\begin{cases}
+1, & \text{se } \sum_{i=1}^n x_i > u_1, \\
+\delta, & \text{se } \sum_{i=1}^n x_i = u_1, \\
+0, & \text{se } \sum_{i=1}^n x_i < u_1,
+\end{cases}
+\]
+
+Note que, sob $H_0$:
+
+\begin{equation}
+\sum_{i=1}^n x_i \sim \text{Poisson}(n \lambda_0)
+\end{equation}
+
+Primeiramente, determine o menor inteiro $u_1$ tal que:
+
+\begin{equation}
+P_{\lambda_0} \left( \sum_{i=1}^n x_i > u_1 \right) < \alpha, \quad \delta = \frac{\alpha - P_{\lambda_0} \left( \sum_{i=1}^n x_i > u_1 \right)}{P_{\lambda_0} \left( \sum_{i=1}^n x_i = u_1 \right)}
+\end{equation}

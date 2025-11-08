@@ -1,0 +1,28 @@
+\newpage
+
+\textbf{Exemplo 7:} Sejam $x_1, \ldots, x_n$ uma a.a. de X $\sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma \in \mathbb{R}^+$ desconhecido. Encontre o intervalo bilateral de confiança $1 - \alpha$ para $\mu$. 
+
+\textbf{Sol:} De discussão anterior, $(\overline{X}_n, S_n)$ é uma estatística conjuntamente suficiente mínima para $(\mu, \sigma)$. Aqui, $X$'s pertencem à família de locação e escala.
+
+Considere
+\begin{equation}
+U = \sqrt{n} \left( \frac{\overline{X}_n - \mu}{S_n} \right) = \frac{\frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}}}{\sqrt{\frac{n-1}{n-1} \cdot \frac{S_n^2}{\sigma^2}}} \sim t_{n-1},
+\end{equation}
+que é um pivô. Para $t_{n-1, \alpha/2} > 0$ tal que
+\begin{equation}
+P\left( U > t_{n-1, \alpha/2} \right) = \frac{\alpha}{2},
+\end{equation}
+temos que
+\begin{equation}
+P\left( -t_{n-1, \alpha/2} < U < t_{n-1, \alpha/2} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+\begin{equation}
+P\left( -t_{n-1, \alpha/2} < \sqrt{n} \frac{\overline{X}_n - \mu}{S_n} < t_{n-1, \alpha/2} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+\begin{equation}
+P\left( \overline{X}_n - t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} < \mu < \overline{X}_n + t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} \right) = 1 - \alpha
+\end{equation}
+
+\[
+\therefore IC_{1-\alpha}(\mu) = \left\{ \overline{X}_n \pm t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} \right\}
+\]

@@ -1,0 +1,32 @@
+\newpage
+
+Pelo teo. 22,
+\begin{equation}
+T_1 = \left[ \sum_{i=1}^{n_1} R_1(x_{1i}), \sum_{i=1}^{n_2} R_2(x_{2i}), \sum_{i=1}^{n_1} x_{1i}, \sum_{i=1}^{n_2} x_{2i}, \sum_{i=1}^{n_1} x_{1i}^2, \sum_{i=1}^{n_2} x_{2i}^2 \right]
+\end{equation}
+
+é conjuntamente suficiente para $\theta = (\mu_1, \mu_2, \sigma^2)$. Pelo teo. 24,
+\begin{equation}
+T_2 = \left\{ \frac{1}{n_1} \sum_{i=1}^{n_1} x_{1i}, \frac{1}{n_2} \sum_{i=1}^{n_2} x_{2i}, \frac{\sum_{i=1}^{n_1} (x_{1i} - \bar{x}_1)^2 + \sum_{i=1}^{n_2} (x_{2i} - \bar{x}_2)^2}{n_1 + n_2 - 2} \right\}
+\end{equation}
+
+é também conjuntamente suficiente para $\theta = (\mu_1, \mu_2, \sigma^2)$.
+
+O termo $S_p^2$ é chamado de variância amostral conjunta e pode ser reescrito como:
+\begin{equation}
+S_1^2 = (n_1 - 1)^{-1} \sum_{i=1}^{n_1} (x_{1i} - \bar{x}_1)^2, \quad S_2^2 = (n_2 - 1)^{-1} \sum_{i=1}^{n_2} (x_{2i} - \bar{x}_2)^2
+\end{equation}
+
+\begin{equation}
+S_p^2 = (n_1 + n_2 - 2)^{-1} \left[ (n_1 - 1) S_1^2 + (n_2 - 1) S_2^2 \right]
+\end{equation}
+
+Note que como $(n_1 - 1) S_1^2 / \sigma^2 \sim \chi^2_{n_1 - 1}$ e $(n_2 - 1) S_2^2 / \sigma^2 \sim \chi^2_{n_2 - 1}$, então
+\begin{equation}
+(n_1 + n_2 - 2) S_p^2 / \sigma^2 \sim \chi^2_{n_1 + n_2 - 2}
+\end{equation}
+
+Dai, vale-se:
+\begin{equation}
+U = \frac{\bar{x}_1 - \bar{x}_2 - (\mu_1 - \mu_2)}{\sigma \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \cdot \sqrt{\frac{n_1 + n_2 - 2}{S_p^2 / \sigma^2}} = \frac{\bar{x}_1 - \bar{x}_2 - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
+\end{equation}

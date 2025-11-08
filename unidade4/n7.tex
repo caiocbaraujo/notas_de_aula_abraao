@@ -1,0 +1,23 @@
+﻿\begin{equation}
+L_i \triangleq L(\theta_i, x) = \prod_{k=1}^n f(x_k, \theta_i), \quad i = 0, 1.
+\end{equation}
+
+Considere comparar o poder de todos os testes de nível $\alpha$, com $\alpha$ fixado em $(0,1)$, comumente escolhendo-se valores $\alpha = 1\%, 5\%, 10\%$.
+
+De modo intuitivo, um teste $H_0$ e $H_1$ procura comparar $L_0$ com $L_1$ e procurar qual quantidade é superior à outra. Com critério, a hipótese com verossimilhança mais significativa é favorecida como a mais razoável.
+
+\textbf{Teorema (Lema de Neyman-Pearson)}
+
+Seja $X$ um teste para
+\[
+H_0 : \theta = \theta_0 \quad \text{e} \quad H_1 : \theta = \theta_1,
+\]
+com região de rejeição e não rejeição de $H_0$ dadas por:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : L(\theta_1, x) > k \, L(\theta_0, x) \right\}
+\end{equation}
+\begin{equation}
+R_c^c = \left\{ x \in \mathbb{R}^n : L(\theta_1, x) < k \, L(\theta_0, x) \right\}
+\end{equation}
+
+ou, equivalentemente, com função crítica dada por...

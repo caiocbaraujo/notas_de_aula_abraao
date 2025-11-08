@@ -1,0 +1,29 @@
+﻿$H_0$: $t \leq 50\%$ como ``Rejeita-se $H_0$ se, e só se, \(\sum_{i=1}^n t_i > 5\).''
+
+\(Y\) é aleatorizado com função crítica:
+
+\begin{equation}
+\psi_Y(x) =
+\begin{cases}
+1, & x \in \{3 \in \mathbb{X} \subset \{0,1\}^n : \sum_{i=1}^n z_i > 5 \} \\
+\delta, & x \in \{3 \in \mathbb{X} \subset \{0,1\}^n : \sum_{i=1}^n z_i = 5 \} \\
+0, & x \in \{3 \in \mathbb{X} \subset \{0,1\}^n : \sum_{i=1}^n z_i < 5 \}
+\end{cases}
+\end{equation}
+
+Caso \(\psi_Y(x) = \delta \in (0,1)\) a decisão pela rejeição de \(H_0\) se dará por obter ``cara'' no lançamento de uma moeda.
+
+Aula 21 (27/05/2025)
+
+\section*{O conceito de melhor teste}
+
+Considere testar:
+\[
+H_0 : \theta \in \Theta_0 \quad \text{e} \quad H_1 : \theta \in \Theta_1
+\]
+tal que \(\Theta = \Theta_0 \cup \Theta_1\) e \(\Theta_0 \cap \Theta_1 = \varnothing\).
+
+\textbf{Definição:} Seja \(\alpha \in (0,1)\) um valor fixado. Um teste \(Y\) para \(H_0\) e \(H_1\), com função poder \(Q_Y(\theta)\), é chamado de \emph{tamanho} \(\alpha\) se
+\begin{equation}
+\sup_{\theta \in \Theta_0} Q_Y(\theta) = \alpha
+\end{equation}

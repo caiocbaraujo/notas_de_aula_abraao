@@ -1,0 +1,43 @@
+﻿\[
+\psi_Y(x) = 
+\begin{cases}
+1, & x \; T(x) > u \\
+\delta, & x \; T(x) = u \\
+0, & x \; T(x) < u
+\end{cases}
+\]
+
+\noindent
+Obs.: No Teorema de Karlin-Rubin, se a família 
+\[
+\{ g(x; \theta), \; \theta \in \Theta \}
+\]
+tem RVU não crescente em $T(x)$, então o teste UMP de nível $\alpha$ tem função crítica
+\[
+\psi_Y(x) = 
+\begin{cases}
+1, & x \; T(x) < u \\
+0, & x \; T(x) > u
+\end{cases}
+\quad \text{e} \quad
+\psi_Y(x) = 
+\begin{cases}
+1, & x \; T(x) < u \\
+\delta, & x \; T(x) = u \\
+0, & x \; T(x) > u
+\end{cases}
+\]
+
+\noindent
+Prova: Seja $Y$ o teste definido em (1) com poder
+\[
+Q_Y(\theta) = P_\theta(\text{Rejeitar } H_0)
+\]
+e $Q_Y(\theta_0) = \alpha$. Sem perda de generalidade, seja $\theta_1 > \theta_0$. Pelo Lema de NP o teste MP para
+\[
+H_0: \theta = \theta_0 \quad \text{e} \quad H_1: \theta = \theta_1
+\]
+é baseado na razão entre verossimilhanças (RV) e, então, rejeita-se $H_0$ se, e só se,
+\begin{equation}
+\frac{L(x; \theta_1)}{L(x; \theta_0)} > u'
+\end{equation}

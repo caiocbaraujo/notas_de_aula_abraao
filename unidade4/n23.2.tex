@@ -1,0 +1,33 @@
+﻿\textbf{Exemplo:} Seja $X_1, \ldots, X_n \overset{i.i.d.}{\sim} U(0, \theta)$. Haverá um teste UMP para
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{x} \quad H_1: \theta \neq \theta_1.
+\end{equation}
+
+Exemplo de não existência do teste UMP:
+
+Sejam $X_1, \ldots, X_n$ uma amostra de $X_i \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecida e $\sigma$ conhecido. Como discutido, 
+\begin{equation}
+T(X) = \sum_{i=1}^n X_i
+\end{equation}
+é suficiente para $\mu$. Considere testar:
+\begin{equation}
+H_0: \mu = \mu_0 \quad \text{x} \quad H_1: \mu \neq \mu_0
+\end{equation}
+
+Assuma que existe o teste UMP. Se quisermos testar
+\begin{equation}
+H_0': \mu = \mu_0 \quad \text{e} \quad H_1': \mu > \mu_0,
+\end{equation}
+o teste UMP $\psi_1$ de nível $\alpha$ tem função crítica:
+\begin{equation}
+\psi(X) = 
+\begin{cases}
+1, & \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} > z_\alpha, \\
+0, & \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} < z_\alpha.
+\end{cases}
+\end{equation}
+
+Por outro lado, para testar
+\begin{equation}
+H_0'': \mu = \mu_0 \quad \text{e} \quad H_1'': \mu < \mu_0,
+\end{equation}

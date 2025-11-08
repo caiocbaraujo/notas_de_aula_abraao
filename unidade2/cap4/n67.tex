@@ -1,0 +1,38 @@
+E o teste pode ser escrito como: rejeita-se $H_0$ se $x$ pertence a
+
+\begin{equation}
+R_c = \{ x \in (0,4) : 4x^{-3/2} > k \} 
+\end{equation}
+
+\begin{equation}
+= \{ x \in (0,4) : x < \left( \frac{4}{k} \right)^{2/3} \}
+\end{equation}
+
+\begin{equation}
+= \{ x \in (0,4) : x < k_1 \}
+\end{equation}
+
+Este teste tem tamanho dado por
+
+\begin{equation}
+\alpha = P_{f_0} \{ X < k_1 \} = \int_{0}^{k_1} \frac{3}{64} x^2 \, dx
+\end{equation}
+
+\begin{equation}
+\alpha = \frac{3}{64} \cdot \frac{x^3}{3} \Big|_{0}^{k_1} = \frac{k_1^3}{64}
+\end{equation}
+
+\begin{equation}
+\Rightarrow k_1 = (64 \alpha)^{1/3} = 4 \alpha^{1/3}
+\end{equation}
+
+O poder associado é dado por
+
+\begin{equation}
+P_{f_1} \{ X < k_1 \} = \int_{0}^{k_1} \frac{3}{16} \sqrt{x} \, dx
+\end{equation}
+
+\begin{equation}
+= \frac{3}{16} \cdot \frac{x^{3/2}}{3/2} \Big|_{0}^{k_1} = \frac{k_1^{3/2}}{8} = \alpha^{1/2}
+\end{equation}
+

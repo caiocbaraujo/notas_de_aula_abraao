@@ -1,0 +1,35 @@
+﻿Tal que $\mu_0, \mu_1, \sigma^2$ são conhecidos e $\mu_1 > \mu_0$.
+
+Solução: Como as hipóteses $H_0$ e $H_1$ são simples, o LNP se aplica. A verossimilhança em questão é:
+
+\begin{equation}
+l_i \triangleq L(y_i, \alpha) = (2\pi\sigma^2)^{-1/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{k=1}^n (x_k - \mu_i)^2 \right\}.
+\end{equation}
+
+O teste NP terá a seguinte forma:
+
+Rejeita-se $H_0$ se, e só se, $\frac{l_1}{l_0} > k$.
+
+Note que:
+
+\begin{equation}
+\frac{l_1}{l_0} = \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_1)^2 - \sum_{i=1}^n (x_i - \mu_0)^2 \right] \right\}
+\end{equation}
+
+\begin{equation}
+= \exp\left\{ -\frac{1}{2\sigma^2} \left[ -2\mu_1 \sum_{i=1}^n x_i + n\mu_1^2 + 2\mu_0 \sum_{i=1}^n x_i - n\mu_0^2 \right] \right\}
+\end{equation}
+
+\begin{equation}
+= \exp\left\{ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^n x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\}
+\end{equation}
+
+Daí, a região crítica deste teste é dada por: Para $\mathcal{X} = \mathbb{R}^n$ (espaço amostral)
+
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \frac{l_1}{l_0} > k_1 \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ x \in \mathcal{X} : \exp\left[ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^n x_i \right] > k_1 \cdot \exp\left[ \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right] \right\}
+\end{equation}

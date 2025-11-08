@@ -1,0 +1,26 @@
+\newpage
+
+\textbf{Exemplo 6:} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com média desconhecida e $\sigma^2$ conhecido. Encontrar o intervalo de confiança $1-\alpha$ bilateral para $\mu$.
+
+\textbf{Solução:} De discussão anterior $T = \overline{X}$ é uma estatística suficiente mínima para $\mu$ e
+\begin{equation}
+T \sim N\left(\mu, \frac{\sigma^2}{n}\right).
+\end{equation}
+
+Aqui, $X$'s pertencem à família de locação. Note que
+\begin{equation}
+U = \sqrt{n} \frac{T - \mu}{\sigma} \sim N(0,1)
+\end{equation}
+é um pivô. Para $z_{\alpha/2} > 0$ tal que $P(U > z_{\alpha/2}) = \frac{\alpha}{2}$, temos que:
+\begin{equation}
+P(-z_{\alpha/2} < U < z_{\alpha/2}) = 1 - \alpha \quad \Rightarrow \quad P\left(-z_{\alpha/2} < \sqrt{n} \frac{\overline{X} - \mu}{\sigma} < z_{\alpha/2}\right) = 1 - \alpha
+\end{equation}
+ou seja,
+\begin{equation}
+P\left(\overline{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} < \mu < \overline{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha.
+\end{equation}
+
+Portanto,
+\begin{equation}
+IC_{1-\alpha}(\mu) = \left( \overline{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \ \overline{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right).
+\end{equation}

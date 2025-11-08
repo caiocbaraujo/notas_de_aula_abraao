@@ -1,0 +1,27 @@
+﻿\section*{Aula 20 (26/05/2025)}
+
+\textbf{Def 2 (Teste de hipótese):} Um teste $T$ para uma hipótese $H$ é uma regra ou processo para decidir se $H$ deve ser rejeitada.
+
+\subsection*{Estudo Computacional}
+
+Suponha $x_1, \ldots, x_n$ uma a.a. de $X_n \sim N(\theta, e^S)$. Considere 
+\[
+H: \theta \leq 17.
+\]
+Uma possível teste é: rejeitar $H$ se, e só se,
+\begin{equation}
+\bar{x}_n > 17 + \frac{s}{\sqrt{n}}.
+\end{equation}
+
+\begin{enumerate}
+    \item Defina 100 valores para $\theta$ em $[15, 20]$, igualmente espaçados, digamos $\theta_1, \theta_2, \ldots, \theta_{100}$.
+    \item Para cada $\theta_j$, gere $MC = 300$ réplicas de Monte Carlo.
+    \item Para cada réplica, gere uma amostra observada de tamanho $n = 100$ de $X_n \sim N(\theta, e^S)$, $x_1, \ldots, x_{100}$ com média amostral $\bar{x}$, e compute
+    \begin{equation}
+        Z_i(\theta_j) = \mathbb{I}\left( \bar{x} > 17 + \frac{s}{\sqrt{n}}, \theta_j \right), \quad \text{para } i = 1, \ldots, MC.
+    \end{equation}
+    \item Finalmente, compute
+    \begin{equation}
+        Q(\theta_j) = MC^{-1} \sum_{i=1}^{MC} Z_i(\theta_j), \quad \text{para } j = 1, \ldots, 100.
+    \end{equation}
+\end{enumerate}

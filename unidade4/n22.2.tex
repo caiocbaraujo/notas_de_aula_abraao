@@ -1,0 +1,26 @@
+﻿Aula 25 (14/01/2025)
+
+\textbf{Exemplo:} Sejam $X_1, \ldots, X_n$ uma amostra de $X_i \sim \text{Poisson}(\lambda)$ com $\lambda$ desconhecido. Encontre o teste UMP para
+\begin{equation}
+H_0: \lambda \leq \lambda_0 \quad \text{vs} \quad H_1: \lambda > \lambda_0
+\end{equation}
+de nível $\alpha \in (0,1)$, em que $\lambda_0 > 0$.
+
+\textbf{Solução:} Pelo LNP, a partir de
+\begin{equation}
+L(\lambda; x) = \frac{e^{-n\lambda} \lambda^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n x_i!} 
+= \left( \prod_{i=1}^n x_i! \right)^{-1} \lambda^{\sum_{i=1}^n x_i} e^{-n\lambda}
+= h(x) \, g(T(x), \lambda)
+\end{equation}
+
+Logo, $T(X) = \sum_{i=1}^n X_i$ é suficiente para $\lambda$. Note que $T \sim \text{Poisson}(n\lambda)$ tem função de probabilidade dada por:
+\begin{equation}
+f_T(t; \lambda) = \frac{e^{-n\lambda} (n\lambda)^t}{t!}
+\end{equation}
+
+E, para $\lambda^* > \lambda$, como
+\begin{equation}
+\frac{f_T(t; \lambda^*)}{f_T(t; \lambda)} 
+= \left( \frac{\lambda^*}{\lambda} \right)^t e^{-n(\lambda^* - \lambda)}
+\end{equation}
+é não decrescente, $f_T(t; \lambda)$ tem RVM não decrescente. Portanto, pelo teorema de Karlin-Rubin, o teste UMP de nível $\alpha$...

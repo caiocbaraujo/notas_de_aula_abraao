@@ -1,0 +1,38 @@
+\begin{equation}
+\begin{aligned}
+g'(u) &= \frac{n}{2} u^{\frac{n}{2} - 1} (n u b)^{-\frac{n m}{2}} - u^{\frac{n}{2}} \left( \frac{n m}{2} \right) (n u b)^{-\frac{n m}{2} - 1} \\
+&= (n u b)^{-\frac{n m}{2}} \cdot u^{\frac{n}{2} - 1} \left[ (n b) \frac{n}{2} - u \left( \frac{n m}{2} \right) \right] \\
+&= \frac{1}{a^2} (n u b)^{-\frac{n m}{2}} \cdot u^{\frac{n}{2} - 1} \left[ n b - m n u \right]
+\end{aligned}
+\end{equation}
+
+Dai, $g(u) \geq 0$ e
+\[
+g'(u) = 0 \quad \Rightarrow \quad u = \frac{n b}{m}.
+\]
+
+(ii) $\lim_{u \to 0} g(u) = 0$ e $\lim_{u \to \infty} g(u) = 0$
+
+Logo, $g(u)$ é muito pequena quando $u = \frac{\hat{\sigma}_x^2}{\hat{\sigma}_y^2}$ é muito pequena ou muito grande.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\draw[->] (0,0) -- (6,0) node[right] {$u$};
+\draw[->] (0,0) -- (0,3) node[above] {$g\left(\frac{n b}{m}\right)$};
+\draw[domain=0.5:5,smooth,variable=\x] plot ({\x},{2*exp(-(\x-3)^2)});
+\draw[dashed] (3,0) -- (3,2);
+\draw[pattern=north east lines] (0,0) -- plot[domain=0.5:1.5] ({\x},{2*exp(-(\x-3)^2)}) -- (1.5,0) -- cycle;
+\node at (3,-0.3) {$\frac{n b}{m}$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Tomar:}
+\begin{equation}
+\begin{aligned}
+F_n(\hat{\alpha}_1, \hat{\alpha}_2) &= \frac{\frac{\hat{\sigma}_x}{\sigma_x}}{\frac{\hat{\sigma}_y}{\sigma_y}} 
+= \frac{\frac{n-1}{n} \frac{S_x^2}{\sigma_x^2}}{\frac{m-1}{m} \frac{S_y^2}{\sigma_y^2}} 
+= \frac{\frac{n-1}{n} S_x^2 / \sigma_x^2}{\frac{m-1}{m} S_y^2 / \sigma_y^2} \\
+&= \frac{S_x^2 / \sigma_x^2}{S_y^2 / \sigma_y^2} \cdot \frac{m(n-1)}{n(m-1)}
+\end{aligned}
+\end{equation}
+

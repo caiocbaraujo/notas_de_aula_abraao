@@ -1,0 +1,412 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{import}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+% Título e informações do documento
+\title{Capítulo 4 - Compilação Completa\\
+\large Teste de Hipótese}
+\author{Curso de Inferência Estatística - PPGEST/UFPE}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introdução ao Capítulo 4: Teste de Hipóteses}
+
+O Capítulo 4 apresenta uma das ferramentas mais fundamentais e amplamente utilizadas na inferência estatística: os \textbf{Testes de Hipóteses}. Esta metodologia permite que tomemos decisões informadas sobre parâmetros populacionais desconhecidos com base em evidências amostrais, fornecendo um arcabouço rigoroso para validar ou refutar afirmações científicas.
+
+\subsection*{Contexto e Motivação}
+
+A teoria de testes de hipóteses, desenvolvida principalmente por Neyman e Pearson, responde à seguinte questão fundamental: \emph{``Dada uma afirmação sobre um parâmetro populacional desconhecido $\theta$, como podemos usar uma amostra aleatória para decidir se devemos aceitar ou rejeitar tal afirmação?''}
+
+Esta questão permeia praticamente todas as áreas da ciência onde dados empíricos são coletados: desde estudos clínicos que avaliam a eficácia de novos tratamentos, passando por controle de qualidade industrial, até pesquisas sociais e econômicas.
+
+\subsection*{Estrutura do Capítulo}
+
+O capítulo está organizado de forma a construir progressivamente os conceitos fundamentais e suas aplicações:
+
+\paragraph{4.1 Introdução e Conceitos Fundamentais}
+Apresenta a formulação básica do problema de teste de hipóteses, incluindo:
+\begin{itemize}
+    \item Definição de hipótese estatística (nula $H_0$ e alternativa $H_1$)
+    \item Classificação das hipóteses: simples, compostas unilaterais e bilaterais
+    \item Região crítica e regra de decisão
+    \item Conceito de erro Tipo I ($\alpha$) e Tipo II ($\beta$)
+\end{itemize}
+
+\paragraph{4.2 Probabilidade de Erro e Função Poder}
+Desenvolve a teoria quantitativa dos testes, introduzindo:
+\begin{itemize}
+    \item Função poder $Q_\Upsilon(\theta)$ e sua interpretação
+    \item Conceitos de tamanho e nível de significância
+    \item Testes aleatorizados versus não aleatorizados
+    \item Função crítica ou função do teste $\psi_\Upsilon(x)$
+\end{itemize}
+
+\paragraph{4.3 Lema de Neyman-Pearson (LNP)}
+Este é um dos resultados mais importantes da teoria, que estabelece:
+\begin{itemize}
+    \item O teste mais poderoso (MP) para hipóteses simples
+    \item A razão de verossimilhança como estatística de teste
+    \item Relação entre testes MP e estatísticas suficientes
+\end{itemize}
+
+\paragraph{4.4 Testes para Hipóteses Compostas Unilaterais}
+Estende a teoria para o caso mais geral de hipóteses compostas:
+\begin{itemize}
+    \item Conceito de Teste Uniformemente Mais Poderoso (UMP)
+    \item Razão de Verossimilhança Monótona (RVM)
+    \item Teorema de Karlin-Rubin
+    \item Aplicações para distribuições da família exponencial
+\end{itemize}
+
+\paragraph{4.5 Testes para Hipóteses Bilaterais}
+Aborda testes do tipo $H_0: \theta = \theta_0$ versus $H_1: \theta \neq \theta_0$:
+\begin{itemize}
+    \item Testes Uniformemente Mais Poderosos Não Viesados (UMPNV)
+    \item Aplicações para parâmetros de locação e escala
+\end{itemize}
+
+\paragraph{4.6 Estatísticas de Teste Clássicas}
+Apresenta as principais estatísticas de teste utilizadas na prática:
+\begin{itemize}
+    \item Teste Z (distribuição normal com variância conhecida)
+    \item Teste t de Student (variância desconhecida)
+    \item Teste Qui-quadrado ($\chi^2$) para variância
+    \item Teste F para comparação de variâncias
+\end{itemize}
+
+\subsection*{Objetivos de Aprendizagem}
+
+Ao final deste capítulo, espera-se que o estudante seja capaz de:
+
+\begin{enumerate}
+    \item Formular corretamente hipóteses estatísticas para problemas práticos
+    \item Compreender e interpretar os erros Tipo I e II e suas implicações
+    \item Calcular a função poder de um teste e utilizá-la para comparar testes
+    \item Aplicar o Lema de Neyman-Pearson para construir testes MP
+    \item Utilizar o Teorema de Karlin-Rubin para obter testes UMP
+    \item Selecionar e aplicar apropriadamente as estatísticas de teste clássicas
+    \item Interpretar p-valores e tomar decisões estatísticas fundamentadas
+\end{enumerate}
+
+\subsection*{Filosofia do Teste de Hipóteses}
+
+É importante destacar a filosofia subjacente ao teste de hipóteses:
+\begin{itemize}
+    \item \textbf{Princípio da Falsificabilidade:} Procuramos evidências contra $H_0$ (não provamos que $H_0$ é verdadeira)
+    \item \textbf{Controle de Erro:} Fixamos um nível máximo aceitável para o erro Tipo I ($\alpha$)
+    \item \textbf{Maximização do Poder:} Buscamos testes que maximizem a probabilidade de detectar quando $H_0$ é falsa
+    \item \textbf{Decisão com Incerteza:} Reconhecemos que toda decisão estatística está sujeita a erro
+\end{itemize}
+
+\vspace{0.5cm}
+
+\noindent Este capítulo fornece não apenas as ferramentas técnicas necessárias para realizar testes de hipóteses, mas também desenvolve a intuição estatística fundamental para aplicar essas ferramentas de forma apropriada em contextos reais.
+
+
+\newpage
+
+% ===============================================================
+% CONTEÚDO DO CAPÍTULO 4
+% Importando todas as páginas da pasta cap4 (não da pasta unidade2!)
+% ===============================================================
+
+\import{../../cap4/}{n39.tex}
+\import{../../cap4/}{n40.tex}
+\import{../../cap4/}{n41.tex}
+\import{../../cap4/}{n42.tex}
+\import{../../cap4/}{n43.tex}
+\import{../../cap4/}{n44.tex}
+\import{../../cap4/}{n45.tex}
+\import{../../cap4/}{n46.tex}
+\import{../../cap4/}{n47.tex}
+\import{../../cap4/}{n48.tex}
+\import{../../cap4/}{n49.tex}
+\import{../../cap4/}{n50.tex}
+\import{../../cap4/}{n51.tex}
+\import{../../cap4/}{n52.tex}
+\import{../../cap4/}{n53.tex}
+\import{../../cap4/}{n54.tex}
+\import{../../cap4/}{n55.tex}
+\import{../../cap4/}{n56.tex}
+\import{../../cap4/}{n57.tex}
+\import{../../cap4/}{n58.tex}
+\import{../../cap4/}{n59.tex}
+\import{../../cap4/}{n60.tex}
+\import{../../cap4/}{n61.tex}
+\import{../../cap4/}{n62.tex}
+\import{../../cap4/}{n63.tex}
+\import{../../cap4/}{n64.tex}
+\import{../../cap4/}{n65.tex}
+\import{../../cap4/}{n66.tex}
+\import{../../cap4/}{n67.tex}
+\import{../../cap4/}{n68.tex}
+\import{../../cap4/}{n69.tex}
+\import{../../cap4/}{n70.tex}
+\import{../../cap4/}{n71.tex}
+\import{../../cap4/}{n72.tex}
+\import{../../cap4/}{n73.tex}
+\import{../../cap4/}{n74.tex}
+\import{../../cap4/}{n75.tex}
+\import{../../cap4/}{n76.tex}
+\import{../../cap4/}{n77.tex}
+\import{../../cap4/}{n78.tex}
+
+% ===============================================================
+% RESUMO E CONSOLIDAÇÃO DO CAPÍTULO 4
+% ===============================================================
+
+\newpage
+\section*{Resumo e Consolidação: Capítulo 4 - Teste de Hipóteses}
+
+\subsection*{Visão Geral}
+
+Este capítulo apresentou a teoria fundamental de testes de hipóteses, uma das principais ferramentas da inferência estatística. A seguir, consolidamos os principais conceitos, resultados teóricos e suas conexões.
+
+\subsection*{1. Conceitos Fundamentais e Terminologia}
+
+\begin{table}[h!]
+\centering
+\caption{Terminologia Básica em Testes de Hipóteses}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Conceito} & \textbf{Definição/Interpretação} \\ \midrule
+Hipótese nula $(H_0)$ & Afirmação a ser testada (status quo) \\
+Hipótese alternativa $(H_1)$ & Afirmação rival a $H_0$ \\
+Região crítica $(R_c)$ & Conjunto de valores amostrais que levam à rejeição de $H_0$ \\
+Estatística de teste & Função dos dados usada para decidir sobre $H_0$ \\
+Erro Tipo I & Rejeitar $H_0$ quando é verdadeira \\
+Erro Tipo II & Não rejeitar $H_0$ quando é falsa \\
+Nível de significância $(\alpha)$ & Probabilidade máxima do Erro Tipo I \\
+Tamanho do teste & Probabilidade do Erro Tipo I: $\sup_{\theta \in \Theta_0} P_\theta(X \in R_c)$ \\
+Função poder $Q_\Upsilon(\theta)$ & $P_\theta(\text{Rejeitar } H_0) = P_\theta(X \in R_c)$ \\
+p-valor & Menor nível $\alpha$ para o qual $H_0$ seria rejeitada \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{2. Classificação de Hipóteses}
+
+\begin{table}[h!]
+\centering
+\caption{Tipos de Hipóteses Estatísticas}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tipo} & \textbf{Forma} & \textbf{Exemplo} \\ \midrule
+Simples & Especifica completamente $\theta$ & $H_0: \theta = \theta_0$ \\
+Composta unilateral & Um intervalo semi-infinito & $H_0: \theta \leq \theta_0$ ou $H_0: \theta \geq \theta_0$ \\
+Composta bilateral & Dois intervalos ou um intervalo & $H_0: \theta \neq \theta_0$ ou $H_0: |\theta - \theta_0| > c$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{3. Teoremas Fundamentais e Suas Aplicações}
+
+\begin{table}[h!]
+\centering
+\caption{Principais Resultados Teóricos}
+\begin{tabular}{@{}p{3.5cm}p{4cm}p{6cm}@{}}
+\toprule
+\textbf{Teorema/Lema} & \textbf{Quando Aplicar} & \textbf{Resultado Principal} \\ \midrule
+Lema de Neyman-Pearson (LNP) & 
+$H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$ (simples vs simples) & 
+O teste MP rejeita $H_0$ quando $\frac{L(\theta_1; x)}{L(\theta_0; x)} > k$, onde $k$ é determinado por $\alpha$ \\ \midrule
+
+Teorema de Karlin-Rubin & 
+$H_0: \theta \leq \theta_0$ vs $H_1: \theta > \theta_0$ com RVM & 
+Se $T(X)$ é suficiente com RVM, o teste UMP rejeita quando $T(X) > k$ \\ \midrule
+
+Testes UMPNV & 
+$H_0: \theta = \theta_0$ vs $H_1: \theta \neq \theta_0$ (bilateral) & 
+Para famílias com RVM, testes baseados em $|T(X) - c|$ podem ser UMPNV \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{4. Estatísticas de Teste Clássicas}
+
+\begin{table}[h!]
+\centering
+\caption{Principais Estatísticas de Teste e Suas Condições de Uso}
+\begin{tabular}{@{}p{2cm}p{4cm}p{3.5cm}p{3.5cm}@{}}
+\toprule
+\textbf{Teste} & \textbf{Suposições} & \textbf{Estatística} & \textbf{Distribuição sob $H_0$} \\ \midrule
+Teste Z & 
+$X_i \sim N(\mu, \sigma^2)$, $\sigma^2$ conhecida & 
+$Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}}$ & 
+$N(0, 1)$ \\ \midrule
+
+Teste t & 
+$X_i \sim N(\mu, \sigma^2)$, $\sigma^2$ desconhecida & 
+$T = \frac{\bar{X} - \mu_0}{S/\sqrt{n}}$ & 
+$t_{n-1}$ \\ \midrule
+
+Teste $\chi^2$ & 
+$X_i \sim N(\mu, \sigma^2)$, teste para $\sigma^2$ & 
+$\chi^2 = \frac{(n-1)S^2}{\sigma_0^2}$ & 
+$\chi^2_{n-1}$ \\ \midrule
+
+Teste F & 
+$X_i \sim N(\mu_X, \sigma_X^2)$, $Y_j \sim N(\mu_Y, \sigma_Y^2)$ & 
+$F = \frac{S_X^2}{S_Y^2}$ & 
+$F_{n_1-1, n_2-1}$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{5. Estratégias para Resolução de Problemas}
+
+\paragraph{Etapa 1: Formulação do Problema}
+\begin{itemize}
+    \item Identifique o parâmetro de interesse $\theta$
+    \item Formule claramente $H_0$ e $H_1$
+    \item Determine o nível de significância $\alpha$ (geralmente 0.05, 0.01 ou 0.10)
+    \item Classifique as hipóteses (simples, composta unilateral ou bilateral)
+\end{itemize}
+
+\paragraph{Etapa 2: Escolha do Método de Teste}
+\begin{itemize}
+    \item Para hipóteses simples vs simples $\rightarrow$ Use o LNP
+    \item Para hipóteses compostas unilaterais com RVM $\rightarrow$ Use Karlin-Rubin
+    \item Para hipóteses bilaterais $\rightarrow$ Considere testes UMPNV ou teste da razão de verossimilhança
+    \item Para modelos específicos (Normal, Bernoulli, Poisson, etc.) $\rightarrow$ Use testes clássicos conhecidos
+\end{itemize}
+
+\paragraph{Etapa 3: Cálculo da Estatística de Teste}
+\begin{itemize}
+    \item Identifique ou construa uma estatística suficiente
+    \item Determine sua distribuição sob $H_0$
+    \item Calcule o valor observado da estatística (valor calculado)
+\end{itemize}
+
+\paragraph{Etapa 4: Tomada de Decisão}
+\begin{itemize}
+    \item \textbf{Método do Valor Crítico:} Compare a estatística calculada com o valor crítico tabelado
+    \item \textbf{Método do p-valor:} Calcule $p = P_{H_0}(T \geq T_{\text{obs}})$ e rejeite se $p < \alpha$
+\end{itemize}
+
+\paragraph{Etapa 5: Interpretação}
+\begin{itemize}
+    \item Se rejeitamos $H_0$: Há evidência estatística significativa contra $H_0$ ao nível $\alpha$
+    \item Se não rejeitamos $H_0$: Não há evidência suficiente para rejeitar $H_0$ (não significa que $H_0$ é verdadeira!)
+    \item Considere sempre o poder do teste e o tamanho da amostra
+\end{itemize}
+
+\subsection*{6. Fluxograma de Decisão para Escolha do Teste}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance = 1.5cm,
+    every node/.style = {rectangle, draw, align=center, minimum width=3cm, minimum height=1cm},
+    decision/.style = {diamond, aspect=2, draw, align=center, minimum width=2cm},
+    arrow/.style = {->, thick}
+]
+
+\node (inicio) {Conhece a distribuição\\populacional?};
+\node[below of=inicio] (normal) {É Normal?};
+\node[below left of=normal, xshift=-2cm] (variancia) {$\sigma^2$ conhecida?};
+\node[below of=variancia] (testz) {\textbf{Teste Z}};
+\node[right of=testz, xshift=2cm] (testet) {\textbf{Teste t}};
+\node[below right of=normal, xshift=2cm] (outros) {Bernoulli, Poisson,\\Exponencial?};
+\node[below of=outros] (lnp) {Use LNP ou\\Karlin-Rubin};
+
+\draw[arrow] (inicio) -- node[right] {Sim} (normal);
+\draw[arrow] (normal) -- node[above left] {Sim} (variancia);
+\draw[arrow] (variancia) -- node[right] {Sim} (testz);
+\draw[arrow] (variancia) -- node[above] {Não} (testet);
+\draw[arrow] (normal) -- node[above right] {Não} (outros);
+\draw[arrow] (outros) -- (lnp);
+
+\end{tikzpicture}
+\end{center}
+
+\subsection*{7. Conexões Entre os Conceitos}
+
+\paragraph{Relação entre Estatísticas Suficientes e Testes Ótimos}
+\begin{itemize}
+    \item O LNP garante que testes MP dependem apenas de estatísticas suficientes
+    \item A suficiência reduz a dimensionalidade do problema sem perda de informação
+    \item Para família exponencial: estatística suficiente $\Rightarrow$ RVM $\Rightarrow$ teste UMP via Karlin-Rubin
+\end{itemize}
+
+\paragraph{Função Poder e Comparação de Testes}
+\begin{itemize}
+    \item $Q_\Upsilon(\theta) = 1 - \beta(\theta)$ para $\theta \in \Theta_1$
+    \item Teste A é melhor que teste B se $Q_A(\theta) \geq Q_B(\theta)$ para todo $\theta \in \Theta_1$
+    \item MP $\Rightarrow$ UMP $\Rightarrow$ UMPNV (ordem decrescente de otimalidade)
+\end{itemize}
+
+\paragraph{Trade-off entre Erros Tipo I e II}
+\begin{itemize}
+    \item Fixado $n$: diminuir $\alpha$ aumenta $\beta$, e vice-versa
+    \item Para reduzir ambos simultaneamente: aumentar $n$ (tamanho amostral)
+    \item O poder aumenta com: maior $n$, maior $\alpha$, maior distância entre $\theta_0$ e $\theta_1$
+\end{itemize}
+
+\subsection*{8. Tabela de Referência Rápida: Distribuições e RVM}
+
+\begin{table}[h!]
+\centering
+\caption{Distribuições Comuns e Propriedade RVM}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Distribuição} & \textbf{Parâmetro} & \textbf{Possui RVM?} \\ \midrule
+Normal $N(\mu, \sigma^2)$ & $\mu$ ($\sigma^2$ conhecida) & Sim \\
+Normal $N(\mu, \sigma^2)$ & $\sigma^2$ ($\mu$ conhecida) & Sim \\
+Bernoulli$(p)$ & $p$ & Sim \\
+Poisson$(\lambda)$ & $\lambda$ & Sim \\
+Exponencial$(\theta)$ & $\theta$ & Sim \\
+Gamma$(\alpha, \beta)$ & $\alpha$ ou $\beta$ (outro fixo) & Sim \\
+Uniforme$(0, \theta)$ & $\theta$ & Não (mas tem teste UMP) \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{9. Checklist de Verificação}
+
+Ao resolver um problema de teste de hipóteses, verifique:
+
+\begin{enumerate}
+    \item[$\square$] As hipóteses $H_0$ e $H_1$ são mutuamente exclusivas e exaustivas?
+    \item[$\square$] O nível de significância $\alpha$ foi especificado?
+    \item[$\square$] As suposições do modelo foram verificadas (normalidade, independência, etc.)?
+    \item[$\square$] A estatística de teste tem distribuição conhecida sob $H_0$?
+    \item[$\square$] A região crítica foi determinada corretamente (unilateral ou bilateral)?
+    \item[$\square$] O valor calculado da estatística foi comparado corretamente com o valor crítico?
+    \item[$\square$] A conclusão foi expressa no contexto do problema?
+    \item[$\square$] Considerou-se o poder do teste e o tamanho amostral?
+\end{enumerate}
+
+\subsection*{10. Conclusão}
+
+O Capítulo 4 apresentou um arcabouço completo e rigoroso para testes de hipóteses, desde os conceitos fundamentais até os métodos mais sofisticados. Os principais aprendizados são:
+
+\begin{itemize}
+    \item A teoria de Neyman-Pearson fornece critérios objetivos para construir testes ótimos
+    \item O conceito de poder é fundamental para avaliar a qualidade de um teste
+    \item Propriedades da distribuição (RVM, suficiência) levam a testes ótimos
+    \item Testes clássicos (Z, t, $\chi^2$, F) são casos especiais de princípios gerais
+    \item A interpretação correta requer compreensão tanto dos aspectos técnicos quanto filosóficos
+\end{itemize}
+
+\vspace{1cm}
+
+\noindent \textbf{Recomendação de Estudo:} Para dominar este capítulo, é essencial:
+\begin{enumerate}
+    \item Resolver muitos exercícios, começando pelos exemplos do texto
+    \item Entender as provas dos teoremas principais (LNP e Karlin-Rubin)
+    \item Praticar a interpretação de resultados no contexto de problemas reais
+    \item Comparar diferentes testes para o mesmo problema
+    \item Usar simulações para visualizar funções poder e distribuições das estatísticas de teste
+\end{enumerate}
+
+\end{document}
+

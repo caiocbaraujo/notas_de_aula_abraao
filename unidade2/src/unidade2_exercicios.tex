@@ -1,0 +1,981 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumerate}
+
+\title{Lista de Exercícios - Unidade 2\\
+\large Convergência Estocástica e Resultados Limite\\
+\normalsize 50 Questões Completas}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025 - Versão Atualizada}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Esta lista contém 50 questões organizadas por teorema, com 5 questões para cada um dos principais resultados da Unidade 2. Cada questão indica explicitamente qual teorema está sendo testado e utiliza diversas distribuições estudadas no curso.
+
+\textbf{Distribuições utilizadas:} Normal, Poisson, Uniforme, Exponencial, Chi-quadrado, Bernoulli, Cauchy, Gamma e Beta.
+
+\textbf{Teoremas cobertos:}
+\begin{enumerate}
+    \item Lei Fraca dos Grandes Números
+    \item Convergência via Momentos
+    \item Teorema de Slutsky
+    \item Teorema Central do Limite
+    \item Método Delta / Teorema de Mann-Wald
+    \item Convergência em Distribuição
+    \item TCL para Variância Amostral
+    \item Teorema da Função Contínua (Convergência em Distribuição)
+    \item Estimadores Consistentes
+    \item Propriedades Assintóticas dos EMVs
+\end{enumerate}
+
+\section{Lei Fraca dos Grandes Números}
+
+\subsection*{[Questão 1] Lei Fraca dos Grandes Números}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\mu = 5$ e $\sigma^2 = 4$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que $\bar{X}_n \xrightarrow{P} 5$.
+    \item Calcule $P(|\bar{X}_n - 5| \geq 0.5)$ usando a desigualdade de Chebyshev para $n = 64$.
+    \item Compare o resultado do item (b) com o valor exato obtido usando que $\bar{X}_n \sim N(5, 4/n)$.
+\end{enumerate}
+
+\subsection*{[Questão 2] Lei Fraca dos Grandes Números}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$ onde $\lambda = 3$.
+
+\begin{enumerate}[(a)]
+    \item Verifique que $E[X_i]$ e $\text{Var}(X_i)$ são finitos.
+    \item Mostre que $\bar{X}_n \xrightarrow{P} 3$.
+    \item Encontre $n$ tal que $P(|\bar{X}_n - 3| \geq 0.3) \leq 0.05$ usando a desigualdade de Chebyshev.
+\end{enumerate}
+
+\subsection*{[Questão 3] Lei Fraca dos Grandes Números}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$ onde $\theta = 10$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[X_i]$ e $\text{Var}(X_i)$.
+    \item Mostre que $\bar{X}_n \xrightarrow{P} 5$.
+    \item Use a LFGN para justificar que $\bar{X}_n$ é um estimador consistente para $\theta/2$.
+\end{enumerate}
+
+\subsection*{[Questão 4] Lei Fraca dos Grandes Números}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\beta)$ onde $\beta = 2$ (taxa).
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[X_i]$ e $\text{Var}(X_i)$.
+    \item Mostre que $\bar{X}_n \xrightarrow{P} 1/2$.
+    \item Se quisermos estimar $\beta$ usando $T_n = 1/\bar{X}_n$, mostre que $T_n$ é consistente para $\beta$ usando o teorema da função contínua.
+\end{enumerate}
+
+\subsection*{[Questão 5] Lei Fraca dos Grandes Números}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Cauchy}(0, 1)$ (distribuição de Cauchy padrão).
+
+\begin{enumerate}[(a)]
+    \item Explique por que a LFGN \textbf{não pode} ser aplicada diretamente neste caso.
+    \item Mostre que $E[|X_i|] = \infty$.
+    \item Discuta o comportamento de $\bar{X}_n$ neste caso. Ele converge?
+\end{enumerate}
+
+\section{Convergência via Momentos (Resultado 2P)}
+
+\subsection*{[Questão 6] Convergência via Momentos}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \chi^2_k$ (qui-quadrado com $k$ graus de liberdade).
+
+\begin{enumerate}[(a)]
+    \item Mostre que $E[X_i] = k$ e $\text{Var}(X_i) = 2k$.
+    \item Use o Resultado 2P com $r = 2$ para mostrar que $\bar{X}_n \xrightarrow{P} k$.
+    \item Calcule explicitamente $E[(\bar{X}_n - k)^2]$ e mostre que converge para zero.
+\end{enumerate}
+
+\subsection*{[Questão 7] Convergência via Momentos}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$ onde $p = 0.6$.
+
+\begin{enumerate}[(a)]
+    \item Defina $S_n^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X}_n)^2$.
+    \item Mostre que $E[S_n^2] = p(1-p) = 0.24$.
+    \item Use o Resultado 2P para mostrar que $S_n^2 \xrightarrow{P} 0.24$.
+\end{enumerate}
+
+\subsection*{[Questão 8] Convergência via Momentos}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(a, b)$.
+
+\begin{enumerate}[(a)]
+    \item Seja $T_n = X_{(n)}$ (o máximo da amostra). Calcule $E[T_n]$ e mostre que $E[T_n] \to b$.
+    \item Calcule $E[(T_n - b)^2]$ e mostre que converge para zero.
+    \item Conclua que $T_n \xrightarrow{P} b$ pelo Resultado 2P.
+\end{enumerate}
+
+\subsection*{[Questão 9] Convergência via Momentos}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\begin{enumerate}[(a)]
+    \item Seja $T_n = \frac{1}{n}\sum_{i=1}^n X_i^2$. Calcule $E[T_n]$.
+    \item Mostre que $E[(T_n - (\mu^2 + \sigma^2))^2] \to 0$.
+    \item Conclua que $T_n \xrightarrow{P} \mu^2 + \sigma^2$.
+\end{enumerate}
+
+\subsection*{[Questão 10] Convergência via Momentos}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ (taxa $\lambda$).
+
+\begin{enumerate}[(a)]
+    \item Defina $T_n = \frac{n}{\sum_{i=1}^n X_i}$. Este é o estimador de máxima verossimilhança para $\lambda$.
+    \item Mostre que $E[1/T_n] = 1/\lambda$ (dica: $\sum_{i=1}^n X_i \sim \text{Gamma}(n, \lambda)$).
+    \item Argumente que $T_n \xrightarrow{P} \lambda$ usando a LFGN e o teorema da função contínua.
+\end{enumerate}
+
+\section{Teorema de Slutsky}
+
+\subsection*{[Questão 11] Teorema de Slutsky}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que $\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)$ pelo TCL.
+    \item Mostre que $S_n \xrightarrow{P} \sigma$.
+    \item Use o Teorema de Slutsky para mostrar que $\frac{\sqrt{n}(\bar{X}_n - \mu)}{S_n} \xrightarrow{D} N(0,1)$.
+\end{enumerate}
+
+\subsection*{[Questão 12] Teorema de Slutsky}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ onde $\lambda = 2$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\sqrt{n}(\bar{X}_n - 1/2) \xrightarrow{D} N(0, 1/4)$.
+    \item Defina $U_n = \sqrt{n}(\bar{X}_n - 1/2)$ e $V_n = \bar{X}_n$. Mostre que $U_n \xrightarrow{D} N(0, 1/4)$ e $V_n \xrightarrow{P} 1/2$.
+    \item Use Slutsky para encontrar a distribuição limite de $W_n = U_n \cdot V_n = \sqrt{n}\bar{X}_n(\bar{X}_n - 1/2)$.
+\end{enumerate}
+
+\subsection*{[Questão 13] Teorema de Slutsky}
+
+Sejam $\{X_n, n \geq 1\}$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$ onde $\theta > 0$ é desconhecido.
+
+\begin{enumerate}[(a)]
+    \item Sabe-se que $U_n = \frac{n}{\theta}(\theta - T_n) \xrightarrow{D} \text{Exp}(1)$ onde $T_n = X_{(n)}$.
+    \item Mostre que $T_n \xrightarrow{P} \theta$.
+    \item Defina $Q_n = \frac{n(\theta - T_n)}{T_n}$. Use Slutsky para encontrar a distribuição limite de $Q_n$.
+\end{enumerate}
+
+\subsection*{[Questão 14] Teorema de Slutsky}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\frac{\sqrt{n}(\bar{X}_n - \lambda)}{\sqrt{\lambda}} \xrightarrow{D} N(0,1)$.
+    \item Mostre que $\sqrt{\bar{X}_n} \xrightarrow{P} \sqrt{\lambda}$.
+    \item Use Slutsky para mostrar que $\frac{\sqrt{n}(\bar{X}_n - \lambda)}{\sqrt{\bar{X}_n}} \xrightarrow{D} N(0,1)$.
+\end{enumerate}
+
+\subsection*{[Questão 15] Teorema de Slutsky}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Cauchy}(\theta, 1)$ (localização $\theta$, escala 1).
+
+\begin{enumerate}[(a)]
+    \item Explique por que o TCL não pode ser aplicado diretamente para $\bar{X}_n$.
+    \item Suponha que, por outro método, sabemos que $a_n(M_n - \theta) \xrightarrow{D} \text{Cauchy}(0,1)$ onde $M_n$ é a mediana amostral e $a_n$ é alguma constante.
+    \item Discuta se seria possível usar Slutsky neste contexto se tivéssemos $V_n \xrightarrow{P} c$.
+\end{enumerate}
+
+\section{Teorema Central do Limite}
+
+\subsection*{[Questão 16] Teorema Central do Limite}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$ onde $p = 0.3$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[X_i]$ e $\text{Var}(X_i)$.
+    \item Use o TCL para aproximar $P(\bar{X}_n \leq 0.35)$ para $n = 100$.
+    \item Compare com a aproximação normal para a binomial: $S_n = \sum_{i=1}^n X_i \sim \text{Binomial}(n, p)$.
+\end{enumerate}
+
+\subsection*{[Questão 17] Teorema Central do Limite}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ onde $\lambda = 1$.
+
+\begin{enumerate}[(a)]
+    \item Verifique que $E[X_i] = 1$ e $\text{Var}(X_i) = 1$.
+    \item Use o TCL para aproximar $P(0.9 \leq \bar{X}_n \leq 1.1)$ para $n = 50$.
+    \item Calcule a distribuição exata de $S_n = \sum_{i=1}^n X_i$ e compare.
+\end{enumerate}
+
+\subsection*{[Questão 18] Teorema Central do Limite}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, 1)$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[X_i] = 1/2$ e $\text{Var}(X_i) = 1/12$.
+    \item Use o TCL para encontrar $P\left(\left|\bar{X}_n - \frac{1}{2}\right| \leq 0.05\right)$ para $n = 100$.
+    \item Encontre $n$ tal que $P\left(\left|\bar{X}_n - \frac{1}{2}\right| \leq 0.01\right) \geq 0.95$.
+\end{enumerate}
+
+\subsection*{[Questão 19] Teorema Central do Limite}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$ onde $\lambda = 5$.
+
+\begin{enumerate}[(a)]
+    \item Lembre que para Poisson, $E[X_i] = \text{Var}(X_i) = \lambda = 5$.
+    \item Use o TCL para aproximar $P(\bar{X}_n \geq 5.5)$ para $n = 100$.
+    \item Use o TCL para aproximar $P(S_n \geq 550)$ onde $S_n = \sum_{i=1}^n X_i$ e compare com o item anterior.
+\end{enumerate}
+
+\subsection*{[Questão 20] Teorema Central do Limite}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Cauchy}(0, 1)$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que $E[X_i]$ não existe (integral diverge).
+    \item Explique por que o TCL não se aplica.
+    \item Pesquise: qual é a distribuição de $\bar{X}_n$ neste caso? (Dica: A soma de Cauchys independentes é Cauchy)
+\end{enumerate}
+
+\section{Método Delta / Teorema de Mann-Wald}
+
+\subsection*{[Questão 21] Método Delta}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\mu > 0$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\sqrt{n}(\bar{X}_n - \mu) \xrightarrow{D} N(0, \sigma^2)$.
+    \item Use o Método Delta com $g(x) = \sqrt{x}$ para encontrar a distribuição assintótica de $\sqrt{n}(\sqrt{\bar{X}_n} - \sqrt{\mu})$.
+    \item Calcule $g'(\mu)$ e escreva explicitamente a variância assintótica.
+\end{enumerate}
+
+\subsection*{[Questão 22] Método Delta}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Sabe-se que $\sqrt{n}(\bar{X}_n - \lambda) \xrightarrow{D} N(0, \lambda)$.
+    \item Use o Método Delta com $g(x) = x^3$ para encontrar a distribuição assintótica de $\sqrt{n}(\bar{X}_n^3 - \lambda^3)$.
+    \item Verifique que a variância assintótica é $9\lambda^5$.
+\end{enumerate}
+
+\subsection*{[Questão 23] Método Delta}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ (taxa $\lambda$).
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\sqrt{n}(\bar{X}_n - 1/\lambda) \xrightarrow{D} N(0, 1/\lambda^2)$.
+    \item Use o Método Delta com $g(x) = \log(x)$ para encontrar a distribuição assintótica de $\sqrt{n}(\log(\bar{X}_n) - \log(1/\lambda))$.
+    \item Simplifique a variância assintótica.
+\end{enumerate}
+
+\subsection*{[Questão 24] Método Delta}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, 1)$.
+
+\begin{enumerate}[(a)]
+    \item Sabemos que $\sqrt{n}(\bar{X}_n - 1/2) \xrightarrow{D} N(0, 1/12)$.
+    \item Use o Método Delta com $g(x) = \frac{1}{x}$ para encontrar a distribuição assintótica de $\sqrt{n}\left(\frac{1}{\bar{X}_n} - 2\right)$.
+    \item Calcule explicitamente $g'(1/2)$ e a variância assintótica.
+\end{enumerate}
+
+\subsection*{[Questão 25] Método Delta}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$ onde $0 < p < 1$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\sqrt{n}(\bar{X}_n - p) \xrightarrow{D} N(0, p(1-p))$.
+    \item Use o Método Delta com $g(x) = \log\left(\frac{x}{1-x}\right)$ (transformação logit) para encontrar a distribuição assintótica de $\sqrt{n}\left[\log\left(\frac{\bar{X}_n}{1-\bar{X}_n}\right) - \log\left(\frac{p}{1-p}\right)\right]$.
+    \item Calcule $g'(p)$ e verifique que a variância assintótica é $\frac{1}{p(1-p)}$.
+\end{enumerate}
+
+\section{Convergência em Distribuição}
+
+\subsection*{[Questão 26] Convergência em Distribuição}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+\begin{enumerate}[(a)]
+    \item Seja $T_n = X_{(n)}$ o máximo amostral. Encontre a f.d.a. de $T_n$.
+    \item Defina $U_n = \frac{n}{\theta}(\theta - T_n)$. Encontre a f.d.a. de $U_n$.
+    \item Mostre que $U_n \xrightarrow{D} \text{Exp}(1)$ quando $n \to \infty$.
+\end{enumerate}
+
+\subsection*{[Questão 27] Convergência em Distribuição}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(1)$.
+
+\begin{enumerate}[(a)]
+    \item Seja $Y_n = \min\{X_1, \ldots, X_n\}$. Encontre a distribuição de $Y_n$.
+    \item Considere $Z_n = n \cdot Y_n$. Encontre a distribuição de $Z_n$.
+    \item O que acontece com a distribuição de $Z_n$ quando $n \to \infty$?
+\end{enumerate}
+
+\subsection*{[Questão 28] Convergência em Distribuição}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(0, 1)$.
+
+\begin{enumerate}[(a)]
+    \item Defina $T_n = \frac{1}{n}\sum_{i=1}^n X_i^2$. Qual é a distribuição de $n \cdot T_n$?
+    \item Mostre que $T_n \xrightarrow{P} 1$.
+    \item Use o TCL para encontrar a distribuição assintótica de $\sqrt{n}(T_n - 1)$.
+\end{enumerate}
+
+\subsection*{[Questão 29] Convergência em Distribuição}
+
+Sejam $Y_n \sim \text{Gamma}(n, n)$ (forma $\alpha = n$, taxa $\beta = n$).
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[Y_n]$ e $\text{Var}(Y_n)$.
+    \item Mostre que $Y_n \xrightarrow{P} 1$.
+    \item Use o TCL para a distribuição Gamma para mostrar que $\sqrt{n}(Y_n - 1) \xrightarrow{D} N(0, 1)$.
+\end{enumerate}
+
+\subsection*{[Questão 30] Convergência em Distribuição}
+
+Sejam $X_n \sim \text{Beta}(n, 1)$ para $n \geq 1$.
+
+\begin{enumerate}[(a)]
+    \item Encontre a f.d.p. de $X_n$ e mostre que $E[X_n] = \frac{n}{n+1}$.
+    \item Mostre que $X_n \xrightarrow{P} 1$.
+    \item Defina $Y_n = n(1 - X_n)$. Encontre a distribuição limite de $Y_n$ quando $n \to \infty$.
+\end{enumerate}
+
+\section{Gabarito e Dicas}
+
+\subsection{Dicas Gerais de Resolução}
+
+\begin{enumerate}
+    \item \textbf{Identifique o teorema aplicável:} Leia atentamente qual teorema está sendo testado no cabeçalho da questão.
+    
+    \item \textbf{Verifique as condições:} Antes de aplicar um teorema, verifique que todas as condições são satisfeitas (i.i.d., momentos finitos, etc.).
+    
+    \item \textbf{LFGN:} Use quando precisar mostrar $\bar{X}_n \xrightarrow{P} \mu$. Verifique $E[X_i] < \infty$ e (para versão simples) $\text{Var}(X_i) < \infty$.
+    
+    \item \textbf{TCL:} Use quando precisar da \emph{distribuição} de $\bar{X}_n$ padronizada. Sempre resulta em $N(0,1)$ assintoticamente.
+    
+    \item \textbf{Slutsky:} Use quando precisar substituir parâmetros desconhecidos ou combinar convergências de tipos diferentes.
+    
+    \item \textbf{Método Delta:} Use quando tiver uma transformação não-linear $g(\bar{X}_n)$ e quiser sua distribuição assintótica.
+    
+    \item \textbf{Distribuição Cauchy:} Lembre-se que é o contraexemplo padrão - não tem momentos finitos!
+    
+    \item \textbf{Cálculos de variância:} Para $\text{Var}(\bar{X}_n) = \sigma^2/n$. Para soma: $\text{Var}(S_n) = n\sigma^2$.
+    
+    \item \textbf{Padronização:} Sempre padronize corretamente: $(T_n - E[T_n])/\sqrt{\text{Var}(T_n)}$.
+    
+    \item \textbf{Derivadas no Método Delta:} Não esqueça de calcular $g'(\theta)$ e elevar ao quadrado para a variância.
+\end{enumerate}
+
+\subsection{Respostas Selecionadas}
+
+\textbf{Questão 5(c):} $\bar{X}_n$ tem a mesma distribuição que $X_1$ (distribuição Cauchy) para todo $n$. Não há convergência!
+
+\textbf{Questão 11(c):} Este é o resultado fundamental que permite usar estatística $t$ quando $\sigma$ é desconhecido.
+
+\textbf{Questão 16(b):} $P(\bar{X}_n \leq 0.35) \approx P\left(Z \leq \frac{0.35 - 0.3}{\sqrt{0.21/100}}\right) = P(Z \leq 1.09) \approx 0.862$.
+
+\textbf{Questão 21(b):} Variância assintótica: $\sigma^2/(4\mu)$.
+
+\textbf{Questão 26(c):} Use que $\lim_{n \to \infty} \left(1 - \frac{u}{n}\right)^n = e^{-u}$.
+
+\textbf{Questão 30(c):} $Y_n \xrightarrow{D} \text{Exp}(1)$ (use transformação de variáveis).
+
+\section{TCL para Variância Amostral}
+
+\subsection*{[Questão 31] TCL para Variância Amostral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\mu = 0$ e $\sigma^2 = 1$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $\mu_4 = E[(X_i - \mu)^4]$ para a distribuição normal padrão.
+    \item Use o TCL para variância amostral para encontrar a distribuição assintótica de $\sqrt{n}(S_n^2 - 1)$.
+    \item Construa um intervalo de confiança assintótico de 95\% para $\sigma^2$ quando $n = 100$ e $S_n^2 = 1.2$.
+\end{enumerate}
+
+\subsection*{[Questão 32] TCL para Variância Amostral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ onde $\lambda = 2$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[X_i] = 1/2$, $\text{Var}(X_i) = 1/4$, e $\mu_4 = E[(X_i - 1/2)^4]$.
+    \item Dica: Para exponencial, $\mu_4 = 9/\lambda^4$. Verifique este valor.
+    \item Use o TCL para $S_n^2$ para encontrar $P(S_n^2 > 0.3)$ aproximadamente quando $n = 50$.
+\end{enumerate}
+
+\subsection*{[Questão 33] TCL para Variância Amostral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, 1)$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $E[X_i] = 1/2$, $\text{Var}(X_i) = 1/12$, e o quarto momento central.
+    \item Mostre que $\mu_4 = E[(X_i - 1/2)^4] = 1/80$.
+    \item Use o TCL para $S_n^2$ para aproximar $P(|S_n^2 - 1/12| \leq 0.01)$ quando $n = 100$.
+\end{enumerate}
+
+\subsection*{[Questão 34] TCL para Variância Amostral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$ onde $\lambda = 5$.
+
+\begin{enumerate}[(a)]
+    \item Para Poisson, mostre que $\mu_4 = \lambda + 3\lambda^2 + \lambda^3 = 5 + 75 + 125 = 205$.
+    \item Use o TCL para variância amostral: $\sqrt{n}(S_n^2 - \lambda) \xrightarrow{d} N(0, \mu_4 - \lambda^2)$.
+    \item Calcule a variância assintótica e use-a para aproximar $P(S_n^2 > 6)$ quando $n = 80$.
+\end{enumerate}
+
+\subsection*{[Questão 35] TCL para Variância Amostral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$ onde $p = 0.4$.
+
+\begin{enumerate}[(a)]
+    \item Calcule $\text{Var}(X_i) = p(1-p) = 0.24$ e $\mu_4 = p(1-p)[(1-p)^2 + p^2]$.
+    \item Simplifique: $\mu_4 = p(1-p)(1-2p(1-p))$ e calcule para $p = 0.4$.
+    \item Use o TCL para $S_n^2$ para testar $H_0: \sigma^2 = 0.24$ vs $H_1: \sigma^2 \neq 0.24$ ao nível 5\% quando $n = 100$ e $S_n^2 = 0.28$.
+\end{enumerate}
+
+\section{Teorema da Função Contínua para Convergência em Distribuição}
+
+\subsection*{[Questão 36] Teorema da Função Contínua (Distribuição)}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $Z_n = \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{d} N(0,1)$.
+    \item Use o teorema da função contínua com $g(x) = x^2$ para mostrar que $Z_n^2 \xrightarrow{d} \chi^2_1$.
+    \item Conclua que $n\left(\frac{\bar{X}_n - \mu}{\sigma}\right)^2 \xrightarrow{d} \chi^2_1$.
+\end{enumerate}
+
+\subsection*{[Questão 37] Teorema da Função Contínua (Distribuição)}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\frac{\sqrt{n}(\bar{X}_n - 1/\lambda)}{\sqrt{1/\lambda^2}} \xrightarrow{d} N(0,1)$.
+    \item Defina $Z_n = \lambda\sqrt{n}(\bar{X}_n - 1/\lambda)$. Use o teorema da função contínua com $g(x) = |x|$ para encontrar a distribuição de $|Z_n|$.
+    \item Mostre que $Z_n^2 \xrightarrow{d} \chi^2_1$.
+\end{enumerate}
+
+\subsection*{[Questão 38] Teorema da Função Contínua (Distribuição)}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0,1)$.
+
+\begin{enumerate}[(a)]
+    \item Sabemos que $\sqrt{12n}(\bar{X}_n - 1/2) \xrightarrow{d} N(0,1)$.
+    \item Use o teorema da função contínua com $g(x) = e^x$ para encontrar a distribuição limite de $\exp(\sqrt{12n}(\bar{X}_n - 1/2))$.
+    \item Esta é uma distribuição log-normal. Identifique seus parâmetros.
+\end{enumerate}
+
+\subsection*{[Questão 39] Teorema da Função Contínua (Distribuição)}
+
+Sejam $U_n \xrightarrow{d} U \sim N(0,1)$ e $V_n \xrightarrow{d} V \sim N(0,1)$ independentes.
+
+\begin{enumerate}[(a)]
+    \item Mostre que $(U_n, V_n) \xrightarrow{d} (U, V)$ (convergência conjunta).
+    \item Use o teorema da função contínua com $g(u,v) = u^2 + v^2$ para mostrar que $U_n^2 + V_n^2 \xrightarrow{d} \chi^2_2$.
+    \item Generalize para $p$ variáveis independentes.
+\end{enumerate}
+
+\subsection*{[Questão 40] Teorema da Função Contínua (Distribuição)}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$ onde $\lambda = 10$.
+
+\begin{enumerate}[(a)]
+    \item Pelo TCL, $\frac{\sqrt{n}(\bar{X}_n - 10)}{\sqrt{10}} \xrightarrow{d} N(0,1)$.
+    \item Defina $Y_n = \sqrt{\bar{X}_n}$. Use o método delta combinado com o teorema da função contínua para analisar a distribuição de $\sqrt{n}(Y_n - \sqrt{10})$.
+    \item Compare com a transformação estabilizadora de variância para Poisson.
+\end{enumerate}
+
+\section{Estimadores Consistentes}
+
+\subsection*{[Questão 41] Estimadores Consistentes}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$ onde $\theta > 0$.
+
+\begin{enumerate}[(a)]
+    \item Seja $T_n = X_{(n)}$ o máximo amostral. Encontre $E[T_n]$ e $\text{Var}(T_n)$.
+    \item Mostre que $EQM[T_n] = E[(T_n - \theta)^2] \to 0$ quando $n \to \infty$.
+    \item Conclua que $T_n$ é consistente para $\theta$.
+    \item Compare com $\hat{\theta}_1 = 2\bar{X}_n$. Qual é mais eficiente assintoticamente?
+\end{enumerate}
+
+\subsection*{[Questão 42] Estimadores Consistentes}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Considere três estimadores para $\lambda$: 
+    \begin{itemize}
+        \item $T_n^{(1)} = 1/\bar{X}_n$ (método dos momentos)
+        \item $T_n^{(2)} = n/\sum_{i=1}^n X_i$ (EMV)
+        \item $T_n^{(3)} = 1/X_{(1)}$ (inverso do mínimo)
+    \end{itemize}
+    \item Mostre que $T_n^{(1)}$ é consistente usando LFGN e teorema da função contínua.
+    \item Mostre que $T_n^{(2)}$ é consistente.
+    \item $T_n^{(3)}$ é consistente? Justifique.
+\end{enumerate}
+
+\subsection*{[Questão 43] Estimadores Consistentes}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que $S_n^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X}_n)^2$ é consistente para $\sigma^2$.
+    \item Mostre que $\tilde{S}_n^2 = \frac{1}{n}\sum_{i=1}^n(X_i - \bar{X}_n)^2$ também é consistente para $\sigma^2$.
+    \item Calcule o viés de cada estimador para $n$ finito. Qual você prefere e por quê?
+\end{enumerate}
+
+\subsection*{[Questão 44] Estimadores Consistentes}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$.
+
+\begin{enumerate}[(a)]
+    \item Dado $\varepsilon = 0.05$ e $\delta = 0.01$, encontre o tamanho amostral mínimo $n_0$ tal que
+    \[
+    P(|\bar{X}_n - p| < \varepsilon) \geq 1 - \delta
+    \]
+    usando a desigualdade de Chebyshev. Assuma $p = 0.5$ (pior caso).
+    \item Refaça usando a aproximação normal (TCL).
+    \item Compare os dois valores de $n_0$.
+\end{enumerate}
+
+\subsection*{[Questão 45] Estimadores Consistentes}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com distribuição desconhecida mas com $E[X_i] = \mu < \infty$ e $\text{Var}(X_i) = \sigma^2 < \infty$.
+
+\begin{enumerate}[(a)]
+    \item Defina o estimador "trimmed mean": $\bar{X}_n^{(k)} = \frac{1}{n-2k}\sum_{i=k+1}^{n-k} X_{(i)}$ onde $X_{(1)} \leq \cdots \leq X_{(n)}$ são as estatísticas de ordem, e $k$ é fixo.
+    \item Argumente que $\bar{X}_n^{(k)} \xrightarrow{P} \mu$ quando $n \to \infty$ com $k$ fixo.
+    \item Discuta a robustez deste estimador comparado a $\bar{X}_n$ na presença de outliers.
+\end{enumerate}
+
+\section{Propriedades Assintóticas dos EMVs}
+
+\subsection*{[Questão 46] Propriedades Assintóticas dos EMVs}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\sigma^2$ é conhecido.
+
+\begin{enumerate}[(a)]
+    \item Mostre que o EMV de $\mu$ é $\hat{\mu}_n = \bar{X}_n$.
+    \item Calcule a informação de Fisher $I_X(\mu) = E\left[\left(\frac{\partial \log f(X;\mu)}{\partial \mu}\right)^2\right]$.
+    \item Use o TCL para EMVs para escrever a distribuição assintótica de $\sqrt{n}(\hat{\mu}_n - \mu)$.
+    \item Construa um IC assintótico de 95\% para $\mu$.
+\end{enumerate}
+
+\subsection*{[Questão 47] Propriedades Assintóticas dos EMVs}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que o EMV de $\lambda$ é $\hat{\lambda}_n = \bar{X}_n$.
+    \item Calcule a informação de Fisher $I_X(\lambda) = \frac{1}{\lambda}$.
+    \item Verifique que $\sqrt{n}(\hat{\lambda}_n - \lambda) \xrightarrow{d} N(0, \lambda)$, confirmando $I_X^{-1}(\lambda) = \lambda$.
+    \item Compare com o resultado do TCL clássico.
+\end{enumerate}
+
+\subsection*{[Questão 48] Propriedades Assintóticas dos EMVs}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ (taxa $\lambda$).
+
+\begin{enumerate}[(a)]
+    \item Mostre que o EMV de $\lambda$ é $\hat{\lambda}_n = \frac{n}{\sum_{i=1}^n X_i} = \frac{1}{\bar{X}_n}$.
+    \item Calcule a informação de Fisher $I_X(\lambda) = \frac{1}{\lambda^2}$.
+    \item Use o TCL para EMVs para encontrar a distribuição assintótica de $\sqrt{n}(\hat{\lambda}_n - \lambda)$.
+    \item Compare este resultado com o obtido usando o método delta aplicado a $1/\bar{X}_n$.
+\end{enumerate}
+
+\subsection*{[Questão 49] Propriedades Assintóticas dos EMVs e Eficiência}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+\begin{enumerate}[(a)]
+    \item O EMV de $\theta$ é $\hat{\theta}_n^{MLE} = X_{(n)}$. O estimador de momentos é $\hat{\theta}_n^{MM} = 2\bar{X}_n$.
+    \item Mostre que ambos são consistentes.
+    \item Calcule as variâncias assintóticas de $\sqrt{n}(\hat{\theta}_n^{MLE} - \theta)$ e $\sqrt{n}(\hat{\theta}_n^{MM} - \theta)$.
+    \item Qual é mais eficiente? Calcule a eficiência relativa assintótica.
+    \item Nota: Este é um caso onde as condições de regularidade falham! O EMV não tem distribuição normal assintótica.
+\end{enumerate}
+
+\subsection*{[Questão 50] Propriedades Assintóticas dos EMVs}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que o EMV de $p$ é $\hat{p}_n = \bar{X}_n$.
+    \item Calcule a informação de Fisher $I_X(p) = \frac{1}{p(1-p)}$.
+    \item Use o TCL para EMVs para mostrar que $\sqrt{n}(\hat{p}_n - p) \xrightarrow{d} N(0, p(1-p))$.
+    \item Queremos estimar $\psi = \log\left(\frac{p}{1-p}\right)$ (log-odds). Use o método delta para encontrar a distribuição assintótica de $\sqrt{n}(\log(\frac{\hat{p}_n}{1-\hat{p}_n}) - \psi)$.
+    \item Verifique que a variância assintótica é $\frac{1}{p(1-p)}$, que é exatamente $I_X^{-1}(p)$ (invariância do EMV sob reparametrização).
+\end{enumerate}
+
+\section{Gabarito e Dicas - Parte 2}
+
+\subsection{Dicas para as Novas Questões}
+
+\textbf{TCL para Variância Amostral (Questões 31-35):}
+\begin{itemize}
+    \item Lembre que $\sqrt{n}(S_n^2 - \sigma^2) \xrightarrow{d} N(0, \mu_4 - \sigma^4)$
+    \item Para Normal: $\mu_4 = 3\sigma^4$, logo variância assintótica = $2\sigma^4$
+    \item Para Exponencial($\lambda$): $\mu_4 = 9/\lambda^4$, $\sigma^2 = 1/\lambda^2$
+    \item Para Uniforme(0,1): $\mu_4 = 1/80$, $\sigma^2 = 1/12$
+\end{itemize}
+
+\textbf{Teorema da Função Contínua - Distribuição (Questões 36-40):}
+\begin{itemize}
+    \item Use quando tiver $U_n \xrightarrow{d} U$ e quiser $g(U_n) \xrightarrow{d} g(U)$
+    \item Exemplo clássico: $Z \sim N(0,1) \Rightarrow Z^2 \sim \chi^2_1$
+    \item Combine com método delta quando necessário
+\end{itemize}
+
+\textbf{Consistência (Questões 41-45):}
+\begin{itemize}
+    \item Mostre $T_n \xrightarrow{P} \theta$ via: (1) LFGN, (2) EQM $\to$ 0, ou (3) convergência da f.d.a.
+    \item Para $X_{(n)}$ em $U(0,\theta)$: $E[X_{(n)}] = \frac{n\theta}{n+1}$, $\text{Var}(X_{(n)}) = \frac{n\theta^2}{(n+1)^2(n+2)}$
+    \item Tamanho amostral via Chebyshev: $n \geq \frac{\sigma^2}{\varepsilon^2 \delta}$
+\end{itemize}
+
+\textbf{EMVs (Questões 46-50):}
+\begin{itemize}
+    \item Informação de Fisher: $I_X(\theta) = E\left[\left(\frac{\partial \log f(X;\theta)}{\partial \theta}\right)^2\right] = -E\left[\frac{\partial^2 \log f(X;\theta)}{\partial \theta^2}\right]$
+    \item TCL para EMVs: $\sqrt{n}(\hat{\theta}_n - \theta) \xrightarrow{d} N(0, I_X^{-1}(\theta))$
+    \item Para Normal($\mu$, $\sigma^2$): $I_X(\mu) = 1/\sigma^2$
+    \item Para Poisson($\lambda$): $I_X(\lambda) = 1/\lambda$
+    \item Para Exponencial($\lambda$): $I_X(\lambda) = 1/\lambda^2$
+    \item Para Bernoulli($p$): $I_X(p) = 1/(p(1-p))$
+\end{itemize}
+
+\subsection{Respostas Selecionadas - Parte 2}
+
+\textbf{Questão 31(a):} Para $N(0,1)$: $\mu_4 = E[X^4] = 3$ (use momentos da normal).
+
+\textbf{Questão 36(c):} Este resultado é fundamental para qui-quadrado com 1 grau de liberdade.
+
+\textbf{Questão 41(a):} $E[X_{(n)}] = \frac{n\theta}{n+1}$, $\text{Var}(X_{(n)}) = \frac{n\theta^2}{(n+1)^2(n+2)}$, ambos $\to 0$ quando normalizados.
+
+\textbf{Questão 44(a):} Usando Chebyshev com $p=0.5$: $n_0 \geq \frac{0.25}{(0.05)^2(0.01)} = 10000$.
+
+\textbf{Questão 44(b):} Usando TCL: $n_0 = \left\lceil \left(\frac{z_{0.005}\sqrt{0.25}}{0.05}\right)^2 \right\rceil = \left\lceil (51.5)^2 \right\rceil = 2653$.
+
+\textbf{Questão 49(e):} Caso especial onde condições de regularidade falham. O EMV converge mais rápido ($n$ ao invés de $\sqrt{n}$).
+
+\textbf{Questão 50(e):} Demonstração da invariância da informação de Fisher sob transformações.
+
+\newpage
+\section{Capítulo 4 - Testes de Hipóteses}
+
+\subsection*{[Questão 51] Lema de Neyman-Pearson - Normal}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\sigma^2 = 4$ é conhecido.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \mu = 10$ vs $H_1: \mu = 12$, use o Lema de Neyman-Pearson para construir o teste MP de nível $\alpha = 0.05$.
+    \item Mostre que a região crítica é da forma $\{\bar{X}_n > c\}$ para alguma constante $c$.
+    \item Calcule $c$ para $n = 25$ e $\alpha = 0.05$.
+    \item Calcule a função poder $Q(\mu)$ deste teste.
+    \item Calcule $\beta$ (probabilidade de erro tipo II) para $\mu_1 = 12$.
+\end{enumerate}
+
+\subsection*{[Questão 52] Lema de Neyman-Pearson - Exponencial}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\theta)$ (parâmetro de escala).
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \theta = 2$ vs $H_1: \theta = 3$, use o LNP para construir o teste MP de nível $\alpha = 0.10$.
+    \item Mostre que a razão de verossimilhanças depende de $\sum_{i=1}^n X_i$.
+    \item Mostre que sob $H_0$, a estatística $Q = \frac{2}{\theta_0}\sum_{i=1}^n X_i \sim \chi^2_{2n}$.
+    \item Para $n = 20$, determine a região crítica usando quantis da distribuição $\chi^2_{40}$.
+\end{enumerate}
+
+\subsection*{[Questão 53] Lema de Neyman-Pearson - Poisson}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \lambda = 3$ vs $H_1: \lambda = 5$, construa o teste MP usando LNP.
+    \item Mostre que $T = \sum_{i=1}^n X_i$ é a estatística suficiente.
+    \item Sob $H_0$, qual é a distribuição de $T$?
+    \item Para $n = 10$ e $\alpha = 0.05$, determine o menor inteiro $k_1$ tal que $P_{\lambda_0}(T > k_1) \leq 0.05$.
+    \item Se necessário aleatorização, calcule $\delta$.
+\end{enumerate}
+
+\subsection*{[Questão 54] Lema de Neyman-Pearson - Bernoulli}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: p = 0.4$ vs $H_1: p = 0.6$, construa o teste MP de nível $\alpha = 0.05$ com $n = 30$.
+    \item Mostre que a razão de verossimilhanças é crescente em $T = \sum_{i=1}^n X_i$.
+    \item Determine $k_1$ tal que $P_{p_0}(T > k_1) \leq 0.05$ onde $T \sim \text{Binomial}(30, 0.4)$.
+    \item Calcule a função poder $Q(p)$ para este teste.
+    \item Avalie numericamente $Q(0.6)$ (o poder sob $H_1$).
+\end{enumerate}
+
+\subsection*{[Questão 55] Função Poder e Curvas de Poder}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, 9)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \mu = 50$ vs $H_1: \mu > 50$ com teste que rejeita se $\bar{X}_n > 51$, calcule $\alpha$ para $n = 36$.
+    \item Derive a função poder $Q(\mu)$ deste teste.
+    \item Calcule $Q(52)$ e interprete.
+    \item Esboce qualitativamente a curva de poder $Q(\mu)$ vs $\mu$.
+    \item Discuta como $Q(\mu)$ varia com o tamanho amostral $n$.
+\end{enumerate}
+
+\subsection*{[Questão 56] Teste Z - Aplicação Prática}
+
+Uma amostra de $n = 25$ observações de resistência de fios tem média $\bar{x} = 52.3$ kg. Sabe-se que $\sigma = 4$ kg.
+
+\begin{enumerate}[(a)]
+    \item Testar $H_0: \mu = 50$ vs $H_1: \mu > 50$ ao nível $\alpha = 0.05$ usando o teste Z.
+    \item Calcule a estatística de teste $Z_{cal}$.
+    \item Determine a região crítica e tome a decisão.
+    \item Calcule o valor-p.
+    \item Se $n = 100$ com a mesma média, como mudaria a decisão?
+\end{enumerate}
+
+\subsection*{[Questão 57] Teste $\chi^2$ - Exponencial}
+
+Sejam $X_1, \ldots, X_{20}$ tempos de falha seguindo $X_i \sim \text{Exp}(\theta)$ com $\sum_{i=1}^{20} x_i = 45$.
+
+\begin{enumerate}[(a)]
+    \item Testar $H_0: \theta = 2$ vs $H_1: \theta = 3$ ao nível $\alpha = 0.10$.
+    \item Calcule a estatística $Q_{cal} = \frac{2}{\theta_0}\sum_{i=1}^{20} x_i$.
+    \item Determine o quantil crítico $\chi^2_{40, 0.10}$ (aproximadamente 51.8).
+    \item Tome a decisão e calcule o valor-p aproximado.
+\end{enumerate}
+
+\subsection*{[Questão 58] Comparação de Testes}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\theta, 1)$. Para testar $H_0: \theta = 5.5$ vs $H_1: \theta = 8$:
+
+\begin{enumerate}[(a)]
+    \item Compare os seguintes testes em termos de $\alpha$ e poder:
+    \begin{itemize}
+        \item Teste A: Rejeitar se $x_1 > 7$
+        \item Teste B: Rejeitar se $\bar{X}_n > 7.5$ ($n = 10$)
+    \end{itemize}
+    \item Para Teste A, calcule $\alpha$ e $\beta$.
+    \item Para Teste B, calcule $\alpha$ e $\beta$.
+    \item Qual teste é mais poderoso? Por quê?
+\end{enumerate}
+
+\subsection*{[Questão 59] Erros Tipo I e II}
+
+Para um teste de $H_0: \mu = 100$ vs $H_1: \mu = 105$ com $X_i \sim N(\mu, 25)$ e $n = 16$:
+
+\begin{enumerate}[(a)]
+    \item Se a região crítica é $R_C = \{\bar{X}_n > 102\}$, calcule $\alpha$.
+    \item Calcule $\beta$ (erro tipo II).
+    \item Calcule o poder do teste: $1 - \beta$.
+    \item Como você modificaria a região crítica para obter $\alpha = 0.05$?
+    \item Com a nova região crítica, recalcule $\beta$.
+\end{enumerate}
+
+\subsection*{[Questão 60] Tamanho e Nível de Teste}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \theta \leq 10$ vs $H_1: \theta > 10$, considere o teste que rejeita se $X_{(n)} > 9.5$.
+    \item Calcule $Q(\theta) = P_\theta(X_{(n)} > 9.5)$ em função de $\theta$.
+    \item Determine $\sup_{\theta \leq 10} Q(\theta)$ (o tamanho do teste).
+    \item Este teste tem nível $\alpha = 0.05$? Justifique.
+\end{enumerate}
+
+\section{Gabarito - Capítulo 4}
+
+\subsection{Dicas para Questões de Testes de Hipóteses}
+
+\textbf{Lema de Neyman-Pearson (51-54):}
+\begin{itemize}
+    \item Sempre calcule $\frac{L(\theta_1)}{L(\theta_0)}$ e simplifique
+    \item Identifique a estatística suficiente $T(x)$ que aparece na razão
+    \item Determine $k$ (ou equivalente) usando a condição $P_{\theta_0}(\text{rejeitar}) = \alpha$
+\end{itemize}
+
+\textbf{Função Poder (55):}
+\begin{itemize}
+    \item $Q(\mu) = P_\mu(\text{rejeitar } H_0) = P_\mu(\bar{X}_n > c)$
+    \item Padronize: $Q(\mu) = P\left(Z > \frac{c - \mu}{\sigma/\sqrt{n}}\right) = 1 - \Phi\left(\frac{c - \mu}{\sigma/\sqrt{n}}\right)$
+    \item $Q(\mu)$ é crescente em $\mu$ para testes unilaterais à direita
+\end{itemize}
+
+\textbf{Teste Z (56):}
+\begin{itemize}
+    \item Estatística: $Z = \sqrt{n}\frac{\bar{X} - \mu_0}{\sigma}$
+    \item Regra: Rejeitar se $Z_{cal} > z_\alpha$ (unilateral à direita)
+    \item Valor-p: $\hat{\alpha} = P(Z > Z_{cal})$
+\end{itemize}
+
+\textbf{Teste $\chi^2$ (57):}
+\begin{itemize}
+    \item Transformação: $\frac{2X_i}{\theta} \sim \chi^2_2$ para Exp($\theta$)
+    \item Soma: $\frac{2\sum X_i}{\theta_0} \sim \chi^2_{2n}$ sob $H_0$
+    \item Rejeitar para valores grandes (unilateral à direita)
+\end{itemize}
+
+\subsection{Respostas Selecionadas - Capítulo 4}
+
+\textbf{Questão 51(c):} $c = 10 + \frac{2}{\sqrt{25}} z_{0.05} = 10 + 0.4(1.645) = 10.658$
+
+\textbf{Questão 51(d):} $Q(\mu) = 1 - \Phi\left(\frac{10.658 - \mu}{0.4}\right)$
+
+\textbf{Questão 51(e):} $\beta = P_{\mu=12}(\bar{X}_n \leq 10.658) = \Phi\left(\frac{10.658-12}{0.4}\right) = \Phi(-3.355) \approx 0.0004$
+
+\textbf{Questão 56(b):} $Z_{cal} = \sqrt{25} \frac{52.3 - 50}{4} = 5 \times 0.575 = 2.875$
+
+\textbf{Questão 56(d):} Valor-p $= P(Z > 2.875) \approx 0.002$
+
+\textbf{Questão 57(b):} $Q_{cal} = \frac{2 \times 45}{2} = 45$
+
+\textbf{Questão 58:} Teste B é muito mais poderoso porque usa toda a informação amostral ($n=10$ observações) ao invés de apenas uma ($n=1$).
+
+\textbf{Questão 59(a):} $\alpha = P_{\mu=100}\left(\bar{X}_n > 102\right) = P\left(Z > \frac{102-100}{5/4}\right) = P(Z > 1.6) \approx 0.0548$
+
+\textbf{Questão 59(b):} $\beta = P_{\mu=105}\left(\bar{X}_n \leq 102\right) = P\left(Z \leq \frac{102-105}{1.25}\right) = P(Z \leq -2.4) \approx 0.0082$
+
+\textbf{Questão 60(c):} O tamanho é $\sup_{\theta \leq 10} P_\theta(X_{(n)} > 9.5)$. Para $\theta = 10$: $P_{10}(X_{(n)} > 9.5) = 1 - (9.5/10)^n = 1 - (0.95)^n$.
+
+\section{Questões Adicionais Integradas}
+
+\subsection*{[Questão 61] RVM e Karlin-Rubin - Normal}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\sigma^2$ é conhecido.
+
+\begin{enumerate}[(a)]
+    \item Mostre que a família tem RVM não decrescente em $T(x) = \sum_{i=1}^n x_i$ (ou $\bar{x}_n$).
+    \item Use o Teorema de Karlin-Rubin para construir o teste UMP de nível $\alpha$ para $H_0: \mu \leq \mu_0$ vs $H_1: \mu > \mu_0$.
+    \item Mostre que a função poder $Q(\mu)$ é não decrescente em $\mu$.
+\end{enumerate}
+
+\subsection*{[Questão 62] RVM - Verificação para Poisson}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+\begin{enumerate}[(a)]
+    \item Calcule a razão $\frac{L(\lambda_1; x)}{L(\lambda_0; x)}$ para $\lambda_1 > \lambda_0$.
+    \item Mostre que a razão é não decrescente em $T = \sum_{i=1}^n x_i$.
+    \item Conclua que a família Poisson tem RVM em $T$.
+    \item Construa o teste UMP para $H_0: \lambda = \lambda_0$ vs $H_1: \lambda > \lambda_0$.
+\end{enumerate}
+
+\subsection*{[Questão 63] Teste Bilateral - Normal}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, 16)$ e $n = 25$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \mu = 50$ vs $H_1: \mu \neq 50$ ao nível $\alpha = 0.05$, construa o teste Z bilateral.
+    \item Determine a região crítica em termos de $Z$.
+    \item Se $\bar{x} = 52.4$, calcule $Z_{cal}$ e tome a decisão.
+    \item Calcule o valor-p bilateral.
+    \item Explique por que não existe teste UMP para $H_1$ bilateral.
+\end{enumerate}
+
+\subsection*{[Questão 64] Função Crítica e Aleatorização}
+
+Sejam $X_1, \ldots, X_{10}$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(2)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \lambda = 2$ vs $H_1: \lambda = 4$, deseja-se um teste de tamanho exato $\alpha = 0.05$.
+    \item Calcule $P_{H_0}(T > k)$ para $k = 26, 27, 28$ onde $T = \sum X_i \sim \text{Poisson}(20)$.
+    \item Determine se é necessário usar teste aleatorizado.
+    \item Se sim, calcule $\delta$ e escreva a função crítica completa.
+\end{enumerate}
+
+\subsection*{[Questão 65] Teste para Variância - Normal}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(0, \sigma^2)$ (média conhecida $\mu = 0$).
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \sigma^2 = 1$ vs $H_1: \sigma^2 = 2$, use LNP para construir o teste MP.
+    \item Mostre que a região crítica depende de $\sum_{i=1}^n x_i^2$.
+    \item Sob $H_0$, qual é a distribuição de $Q = \sum_{i=1}^n X_i^2$?
+    \item Para $n = 20$ e $\alpha = 0.05$, determine a região crítica usando quantis $\chi^2_{20}$.
+\end{enumerate}
+
+\subsection*{[Questão 66] Integração TCL com Testes}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(p)$ e $n$ grande.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: p = 0.5$ vs $H_1: p > 0.5$, use aproximação normal (via TCL) para $\bar{X}_n$.
+    \item Construa a estatística de teste $Z = \frac{\sqrt{n}(\bar{X}_n - 0.5)}{\sqrt{0.25}}$.
+    \item Para $n = 100$ e $\bar{x} = 0.58$, calcule $Z_{cal}$ e o valor-p.
+    \item Compare com o teste exato usando distribuição Binomial.
+\end{enumerate}
+
+\subsection*{[Questão 67] Consistência de Testes}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\begin{enumerate}[(a)]
+    \item Considere o teste de $H_0: \mu = \mu_0$ vs $H_1: \mu = \mu_1 > \mu_0$ que rejeita se $\bar{X}_n > c_n$.
+    \item Se $c_n = \mu_0 + \frac{\sigma}{\sqrt{n}} z_\alpha$, calcule $\lim_{n \to \infty} \alpha_n$.
+    \item Calcule $\lim_{n \to \infty} \beta_n$ para $\mu = \mu_1$.
+    \item Mostre que o poder $Q_n(\mu_1) \to 1$ quando $n \to \infty$ (consistência do teste).
+\end{enumerate}
+
+\subsection*{[Questão 68] Tamanho Amostral para Testes}
+
+Deseja-se testar $H_0: \mu = 500$ vs $H_1: \mu = 510$ com $X_i \sim N(\mu, 100)$.
+
+\begin{enumerate}[(a)]
+    \item Fixando $\alpha = 0.05$ e desejando $\beta \leq 0.10$, determine o tamanho amostral mínimo $n_0$.
+    \item Use as relações: $\bar{X}_n > \mu_0 + \frac{\sigma}{\sqrt{n}}z_\alpha$ e $\beta = \Phi\left(\frac{c - \mu_1}{\sigma/\sqrt{n}}\right)$.
+    \item Resolva para $n$: $z_\alpha + z_\beta = \frac{\sqrt{n}(\mu_1 - \mu_0)}{\sigma}$.
+    \item Calcule numericamente com $z_{0.05} = 1.645$ e $z_{0.10} = 1.282$.
+\end{enumerate}
+
+\subsection*{[Questão 69] Aplicação do LNP - Densidade Arbitrária}
+
+Sejam $X, Y$ duas v.a.'s independentes com densidades conhecidas $f_0(x)$ e $f_1(x)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: X \sim f_0$ vs $H_1: X \sim f_1$, construa o teste MP usando LNP.
+    \item A região crítica é $\left\{\frac{f_1(x)}{f_0(x)} > k\right\}$. Como determinar $k$?
+    \item Dê um exemplo concreto com $f_0 = N(0,1)$ e $f_1 = N(2,1)$.
+\end{enumerate}
+
+\subsection*{[Questão 70] Teste UMP - Uniforme}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+\begin{enumerate}[(a)]
+    \item Para testar $H_0: \theta = \theta_0$ vs $H_1: \theta > \theta_0$, mostre que $T = X_{(n)}$ é suficiente.
+    \item O teste UMP rejeita para $T > c$ ou $T < c'$. Explique por quê.
+    \item Determine $c$ e $c'$ em função de $\alpha$ e $\theta_0$.
+    \item Para $\theta_0 = 10$, $\alpha = 0.05$, $n = 20$, calcule os limites.
+\end{enumerate}
+
+\subsection{Respostas Selecionadas - Questões Adicionais}
+
+\textbf{Questão 61(b):} Teste UMP: Rejeitar $H_0$ se $Z = \sqrt{n}\frac{\bar{X}_n - \mu_0}{\sigma} > z_\alpha$.
+
+\textbf{Questão 62(a):} $\frac{L(\lambda_1)}{L(\lambda_0)} = e^{n(\lambda_0 - \lambda_1)} \left(\frac{\lambda_1}{\lambda_0}\right)^T$ onde $T = \sum x_i$.
+
+\textbf{Questão 63(e):} Não existe UMP bilateral porque diferentes valores de $\mu \neq \mu_0$ (acima e abaixo) requerem diferentes regiões críticas ótimas.
+
+\textbf{Questão 66(c):} $Z_{cal} = \frac{10(0.58 - 0.5)}{0.5} = 1.6$, valor-p $= P(Z > 1.6) = 0.0548$.
+
+\textbf{Questão 67(d):} Como $c_n - \mu_1 = \mu_0 - \mu_1 + O(1/\sqrt{n}) \to -\infty$, temos $\beta_n \to 0$, logo poder $\to 1$.
+
+\textbf{Questão 68(d):} $n_0 = \left\lceil \left(\frac{(1.645 + 1.282) \times 10}{10}\right)^2 \right\rceil = \left\lceil (2.927)^2 \right\rceil = 9$.
+
+\textbf{Questão 70(b):} Para Uniforme, rejeita-se tanto para valores muito pequenos quanto muito grandes de $T$, pois valores pequenos indicam $\theta < \theta_0$ e o teste precisa ter nível $\alpha$ exato.
+
+\textbf{Questão 70(c):} $c = \theta_0(1-\alpha)^{1/n}$ e o teste rejeita se $T > \theta_0$ ou $T < c$.
+
+\end{document}
+

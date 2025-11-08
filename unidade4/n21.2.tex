@@ -1,0 +1,29 @@
+﻿Para completar a prova, deve-se mostrar que $Y$ é UMP não apenas em $C$ (satisfazendo $Q_Y(\theta_0) \leq \alpha$), mas em $C^*$ satisfazendo $\sup_{\theta \in \Theta_0} Q_Y(\theta) \leq \alpha$. Pode-se mostrar que $C^* \subset C$, pela monotonicidade de $Q_Y(\theta)$, temos que $\forall \theta \in C^*$
+
+\begin{equation}
+    Q_Y(\theta) \leq Q_Y(\theta_0) \leq \alpha.
+\end{equation}
+
+\textbf{Exemplo:} Sejam $X_1, \dots, X_n$ uma a.a. de $X \sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma > 0$ conhecido. Encontre o teste UMP para
+
+\begin{equation}
+    H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu > \mu_0
+\end{equation}
+
+de nível $\alpha$.
+
+\textbf{Solução:} Pelo LFN, a partir de
+
+\begin{equation}
+    L(\mu; x) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \left( \sum_{i} x_i^2 - 2\mu \sum_{i} x_i + n\mu^2 \right) \right\}
+\end{equation}
+
+\begin{equation}
+    = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i} x_i^2 \right\} \cdot \exp\left\{ -\frac{1}{2\sigma^2} \left( n\mu^2 - 2\mu \sum_{i} x_i \right) \right\}
+\end{equation}
+
+\[
+    \underbrace{(2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i} x_i^2 \right\}}_{h(x)}
+    \quad
+    \underbrace{\exp\left\{ -\frac{1}{2\sigma^2} \left( n\mu^2 - 2\mu \sum_{i} x_i \right) \right\}}_{g(t(x), \mu)}
+\]

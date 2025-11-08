@@ -1,0 +1,44 @@
+﻿$R_C^c$ tal que
+\begin{equation}
+    R_C \cup R_C^c = \mathbb{R}^n \quad \text{e} \quad R_C \cap R_C^c = \emptyset
+\end{equation}
+
+c) Se $x \in R_C$, rejeitamos $H_0 : \theta \in \Theta$.
+
+\textbf{Exemplo 1:} Alguns exemplos de testes. Seja $X_i$ uma a.a. de $X_i \sim N(\theta, 1)$ para $\theta \in \mathbb{R}$ desconhecido. A partir de um contexto, enunciam-se hipóteses:
+\[
+H_0 : \theta = 5.5 \quad \times \quad H_1 : \theta = 8
+\]
+
+Seja 
+\begin{equation}
+    \overline{X}_n = g^{-1} \sum_{i=1}^{g} X_i
+\end{equation}
+
+Testes:
+\[
+\begin{cases}
+\text{Teste \#1: Rejeitar $H_0$ se $x_1 > 7$;} \\
+\text{Teste \#2: Rejeitar $H_0$ se $\frac{x_1 + x_2}{2} > 7$;} \\
+\text{Teste \#3: Rejeitar $H_0$ se $\overline{X}_n > 6$;} \\
+\text{Teste \#4: Rejeitar $H_0$ se $\overline{X}_n > 7.5$.}
+\end{cases}
+\]
+
+Suas respectivas regiões críticas:
+
+\begin{equation}
+\text{Teste \#1: } R_C = \{ (x_1, \ldots, x_g) \in \mathbb{R}^g : x_1 > 7 \}
+\end{equation}
+
+\begin{equation}
+\text{Teste \#2: } R_C = \left\{ x \in \mathbb{R}^g : \frac{x_1 + x_2}{2} > 7 \right\}
+\end{equation}
+
+\begin{equation}
+\text{Teste \#3: } R_C = \{ x \in \mathbb{R}^g : \overline{X}_n > 6 \}
+\end{equation}
+
+\begin{equation}
+\text{Teste \#4: } R_C = \{ x \in \mathbb{R}^g : \overline{X}_n > 7.5 \}
+\end{equation}

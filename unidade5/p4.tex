@@ -1,0 +1,20 @@
+\newpage
+
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-0.5,0) -- (5,0);
+\draw[->] (0,-0.5) -- (0,3);
+\draw[domain=0:4,smooth,variable=\x] plot ({\x},{2.5*\x*exp(-0.5*\x)});
+\fill[pattern=north east lines,domain=0:1.2] (0,0) -- plot ({\x},{2.5*\x*exp(-0.5*\x)}) -- (1.2,0) -- cycle;
+\draw[dashed] (1.2,0) -- (1.2,{2.5*1.2*exp(-0.5*1.2)});
+\node at (1.2,-0.3) {$\chi^2_{m,1-\alpha}$};
+\end{tikzpicture}
+
+\section*{Abordagem pela quantidade pivotal}
+
+\textbf{Definição 1: (Pivô)} Seja $T(X)$ uma estatística suficiente (mínimal) para $\theta$. Um pivô é uma v.a. $U$ que dependa de $T$ e $\theta$ cuja distribuição não dependa de $\theta$.
+
+\textit{Aula: 30/06/2023}
+
+\textbf{Obs:} No caso da família de locação em $a(\theta)$, a distribuição $\{T - a(\theta)\}$ não depende de $\theta$. No caso de família de escala em $b(\theta)$, a distribuição $\left\{\frac{T}{b(\theta)}\right\}$ não depende de $\theta$. No caso de família de locação e escala em $[a(\theta), b(\theta)]$, a distribuição de $\left\{\frac{T - a(\theta)}{b(\theta)}\right\}$ não depende de $\theta$.
+
+Consideremos um exemplo simples dessa abordagem.

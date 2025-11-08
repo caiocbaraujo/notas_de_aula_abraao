@@ -1,0 +1,30 @@
+﻿\begin{enumerate}
+    \item Simples: $H_0: \theta = \theta_0$, $H_0: \mu = \mu_0$
+    \item Composta unilateral: $H_0: \theta \geq \theta_0$, $H_1: \mu \leq \mu_1$
+    \item Composta bilateral: $H_1: \theta \neq \theta_0$ (ou $\theta < \theta_0$ ou $\theta > \theta_0$)
+\end{enumerate}
+
+\textbf{Probabilidade de erro e função poder}
+
+Considere testar $H_0: \theta \in \Theta_0$ e $H_1: \theta \in \Theta_1$ a partir de $x_1, \ldots, x_n$, uma a.a. de $X$ com fdp (ou fmp) f(x$|$$\theta$). 
+
+$H_0$ é chamada de \underline{hipótese nula} e $H_1$ é chamada de \underline{hipótese alternativa}. Pode-se cometer dois tipos de erro.
+
+\begin{center}
+\begin{tabular}{|m{4cm}|m{4cm}|m{4cm}|}
+\hline
+\textbf{Decisão} & \textbf{Natureza da verdade} $H_0$ verdadeira & \textbf{$H_1$ verdadeira} \\
+\hline
+Não rejeitar $H_0$ & --- & erro do Tipo II \\
+\hline
+Rejeitar $H_0$ & erro do Tipo I & --- \\
+\hline
+\end{tabular}
+\end{center}
+
+Em termos objetivos, tendo observado $\mathbf{x} = (x_1, \ldots, x_n)^T$, um teste:
+
+\begin{enumerate}
+    \item[a)] Procuraria evidenciar para (não) rejeitar $H_0$;
+    \item[b)] Isto é feito por particionar $\mathbb{R}^n$ em dois conjuntos $R \subset \mathbb{R}^n$ chamado de \underline{região crítica} e seu complemento.
+\end{enumerate}

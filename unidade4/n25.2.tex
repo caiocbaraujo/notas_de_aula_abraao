@@ -1,0 +1,42 @@
+﻿\begin{equation}
+Q_{\psi_{Y^*}}(\theta) = \frac{1}{\theta^n} \left[ \theta_0^{-n} - \theta_0^n (1 - \alpha) \right] = 1 - (1 - \alpha) \left( \frac{\theta_0}{\theta} \right)^n
+\tag{1}
+\end{equation}
+
+Vamos computar o poder de $Y^*$ e mostrar que sua expressão coincide com (1). Defina
+\[
+g(t) = E \left[ \psi_{Y^*}(X) \mid T(X) = t \right]
+\]
+que não depende de $\theta$, pois $T(X)$ é suficiente para $\theta$ e é contínuo.
+
+\[
+\alpha = E_{\theta_0} \left[ \psi_{Y^*}(X) \right] = E_{\theta_0} \left[ E \left[ \psi_{Y^*}(X) \mid T \right] \right] = E_{\theta_0} \left[ g(T) \right]
+\]
+
+Note que $\psi_{Y^*}(t) = 1$ para $t > \theta_0$, implica $g(t) = 1$ para $t > \theta_0$. Assim, para $\theta > \theta_0$,
+
+\begin{equation}
+\begin{aligned}
+E_{\theta} \left[ \psi_{Y^*}(X) \right] &= \int_{0}^{\theta_0} g(t) \, n \, t^{n-1} \theta^{-n} \, dt + \int_{\theta_0}^{\infty} g(t) \, n \, t^{n-1} \theta^{-n} \, dt \\
+&= \left( \frac{\theta_0}{\theta} \right)^n \int_{0}^{\theta_0} g(t) \, n \, t^{n-1} \theta_0^{-n} \, dt + \int_{\theta_0}^{\infty} n \, t^{n-1} \theta^{-n} \, dt
+\end{aligned}
+\end{equation}
+
+\[
+\alpha = \int_{0}^{\theta_0} g(t) \, n \, t^{n-1} \theta_0^{-n} \, dt
+\]
+\[
+g(t) = 1 \quad \text{para} \quad t > \theta_0
+\]
+
+Portanto:
+
+\begin{equation}
+\begin{aligned}
+E_{\theta} \left[ \psi_{Y^*}(X) \right] &= \left( \frac{\theta_0}{\theta} \right)^n \alpha + \left\{ \left( \frac{\theta_0}{\theta} \right)^n - \left( \frac{\theta_0}{\theta} \right)^n \right\} \\
+&= \alpha \left( \frac{\theta_0}{\theta} \right)^n + 1 - \left( \frac{\theta_0}{\theta} \right)^n \\
+&= 1 - (1 - \alpha) \left( \frac{\theta_0}{\theta} \right)^n
+\end{aligned}
+\end{equation}
+
+Daí, $\psi_{Y^*}(\cdot)$ e $\psi_{Y^*_c}(\cdot)$ são funções críticas de teste UMP.

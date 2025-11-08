@@ -1,0 +1,27 @@
+﻿\begin{equation}
+\psi(x^n) = 
+\begin{cases}
+1, & \text{se } L(\theta_1, x^n) > k L(\theta_0, x^n) \\
+0, & \text{se } L(\theta_1, x^n) < k L(\theta_0, x^n)
+\end{cases}
+\end{equation}
+
+em que $k (\geq 0)$ é determinado por
+\begin{equation}
+E_{\theta_0} \left[ \psi(x^n) \right] = \alpha
+\end{equation}
+
+Qualquer teste satisfazendo (1) e (2) é um teste MP de nível $\alpha$.
+
+\textbf{Dem:} Considere a prova para o caso contínuo. Note que qualquer teste $\gamma$ que satisfaz (2) tem tamanho $\alpha$ e, portanto, nível $\alpha$. Seja $\gamma^*$ um teste com função de teste $\psi_{\gamma^*}(x^n)$ e nível $\alpha$. Sejam $Q_{\gamma}(\theta)$ e $Q_{\gamma^*}(\theta)$ as funções poder de $\gamma$ e $\gamma^*$, respectivamente.
+
+Vamos primeiramente verificar que
+\begin{equation}
+\left[ \psi_{\gamma}(x^n) - \psi_{\gamma^*}(x^n) \right] \left[ L(\theta_1, x^n) - k L(\theta_0, x^n) \right] \geq 0
+\end{equation}
+para todo $x \in X^n$. Note que
+
+(i) Se $\psi_{\gamma}(x^n) = 1$, então
+\begin{equation}
+L(\theta_1, x^n) - k L(\theta_0, x^n) > 0
+\end{equation}

@@ -1,0 +1,29 @@
+﻿Como para $\mu^* < \mu$,
+
+\begin{equation}
+\frac{f(t_i; \mu^*)}{f(t_i; \mu)} = \exp \left\{ \frac{n}{2 \sigma^2} \left[ 2u(\mu^* - \mu_0) + n t^2 (\mu^{*2} - \mu^2) \right] \right\}
+\end{equation}
+
+é não crescente, então o seguinte teste de média é UMP; pelo teorema K.R., $\psi_Y$ tal que
+
+\begin{equation}
+\psi_Y(x_1) = 
+\begin{cases}
+1, & \sqrt{n} \left( \frac{\bar{x}_n - \mu_0}{\sigma} \right) \leq -z_\alpha, \\
+0, & \sqrt{n} \left( \frac{\bar{x}_n - \mu_0}{\sigma} \right) > -z_\alpha.
+\end{cases}
+\end{equation}
+
+Suponha que $x_0$ é uma a.a. tal que a estatística calculada 
+\begin{equation}
+Z_{cal} = \sqrt{n} \left( \frac{\bar{x}_n - \mu_0}{\sigma} \right)
+\end{equation}
+não excede $-z_\alpha$. Então, $\psi_{Y_1}(x_0) = 0$ e $\psi_{Y_2}(x_0) = 1$, portanto o $\psi_Y(x_1)$ fica indefinido.
+
+\textbf{Exemplo de existência do teste UMP}
+
+Sejam $X_1, \ldots, X_n$ uma a.a. de $X \sim U(0, \theta)$ com $\theta$ desconhecido. Note que $T(X) = X_{(n)}$ é suficiente para $\theta$ e tem densidade dada por:
+
+\begin{equation}
+f(t; \theta) = u \cdot t^{n-1} \cdot \theta^{-n} \cdot \mathbb{I}_{(0, \theta)}(t)
+\end{equation}

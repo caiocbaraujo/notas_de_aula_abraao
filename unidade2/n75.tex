@@ -1,0 +1,41 @@
+\newpage
+
+\section*{Teorema (4.4.2.1) Teo. Karlin-Rubin}
+
+Assuma que se deseja testar:
+\begin{equation}
+H_0: \theta \leq \theta_0, \quad H_1: \theta > \theta_0
+\end{equation}
+
+Considere $T = T(X) \in \mathbb{R}$ (para $X^n: (x_1, \dots, x_n)$ como uma v.a.) como uma estatística suficiente para $\theta \in \Theta \subset \mathbb{R}$.
+
+Assuma que $\{ g(t; \theta) : \theta \in \Theta \}$ é uma família de f.d.p (ou fmp) induzida de $T$ com RVM. Então o teste $\Upsilon$ com função crítica:
+\begin{equation}
+\psi_{\Upsilon}(x) = 
+\begin{cases}
+1, & \text{se } T(x) > k \\
+0, & \text{se } T(x) < k
+\end{cases}
+\end{equation}
+
+corresponde a um teste UMP de nível $\alpha$ se $k$ é escolhido tal que:
+\begin{equation}
+E_{\theta_0} \left[ \psi_{\Upsilon}(x) \right] = \alpha
+\end{equation}
+
+\subsection*{Q (4.12)}
+Sejam $X_1, \dots, X_n$ uma a.a. de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecida e $\sigma^2 \in \mathbb{R}$ conhecida. Encontre o teste UMP para:
+\begin{equation}
+H_0: \mu \leq \mu_0 \quad \text{vs} \quad H_1: \mu > \mu_0, \quad \text{de nível } \alpha
+\end{equation}
+
+\subsection*{Solução}
+Pelo LFN:
+\begin{equation}
+L(\mu; x) = (2\pi\sigma^2)^{-\frac{n}{2}} \exp\left[ -\frac{1}{2\sigma^2} \left( \sum_{i=1}^n x_i^2 - 2\mu \sum_{i=1}^n x_i + n\mu^2 \right) \right]
+\end{equation}
+
+\begin{equation}
+= \underbrace{(2\pi\sigma^2)^{-\frac{n}{2}} e^{-\frac{1}{2\sigma^2} \sum_{i=1}^n x_i^2}}_{h(x)} \cdot \underbrace{\exp\left[ -\frac{n}{2\sigma^2} \mu^2 + \frac{2\mu}{2\sigma^2} \sum_{i=1}^n x_i \right]}_{g(t; \mu) \text{ para } T(x) = \sum_{i=1}^n x_i}
+\end{equation}
+

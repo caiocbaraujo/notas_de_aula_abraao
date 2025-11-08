@@ -1,0 +1,2081 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\usepackage{enumitem}
+
+% Caixas coloridas para destacar conteúdo
+\newtcolorbox{questaobox}[1]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1
+}
+
+\newtcolorbox{solucaobox}{
+    colback=green!5!white,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Solução Detalhada
+}
+
+\newtcolorbox{observacaobox}{
+    colback=yellow!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Observações e Intuição
+}
+
+\newtcolorbox{resumobox}{
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Resumo da Questão
+}
+
+% Título e informações do documento
+\title{Questões Resolvidas do Capítulo 4\\
+\large Teste de Hipóteses - Soluções Detalhadas}
+\author{Curso de Inferência Estatística - PPGEST/UFPE\\
+\small Compilado e detalhado}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ================================================================
+\section*{Introdução}
+\addcontentsline{toc}{section}{Introdução}
+
+Este documento apresenta todas as questões resolvidas em sala de aula do Capítulo 4 sobre Teste de Hipóteses. As soluções foram expandidas com explicações detalhadas, intuições e comentários didáticos para facilitar o entendimento completo dos conceitos.
+
+\subsection*{Organização do Documento}
+
+Cada questão está organizada da seguinte forma:
+\begin{enumerate}
+    \item \textbf{Enunciado} - apresentação completa do problema
+    \item \textbf{Solução Detalhada} - desenvolvimento passo a passo
+    \item \textbf{Observações e Intuição} - comentários sobre o método e interpretações
+    \item \textbf{Resumo} - síntese dos principais resultados
+\end{enumerate}
+
+\subsection*{Questões Incluídas}
+
+\begin{itemize}
+    \item Q(4.1) - Exemplos de testes e regiões críticas
+    \item Q(4.3) - Função poder de um teste
+    \item Q(4.4) - Teste MP para distribuição Normal (variância conhecida)
+    \item Q(4.5) - Teste MP para distribuição Exponencial
+    \item Q(4.6) - Teste MP para distribuição Bernoulli
+    \item Q(4.7) - Teste MP para distribuição Poisson
+    \item Q(4.8) - Teste MP para densidades não-paramétricas
+    \item Q(4.9) - Teste MP com duas variáveis independentes
+    \item Q(4.10) - Teste UMP para variância (Normal com média zero)
+    \item Q(4.12) - Teste UMP via Teorema de Karlin-Rubin
+\end{itemize}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.1: Exemplos de Testes}
+% ================================================================
+
+\begin{questaobox}{Questão 4.1}
+Sejam $X_1, \ldots, X_9$ uma amostra aleatória de $X \sim N(\theta, 1)$ para $\theta \in \mathbb{R}$ desconhecido. 
+
+Deseja-se testar:
+\begin{equation}
+H_0: \theta = 5.5 \quad \text{vs} \quad H_1: \theta = 8
+\end{equation}
+
+Seja $\bar{X}_n = 9^{-1} \sum_{i=1}^9 X_i$ a média amostral.
+
+Considere os seguintes testes:
+\begin{itemize}
+    \item \textbf{Teste \#1:} Rejeita-se $H_0$ se e só se $X_1 > 7$
+    \item \textbf{Teste \#2:} Rejeita-se $H_0$ se e só se $\frac{X_1 + X_2}{2} > 7$
+    \item \textbf{Teste \#3:} Rejeita-se $H_0$ se e só se $\bar{X}_n > 6$
+    \item \textbf{Teste \#4:} Rejeita-se $H_0$ se e só se $\bar{X}_n > 7.5$
+\end{itemize}
+
+Determine as regiões críticas de cada teste e calcule os erros Tipo I ($\alpha$) e Tipo II ($\beta$) para o Teste \#1.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Parte 1: Regiões Críticas}
+
+A região crítica $R_c$ é o conjunto de valores amostrais para os quais rejeitamos $H_0$.
+
+\paragraph{Teste \#1:}
+Como rejeitamos quando $X_1 > 7$, temos:
+\begin{equation}
+R_c^{(1)} = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : x_1 > 7 \}
+\end{equation}
+
+\textbf{Interpretação:} Este teste usa apenas a primeira observação, ignorando as outras 8. Isso é claramente ineficiente!
+
+\paragraph{Teste \#2:}
+\begin{equation}
+R_c^{(2)} = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \frac{x_1 + x_2}{2} > 7 \}
+\end{equation}
+
+\textbf{Interpretação:} Usa apenas duas observações. Melhor que o Teste \#1, mas ainda desperdiça informação.
+
+\paragraph{Teste \#3:}
+\begin{equation}
+R_c^{(3)} = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \bar{x}_n > 6 \}
+\end{equation}
+
+\textbf{Interpretação:} Usa todas as 9 observações através da média amostral, que é uma estatística suficiente para $\theta$.
+
+\paragraph{Teste \#4:}
+\begin{equation}
+R_c^{(4)} = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \bar{x}_n > 7.5 \}
+\end{equation}
+
+\textbf{Interpretação:} Também usa todas as observações, mas com um limiar mais alto.
+
+\subsection*{Parte 2: Cálculo de $\alpha$ e $\beta$ para o Teste \#1}
+
+\paragraph{Erro Tipo I ($\alpha$):}
+É a probabilidade de rejeitar $H_0$ quando ela é verdadeira.
+
+\begin{align}
+\alpha &= P_{H_0: \theta = 5.5}\{X_1 > 7\} \\
+&= P\left\{ \frac{X_1 - 5.5}{\sigma} > \frac{7 - 5.5}{\sigma} \right\} \quad \text{($X_1 \sim N(5.5, 1)$ sob $H_0$)}\\
+&= P\{ Z > 1.5 \} \quad \text{onde } Z \sim N(0,1) \\
+&= 1 - \Phi(1.5) \\
+&= 1 - 0.93319 \\
+&= 0.06681 \approx 6.68\%
+\end{align}
+
+\textbf{Interpretação:} Há cerca de 6.68\% de chance de rejeitarmos $H_0$ incorretamente quando $\theta = 5.5$.
+
+\paragraph{Erro Tipo II ($\beta$):}
+É a probabilidade de não rejeitar $H_0$ quando ela é falsa (i.e., quando $H_1$ é verdadeira).
+
+\begin{align}
+\beta &= P_{H_1: \theta = 8}\{X_1 \leq 7\} \\
+&= P\left\{ \frac{X_1 - 8}{\sigma} < \frac{7 - 8}{\sigma} \right\} \quad \text{($X_1 \sim N(8, 1)$ sob $H_1$)} \\
+&= P\{ Z < -1 \} \quad \text{onde } Z \sim N(0,1) \\
+&= \Phi(-1) \\
+&= 0.15866 \approx 15.87\%
+\end{align}
+
+\textbf{Interpretação:} Quando $\theta = 8$ (hipótese alternativa verdadeira), há cerca de 15.87\% de chance de não detectarmos isso e mantermos $H_0$ incorretamente.
+
+\paragraph{Poder do Teste:}
+O poder é $1 - \beta = 1 - 0.15866 = 0.84134 \approx 84.13\%$. Isso significa que temos 84.13\% de chance de detectar corretamente quando $\theta = 8$.
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Eficiência dos Testes:} Os testes que usam mais informação (média de todas as observações) tendem a ser mais eficientes.
+    
+    \item \textbf{Trade-off:} Não podemos minimizar simultaneamente $\alpha$ e $\beta$ para um tamanho amostral fixo. Diminuir $\alpha$ geralmente aumenta $\beta$ e vice-versa.
+    
+    \item \textbf{Estatística Suficiente:} A média amostral $\bar{X}_n$ é suficiente para $\theta$ quando $X \sim N(\theta, \sigma^2)$. Pelo princípio da suficiência, os melhores testes devem depender apenas de $\bar{X}_n$.
+    
+    \item \textbf{Comparação dos Testes:}
+    \begin{itemize}
+        \item Teste \#1 usa 1 observação
+        \item Teste \#2 usa 2 observações
+        \item Testes \#3 e \#4 usam todas as 9 observações
+    \end{itemize}
+    Esperamos que os testes \#3 e \#4 sejam mais poderosos.
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Principais Resultados:}
+\begin{itemize}
+    \item Para o Teste \#1: $\alpha \approx 6.68\%$ e $\beta \approx 15.87\%$
+    \item Poder do Teste \#1: aproximadamente 84.13\%
+    \item As regiões críticas dependem da estatística de teste escolhida
+    \item Testes baseados em estatísticas suficientes são preferíveis
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.3: Função Poder do Teste}
+% ================================================================
+
+\begin{questaobox}{Questão 4.3}
+Para o Teste \#4 da Questão 4.1, determine a função poder $Q_\Upsilon(\theta)$.
+
+Recall: Teste \#4 rejeita $H_0: \theta = 5.5$ vs $H_1: \theta = 8$ se e só se $\bar{X}_n > 7.5$, onde $X_1, \ldots, X_9 \sim N(\theta, 1)$ i.i.d.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Definição da Função Poder}
+
+A função poder de um teste $\Upsilon$ é definida como:
+\begin{equation}
+Q_\Upsilon(\theta) = P_\theta[\text{Rejeitar } H_0] = P_\theta[X \in R_c]
+\end{equation}
+
+Ela mede a probabilidade de rejeitar $H_0$ para cada valor possível do parâmetro $\theta$.
+
+\subsection*{Cálculo para o Teste \#4}
+
+Para o Teste \#4, temos $R_c = \{ x \in \mathbb{R}^9 : \bar{x}_n > 7.5 \}$. Portanto:
+
+\begin{align}
+Q_\Upsilon(\theta) &= P_\theta[\bar{X}_n > 7.5] \\
+&= P_\theta\left[ \frac{\bar{X}_n - \theta}{\sigma/\sqrt{n}} > \frac{7.5 - \theta}{\sigma/\sqrt{n}} \right]
+\end{align}
+
+\textbf{Nota importante:} Sob qualquer valor de $\theta$, temos:
+\begin{equation}
+\bar{X}_n \sim N\left(\theta, \frac{\sigma^2}{n}\right) = N\left(\theta, \frac{1}{9}\right)
+\end{equation}
+
+Portanto:
+\begin{equation}
+\frac{\bar{X}_n - \theta}{\sigma/\sqrt{n}} = \frac{\bar{X}_n - \theta}{1/3} = 3(\bar{X}_n - \theta) \sim N(0, 1)
+\end{equation}
+
+Continuando o cálculo:
+\begin{align}
+Q_\Upsilon(\theta) &= P\left[ Z > \frac{7.5 - \theta}{1/3} \right] \quad \text{onde } Z \sim N(0,1) \\
+&= P\left[ Z > 3(7.5 - \theta) \right] \\
+&= P[ Z > 22.5 - 3\theta ] \\
+&= 1 - \Phi(22.5 - 3\theta)
+\end{align}
+
+\textbf{Forma final da função poder:}
+\begin{equation}
+\boxed{Q_\Upsilon(\theta) = 1 - \Phi\left( \sqrt{n}(7.5 - \theta) \right) = 1 - \Phi(3(7.5 - \theta))}
+\end{equation}
+
+\subsection*{Interpretação para Valores Específicos}
+
+\paragraph{Para $\theta = 5.5$ (sob $H_0$):}
+\begin{align}
+Q_\Upsilon(5.5) &= 1 - \Phi(3(7.5 - 5.5)) \\
+&= 1 - \Phi(6) \\
+&\approx 1 - 0.999999999 \\
+&\approx 10^{-9} \text{ (praticamente zero)}
+\end{align}
+
+Isso significa que o Teste \#4 tem probabilidade quase zero de rejeitar $H_0$ quando $\theta = 5.5$. O teste é extremamente conservador!
+
+\paragraph{Para $\theta = 8$ (sob $H_1$):}
+\begin{align}
+Q_\Upsilon(8) &= 1 - \Phi(3(7.5 - 8)) \\
+&= 1 - \Phi(-1.5) \\
+&= 1 - 0.06681 \\
+&= 0.93319 \approx 93.32\%
+\end{align}
+
+Quando $\theta = 8$, o teste tem 93.32\% de chance de rejeitar $H_0$ corretamente.
+
+\paragraph{Para $\theta = 7.5$:}
+\begin{align}
+Q_\Upsilon(7.5) &= 1 - \Phi(0) \\
+&= 1 - 0.5 \\
+&= 0.5
+\end{align}
+
+Quando $\theta = 7.5$ (exatamente no limiar), há 50\% de chance de rejeitar $H_0$.
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Propriedades da Função Poder}
+
+\begin{enumerate}
+    \item \textbf{Monotonicidade:} Para este teste unilateral, $Q_\Upsilon(\theta)$ é crescente em $\theta$. Quanto maior o verdadeiro valor de $\theta$, maior a probabilidade de rejeitarmos $H_0: \theta = 5.5$.
+    
+    \item \textbf{Tamanho do Teste:} O tamanho é $\alpha = \sup_{\theta \in \Theta_0} Q_\Upsilon(\theta)$. Para este teste, $\alpha = Q_\Upsilon(5.5) \approx 0$ (muito pequeno).
+    
+    \item \textbf{Poder do Teste:} Para $\theta \in \Theta_1$, $Q_\Upsilon(\theta)$ representa o poder. Quanto maior, melhor!
+    
+    \item \textbf{Relação com Erros:}
+    \begin{itemize}
+        \item $Q_\Upsilon(\theta_0) = \alpha$ (Erro Tipo I quando $\theta = \theta_0$)
+        \item $Q_\Upsilon(\theta_1) = 1 - \beta$ (Poder quando $\theta = \theta_1$)
+    \end{itemize}
+    
+    \item \textbf{Comportamento Assintótico:}
+    \begin{itemize}
+        \item $\lim_{\theta \to -\infty} Q_\Upsilon(\theta) = 0$
+        \item $\lim_{\theta \to +\infty} Q_\Upsilon(\theta) = 1$
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Visualização}
+
+A função poder tem forma de curva S (sigmoidal):
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (0,0) -- (10,0) node[right] {$\theta$};
+\draw[->] (0,0) -- (0,4) node[above] {$Q_\Upsilon(\theta)$};
+
+% Função poder aproximada
+\draw[thick, blue, domain=1:9, samples=100] plot (\x, {3.5/(1 + exp(-1.5*(\x-5.5)))});
+
+% Linhas de referência
+\draw[dashed] (0,1.75) node[left] {0.5} -- (5.5,1.75) -- (5.5,0) node[below] {7.5};
+\draw[dashed] (0,3.5) node[left] {1} -- (10,3.5);
+
+% Pontos importantes
+\fill[red] (3,0.05) circle (2pt) node[above right] {$\theta_0=5.5$};
+\fill[green!60!black] (6.5,3.26) circle (2pt) node[below right] {$\theta_1=8$};
+
+\node at (5,-1) {\small Função Poder do Teste \#4};
+\end{tikzpicture}
+\end{center}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Principais Resultados:}
+\begin{equation*}
+Q_\Upsilon(\theta) = 1 - \Phi(3(7.5 - \theta))
+\end{equation*}
+\begin{itemize}
+    \item Para $\theta = 5.5$: $Q \approx 0$ (tamanho $\alpha \approx 0$)
+    \item Para $\theta = 7.5$: $Q = 0.5$
+    \item Para $\theta = 8.0$: $Q \approx 0.933$ (poder $\approx 93.3\%$)
+    \item A função é crescente: testes detectam melhor valores maiores de $\theta$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.4: Teste MP para Distribuição Normal}
+% ================================================================
+
+\begin{questaobox}{Questão 4.4}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma^2 \in \mathbb{R}^+$ conhecido. 
+
+Encontre o teste Mais Poderoso (MP) de nível $\alpha$ para:
+\begin{equation}
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu = \mu_1
+\end{equation}
+onde $\mu_0$ e $\mu_1$ são conhecidos e $\mu_1 > \mu_0$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Identificar o Método Apropriado}
+
+Como ambas as hipóteses são \textbf{simples} (especificam completamente o parâmetro), podemos aplicar o \textbf{Lema de Neyman-Pearson (LNP)}.
+
+\subsection*{Passo 2: Escrever as Funções de Verossimilhança}
+
+Para uma amostra $x = (x_1, \ldots, x_n)$ de $N(\mu, \sigma^2)$, a função de verossimilhança é:
+
+\begin{equation}
+L(\mu; x) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left\{-\frac{(x_i - \mu)^2}{2\sigma^2}\right\}
+\end{equation}
+
+Simplificando:
+\begin{equation}
+L(\mu; x) = (2\pi\sigma^2)^{-\frac{n}{2}} \exp\left\{-\frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2 \right\}
+\end{equation}
+
+Expandindo o termo $(x_i - \mu)^2$:
+\begin{align}
+\sum_{i=1}^{n} (x_i - \mu)^2 &= \sum_{i=1}^{n} (x_i^2 - 2\mu x_i + \mu^2) \\
+&= \sum_{i=1}^{n} x_i^2 - 2\mu \sum_{i=1}^{n} x_i + n\mu^2
+\end{align}
+
+Logo:
+\begin{equation}
+L(\mu; x) = (2\pi\sigma^2)^{-\frac{n}{2}} \exp\left\{-\frac{1}{2\sigma^2} \left( \sum_{i=1}^{n} x_i^2 - 2\mu \sum_{i=1}^{n} x_i + n\mu^2 \right) \right\}
+\end{equation}
+
+\subsection*{Passo 3: Calcular a Razão de Verossimilhanças}
+
+Pelo LNP, o teste MP tem a forma: ``Rejeita $H_0$ se e só se $\frac{L_1}{L_0} > k$'', onde $L_i = L(\mu_i; x)$.
+
+Calculando a razão:
+\begin{align}
+\frac{L_1}{L_0} &= \frac{L(\mu_1; x)}{L(\mu_0; x)} \\
+&= \frac{\exp\left\{-\frac{1}{2\sigma^2} \left( \sum x_i^2 - 2\mu_1 \sum x_i + n\mu_1^2 \right) \right\}}{\exp\left\{-\frac{1}{2\sigma^2} \left( \sum x_i^2 - 2\mu_0 \sum x_i + n\mu_0^2 \right) \right\}} \\
+&= \exp\left\{-\frac{1}{2\sigma^2} \left[ \left( -2\mu_1 \sum x_i + n\mu_1^2 \right) - \left( -2\mu_0 \sum x_i + n\mu_0^2 \right) \right] \right\} \\
+&= \exp\left\{\frac{1}{2\sigma^2} \left[ 2(\mu_1 - \mu_0) \sum x_i - n(\mu_1^2 - \mu_0^2) \right] \right\} \\
+&= \exp\left\{\frac{(\mu_1 - \mu_0)}{\sigma^2} \sum x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\}
+\end{align}
+
+\subsection*{Passo 4: Simplificar a Região Crítica}
+
+A condição $\frac{L_1}{L_0} > k$ torna-se:
+\begin{equation}
+\exp\left\{\frac{(\mu_1 - \mu_0)}{\sigma^2} \sum x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\} > k
+\end{equation}
+
+Aplicando logaritmo (função crescente):
+\begin{equation}
+\frac{(\mu_1 - \mu_0)}{\sigma^2} \sum x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} > \log k
+\end{equation}
+
+Como $\mu_1 > \mu_0$, temos $\mu_1 - \mu_0 > 0$, então podemos dividir por esse termo:
+\begin{equation}
+\sum x_i > \frac{\sigma^2}{\mu_1 - \mu_0} \left[ \log k + \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right]
+\end{equation}
+
+Definindo $k_2 = \frac{\sigma^2}{\mu_1 - \mu_0} \left[ \log k + \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right]$:
+\begin{equation}
+\sum x_i > k_2
+\end{equation}
+
+Equivalentemente, dividindo por $n$ e multiplicando:
+\begin{equation}
+\bar{x} > \frac{k_2}{n}
+\end{equation}
+
+Ou ainda, padronizando:
+\begin{equation}
+\frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} > \frac{k_2/n - \mu_0}{\sigma/\sqrt{n}}
+\end{equation}
+
+Definindo $k_3 = \frac{k_2/n - \mu_0}{\sigma/\sqrt{n}}$, a região crítica é:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma} > k_3 \right\}
+\end{equation}
+
+\subsection*{Passo 5: Estatística de Teste}
+
+Definimos a estatística de teste:
+\begin{equation}
+Z(x) = \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma}
+\end{equation}
+
+\textbf{Distribuição sob $H_0$:}
+
+Quando $H_0: \mu = \mu_0$ é verdadeira:
+\begin{itemize}
+    \item $\bar{X} \sim N\left(\mu_0, \frac{\sigma^2}{n}\right)$
+    \item $\frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} \sim N(0, 1)$
+\end{itemize}
+
+Portanto:
+\begin{equation}
+Z(X) \overset{H_0}{\sim} N(0, 1)
+\end{equation}
+
+\subsection*{Passo 6: Determinar $k_3$ para Tamanho $\alpha$}
+
+Queremos que o teste tenha tamanho $\alpha$:
+\begin{align}
+\alpha &= P_{H_0}[X \in R_c] \\
+&= P_{H_0}[Z(X) > k_3] \\
+&= P[Z > k_3] \quad \text{onde } Z \sim N(0,1)
+\end{align}
+
+Da distribuição normal padrão, $k_3 = z_\alpha$, onde $z_\alpha$ satisfaz:
+\begin{equation}
+P(Z > z_\alpha) = \alpha \quad \Leftrightarrow \quad z_\alpha = \Phi^{-1}(1 - \alpha)
+\end{equation}
+
+\subsection*{Passo 7: Teste Final}
+
+\textbf{Região Crítica:}
+\begin{equation}
+\boxed{R_c = \left\{ x \in \mathbb{R}^n : \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma} > z_\alpha \right\}}
+\end{equation}
+
+\textbf{Regra de Decisão:}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } Z_{\text{cal}} = \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma} > z_\alpha
+\end{equation}
+
+onde $z_\alpha$ é o quantil $(1-\alpha)$ da distribuição $N(0,1)$.
+
+\textbf{Exemplos de valores de $z_\alpha$:}
+\begin{itemize}
+    \item $\alpha = 0.05$: $z_{0.05} = 1.645$
+    \item $\alpha = 0.01$: $z_{0.01} = 2.326$
+    \item $\alpha = 0.10$: $z_{0.10} = 1.282$
+\end{itemize}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Lema de Neyman-Pearson:} O LNP garante que este teste é o mais poderoso entre todos os testes de nível $\alpha$. Nenhum outro teste de mesmo nível tem poder maior.
+    
+    \item \textbf{Estatística Suficiente:} A média amostral $\bar{X}$ é suficiente para $\mu$. O LNP confirma que o melhor teste depende apenas dela (não das observações individuais).
+    
+    \item \textbf{Teste Z:} Este é o famoso ``teste Z'' usado extensivamente na prática quando $\sigma^2$ é conhecido.
+    
+    \item \textbf{Unilateralidade:} Como $\mu_1 > \mu_0$, rejeitamos $H_0$ para valores grandes de $\bar{X}$. O teste é unilateral à direita.
+    
+    \item \textbf{Normalização:} A estatística $Z(x) = \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma}$ tem distribuição $N(0,1)$ sob $H_0$, independentemente de $\sigma^2$ e $n$. Isso facilita o uso de tabelas.
+    
+    \item \textbf{Efeito do tamanho amostral:} Para $n$ fixo e $\alpha$ fixo, o poder do teste aumenta à medida que $|\mu_1 - \mu_0|$ aumenta. Para $|\mu_1 - \mu_0|$ fixo e $\alpha$ fixo, o poder aumenta com $n$.
+\end{enumerate}
+
+\subsection*{Conexão com Estimação}
+
+A estatística de teste pode ser reescrita como:
+\begin{equation}
+Z(x) = \frac{\hat{\mu} - \mu_0}{\text{SE}(\hat{\mu})}
+\end{equation}
+onde $\hat{\mu} = \bar{x}$ é o estimador de máxima verossimilhança de $\mu$ e $\text{SE}(\hat{\mu}) = \sigma/\sqrt{n}$ é seu erro padrão.
+
+Essa forma mostra que estamos medindo quantos "erros padrão" o estimado está do valor sob $H_0$.
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste MP para $H_0: \mu = \mu_0$ vs $H_1: \mu = \mu_1$ ($\mu_1 > \mu_0$):}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+Z = \sqrt{n} \frac{\bar{X} - \mu_0}{\sigma} \overset{H_0}{\sim} N(0, 1)
+\end{equation*}
+
+\textbf{Regra de Decisão:}
+\begin{equation*}
+\text{Rejeita } H_0 \text{ se } Z_{\text{cal}} > z_\alpha
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item É o teste mais poderoso de nível $\alpha$ (pelo LNP)
+    \item Depende apenas da estatística suficiente $\bar{X}$
+    \item Distribuição sob $H_0$ é conhecida e tabelada
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.5: Teste MP para Distribuição Exponencial}
+% ================================================================
+
+\begin{questaobox}{Questão 4.5}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Exp}(\theta)$ com densidade:
+\begin{equation}
+f(x; \theta) = \frac{1}{\theta} e^{-x/\theta}, \quad x > 0
+\end{equation}
+onde $\theta > 0$ é desconhecido.
+
+Encontre o teste Mais Poderoso (MP) de nível $\alpha$ para:
+\begin{equation}
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta = \theta_1 \quad (\theta_1 > \theta_0)
+\end{equation}
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Aplicação do LNP}
+
+Como temos hipóteses simples vs simples, aplicamos o Lema de Neyman-Pearson.
+
+\subsection*{Passo 2: Função de Verossimilhança}
+
+Para uma amostra $x = (x_1, \ldots, x_n)$:
+\begin{align}
+L(\theta; x) &= \prod_{i=1}^{n} f(x_i; \theta) \\
+&= \prod_{i=1}^{n} \frac{1}{\theta} e^{-x_i/\theta} \\
+&= \theta^{-n} \exp\left\{-\frac{1}{\theta} \sum_{i=1}^{n} x_i \right\}
+\end{align}
+
+Portanto, para $i = 0, 1$:
+\begin{equation}
+L_i = L(\theta_i; x) = \theta_i^{-n} \exp\left\{-\frac{\sum_{j=1}^{n} x_j}{\theta_i} \right\}
+\end{equation}
+
+\subsection*{Passo 3: Razão de Verossimilhanças}
+
+\begin{align}
+\frac{L_1}{L_0} &= \frac{L(\theta_1; x)}{L(\theta_0; x)} \\
+&= \frac{\theta_1^{-n} \exp\left\{-\frac{\sum x_j}{\theta_1} \right\}}{\theta_0^{-n} \exp\left\{-\frac{\sum x_j}{\theta_0} \right\}} \\
+&= \left( \frac{\theta_0}{\theta_1} \right)^n \exp\left\{ \sum_{j=1}^{n} x_j \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) \right\}
+\end{align}
+
+\subsection*{Passo 4: Região Crítica}
+
+Pelo LNP, rejeitamos $H_0$ quando $\frac{L_1}{L_0} > k$:
+\begin{equation}
+\left( \frac{\theta_0}{\theta_1} \right)^n \exp\left\{ \sum x_j \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) \right\} > k
+\end{equation}
+
+Aplicando logaritmo:
+\begin{equation}
+n \log\left( \frac{\theta_0}{\theta_1} \right) + \sum x_j \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) > \log k
+\end{equation}
+
+Rearranjando:
+\begin{equation}
+\sum x_j \left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right) > \log k - n \log\left( \frac{\theta_0}{\theta_1} \right)
+\end{equation}
+
+\textbf{Análise do sinal:} Como $\theta_1 > \theta_0 > 0$, temos:
+\begin{equation}
+\frac{1}{\theta_0} - \frac{1}{\theta_1} = \frac{\theta_1 - \theta_0}{\theta_0 \theta_1} > 0
+\end{equation}
+
+Portanto, podemos dividir a desigualdade por $\left( \frac{1}{\theta_0} - \frac{1}{\theta_1} \right)$ sem inverter o sinal:
+\begin{equation}
+\sum_{i=1}^{n} x_i > \frac{\log k - n \log(\theta_0/\theta_1)}{\frac{1}{\theta_0} - \frac{1}{\theta_1}} = k_2
+\end{equation}
+
+Logo, a região crítica é:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}_+^n : \sum_{i=1}^{n} x_i > k_2 \right\}
+\end{equation}
+
+\subsection*{Passo 5: Estatística de Teste com Distribuição Conhecida}
+
+Para termos uma estatística com distribuição livre de parâmetros sob $H_0$, precisamos transformar $\sum X_i$.
+
+\textbf{Propriedade da Exponencial:}
+
+Se $X \sim \text{Exp}(\theta)$, então $Y = \frac{X}{\theta} \sim \text{Exp}(1)$ (exponencial padrão).
+
+Mais ainda, $Z = \frac{2X}{\theta} \sim \chi^2_2$ (qui-quadrado com 2 graus de liberdade).
+
+\textbf{Demonstração:} A densidade de $Z = \frac{2X}{\theta}$ é:
+\begin{align}
+f_Z(z) &= f_X\left( \frac{\theta z}{2} \right) \cdot \frac{\theta}{2} \\
+&= \frac{1}{\theta} e^{-\frac{\theta z/2}{\theta}} \cdot \frac{\theta}{2} \\
+&= \frac{1}{2} e^{-z/2}, \quad z > 0
+\end{align}
+
+Comparando com a densidade de $\chi^2_2$:
+\begin{equation}
+f_{\chi^2_2}(z) = \frac{1}{2^1 \Gamma(1)} z^{1-1} e^{-z/2} = \frac{1}{2} e^{-z/2}
+\end{equation}
+
+Portanto, $\frac{2X_i}{\theta} \sim \chi^2_2$ para cada $i$.
+
+\textbf{Soma de qui-quadrados:} Como as $X_i$ são independentes:
+\begin{equation}
+\sum_{i=1}^{n} \frac{2X_i}{\theta} = \frac{2}{\theta} \sum_{i=1}^{n} X_i \sim \chi^2_{2n}
+\end{equation}
+
+\subsection*{Passo 6: Estatística de Teste Final}
+
+Definimos:
+\begin{equation}
+Q(x) = \frac{2}{\theta_0} \sum_{i=1}^{n} x_i
+\end{equation}
+
+Sob $H_0: \theta = \theta_0$:
+\begin{equation}
+Q(X) \overset{H_0}{\sim} \chi^2_{2n}
+\end{equation}
+
+A região crítica se torna:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}_+^n : Q(x) > q_\alpha \right\}
+\end{equation}
+
+onde $q_\alpha$ é o quantil $(1-\alpha)$ da distribuição $\chi^2_{2n}$:
+\begin{equation}
+P(Q > q_\alpha) = \alpha \quad \text{quando } Q \sim \chi^2_{2n}
+\end{equation}
+
+\subsection*{Passo 7: Teste Final}
+
+\textbf{Estatística de Teste:}
+\begin{equation}
+\boxed{Q(x) = \frac{2}{\theta_0} \sum_{i=1}^{n} x_i \overset{H_0}{\sim} \chi^2_{2n}}
+\end{equation}
+
+\textbf{Regra de Decisão:}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } Q_{\text{cal}} = \frac{2}{\theta_0} \sum_{i=1}^{n} x_i > q_\alpha
+\end{equation}
+
+onde $q_\alpha = \chi^2_{2n, 1-\alpha}$ é tal que $P(\chi^2_{2n} > q_\alpha) = \alpha$.
+
+\textbf{Método alternativo (p-valor):}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } p = P(\chi^2_{2n} > Q_{\text{cal}}) < \alpha
+\end{equation}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Estatística Suficiente:} A soma $\sum X_i$ é suficiente para $\theta$ na distribuição exponencial. O teste MP depende apenas dela.
+    
+    \item \textbf{Transformação:} A transformação $Q(x) = \frac{2}{\theta_0} \sum x_i$ é crucial porque:
+    \begin{itemize}
+        \item Remove a dependência de $\theta$ da distribuição sob $H_0$
+        \item Fornece uma distribuição conhecida e tabelada ($\chi^2_{2n}$)
+    \end{itemize}
+    
+    \item \textbf{Relação com Gamma:} Como $\text{Exp}(\theta) = \text{Gamma}(1, \theta)$, temos:
+    \begin{equation}
+    \sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)
+    \end{equation}
+    
+    \item \textbf{Graus de Liberdade:} A estatística tem $2n$ graus de liberdade (não $n$) porque cada $\frac{2X_i}{\theta}$ contribui com 2 graus de liberdade.
+    
+    \item \textbf{Interpretação:} Valores grandes de $\sum X_i$ fornecem evidência de que $\theta$ é grande (pois $E[X] = \theta$). Como $\theta_1 > \theta_0$, rejeitamos $H_0$ para somas grandes.
+    
+    \item \textbf{Cálculo Prático:} Na prática:
+    \begin{enumerate}
+        \item Calcule $Q_{\text{cal}} = \frac{2}{\theta_0} \sum x_i$
+        \item Encontre $q_\alpha$ em tabelas de $\chi^2_{2n}$ ou use software
+        \item Compare $Q_{\text{cal}}$ com $q_\alpha$
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{Exemplo Numérico}
+
+Suponha $n = 10$, $\theta_0 = 2$, $\alpha = 0.05$ e observamos $\sum x_i = 25$.
+
+\begin{enumerate}
+    \item Calcular estatística: $Q_{\text{cal}} = \frac{2}{2} \cdot 25 = 25$
+    \item Graus de liberdade: $2n = 20$
+    \item Valor crítico: $\chi^2_{20, 0.95} = 31.41$ (da tabela)
+    \item Decisão: Como $25 < 31.41$, não rejeitamos $H_0$
+\end{enumerate}
+
+\textbf{Interpretação:} Não há evidência suficiente ao nível 5\% para concluir que $\theta > 2$.
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste MP para $H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$ ($\theta_1 > \theta_0$):}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+Q(x) = \frac{2}{\theta_0} \sum_{i=1}^{n} x_i \overset{H_0}{\sim} \chi^2_{2n}
+\end{equation*}
+
+\textbf{Regra de Decisão:}
+\begin{equation*}
+\text{Rejeita } H_0 \text{ se } Q_{\text{cal}} > \chi^2_{2n, 1-\alpha}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Teste MP de nível $\alpha$ (pelo LNP)
+    \item Depende da estatística suficiente $\sum X_i$
+    \item Distribuição sob $H_0$ é $\chi^2$ com $2n$ graus de liberdade
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.6: Teste MP para Distribuição Bernoulli}
+% ================================================================
+
+\begin{questaobox}{Questão 4.6}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Bernoulli}(p)$ para $p \in (0,1)$ desconhecida.
+
+Encontre o teste Mais Poderoso (MP) para:
+\begin{equation}
+H_0: p = p_0 \quad \text{vs} \quad H_1: p = p_1 \quad (p_1 > p_0)
+\end{equation}
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Aplicação do LNP}
+
+Como ambas as hipóteses são simples, aplicamos o Lema de Neyman-Pearson.
+
+\subsection*{Passo 2: Função de Verossimilhança}
+
+Para $X \sim \text{Bernoulli}(p)$, a função de massa de probabilidade é:
+\begin{equation}
+P(X = x) = p^x (1-p)^{1-x}, \quad x \in \{0, 1\}
+\end{equation}
+
+Para uma amostra $x = (x_1, \ldots, x_n)$:
+\begin{align}
+L(p; x) &= \prod_{k=1}^{n} p^{x_k} (1-p)^{1-x_k} \\
+&= p^{\sum_{k=1}^{n} x_k} (1-p)^{n - \sum_{k=1}^{n} x_k} \\
+&= p^{\sum x_k} (1-p)^{n - \sum x_k}
+\end{align}
+
+Podemos reescrever como:
+\begin{equation}
+L(p; x) = \left(\frac{p}{1-p}\right)^{\sum x_k} (1-p)^n
+\end{equation}
+
+\subsection*{Passo 3: Razão de Verossimilhanças}
+
+\begin{align}
+\frac{L_1}{L_0} &= \frac{L(p_1; x)}{L(p_0; x)} \\
+&= \frac{\left(\frac{p_1}{1-p_1}\right)^{\sum x_k} (1-p_1)^n}{\left(\frac{p_0}{1-p_0}\right)^{\sum x_k} (1-p_0)^n} \\
+&= \left[\frac{p_1(1-p_0)}{p_0(1-p_1)}\right]^{\sum x_k} \cdot \left[\frac{1-p_1}{1-p_0}\right]^n
+\end{align}
+
+Definindo:
+\begin{equation}
+A_1 = \frac{p_1(1-p_0)}{p_0(1-p_1)} \quad \text{e} \quad A_2 = \frac{1-p_1}{1-p_0}
+\end{equation}
+
+\textbf{Análise dos sinais:}
+\begin{itemize}
+    \item Como $p_1 > p_0$, temos $\frac{p_1}{p_0} > 1$ e $\frac{1-p_0}{1-p_1} > 1$, portanto $A_1 > 1$
+    \item Como $p_1 > p_0$, temos $1-p_1 < 1-p_0$, portanto $A_2 < 1$
+\end{itemize}
+
+\subsection*{Passo 4: Região Crítica}
+
+Pelo LNP, rejeitamos $H_0$ quando:
+\begin{equation}
+A_1^{\sum x_k} \cdot A_2^n > k
+\end{equation}
+
+Aplicando logaritmo:
+\begin{equation}
+\sum x_k \log(A_1) + n\log(A_2) > \log k
+\end{equation}
+
+Como $A_1 > 1$, temos $\log(A_1) > 0$, então:
+\begin{equation}
+\sum x_k > \frac{\log k - n\log(A_2)}{\log(A_1)} = k_1
+\end{equation}
+
+Portanto:
+\begin{equation}
+R_c = \left\{ x \in \{0,1\}^n : \sum_{i=1}^{n} x_i > k_1 \right\}
+\end{equation}
+
+\subsection*{Passo 5: Teste Aleatorizado}
+
+Como $\sum X_i$ é discreta, geralmente precisamos de um teste aleatorizado para atingir exatamente o nível $\alpha$.
+
+A função crítica é:
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } \sum x_i > k_1 \\
+\delta, & \text{se } \sum x_i = k_1 \\
+0, & \text{se } \sum x_i < k_1
+\end{cases}
+\end{equation}
+
+\textbf{Distribuição sob $H_0$:} 
+\begin{equation}
+\sum_{i=1}^{n} X_i \sim \text{Binomial}(n, p_0)
+\end{equation}
+
+\subsection*{Passo 6: Determinação de $k_1$ e $\delta$}
+
+\textbf{Passo 6.1:} Encontre o menor inteiro $k_1$ tal que:
+\begin{equation}
+P_{p_0}\left[\sum X_i > k_1\right] < \alpha
+\end{equation}
+
+\textbf{Passo 6.2:} Calcule $\delta$ para que o teste tenha exatamente tamanho $\alpha$:
+\begin{equation}
+\delta = \frac{\alpha - P_{p_0}\left[\sum X_i > k_1\right]}{P_{p_0}\left[\sum X_i = k_1\right]}
+\end{equation}
+
+onde:
+\begin{align}
+P_{p_0}\left[\sum X_i = k_1\right] &= \binom{n}{k_1} p_0^{k_1} (1-p_0)^{n-k_1} \\
+P_{p_0}\left[\sum X_i > k_1\right] &= \sum_{j=k_1+1}^{n} \binom{n}{j} p_0^j (1-p_0)^{n-j}
+\end{align}
+
+\subsection*{Passo 7: Interpretação da Aleatorização}
+
+O parâmetro $\delta$ representa a probabilidade com a qual rejeitamos $H_0$ quando $\sum x_i = k_1$.
+
+\textbf{Implementação prática:}
+\begin{enumerate}
+    \item Observe $\sum x_i$
+    \item Se $\sum x_i > k_1$: rejeite $H_0$
+    \item Se $\sum x_i < k_1$: não rejeite $H_0$  
+    \item Se $\sum x_i = k_1$: lance uma moeda com $P(\text{cara}) = \delta$ e rejeite $H_0$ se der cara
+\end{enumerate}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Estatística Suficiente:} $\sum X_i$ é suficiente para $p$. O teste MP depende apenas desta soma.
+    
+    \item \textbf{Necessidade de Aleatorização:} Para distribuições discretas, raramente conseguimos um teste não-aleatorizado com tamanho exato $\alpha$. A aleatorização resolve esse problema.
+    
+    \item \textbf{Distribuição Binomial:} A soma de Bernoullis independentes segue distribuição Binomial.
+    
+    \item \textbf{Razão de Chances:} A razão $\frac{p}{1-p}$ é conhecida como "odds" (chances). O teste compara as chances sob $H_1$ e $H_0$.
+    
+    \item \textbf{Intuição:} Valores grandes de $\sum X_i$ (muitos sucessos) fornecem evidência de que $p$ é grande, levando à rejeição de $H_0: p = p_0$ em favor de $H_1: p = p_1 > p_0$.
+\end{enumerate}
+
+\subsection*{Exemplo Numérico}
+
+Suponha $n = 10$, $p_0 = 0.3$, $p_1 = 0.6$, $\alpha = 0.05$.
+
+\begin{enumerate}
+    \item Sob $H_0$: $\sum X_i \sim \text{Binomial}(10, 0.3)$
+    \item Calculamos (usando software ou tabelas):
+    \begin{itemize}
+        \item $P(\sum X_i > 6) = 0.0473 < 0.05$ \checkmark
+        \item $P(\sum X_i > 5) = 0.1503 > 0.05$ \textsf{X}
+    \end{itemize}
+    \item Portanto, $k_1 = 6$
+    \item $P(\sum X_i = 6) = \binom{10}{6}(0.3)^6(0.7)^4 = 0.0368$
+    \item $\delta = \frac{0.05 - 0.0473}{0.0368} = 0.0734$
+\end{enumerate}
+
+\textbf{Regra de decisão:}
+\begin{itemize}
+    \item Se observamos 7, 8, 9 ou 10 sucessos: rejeitamos $H_0$
+    \item Se observamos 0, 1, 2, 3, 4 ou 5 sucessos: não rejeitamos $H_0$
+    \item Se observamos exatamente 6 sucessos: rejeitamos com probabilidade 7.34\%
+\end{itemize}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste MP para $H_0: p = p_0$ vs $H_1: p = p_1$ ($p_1 > p_0$):}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+T = \sum_{i=1}^{n} X_i \sim \text{Binomial}(n, p_0) \text{ sob } H_0
+\end{equation*}
+
+\textbf{Função Crítica:}
+\begin{equation*}
+\psi(x) = \begin{cases}
+1, & \sum x_i > k_1 \\
+\delta, & \sum x_i = k_1 \\
+0, & \sum x_i < k_1
+\end{cases}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Teste MP de nível $\alpha$ (pelo LNP)
+    \item Geralmente requer aleatorização (distribuição discreta)
+    \item Depende apenas da estatística suficiente $\sum X_i$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.7: Teste MP para Distribuição Poisson}
+% ================================================================
+
+\begin{questaobox}{Questão 4.7}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim \text{Poisson}(\lambda)$ para $\lambda > 0$ desconhecido.
+
+Derive o teste Mais Poderoso (MP) para:
+\begin{equation}
+H_0: \lambda = \lambda_0 \quad \text{vs} \quad H_1: \lambda = \lambda_1 \quad (\lambda_1 > \lambda_0)
+\end{equation}
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Aplicação do LNP}
+
+Como temos hipóteses simples vs simples, aplicamos o Lema de Neyman-Pearson.
+
+\subsection*{Passo 2: Função de Verossimilhança}
+
+Para $X \sim \text{Poisson}(\lambda)$, a função de massa de probabilidade é:
+\begin{equation}
+P(X = x) = \frac{\lambda^x e^{-\lambda}}{x!}, \quad x \in \{0, 1, 2, \ldots\}
+\end{equation}
+
+Para uma amostra $x = (x_1, \ldots, x_n)$:
+\begin{align}
+L(\lambda; x) &= \prod_{k=1}^{n} \frac{\lambda^{x_k} e^{-\lambda}}{x_k!} \\
+&= \frac{\lambda^{\sum_{k=1}^{n} x_k} e^{-n\lambda}}{\prod_{k=1}^{n} x_k!} \\
+&= e^{-n\lambda} \cdot \lambda^{\sum x_k} \cdot \prod_{k=1}^{n} \frac{1}{x_k!}
+\end{align}
+
+\subsection*{Passo 3: Razão de Verossimilhanças}
+
+\begin{align}
+\frac{L_1}{L_0} &= \frac{L(\lambda_1; x)}{L(\lambda_0; x)} \\
+&= \frac{e^{-n\lambda_1} \lambda_1^{\sum x_k}}{e^{-n\lambda_0} \lambda_0^{\sum x_k}} \\
+&= \left[\frac{e^{-\lambda_1}}{e^{-\lambda_0}}\right]^n \cdot \left[\frac{\lambda_1}{\lambda_0}\right]^{\sum x_k} \\
+&= e^{-n(\lambda_1 - \lambda_0)} \cdot \left(\frac{\lambda_1}{\lambda_0}\right)^{\sum x_k}
+\end{align}
+
+\subsection*{Passo 4: Região Crítica}
+
+Pelo LNP, rejeitamos $H_0$ quando $\frac{L_1}{L_0} > k$:
+\begin{equation}
+e^{-n(\lambda_1 - \lambda_0)} \cdot \left(\frac{\lambda_1}{\lambda_0}\right)^{\sum x_k} > k
+\end{equation}
+
+Aplicando logaritmo:
+\begin{equation}
+-n(\lambda_1 - \lambda_0) + \sum x_k \log\left(\frac{\lambda_1}{\lambda_0}\right) > \log k
+\end{equation}
+
+Como $\lambda_1 > \lambda_0$, temos $\frac{\lambda_1}{\lambda_0} > 1$, logo $\log\left(\frac{\lambda_1}{\lambda_0}\right) > 0$.
+
+Rearranjando:
+\begin{align}
+\sum x_k \log\left(\frac{\lambda_1}{\lambda_0}\right) &> \log k + n(\lambda_1 - \lambda_0) \\
+\sum x_k &> \frac{\log k + n(\lambda_1 - \lambda_0)}{\log(\lambda_1/\lambda_0)} = k_1
+\end{align}
+
+Portanto:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{Z}_+^n : \sum_{i=1}^{n} x_i > k_1 \right\}
+\end{equation}
+
+\subsection*{Passo 5: Teste Aleatorizado}
+
+A função crítica é:
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } \sum x_i > k_1 \\
+\delta, & \text{se } \sum x_i = k_1 \\
+0, & \text{se } \sum x_i < k_1
+\end{cases}
+\end{equation}
+
+\textbf{Distribuição sob $H_0$:}
+
+Se $X_i \sim \text{Poisson}(\lambda)$ são independentes, então:
+\begin{equation}
+\sum_{i=1}^{n} X_i \sim \text{Poisson}(n\lambda_0)
+\end{equation}
+
+\textbf{Demonstração:} A função geradora de momentos de $X \sim \text{Poisson}(\lambda)$ é $M_X(t) = e^{\lambda(e^t - 1)}$.
+
+Para a soma:
+\begin{align}
+M_{\sum X_i}(t) &= \prod_{i=1}^{n} M_{X_i}(t) = [e^{\lambda(e^t - 1)}]^n \\
+&= e^{n\lambda(e^t - 1)}
+\end{align}
+
+que é a MGF de $\text{Poisson}(n\lambda)$.
+
+\subsection*{Passo 6: Determinação de $k_1$ e $\delta$}
+
+\textbf{Passo 6.1:} Encontre o menor inteiro $k_1$ tal que:
+\begin{equation}
+P_{n\lambda_0}\left[\sum X_i > k_1\right] < \alpha
+\end{equation}
+
+\textbf{Passo 6.2:} Calcule $\delta$:
+\begin{equation}
+\delta = \frac{\alpha - P_{n\lambda_0}\left[\sum X_i > k_1\right]}{P_{n\lambda_0}\left[\sum X_i = k_1\right]}
+\end{equation}
+
+onde:
+\begin{align}
+P_{n\lambda_0}\left[\sum X_i = k_1\right] &= \frac{(n\lambda_0)^{k_1} e^{-n\lambda_0}}{k_1!} \\
+P_{n\lambda_0}\left[\sum X_i > k_1\right] &= \sum_{j=k_1+1}^{\infty} \frac{(n\lambda_0)^j e^{-n\lambda_0}}{j!}
+\end{align}
+
+\subsection*{Passo 7: Relação com Estatísticas Suficientes}
+
+\textbf{Observação importante:} $\sum X_i$ é uma estatística suficiente para $\lambda$ (pelo Teorema da Fatoração de Neyman).
+
+O teste MP depende apenas desta estatística suficiente, confirmando o princípio da suficiência.
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Propriedade Aditiva da Poisson:} A soma de Poissons independentes é Poisson. Esta propriedade é crucial para determinar a distribuição da estatística de teste.
+    
+    \item \textbf{Estatística Suficiente:} $T(X) = \sum X_i$ é suficiente para $\lambda$. O teste ótimo depende apenas dela.
+    
+    \item \textbf{Família Exponencial:} A Poisson pertence à família exponencial de distribuições. Para essas distribuições, a estatística suficiente tem forma simples.
+    
+    \item \textbf{Comparação com Binomial:} Ambas são distribuições discretas que somam para uma distribuição da mesma família. Ambas requerem aleatorização para tamanho exato $\alpha$.
+    
+    \item \textbf{Aproximação Normal:} Para $n\lambda_0$ grande, $\sum X_i \approx N(n\lambda_0, n\lambda_0)$, permitindo usar teste Z aproximado.
+\end{enumerate}
+
+\subsection*{Exemplo Numérico}
+
+Suponha $n = 5$, $\lambda_0 = 2$, $\lambda_1 = 4$, $\alpha = 0.05$.
+
+\begin{enumerate}
+    \item Sob $H_0$: $\sum X_i \sim \text{Poisson}(10)$
+    \item Valor esperado e variância: $E[\sum X_i] = 10$, $\text{Var}(\sum X_i) = 10$
+    \item Usando tabelas ou software Poisson(10):
+    \begin{itemize}
+        \item $P(\sum X_i > 16) = 0.0487 < 0.05$ \checkmark
+        \item $P(\sum X_i > 15) = 0.0835 > 0.05$ \textsf{X}
+    \end{itemize}
+    \item Portanto, $k_1 = 16$
+    \item $P(\sum X_i = 16) = \frac{10^{16} e^{-10}}{16!} = 0.0348$
+    \item $\delta = \frac{0.05 - 0.0487}{0.0348} = 0.0374$
+\end{enumerate}
+
+\textbf{Regra de decisão:}
+\begin{itemize}
+    \item Se $\sum x_i \geq 17$: rejeitamos $H_0$ sempre
+    \item Se $\sum x_i \leq 15$: não rejeitamos $H_0$
+    \item Se $\sum x_i = 16$: rejeitamos com probabilidade 3.74\%
+\end{itemize}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste MP para $H_0: \lambda = \lambda_0$ vs $H_1: \lambda = \lambda_1$ ($\lambda_1 > \lambda_0$):}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+T = \sum_{i=1}^{n} X_i \sim \text{Poisson}(n\lambda_0) \text{ sob } H_0
+\end{equation*}
+
+\textbf{Função Crítica:}
+\begin{equation*}
+\psi(x) = \begin{cases}
+1, & \sum x_i > k_1 \\
+\delta, & \sum x_i = k_1 \\
+0, & \sum x_i < k_1
+\end{cases}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Teste MP de nível $\alpha$ (pelo LNP)
+    \item A soma de Poissons é Poisson  
+    \item Depende apenas da estatística suficiente $\sum X_i$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.8: Teste MP para Densidades Não-Paramétricas}
+% ================================================================
+
+\begin{questaobox}{Questão 4.8}
+Seja $X$ uma v.a. com densidade $f(x)$ para $x \in \mathbb{R}$. Considere duas densidades:
+\begin{equation}
+f_0(x) = \begin{cases}
+\frac{3x^2}{64}, & 0 < x < 4 \\
+0, & \text{c.c.}
+\end{cases}
+\quad \text{e} \quad
+f_1(x) = \begin{cases}
+\frac{3}{16}\sqrt{x}, & 0 < x < 4 \\
+0, & \text{c.c.}
+\end{cases}
+\end{equation}
+
+Determine o teste MP de nível $\alpha$ para:
+\begin{equation}
+H_0: f(x) = f_0(x) \quad \text{vs} \quad H_1: f(x) = f_1(x)
+\end{equation}
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Aplicação do LNP}
+
+Este é um exemplo de teste entre densidades completamente especificadas (hipóteses simples). Aplicamos o LNP.
+
+\textbf{Observação:} Este não é um teste paramétrico tradicional, mas o LNP ainda se aplica!
+
+\subsection*{Passo 2: Razão de Densidades}
+
+Pelo LNP, rejeitamos $H_0$ quando:
+\begin{equation}
+\frac{f_1(x)}{f_0(x)} > k
+\end{equation}
+
+Calculando a razão para $x \in (0, 4)$:
+\begin{align}
+\frac{f_1(x)}{f_0(x)} &= \frac{\frac{3}{16}\sqrt{x}}{\frac{3x^2}{64}} \\
+&= \frac{3 \cdot 64 \cdot x^{1/2}}{16 \cdot 3 \cdot x^2} \\
+&= \frac{64 \cdot x^{1/2}}{16 \cdot x^2} \\
+&= \frac{4}{x^{3/2}} \\
+&= 4x^{-3/2}
+\end{align}
+
+\subsection*{Passo 3: Região Crítica}
+
+Rejeitamos $H_0$ quando:
+\begin{equation}
+4x^{-3/2} > k
+\end{equation}
+
+Rearranjando:
+\begin{align}
+x^{-3/2} &> \frac{k}{4} \\
+x^{3/2} &< \frac{4}{k} \\
+x &< \left(\frac{4}{k}\right)^{2/3}
+\end{align}
+
+Definindo $k_1 = \left(\frac{4}{k}\right)^{2/3}$:
+\begin{equation}
+R_c = \{x \in (0, 4) : x < k_1\}
+\end{equation}
+
+\textbf{Interpretação importante:} Rejeitamos $H_0$ para valores PEQUENOS de $X$! Isso acontece porque $f_1$ dá mais peso para valores pequenos que $f_0$.
+
+\subsection*{Passo 4: Determinação de $k_1$ para Tamanho $\alpha$}
+
+Queremos que o teste tenha tamanho $\alpha$:
+\begin{equation}
+\alpha = P_{f_0}[X < k_1] = \int_0^{k_1} f_0(x)\,dx
+\end{equation}
+
+Calculando:
+\begin{align}
+\int_0^{k_1} \frac{3x^2}{64}\,dx &= \frac{3}{64} \cdot \frac{x^3}{3}\Big|_0^{k_1} \\
+&= \frac{k_1^3}{64}
+\end{align}
+
+Portanto:
+\begin{equation}
+\alpha = \frac{k_1^3}{64}
+\end{equation}
+
+Resolvendo para $k_1$:
+\begin{equation}
+\boxed{k_1 = (64\alpha)^{1/3} = 4\alpha^{1/3}}
+\end{equation}
+
+\subsection*{Passo 5: Poder do Teste}
+
+O poder é a probabilidade de rejeitar $H_0$ quando $H_1$ é verdadeira:
+\begin{align}
+\text{Poder} &= P_{f_1}[X < k_1] = \int_0^{k_1} f_1(x)\,dx \\
+&= \int_0^{k_1} \frac{3}{16}\sqrt{x}\,dx \\
+&= \frac{3}{16} \cdot \frac{2x^{3/2}}{3}\Big|_0^{k_1} \\
+&= \frac{x^{3/2}}{8}\Big|_0^{k_1} \\
+&= \frac{k_1^{3/2}}{8}
+\end{align}
+
+Substituindo $k_1 = 4\alpha^{1/3}$:
+\begin{align}
+\text{Poder} &= \frac{(4\alpha^{1/3})^{3/2}}{8} \\
+&= \frac{4^{3/2} \cdot \alpha^{1/2}}{8} \\
+&= \frac{8\alpha^{1/2}}{8} \\
+&= \boxed{\alpha^{1/2} = \sqrt{\alpha}}
+\end{align}
+
+\subsection*{Passo 6: Teste Final}
+
+\textbf{Região Crítica:}
+\begin{equation}
+R_c = \left\{x \in (0, 4) : x < 4\alpha^{1/3}\right\}
+\end{equation}
+
+\textbf{Regra de Decisão:}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } x < 4\alpha^{1/3}
+\end{equation}
+
+\textbf{Poder:}
+\begin{equation}
+\beta(f_1) = \sqrt{\alpha}
+\end{equation}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Teste Não-Paramétrico:} Este é um exemplo onde não há parâmetro desconhecido. Estamos testando entre duas formas funcionais completamente especificadas.
+    
+    \item \textbf{Região Crítica não-Intuitiva:} Rejeitamos para valores PEQUENOS de $X$. Isso ilustra que a região crítica depende de como as densidades se relacionam.
+    
+    \item \textbf{Poder Crescente com $\alpha$:} Como o poder é $\sqrt{\alpha}$, ele aumenta com $\alpha$, mas de forma sub-linear.
+    
+    \item \textbf{Exemplo Numérico:}
+    \begin{itemize}
+        \item Para $\alpha = 0.05$: $k_1 = 4(0.05)^{1/3} \approx 1.47$, Poder $= \sqrt{0.05} \approx 22.4\%$
+        \item Para $\alpha = 0.01$: $k_1 = 4(0.01)^{1/3} \approx 0.86$, Poder $= \sqrt{0.01} = 10\%$
+    \end{itemize}
+    
+    \item \textbf{Visualização:} $f_1(x)$ é maior que $f_0(x)$ para $x$ pequenos e menor para $x$ grandes. A razão $\frac{f_1}{f_0}$ é grande para $x$ pequenos.
+\end{enumerate}
+
+\subsection*{Comparação das Densidades}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\draw[->] (0,0) -- (4.5,0) node[right] {$x$};
+\draw[->] (0,0) -- (0,2) node[above] {$f(x)$};
+
+% f_0(x) = 3x^2/64
+\draw[thick, blue, domain=0:4, samples=100] plot (\x, {3*\x*\x/64*8});
+\node at (3.5,1.8) [blue] {$f_0(x)$};
+
+% f_1(x) = 3sqrt(x)/16  
+\draw[thick, red, domain=0:4, samples=100] plot (\x, {3*sqrt(\x)/16*8});
+\node at (1,1.5) [red] {$f_1(x)$};
+
+% Região crítica
+\fill[green!20, opacity=0.3] (0,0) rectangle (1.5,2);
+\draw[dashed] (1.5,0) -- (1.5,2);
+\node at (0.75,0.2) {$R_c$};
+\node at (1.5,-0.2) {$k_1$};
+\end{tikzpicture}
+\end{center}
+
+A região crítica $R_c$ (em verde) corresponde a valores pequenos de $X$ onde $f_1$ domina $f_0$.
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste MP para $H_0: f = f_0$ vs $H_1: f = f_1$:}
+
+\textbf{Região Crítica:}
+\begin{equation*}
+R_c = \{x \in (0,4) : x < 4\alpha^{1/3}\}
+\end{equation*}
+
+\textbf{Regra de Decisão:}
+\begin{equation*}
+\text{Rejeita } H_0 \text{ se } X_{\text{obs}} < 4\alpha^{1/3}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Tamanho exato $\alpha$
+    \item Poder $= \sqrt{\alpha}$
+    \item Exemplo de teste não-paramétrico MP
+    \item Região crítica em valores pequenos de $X$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.9: Teste MP com Duas Variáveis Independentes}
+% ================================================================
+
+\begin{questaobox}{Questão 4.9}
+Sejam $X_1$ e $X_2$ duas v.a.'s independentes com densidade $f(x)$. 
+
+Determine o teste MP de nível $\alpha$ para:
+\begin{equation}
+H_0: f(x) = f_0(x) \quad \text{vs} \quad H_1: f(x) = f_1(x)
+\end{equation}
+
+onde $f_0$ e $f_1$ são as mesmas densidades da Questão 4.8.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Aplicação do LNP para Amostra Bivariada}
+
+Para duas observações independentes, a densidade conjunta é o produto das marginais.
+
+Pelo LNP, rejeitamos $H_0$ quando:
+\begin{equation}
+\frac{f_1(x_1)f_1(x_2)}{f_0(x_1)f_0(x_2)} > k
+\end{equation}
+
+\subsection*{Passo 2: Simplificação da Razão}
+
+Da Questão 4.8, sabemos que $\frac{f_1(x)}{f_0(x)} = 4x^{-3/2}$ para $x \in (0,4)$.
+
+Portanto:
+\begin{align}
+\frac{f_1(x_1)f_1(x_2)}{f_0(x_1)f_0(x_2)} &= \frac{f_1(x_1)}{f_0(x_1)} \cdot \frac{f_1(x_2)}{f_0(x_2)} \\
+&= 4x_1^{-3/2} \cdot 4x_2^{-3/2} \\
+&= 16(x_1 x_2)^{-3/2}
+\end{align}
+
+\subsection*{Passo 3: Região Crítica}
+
+Rejeitamos $H_0$ quando:
+\begin{equation}
+16(x_1 x_2)^{-3/2} > k
+\end{equation}
+
+Rearranjando:
+\begin{align}
+(x_1 x_2)^{-3/2} &> \frac{k}{16} \\
+(x_1 x_2)^{3/2} &< \frac{16}{k} \\
+x_1 x_2 &< \left(\frac{16}{k}\right)^{2/3}
+\end{align}
+
+Definindo $K_1 = \left(\frac{16}{k}\right)^{2/3}$:
+\begin{equation}
+R_c = \{(x_1, x_2) \in (0,4) \times (0,4) : x_1 x_2 < K_1\}
+\end{equation}
+
+\subsection*{Passo 4: Usando a Função de Distribuição}
+
+Para determinar $K_1$, usamos a função de distribuição acumulada de $f_0$.
+
+A fda correspondente a $f_0$ é:
+\begin{equation}
+F_0(x) = \begin{cases}
+0, & x \leq 0 \\
+\frac{x^3}{64}, & 0 < x < 4 \\
+1, & x \geq 4
+\end{cases}
+\end{equation}
+
+\textbf{Verificação:}
+\begin{equation}
+F_0(x) = \int_0^x \frac{3t^2}{64}\,dt = \frac{3}{64} \cdot \frac{t^3}{3}\Big|_0^x = \frac{x^3}{64}
+\end{equation}
+
+\subsection*{Passo 5: Estatística qui-Quadrado}
+
+Uma propriedade útil: Se $X \sim f_0$, então:
+\begin{equation}
+-2\log F_0(X) \sim \chi^2_2
+\end{equation}
+
+\textbf{Demonstração rápida:} 
+\begin{itemize}
+    \item $F_0(X) \sim \text{Uniforme}(0,1)$ (transformação probabilidade integral)
+    \item Se $U \sim \text{Uniforme}(0,1)$, então $-2\log U \sim \chi^2_2$
+\end{itemize}
+
+\subsection*{Passo 6: Reformulação da Região Crítica}
+
+A condição $x_1 x_2 < K_1$ pode ser reescrita usando $F_0$:
+\begin{align}
+x_1 x_2 < K_1 &\Leftrightarrow \frac{x_1^3}{64} \cdot \frac{x_2^3}{64} < k_2 \\
+&\Leftrightarrow F_0(x_1) \cdot F_0(x_2) < k_2 \\
+&\Leftrightarrow -\log[F_0(x_1) \cdot F_0(x_2)] > -\log k_2 \\
+&\Leftrightarrow -\log F_0(x_1) - \log F_0(x_2) > -\log k_2 \\
+&\Leftrightarrow -2\log F_0(x_1) - 2\log F_0(x_2) > -2\log k_2
+\end{align}
+
+\subsection*{Passo 7: Estatística de Teste Final}
+
+Definimos:
+\begin{equation}
+Q(x_1, x_2) = -2\sum_{i=1}^{2} \log F_0(x_i) = -2\log F_0(x_1) - 2\log F_0(x_2)
+\end{equation}
+
+Sob $H_0$, como $X_1$ e $X_2$ são independentes:
+\begin{equation}
+Q(X_1, X_2) \overset{H_0}{\sim} \chi^2_4
+\end{equation}
+
+pois é a soma de duas variáveis $\chi^2_2$ independentes.
+
+A região crítica é:
+\begin{equation}
+R_c = \{(x_1, x_2) : Q(x_1, x_2) > q_\alpha\}
+\end{equation}
+
+onde $q_\alpha = \chi^2_{4,1-\alpha}$ satisfaz:
+\begin{equation}
+P_{\chi^2_4}[Q > q_\alpha] = \alpha
+\end{equation}
+
+\subsection*{Passo 8: Teste Final}
+
+\textbf{Estatística de Teste:}
+\begin{equation}
+\boxed{Q(x_1, x_2) = -2\log F_0(x_1) - 2\log F_0(x_2) \overset{H_0}{\sim} \chi^2_4}
+\end{equation}
+
+\textbf{Regra de Decisão:}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } Q(x_1, x_2) > \chi^2_{4, 1-\alpha}
+\end{equation}
+
+Para os dados, calculamos:
+\begin{equation}
+Q = -2\log\left(\frac{x_1^3}{64}\right) - 2\log\left(\frac{x_2^3}{64}\right)
+\end{equation}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Extensão Natural:} Este problema estende a Questão 4.8 para duas observações. A lógica é similar, mas trabalhamos no espaço bidimensional.
+    
+    \item \textbf{Estatística Qui-Quadrado:} A transformação via $-2\log F_0$ é uma técnica poderosa que aparece em muitos contextos (teste da razão de verossimilhanças, por exemplo).
+    
+    \item \textbf{Independência:} A independência de $X_1$ e $X_2$ permite que a estatística seja a soma de duas $\chi^2_2$, resultando em $\chi^2_4$.
+    
+    \item \textbf{Generalização:} Para $n$ observações, teríamos:
+    \begin{equation}
+    Q = -2\sum_{i=1}^{n} \log F_0(X_i) \sim \chi^2_{2n}
+    \end{equation}
+    
+    \item \textbf{Aplicação Prática:} Para $\alpha = 0.05$, usamos $\chi^2_{4, 0.95} = 9.488$. Se $Q_{\text{calc}} > 9.488$, rejeitamos $H_0$.
+\end{enumerate}
+
+\subsection*{Exemplo Numérico}
+
+Suponha que observamos $x_1 = 0.5$ e $x_2 = 1.0$.
+
+\begin{enumerate}
+    \item Calcular $F_0$:
+    \begin{align}
+    F_0(0.5) &= \frac{(0.5)^3}{64} = \frac{0.125}{64} \approx 0.00195 \\
+    F_0(1.0) &= \frac{1^3}{64} = \frac{1}{64} \approx 0.01563
+    \end{align}
+    
+    \item Calcular $Q$:
+    \begin{align}
+    Q &= -2\log(0.00195) - 2\log(0.01563) \\
+    &= -2(-6.241) - 2(-4.158) \\
+    &= 12.482 + 8.316 \\
+    &= 20.798
+    \end{align}
+    
+    \item Decisão: Como $20.798 > 9.488$, rejeitamos $H_0$ ao nível 5\%.
+\end{enumerate}
+
+\textbf{Interpretação:} Os valores observados $(0.5, 1.0)$ são "muito pequenos" sob $f_0$, fornecendo evidência forte a favor de $f_1$.
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste MP para $H_0: f = f_0$ vs $H_1: f = f_1$ (2 observações):}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+Q = -2\sum_{i=1}^{2} \log F_0(X_i) \overset{H_0}{\sim} \chi^2_4
+\end{equation*}
+
+\textbf{Regra de Decisão:}
+\begin{equation*}
+\text{Rejeita } H_0 \text{ se } Q_{\text{cal}} > \chi^2_{4, 1-\alpha}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Generalização da Q4.8 para 2 observações
+    \item Usa transformação via função de distribuição
+    \item Estatística de teste tem distribuição $\chi^2$ conhecida
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.10: Teste UMP para Variância (Normal com Média Zero)}
+% ================================================================
+
+\begin{questaobox}{Questão 4.10}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(0, \sigma^2)$, onde $\sigma^2 > 0$ é desconhecido.
+
+Fixando $\alpha \in (0,1)$, obtenha o teste Uniformemente Mais Poderoso (UMP) de nível $\alpha$ para:
+\begin{equation}
+H_0: \sigma = \sigma_0 \quad \text{vs} \quad H_1: \sigma < \sigma_0
+\end{equation}
+onde $\sigma_0 > 0$ é conhecido.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Estratégia via LNP}
+
+Fixemos $\sigma_1 < \sigma_0$ e consideremos inicialmente o problema:
+\begin{equation}
+H_0: \sigma = \sigma_0 \quad \text{vs} \quad H_1': \sigma = \sigma_1
+\end{equation}
+
+Aplicamos o LNP e depois mostramos que o teste resultante não depende da escolha de $\sigma_1$, provando que é UMP.
+
+\subsection*{Passo 2: Função de Verossimilhança}
+
+Para $X \sim N(0, \sigma^2)$, a densidade é:
+\begin{equation}
+f(x; \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left\{-\frac{x^2}{2\sigma^2}\right\}
+\end{equation}
+
+Para uma amostra $x = (x_1, \ldots, x_n)$:
+\begin{align}
+L(\sigma; x) &= \prod_{j=1}^{n} (2\pi\sigma^2)^{-1/2} \exp\left\{-\frac{x_j^2}{2\sigma^2}\right\} \\
+&= (2\pi\sigma^2)^{-n/2} \exp\left\{-\frac{1}{2\sigma^2}\sum_{j=1}^{n} x_j^2\right\}
+\end{align}
+
+Para $k = 0, 1$:
+\begin{equation}
+L_k = L(\sigma_k; x) = (2\pi\sigma_k^2)^{-n/2} \exp\left\{-\frac{\sum x_j^2}{2\sigma_k^2}\right\}
+\end{equation}
+
+\subsection*{Passo 3: Razão de Verossimilhanças}
+
+\begin{align}
+\frac{L_1}{L_0} &= \frac{(2\pi\sigma_1^2)^{-n/2}}{(2\pi\sigma_0^2)^{-n/2}} \exp\left\{-\frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right)\right\} \\
+&= \left(\frac{\sigma_0^2}{\sigma_1^2}\right)^{n/2} \exp\left\{-\frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right)\right\}
+\end{align}
+
+\subsection*{Passo 4: Região Crítica}
+
+Pelo LNP, rejeitamos $H_0$ quando $\frac{L_1}{L_0} > k$:
+\begin{equation}
+\left(\frac{\sigma_0^2}{\sigma_1^2}\right)^{n/2} \exp\left\{-\frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right)\right\} > k
+\end{equation}
+
+Aplicando logaritmo:
+\begin{equation}
+\frac{n}{2}\log\left(\frac{\sigma_0^2}{\sigma_1^2}\right) - \frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right) > \log k
+\end{equation}
+
+Rearranjando:
+\begin{equation}
+-\frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right) > \log k - \frac{n}{2}\log\left(\frac{\sigma_0^2}{\sigma_1^2}\right)
+\end{equation}
+
+Como $\sigma_1 < \sigma_0$, temos $\frac{1}{\sigma_1^2} > \frac{1}{\sigma_0^2}$, logo $\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2} > 0$.
+
+Multiplicando por $-1$ (inverte desigualdade):
+\begin{equation}
+\frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right) < -\log k + \frac{n}{2}\log\left(\frac{\sigma_0^2}{\sigma_1^2}\right)
+\end{equation}
+
+Dividindo por $\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right) > 0$:
+\begin{equation}
+\sum x_j^2 < \frac{2\left[-\log k + \frac{n}{2}\log\left(\frac{\sigma_0^2}{\sigma_1^2}\right)\right]}{\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}}
+\end{equation}
+
+Simplificando o lado direito:
+\begin{equation}
+\sum x_j^2 < \frac{\sigma_0^2 \cdot \text{constante}}{\sigma_0^2 - \sigma_1^2} \cdot \text{expressão em } k \text{ e } n
+\end{equation}
+
+\textbf{Observação crucial:} Manipulando algebricamente, podemos escrever:
+\begin{equation}
+\sum_{i=1}^{n} \frac{x_i^2}{\sigma_0^2} < k_2
+\end{equation}
+
+onde $k_2$ depende de $k$, $n$, $\sigma_0$, $\sigma_1$, mas veremos que podemos determinar $k_2$ apenas por $\alpha$ e $\sigma_0$.
+
+\subsection*{Passo 5: Estatística de Teste}
+
+Definimos:
+\begin{equation}
+Q(x) = \sum_{i=1}^{n} \left(\frac{x_i}{\sigma_0}\right)^2 = \frac{1}{\sigma_0^2}\sum_{i=1}^{n} x_i^2
+\end{equation}
+
+\textbf{Distribuição sob $H_0$:}
+
+Quando $H_0: \sigma = \sigma_0$ é verdadeira, temos $X_i \sim N(0, \sigma_0^2)$.
+
+Portanto:
+\begin{equation}
+\frac{X_i}{\sigma_0} \sim N(0, 1)
+\end{equation}
+
+Logo:
+\begin{equation}
+\left(\frac{X_i}{\sigma_0}\right)^2 \sim \chi^2_1
+\end{equation}
+
+Como as $X_i$ são independentes:
+\begin{equation}
+Q(X) = \sum_{i=1}^{n} \left(\frac{X_i}{\sigma_0}\right)^2 \overset{H_0}{\sim} \chi^2_n
+\end{equation}
+
+\subsection*{Passo 6: Teste UMP}
+
+\textbf{Observação importante:} A estatística $Q(x)$ e a forma da região crítica ($Q < k_2$) NÃO dependem da escolha específica de $\sigma_1$!
+
+Isso significa que o teste é o mesmo para qualquer $\sigma_1 < \sigma_0$. Portanto, o teste é UMP para $H_0: \sigma = \sigma_0$ vs $H_1: \sigma < \sigma_0$.
+
+A região crítica é:
+\begin{equation}
+R_c = \left\{x \in \mathbb{R}^n : Q(x) < \chi^2_{n, 1-\alpha}\right\}
+\end{equation}
+
+onde $\chi^2_{n, 1-\alpha}$ satisfaz:
+\begin{equation}
+P_{H_0}\{Q < \chi^2_{n, 1-\alpha}\} = \alpha
+\end{equation}
+
+\subsection*{Passo 7: Teste Final}
+
+\textbf{Estatística de Teste:}
+\begin{equation}
+\boxed{Q(x) = \frac{1}{\sigma_0^2}\sum_{i=1}^{n} x_i^2 \overset{H_0}{\sim} \chi^2_n}
+\end{equation}
+
+\textbf{Regra de Decisão:}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } Q_{\text{cal}} < \chi^2_{n, 1-\alpha}
+\end{equation}
+
+\textbf{Função Crítica:}
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } Q(x) < \chi^2_{n, 1-\alpha} \\
+0, & \text{se } Q(x) \geq \chi^2_{n, 1-\alpha}
+\end{cases}
+\end{equation}
+
+\textbf{Nota importante:} Rejeitamos para valores PEQUENOS de $Q$ (i.e., para $\sum x_i^2$ pequeno), o que faz sentido porque valores pequenos de $\sum x_i^2$ sugerem que $\sigma$ é pequeno.
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Teste Unilateral à Esquerda:} Este é um exemplo raro onde rejeitamos na CAUDA ESQUERDA da distribuição qui-quadrado. Isso acontece porque $H_1: \sigma < \sigma_0$.
+    
+    \item \textbf{Propriedade UMP:} O teste não depende da escolha específica de $\sigma_1$, apenas de $\sigma_0$. Isso o torna UMP.
+    
+    \item \textbf{Relação com Variância Amostral:} Como $\mu = 0$ é conhecido, a variância amostral apropriada é:
+    \begin{equation}
+    S^2 = \frac{1}{n}\sum_{i=1}^{n} X_i^2
+    \end{equation}
+    
+    O teste pode ser reescrito como: rejeitar se $nS^2/\sigma_0^2 < \chi^2_{n, 1-\alpha}$.
+    
+    \item \textbf{Comparação com $\sigma^2$ Desconhecida:} Se $\mu$ fosse desconhecido, usaríamos:
+    \begin{equation}
+    \frac{(n-1)S^2}{\sigma_0^2} \sim \chi^2_{n-1}
+    \end{equation}
+    onde $S^2 = \frac{1}{n-1}\sum(X_i - \bar{X})^2$.
+    
+    \item \textbf{Visualização da Região Crítica:}
+    
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-0.5,0) -- (6,0) node[right] {};
+\draw[->] (0,-0.2) -- (0,1.5) node[above] {};
+\draw[domain=0.5:5.5,smooth,variable=\x] plot ({\x},{exp(-(\x-3)^2)});
+\draw[dashed] (1.5,0) -- (1.5,{exp(-(1.5-3)^2)});
+\node at (1.5,-0.2) {$\chi^2_{n,1-\alpha}$};
+\fill[red!20, opacity=0.5] (0.5,0) -- plot[domain=0.5:1.5] ({\x},{exp(-(\x-3)^2)}) -- (1.5,0) -- cycle;
+\node at (0.8,0.5) {$\alpha$};
+\node at (3,0.5) {$1-\alpha$};
+\node at (3,1.2) {Densidade $\chi^2_n$};
+\end{tikzpicture}
+\end{center}
+    
+    Rejeitamos $H_0$ na região vermelha (cauda esquerda).
+\end{enumerate}
+
+\subsection*{Exemplo Numérico}
+
+Suponha $n = 10$, $\sigma_0 = 2$, $\alpha = 0.05$ e observamos $\sum x_i^2 = 20$.
+
+\begin{enumerate}
+    \item Calcular estatística: $Q_{\text{cal}} = \frac{20}{4} = 5$
+    \item Graus de liberdade: $n = 10$
+    \item Valor crítico: $\chi^2_{10, 0.05} = 3.94$ (da tabela)
+    \item Decisão: Como $5 > 3.94$, NÃO rejeitamos $H_0$
+\end{enumerate}
+
+\textbf{Interpretação:} Não há evidência suficiente ao nível 5\% para concluir que $\sigma < 2$.
+
+Se tivéssemos observado $\sum x_i^2 = 10$, então $Q = 2.5 < 3.94$ e rejeitaríamos $H_0$.
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste UMP para $H_0: \sigma = \sigma_0$ vs $H_1: \sigma < \sigma_0$:}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+Q = \frac{1}{\sigma_0^2}\sum_{i=1}^{n} X_i^2 \overset{H_0}{\sim} \chi^2_n
+\end{equation*}
+
+\textbf{Regra de Decisão:}
+\begin{equation*}
+\text{Rejeita } H_0 \text{ se } Q_{\text{cal}} < \chi^2_{n, 1-\alpha}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Teste UMP de nível $\alpha$
+    \item Rejeição na cauda ESQUERDA
+    \item Apropriado quando média é zero (conhecida)
+    \item Não depende da escolha de $\sigma_1$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 4.12: Teste UMP via Teorema de Karlin-Rubin}
+% ================================================================
+
+\begin{questaobox}{Questão 4.12}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecida e $\sigma^2 \in \mathbb{R}^+$ conhecida.
+
+Encontre o teste UMP para:
+\begin{equation}
+H_0: \mu \leq \mu_0 \quad \text{vs} \quad H_1: \mu > \mu_0, \quad \text{de nível } \alpha
+\end{equation}
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Verificar Aplicabilidade do Teorema de Karlin-Rubin}
+
+O Teorema de Karlin-Rubin fornece testes UMP para hipóteses unilaterais quando a família de distribuições possui Razão de Verossimilhança Monótona (RVM).
+
+Precisamos verificar:
+\begin{enumerate}
+    \item Existe uma estatística suficiente $T(X)$
+    \item A família de densidades induzidas por $T$ tem RVM
+\end{enumerate}
+
+\subsection*{Passo 2: Estatística Suficiente}
+
+Pelo Lema da Fatoração de Neyman, a verossimilhança pode ser escrita como:
+\begin{align}
+L(\mu; x) &= (2\pi\sigma^2)^{-n/2} \exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i - \mu)^2\right\} \\
+&= (2\pi\sigma^2)^{-n/2} \exp\left\{-\frac{1}{2\sigma^2}\sum x_i^2\right\} \cdot \exp\left\{\frac{\mu}{\sigma^2}\sum x_i - \frac{n\mu^2}{2\sigma^2}\right\}
+\end{align}
+
+Portanto:
+\begin{equation}
+T(X) = \sum_{i=1}^{n} X_i
+\end{equation}
+
+é suficiente para $\mu$ (com $\sigma^2$ conhecido).
+
+\subsection*{Passo 3: Densidade Induzida de $T$}
+
+Como $X_i \sim N(\mu, \sigma^2)$ são independentes:
+\begin{equation}
+T = \sum_{i=1}^{n} X_i \sim N(n\mu, n\sigma^2)
+\end{equation}
+
+A densidade de $T$ é:
+\begin{equation}
+f(t; \mu) = \frac{1}{\sqrt{2\pi n\sigma^2}} \exp\left\{-\frac{(t - n\mu)^2}{2n\sigma^2}\right\}
+\end{equation}
+
+\subsection*{Passo 4: Verificar RVM}
+
+Para $\mu^* > \mu$, calculamos:
+\begin{align}
+\frac{f(t; \mu^*)}{f(t; \mu)} &= \frac{\exp\left\{-\frac{(t-n\mu^*)^2}{2n\sigma^2}\right\}}{\exp\left\{-\frac{(t-n\mu)^2}{2n\sigma^2}\right\}} \\
+&= \exp\left\{\frac{1}{2n\sigma^2}\left[(t-n\mu)^2 - (t-n\mu^*)^2\right]\right\} \\
+&= \exp\left\{\frac{1}{2n\sigma^2}\left[t^2 - 2nt\mu + n^2\mu^2 - t^2 + 2nt\mu^* - n^2(\mu^*)^2\right]\right\} \\
+&= \exp\left\{\frac{1}{2n\sigma^2}\left[2nt(\mu^* - \mu) + n^2(\mu^2 - (\mu^*)^2)\right]\right\} \\
+&= \exp\left\{\frac{t(\mu^* - \mu)}{\sigma^2} + \frac{n(\mu^2 - (\mu^*)^2)}{2\sigma^2}\right\}
+\end{align}
+
+Como $\mu^* > \mu$, o coeficiente de $t$ é $\frac{\mu^* - \mu}{\sigma^2} > 0$.
+
+Portanto, $\frac{f(t; \mu^*)}{f(t; \mu)}$ é CRESCENTE em $t$, provando que $\{f(t; \mu) : \mu \in \mathbb{R}\}$ tem RVM.
+
+\subsection*{Passo 5: Aplicação do Teorema de Karlin-Rubin}
+
+Pelo Teorema de Karlin-Rubin, o teste UMP de nível $\alpha$ tem função crítica:
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } T(x) > k \\
+0, & \text{se } T(x) < k
+\end{cases}
+\end{equation}
+
+onde $k$ é determinado por:
+\begin{equation}
+E_{\mu_0}[\psi(X)] = \alpha
+\end{equation}
+
+ou seja:
+\begin{equation}
+P_{\mu_0}[T(X) > k] = \alpha
+\end{equation}
+
+\subsection*{Passo 6: Padronização}
+
+Como $T = \sum X_i \sim N(n\mu_0, n\sigma^2)$ sob $H_0: \mu = \mu_0$:
+\begin{equation}
+\frac{T - n\mu_0}{\sqrt{n\sigma^2}} = \frac{T - n\mu_0}{\sigma\sqrt{n}} \sim N(0, 1)
+\end{equation}
+
+Equivalentemente, em termos da média amostral $\bar{X} = T/n$:
+\begin{equation}
+Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} = \frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} \sim N(0, 1)
+\end{equation}
+
+\subsection*{Passo 7: Determinação de $k$}
+
+A condição $P_{\mu_0}[T > k] = \alpha$ se traduz em:
+\begin{equation}
+P_{\mu_0}\left[\frac{T - n\mu_0}{\sigma\sqrt{n}} > \frac{k - n\mu_0}{\sigma\sqrt{n}}\right] = \alpha
+\end{equation}
+
+Para $Z \sim N(0,1)$:
+\begin{equation}
+P[Z > z_\alpha] = \alpha
+\end{equation}
+
+Portanto:
+\begin{equation}
+\frac{k - n\mu_0}{\sigma\sqrt{n}} = z_\alpha \quad \Rightarrow \quad k = n\mu_0 + z_\alpha \sigma\sqrt{n}
+\end{equation}
+
+\subsection*{Passo 8: Teste Final}
+
+\textbf{Estatística de Teste:}
+\begin{equation}
+\boxed{Z = \frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} \overset{H_0}{\sim} N(0, 1)}
+\end{equation}
+
+\textbf{Regra de Decisão:}
+\begin{equation}
+\text{Rejeita } H_0 \text{ se } Z_{\text{cal}} = \frac{\sqrt{n}(\bar{x} - \mu_0)}{\sigma} > z_\alpha
+\end{equation}
+
+\textbf{Função Crítica:}
+\begin{equation}
+\psi(x) = \begin{cases}
+1, & \text{se } \frac{\sqrt{n}(\bar{x} - \mu_0)}{\sigma} > z_\alpha \\
+0, & \text{se } \frac{\sqrt{n}(\bar{x} - \mu_0)}{\sigma} \leq z_\alpha
+\end{cases}
+\end{equation}
+
+onde $z_\alpha$ é o quantil $(1-\alpha)$ da $N(0,1)$:
+\begin{itemize}
+    \item $\alpha = 0.05$: $z_{0.05} = 1.645$
+    \item $\alpha = 0.01$: $z_{0.01} = 2.326$
+    \item $\alpha = 0.10$: $z_{0.10} = 1.282$
+\end{itemize}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Este é o Teste Z Clássico:} O teste UMP para esta situação é exatamente o teste Z que usamos rotineiramente!
+    
+    \item \textbf{Teorema de Karlin-Rubin:} O TKR fornece uma maneira sistemática de construir testes UMP para hipóteses unilaterais quando há RVM.
+    
+    \item \textbf{RVM na Normal:} A família Normal com média desconhecida e variância conhecida possui RVM em $\sum X_i$ (ou equivalentemente, em $\bar{X}$).
+    
+    \item \textbf{Otimalidade:} Este teste é UMP, significando que entre TODOS os testes de nível $\alpha$, este tem o maior poder para qualquer $\mu > \mu_0$.
+    
+    \item \textbf{Comparação com Q4.4:} 
+    \begin{itemize}
+        \item Q4.4: Hipóteses simples ($\mu = \mu_1$) $\Rightarrow$ Teste MP via LNP
+        \item Q4.12: Hipótese composta ($\mu > \mu_0$) $\Rightarrow$ Teste UMP via TKR
+        \item Resultado: Mesmo teste Z!
+    \end{itemize}
+    
+    \item \textbf{Extensões:}
+    \begin{itemize}
+        \item Para $H_1: \mu < \mu_0$: rejeitamos se $Z < -z_\alpha$
+        \item Para $H_1: \mu \neq \mu_0$: rejeitamos se $|Z| > z_{\alpha/2}$ (teste bilateral)
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Exemplo Numérico Completo}
+
+Suponha $n = 25$, $\sigma = 5$, $\mu_0 = 100$, $\alpha = 0.05$.
+
+Observamos $\bar{x} = 103$.
+
+\begin{enumerate}
+    \item Calcular estatística:
+    \begin{equation}
+    Z_{\text{cal}} = \frac{\sqrt{25}(103 - 100)}{5} = \frac{5 \cdot 3}{5} = 3
+    \end{equation}
+    
+    \item Valor crítico: $z_{0.05} = 1.645$
+    
+    \item Decisão: Como $3 > 1.645$, rejeitamos $H_0$
+    
+    \item p-valor: $p = P(Z > 3) = 1 - \Phi(3) = 0.0013$
+\end{enumerate}
+
+\textbf{Interpretação:} Há evidência muito forte (p = 0.13\%) de que $\mu > 100$.
+
+\subsection*{Função Poder}
+
+A função poder deste teste é:
+\begin{equation}
+Q(\mu) = P_\mu[Z > z_\alpha] = P_\mu\left[\frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} > z_\alpha\right]
+\end{equation}
+
+Para $\mu \neq \mu_0$:
+\begin{equation}
+Q(\mu) = 1 - \Phi\left(z_\alpha - \frac{\sqrt{n}(\mu - \mu_0)}{\sigma}\right)
+\end{equation}
+
+Esta função é:
+\begin{itemize}
+    \item Crescente em $\mu$ (maior poder para valores maiores de $\mu$)
+    \item $Q(\mu_0) = \alpha$ (tamanho do teste)
+    \item $\lim_{\mu \to \infty} Q(\mu) = 1$ (poder tende a 1)
+\end{itemize}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Teste UMP para $H_0: \mu \leq \mu_0$ vs $H_1: \mu > \mu_0$:}
+
+\textbf{Estatística de Teste:}
+\begin{equation*}
+Z = \frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} \overset{H_0}{\sim} N(0, 1)
+\end{equation*}
+
+\textbf{Regra de Decisão:}
+\begin{equation*}
+\text{Rejeita } H_0 \text{ se } Z_{\text{cal}} > z_\alpha
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Teste UMP de nível $\alpha$ (pelo TKR)
+    \item É o teste Z clássico
+    \item Baseado em estatística suficiente com RVM
+    \item Poder máximo entre todos os testes de nível $\alpha$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section*{Conclusão}
+\addcontentsline{toc}{section}{Conclusão}
+% ================================================================
+
+Este documento apresentou soluções detalhadas e didáticas para todas as questões do Capítulo 4 sobre Teste de Hipóteses resolvidas em sala de aula. 
+
+\subsection*{Síntese dos Tópicos Abordados}
+
+\begin{enumerate}
+    \item \textbf{Q4.1 e Q4.3:} Exemplos introdutórios ilustrando regiões críticas, erros Tipo I e II, e função poder
+    
+    \item \textbf{Q4.4, Q4.5, Q4.6, Q4.7:} Aplicações do Lema de Neyman-Pearson para distribuições paramétricas (Normal, Exponencial, Bernoulli, Poisson)
+    
+    \item \textbf{Q4.8 e Q4.9:} Testes não-paramétricos e extensões multivariadas
+    
+    \item \textbf{Q4.10 e Q4.12:} Testes UMP via Teorema de Karlin-Rubin para hipóteses compostas
+\end{enumerate}
+
+\subsection*{Conexões Entre as Questões}
+
+\begin{itemize}
+    \item Q4.1 $\to$ Q4.3: Conceitos básicos $\to$ Função poder
+    \item Q4.4 $\to$ Q4.12: MP (simples) $\to$ UMP (composta) para Normal
+    \item Q4.6 $\leftrightarrow$ Q4.7: Distribuições discretas (aleatorização)
+    \item Q4.8 $\to$ Q4.9: Uma observação $\to$ Duas observações
+\end{itemize}
+
+\subsection*{Mensagens Principais}
+
+\begin{enumerate}
+    \item O \textbf{Lema de Neyman-Pearson} fornece testes MP para hipóteses simples
+    \item O \textbf{Teorema de Karlin-Rubin} estende para testes UMP quando há RVM
+    \item \textbf{Estatísticas suficientes} são fundamentais para testes ótimos
+    \item \textbf{Distribuições discretas} geralmente requerem aleatorização
+    \item \textbf{Testes clássicos} (Z, t, $\chi^2$, F) são casos especiais de princípios gerais
+\end{enumerate}
+
+\subsection*{Recomendações Finais}
+
+Para dominar o material:
+\begin{itemize}
+    \item Pratique derivar os testes do zero, não apenas aplicar fórmulas
+    \item Entenda a intuição por trás de cada região crítica
+    \item Compare diferentes testes para o mesmo problema
+    \item Simule dados e verifique as propriedades dos testes
+    \item Conecte os conceitos com aplicações práticas
+\end{itemize}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{Fim do Documento de Questões Resolvidas}
+\end{center}
+
+\end{document}
+

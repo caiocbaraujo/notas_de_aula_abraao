@@ -1,0 +1,32 @@
+\newpage
+
+\section*{07/11/25}
+
+\subsection*{4.4.2 Teste UMP via razão de verossimilhanças monótonas}
+
+Sejam $x_1, \dots, x_n$ uma amostra de $X$ tendo fdp (ou FMP) $f(x; \theta)$ para $\theta \in \Theta \subset \mathbb{R}$ e $x \in \mathcal{X} \subset \mathbb{R}$.
+
+\subsubsection*{Definição (4.4.2.1) [Razão de verossimilhanças monótonas - RVM]}
+A família $\{ f(x; \theta), \theta \in \Theta \}$ tem RVM em uma estatística $T(x) \in \mathbb{R}$ se pode ser verificado o seguinte resultado: para todo $\theta^*, \theta \in \Theta$ e $x \in \mathcal{X}^n$, vale-se
+
+\begin{equation}
+    \frac{L(\theta^*; x)}{L(\theta; x)} \text{ é não decrescente em } T(x) \text{ sempre que } \theta^* > \theta
+\end{equation}
+
+Seguem duas ilustrações para a Def. (4.4.2.1):
+
+\paragraph{Exemplo:} Sejam $X_1, \dots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com $\mu$ desconhecida e $\sigma \in \mathbb{R}^+$ conhecido. Suponha que $\mu^* \in \mathbb{R}$ tal que $\mu^* > \mu$ e seja
+\begin{equation}
+    T(x) = \sum_{i=1}^n x_i \quad \text{como } x^t = (x_1, \dots, x_n).
+\end{equation}
+Assim:
+\begin{equation}
+    \frac{L(\mu^*; x)}{L(\mu; x)} = \frac{\exp\left[ -\frac{1}{2\sigma^2} \left( \sum_{i=1}^n x_i^2 - 2\mu^* \sum_{i=1}^n x_i + n(\mu^*)^2 \right) \right]}{\exp\left[ -\frac{1}{2\sigma^2} \left( \sum_{i=1}^n x_i^2 - 2\mu \sum_{i=1}^n x_i + n\mu^2 \right) \right]}
+\end{equation}
+
+\begin{equation}
+    = \exp\left[ \frac{\mu^* - \mu}{\sigma^2} \sum_{i=1}^n x_i + \frac{n}{2\sigma^2} \left( \mu^2 - (\mu^*)^2 \right) \right] = \exp\left[ \frac{\mu^* - \mu}{\sigma^2} T(x) + \frac{n}{2\sigma^2} \left( \mu^2 - (\mu^*)^2 \right) \right]
+\end{equation}
+
+que é não decrescente em $T(x)$ para $\mu^* > \mu$. Logo $f(x; \mu)$ tem RVM.
+\\

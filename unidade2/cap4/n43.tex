@@ -1,0 +1,60 @@
+\newpage
+
+\section*{Definição (4.2.1) Teste de hipóteses}
+\textbf{Data:} 27/10/25
+
+Um teste \( T \) para uma hipótese \( H \) é uma regra ou processo para decidir se \( H \) deve ser rejeitada.
+
+Um conceito importante é o de probabilidade dos erros dos Tipos I e II.
+
+\subsection*{Erro Tipo I}
+\[
+H_0, \quad \alpha = P\{\text{Erro do tipo I}\}
+\]
+\[
+= P\{\text{Rejeitar } H_0 \ \wedge \ H_0 \ \text{é verdadeira}\}
+\]
+\[
+= P_{H_0}\{X \in R_c\}
+\]
+
+\subsection*{Erro Tipo II}
+\[
+H_1, \quad \beta = P\{\text{Erro do tipo II}\}
+\]
+\[
+= P\{\text{Não rejeitar } H_0 \ \wedge \ H_0 \ \text{é falsa}\}
+\]
+\[
+= P_{H_1}\{X \in R_c'\}
+\]
+
+\subsection*{Exemplo (4.2)}
+Para teste \#1 em (4.1) tem-se:
+\[
+\alpha = P_{H_0: \theta = 5.5}\{X_1 > 7\}
+\]
+\[
+\beta = P_{H_1: \theta = 8}\{X_1 \leq 7\}
+\]
+
+\[
+\alpha = P\left\{ \frac{X_1 - 5.5}{\sigma} > \frac{7 - 5.5}{\sigma} \right\}, \quad Z \sim N(0,1)
+\]
+\[
+= P\{Z > 1.5\}
+\]
+\[
+= 1 - \Phi(1.5) = 0.06691
+\]
+
+\[
+\beta = P\left\{ \frac{X_1 - 8}{\sigma} < \frac{7 - 8}{\sigma} \right\}, \quad Z \sim N(0,1)
+\]
+\[
+= P\{Z < -1\}
+\]
+\[
+= \Phi(-1) = 0.15866
+\]
+

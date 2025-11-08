@@ -1,0 +1,34 @@
+\newpage
+
+\section*{4.2 Probabilidade de erro e função poder}
+
+\textbf{Considere testar:}
+\begin{equation}
+H_0: \theta \in \Theta_0 \quad \times \quad H_1: \theta \in \Theta_1
+\end{equation}
+
+A partir de $X_1, \ldots, X_n$ uma amostra de $X$ com fdp $f(x; \theta)$, podem-se cometer dois tipos de erro:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+Natureza da escolha & $H_0$ verdadeira & $H_1$ verdadeira \\ \hline
+Não rejeitar & --- & Erro tipo II \\
+Rejeitar & Erro tipo I & ---
+\end{tabular}
+\end{center}
+
+Em termos objetivos, tendo observados 
+\[
+X = (X_1, \ldots, X_n),
+\]
+um teste:
+
+\begin{enumerate}
+    \item Encontraria evidências para (não) rejeitar $H_0$.
+    \item Isto é feito por particionar $\mathbb{R}^n$ em dois conjuntos: $R_c \subset \mathbb{R}^n$ chamado de região crítica e seu complementar $R_c^c$ tal que 
+    \begin{equation}
+    R_c \cup R_c^c = \mathbb{R}^n \quad \text{e} \quad R_c \cap R_c^c = \varnothing
+    \end{equation}
+    \item Se $X \in R_c$, rejeita-se $H_0: \theta \in \Theta_0$.
+\end{enumerate}
+

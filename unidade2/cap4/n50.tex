@@ -1,0 +1,27 @@
+\[
+R_c = \left\{ x \in \mathbb{R}^n : L(\theta_1; x) > k \, L(\theta_0; x) \right\}
+\]
+e
+\[
+R_c^c = \left\{ x \in \mathbb{R}^n : L(\theta_1; x) < k \, L(\theta_0; x) \right\}
+\]
+
+ou equivalentemente, usando a função crítica
+\[
+\psi(x) = 
+\begin{cases}
+1, & \text{se } L(\theta_1; x) > k \, L(\theta_0; x) \\
+0, & \text{se } L(\theta_1; x) < k \, L(\theta_0; x)
+\end{cases}
+\]
+em que $k \geq 0$ é determinado por
+\begin{equation}
+E_{\theta_0} \left[ \psi(x) \right] = \alpha \tag{4.3.2}
+\end{equation}
+
+Qualquer teste satisfazendo (4.3.1) e (4.3.2) é um teste MP de nível \(\alpha\).
+
+\textbf{Prova:} Consideremos a prova para o caso contínuo. Note que qualquer teste \(\Upsilon\) que satisfaça (4.3.2) tem tamanho \(\alpha\) e portanto nível \(\alpha\).
+
+Seja \(\Upsilon^*\) um teste com função crítica \(\psi_{\Upsilon^*}(x)\) e nível \(\alpha\). Sejam \(Q_{\Upsilon}(\theta)\) e \(Q_{\Upsilon^*}(\theta)\) as funções poder de \(\Upsilon\) e \(\Upsilon^*\), respectivamente.
+

@@ -1,0 +1,37 @@
+﻿\section*{Estatística de teste}
+
+\begin{equation}
+S = S(\mathbf{x}) = \sum_{i=1}^{n} x_i \quad \text{sob } H_0 \quad \sim \text{Binomial}(n, p_0)
+\end{equation}
+
+\section*{Função crítica}
+
+\begin{equation}
+\psi(\mathbf{x}) =
+\begin{cases}
+1, & \text{se } S(\mathbf{x}) > k_1, \\
+\delta, & \text{se } S(\mathbf{x}) = k_1, \\
+0, & \text{se } S(\mathbf{x}) < k_1,
+\end{cases}
+\end{equation}
+
+em que $k_1$ é o menor inteiro tal que
+\begin{equation}
+P\left( S(\mathbf{x}) > k_1 \right) < \alpha
+\end{equation}
+
+\begin{equation}
+\delta = \frac{\alpha - P_{H_0}\left( S(\mathbf{x}) > k_1 \right)}{P_{H_0}\left( S(\mathbf{x}) = k_1 \right)}
+\end{equation}
+
+\section*{Regra de decisão}
+
+\underline{Método tradicional}: Dado $\mathbf{x}$, se $\psi(\mathbf{x}) = 1$, rejeita-se $H_0$.
+
+\underline{Método do valor-p}: Seja $S_{\text{cal}} = S(\mathbf{x})$.
+
+\begin{equation}
+\hat{\alpha} = \delta \cdot P_{H_0}\left( S(\mathbf{x}) = S_{\text{cal}} \right) + P_{H_0}\left( S(\mathbf{x}) > S_{\text{cal}} \right)
+\end{equation}
+
+Se $\hat{\alpha} < \alpha$, rejeita-se $H_0$.

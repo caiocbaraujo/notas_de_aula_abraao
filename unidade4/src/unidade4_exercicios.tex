@@ -1,0 +1,723 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{enumerate}
+
+\title{Lista de Exercícios - Unidade 4\\
+\large Testes de Hipóteses\\
+\normalsize 50 Questões Completas}
+\author{Curso de Inferência Estatística}
+\date{Outubro 2025 - Versão Atualizada}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Esta lista contém 50 questões organizadas por tópico, com 5 questões para cada um dos principais temas da Unidade 4. Cada questão indica explicitamente qual teste ou teorema está sendo aplicado e utiliza diversas distribuições estudadas no curso.
+
+\textbf{Distribuições utilizadas:} Normal, Poisson, Uniforme, Exponencial, Chi-quadrado, Bernoulli, Gamma e Beta.
+
+\textbf{Tópicos cobertos:}
+\begin{enumerate}
+    \item Teste Z (Normal com $\sigma^2$ conhecido)
+    \item Teste t (Normal com $\sigma^2$ desconhecido)
+    \item Testes de Proporções
+    \item Testes para Poisson
+    \item Testes para Exponencial
+    \item Lema de Neyman--Pearson (LNP)
+    \item Função Poder e Curvas de Poder
+    \item RVM e Teorema de Karlin--Rubin
+    \item Testes $\chi^2$
+    \item Valor-p e Interpretação
+\end{enumerate}
+
+\section{Teste Z (Normal com $\sigma^2$ conhecido)}
+
+\subsection*{[Questão 1] Teste Z Bilateral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde $\sigma^2 = 4$ é conhecido. Deseja-se testar $H_0: \mu = 10$ vs $H_1: \mu \neq 10$ ao nível de significância $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Construa a estatística de teste $Z = \frac{\bar{X}_n - 10}{\sigma/\sqrt{n}}$ e determine a região crítica.
+    \item Para uma amostra de tamanho $n = 25$ com $\bar{x} = 11.2$, realize o teste e tome uma decisão.
+    \item Calcule o valor-p para esta amostra e interprete o resultado.
+\end{enumerate}
+
+\subsection*{[Questão 2] Teste Z Unilateral Direito}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, 9)$ onde $\mu$ é desconhecido. Deseja-se testar $H_0: \mu \leq 5$ vs $H_1: \mu > 5$ ao nível $\alpha = 0.01$.
+
+\begin{enumerate}[(a)]
+    \item Encontre a região crítica do teste em termos de $\bar{X}_n$ para $n = 36$.
+    \item Se $\bar{x} = 6.5$, realize o teste e interprete.
+    \item Calcule a probabilidade de erro tipo II quando $\mu = 7$, isto é, $\beta(7)$.
+\end{enumerate}
+
+\subsection*{[Questão 3] Teste Z Unilateral Esquerdo}
+
+Uma máquina produz peças com diâmetro normalmente distribuído, média desconhecida e desvio padrão $\sigma = 0.5$ mm. O processo está sob controle se $\mu \geq 20$ mm. Uma amostra de $n = 50$ peças apresentou $\bar{x} = 19.8$ mm.
+
+\begin{enumerate}[(a)]
+    \item Formule o teste apropriado: $H_0: \mu \geq 20$ vs $H_1: \mu < 20$ ao nível $\alpha = 0.05$.
+    \item Realize o teste usando a estatística Z.
+    \item Interprete o resultado no contexto do problema.
+\end{enumerate}
+
+\subsection*{[Questão 4] Poder do Teste Z}
+
+Sejam $X_1, X_2, \ldots, X_n$ i.i.d. com $X_i \sim N(\mu, 16)$. Teste $H_0: \mu = 8$ vs $H_1: \mu \neq 8$ ao nível $\alpha = 0.05$ com $n = 64$.
+
+\begin{enumerate}[(a)]
+    \item Encontre a região crítica do teste.
+    \item Calcule a função poder $\pi(\mu)$ para este teste.
+    \item Avalie o poder em $\mu = 9$ e $\mu = 10$.
+\end{enumerate}
+
+\subsection*{[Questão 5] Tamanho Amostral para Teste Z}
+
+Deseja-se testar $H_0: \mu = 100$ vs $H_1: \mu \neq 100$ com $\sigma = 15$ conhecido, ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Encontre o tamanho amostral mínimo $n$ tal que o poder do teste seja pelo menos $0.90$ quando $\mu = 105$.
+    \item Repita para $\alpha = 0.01$ mantendo o poder em $0.90$.
+    \item Discuta como o tamanho amostral varia com $\alpha$ e com a diferença $|\mu - 100|$.
+\end{enumerate}
+
+\section{Teste t (Normal com $\sigma^2$ desconhecido)}
+
+\subsection*{[Questão 6] Teste t Bilateral}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$ onde ambos são desconhecidos. Deseja-se testar $H_0: \mu = 50$ vs $H_1: \mu \neq 50$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Construa a estatística de teste $t = \frac{\bar{X}_n - 50}{S_n/\sqrt{n}}$ onde $S_n^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X}_n)^2$.
+    \item Para $n = 16$, determine a região crítica usando a distribuição $t$ de Student.
+    \item Se $\bar{x} = 52.3$ e $s_n = 4.8$, realize o teste e conclua.
+\end{enumerate}
+
+\subsection*{[Questão 7] Teste t Unilateral com Variância Desconhecida}
+
+Uma amostra de $n = 10$ observações de uma população normal forneceu $\bar{x} = 12.5$ e $s_n^2 = 9$.
+
+\begin{enumerate}[(a)]
+    \item Teste $H_0: \mu \leq 10$ vs $H_1: \mu > 10$ ao nível $\alpha = 0.05$.
+    \item Calcule o valor-p aproximado.
+    \item Compare os graus de liberdade da distribuição $t$ com os do teste Z e discuta as diferenças.
+\end{enumerate}
+
+\subsection*{[Questão 8] Teste t com Dados Específicos}
+
+Dados: $\{8.5, 9.2, 10.1, 8.9, 9.7, 10.3, 9.5, 8.8\}$ de uma população normal.
+
+\begin{enumerate}[(a)]
+    \item Calcule $\bar{x}$ e $s_n^2$ para esta amostra.
+    \item Teste $H_0: \mu = 9$ vs $H_1: \mu \neq 9$ ao nível $\alpha = 0.10$.
+    \item Construa um intervalo de confiança de $90\%$ para $\mu$ e verifique a consistência com o teste.
+\end{enumerate}
+
+\subsection*{[Questão 9] Propriedades Assintóticas do Teste t}
+
+Sejam $X_1, X_2, \ldots, X_n$ i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que $S_n \xrightarrow{P} \sigma$ quando $n \to \infty$.
+    \item Use o Teorema de Slutsky para mostrar que $\frac{\sqrt{n}(\bar{X}_n - \mu)}{S_n} \xrightarrow{D} N(0,1)$.
+    \item Discuta a relação entre o teste $t$ para $n$ finito e o teste Z assintótico.
+\end{enumerate}
+
+\subsection*{[Questão 10] Teste t para Média com Amostra Grande}
+
+Uma amostra de $n = 100$ observações normais independentes forneceu $\bar{x} = 25.3$ e $s_n = 6.2$.
+
+\begin{enumerate}[(a)]
+    \item Realize o teste $H_0: \mu = 24$ vs $H_1: \mu \neq 24$ ao nível $\alpha = 0.05$ usando a estatística $t$.
+    \item Aproxime usando a distribuição normal padrão (válido para $n$ grande) e compare os resultados.
+    \item Interprete as diferenças entre usar $t_{99}$ e $N(0,1)$ neste caso.
+\end{enumerate}
+
+\section{Testes de Proporções}
+
+\subsection*{[Questão 11] Teste para Proporção Binomial}
+
+Uma amostra de $n = 200$ observações de uma variável Bernoulli forneceu $\hat{p} = 0.35$. Deseja-se testar $H_0: p = 0.40$ vs $H_1: p \neq 0.40$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Construa a estatística de teste $Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}$ e determine a região crítica.
+    \item Realize o teste com os dados fornecidos.
+    \item Calcule o valor-p e interprete.
+\end{enumerate}
+
+\subsection*{[Questão 12] Teste Unilateral para Proporção}
+
+Em uma pesquisa, 180 de 500 pessoas entrevistadas aprovaram uma medida. Teste $H_0: p \leq 0.30$ vs $H_1: p > 0.30$ ao nível $\alpha = 0.01$.
+
+\begin{enumerate}[(a)]
+    \item Formule a estatística de teste apropriada.
+    \item Realize o teste e conclua.
+    \item Calcule a probabilidade de erro tipo II quando $p = 0.35$.
+\end{enumerate}
+
+\subsection*{[Questão 13] Teste de Proporção com Correção de Continuidade}
+
+Para uma distribuição Binomial com $n = 100$ e $H_0: p = 0.5$, observou-se $x = 45$ sucessos.
+
+\begin{enumerate}[(a)]
+    \item Realize o teste $H_0: p = 0.5$ vs $H_1: p \neq 0.5$ ao nível $\alpha = 0.05$ sem correção.
+    \item Aplique a correção de continuidade de Yates: $Z = \frac{|x - np_0| - 0.5}{\sqrt{np_0(1-p_0)}}$.
+    \item Compare os dois resultados e discuta quando a correção é mais importante.
+\end{enumerate}
+
+\subsection*{[Questão 14] Teste de Proporção com Amostra Pequena}
+
+Uma amostra de $n = 15$ observações de Bernoulli forneceu 6 sucessos. Teste $H_0: p = 0.4$ vs $H_1: p \neq 0.4$ ao nível $\alpha = 0.10$.
+
+\begin{enumerate}[(a)]
+    \item Use a distribuição binomial exata para calcular o valor-p.
+    \item Compare com o teste assintótico usando a aproximação normal.
+    \item Discuta as condições de validade da aproximação normal para proporções.
+\end{enumerate}
+
+\subsection*{[Questão 15] Poder do Teste de Proporção}
+
+Teste $H_0: p = 0.6$ vs $H_1: p \neq 0.6$ ao nível $\alpha = 0.05$ com $n = 100$.
+
+\begin{enumerate}[(a)]
+    \item Determine a região crítica do teste.
+    \item Calcule a função poder $\pi(p)$ para este teste.
+    \item Avalie o poder em $p = 0.50$ e $p = 0.70$. Interprete os resultados.
+\end{enumerate}
+
+\section{Testes para Poisson}
+
+\subsection*{[Questão 16] Teste para Parâmetro Poisson}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$. Deseja-se testar $H_0: \lambda = 3$ vs $H_1: \lambda \neq 3$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Sabendo que $S_n = \sum_{i=1}^n X_i \sim \text{Poisson}(n\lambda)$, construa o teste usando $S_n$.
+    \item Para $n = 20$, determine a região crítica baseada na distribuição de $S_n$ sob $H_0$.
+    \item Se $\sum_{i=1}^{20} x_i = 68$, realize o teste e conclua.
+\end{enumerate}
+
+\subsection*{[Questão 17] Teste Unilateral para Poisson}
+
+Em uma linha de produção, contam-se os defeitos em $n = 50$ unidades amostradas. A soma observada foi $S_{50} = 180$. Teste $H_0: \lambda \leq 3$ vs $H_1: \lambda > 3$ ao nível $\alpha = 0.01$.
+
+\begin{enumerate}[(a)]
+    \item Use o fato de que para $n\lambda$ grande, $S_n \approx N(n\lambda, n\lambda)$ para aproximar o teste.
+    \item Realize o teste usando a aproximação normal.
+    \item Calcule o valor-p exato usando a distribuição Poisson e compare.
+\end{enumerate}
+
+\subsection*{[Questão 18] Teste Poisson com Aproximação Normal}
+
+Para uma amostra de $n = 100$ observações Poisson com $\bar{x} = 4.2$, teste $H_0: \lambda = 4$ vs $H_1: \lambda \neq 4$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Use a aproximação normal: $\frac{\bar{X}_n - \lambda_0}{\sqrt{\lambda_0/n}} \xrightarrow{D} N(0,1)$.
+    \item Realize o teste com os dados fornecidos.
+    \item Discuta as condições para que esta aproximação seja válida.
+\end{enumerate}
+
+\subsection*{[Questão 19] Teste Poisson com Soma Amostral}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Poisson($\lambda$). Para $n = 25$ e $\sum_{i=1}^{25} x_i = 82$, teste $H_0: \lambda = 3$ vs $H_1: \lambda > 3$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Use a distribuição exata de $S_{25} \sim \text{Poisson}(75)$ sob $H_0$.
+    \item Calcule $P(S_{25} \geq 82)$ usando a aproximação normal com correção de continuidade.
+    \item Compare os resultados e discuta a adequação da aproximação.
+\end{enumerate}
+
+\subsection*{[Questão 20] Curva de Poder para Teste Poisson}
+
+Teste $H_0: \lambda = 5$ vs $H_1: \lambda \neq 5$ ao nível $\alpha = 0.05$ com $n = 30$.
+
+\begin{enumerate}[(a)]
+    \item Determine a região crítica usando a aproximação normal.
+    \item Calcule a função poder $\pi(\lambda)$ para este teste.
+    \item Avalie o poder em $\lambda = 4$, $\lambda = 6$ e $\lambda = 7$. Interprete os resultados.
+\end{enumerate}
+
+\section{Testes para Exponencial}
+
+\subsection*{[Questão 21] Teste para Parâmetro Exponencial via $\chi^2$}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$ (taxa $\lambda$). Sabe-se que $2\lambda \sum_{i=1}^n X_i \sim \chi^2_{2n}$.
+
+\begin{enumerate}[(a)]
+    \item Use esta propriedade para construir um teste de $H_0: \lambda = \lambda_0$ vs $H_1: \lambda \neq \lambda_0$ ao nível $\alpha$.
+    \item Para $n = 15$, $\lambda_0 = 2$ e $\sum_{i=1}^{15} x_i = 6.5$, realize o teste ao nível $\alpha = 0.05$.
+    \item Interprete o resultado no contexto do problema.
+\end{enumerate}
+
+\subsection*{[Questão 22] Teste Unilateral para Exponencial}
+
+Uma amostra de $n = 20$ observações de uma distribuição exponencial forneceu $\sum_{i=1}^{20} x_i = 25$. Teste $H_0: \lambda \geq 1$ vs $H_1: \lambda < 1$ ao nível $\alpha = 0.10$.
+
+\begin{enumerate}[(a)]
+    \item Use a transformação qui-quadrado para construir o teste.
+    \item Realize o teste e conclua.
+    \item Calcule a probabilidade de erro tipo II quando $\lambda = 0.8$.
+\end{enumerate}
+
+\subsection*{[Questão 23] Teste Exponencial com Aproximação Normal}
+
+Para uma amostra grande ($n = 100$) de uma distribuição exponencial com $\bar{x} = 1.8$, teste $H_0: \lambda = 0.5$ vs $H_1: \lambda \neq 0.5$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Use o TCL para justificar que $\bar{X}_n \approx N(1/\lambda, 1/(n\lambda^2))$.
+    \item Construa a estatística de teste apropriada.
+    \item Realize o teste e compare com o teste exato baseado em $\chi^2$.
+\end{enumerate}
+
+\subsection*{[Questão 24] Intervalo de Confiança e Teste Exponencial}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Exp($\lambda$). Para $n = 25$ e $\sum_{i=1}^{25} x_i = 50$:
+
+\begin{enumerate}[(a)]
+    \item Construa um intervalo de confiança de $95\%$ para $\lambda$ usando a distribuição $\chi^2$.
+    \item Use este intervalo para testar $H_0: \lambda = 0.4$ vs $H_1: \lambda \neq 0.4$ ao nível $\alpha = 0.05$.
+    \item Verifique a equivalência entre o intervalo de confiança e o teste de hipóteses.
+\end{enumerate}
+
+\subsection*{[Questão 25] Função Poder para Teste Exponencial}
+
+Teste $H_0: \lambda = 2$ vs $H_1: \lambda \neq 2$ ao nível $\alpha = 0.05$ com $n = 30$.
+
+\begin{enumerate}[(a)]
+    \item Determine a região crítica do teste usando a distribuição $\chi^2_{60}$.
+    \item Calcule a função poder $\pi(\lambda)$ para este teste.
+    \item Avalie o poder em $\lambda = 1.5$, $\lambda = 2.5$ e $\lambda = 3$. Discuta o comportamento do poder.
+\end{enumerate}
+
+\section{Lema de Neyman--Pearson (LNP)}
+
+\subsection*{[Questão 26] Construção de Teste MP pelo LNP}
+
+Sejam $X_1, X_2, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, 1)$. Deseja-se testar $H_0: \mu = 0$ vs $H_1: \mu = 1$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Escreva as funções de verossimilhança $L(0)$ e $L(1)$.
+    \item Use o Lema de Neyman--Pearson para construir o teste mais poderoso (MP).
+    \item Determine a constante crítica $k$ e a região de rejeição em termos de $\bar{X}_n$.
+\end{enumerate}
+
+\subsection*{[Questão 27] LNP para Distribuição Poisson}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Poisson($\lambda$). Teste $H_0: \lambda = 2$ vs $H_1: \lambda = 4$ ao nível $\alpha = 0.05$ com $n = 10$.
+
+\begin{enumerate}[(a)]
+    \item Escreva a razão de verossimilhança $\frac{L(4)}{L(2)}$.
+    \item Use o LNP para construir o teste MP.
+    \item Encontre a região crítica em termos de $S_n = \sum_{i=1}^n X_i$.
+\end{enumerate}
+
+\subsection*{[Questão 28] LNP para Distribuição Exponencial}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Exp($\lambda$). Teste $H_0: \lambda = 1$ vs $H_1: \lambda = 2$ ao nível $\alpha = 0.10$ com $n = 15$.
+
+\begin{enumerate}[(a)]
+    \item Construa a razão de verossimilhança e use o LNP para encontrar o teste MP.
+    \item Expresse a região crítica em termos de $\bar{X}_n$ ou $\sum_{i=1}^n X_i$.
+    \item Calcule o poder do teste, isto é, $\pi(2)$.
+\end{enumerate}
+
+\subsection*{[Questão 29] LNP para Distribuição Uniforme}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. $U(0, \theta)$. Teste $H_0: \theta = 1$ vs $H_1: \theta = 2$ ao nível $\alpha = 0.05$ com $n = 5$.
+
+\begin{enumerate}[(a)]
+    \item Escreva as funções de verossimilhança. Note que $L(\theta) = \theta^{-n} I(X_{(n)} \leq \theta)$.
+    \item Use o LNP para construir o teste MP.
+    \item Discuta as particularidades deste caso (região de rejeição baseada na estatística de ordem).
+\end{enumerate}
+
+\subsection*{[Questão 30] Propriedades do Teste MP pelo LNP}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. com densidade $f(x; \theta)$.
+
+\begin{enumerate}[(a)]
+    \item Explique o que significa um teste ser "mais poderoso" (MP).
+    \item Discuta as condições sob as quais o LNP garante a existência de um teste MP.
+    \item Mostre que o teste MP pelo LNP é único (a menos de um conjunto de medida zero).
+\end{enumerate}
+
+\section{Função Poder e Curvas de Poder}
+
+\subsection*{[Questão 31] Cálculo de Função Poder}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. $N(\mu, 4)$ com $n = 25$. Teste $H_0: \mu = 10$ vs $H_1: \mu \neq 10$ ao nível $\alpha = 0.05$.
+
+\begin{enumerate}[(a)]
+    \item Determine a região crítica do teste.
+    \item Calcule a função poder $\pi(\mu)$ explicitamente.
+    \item Avalie $\pi(9)$, $\pi(11)$, $\pi(12)$ e discuta o comportamento do poder.
+\end{enumerate}
+
+\subsection*{[Questão 32] Curva de Poder para Teste t}
+
+Para o teste $H_0: \mu = 50$ vs $H_1: \mu \neq 50$ com $\sigma^2$ desconhecido, $n = 16$ e $\alpha = 0.05$:
+
+\begin{enumerate}[(a)]
+    \item Escreva a função poder $\pi(\mu)$ para este teste.
+    \item Calcule o poder em $\mu = 48$, $\mu = 52$ e $\mu = 55$.
+    \item Esboce a curva de poder e discuta suas propriedades (simetria, comportamento em $\mu_0$, etc.).
+\end{enumerate}
+
+\subsection*{[Questão 33] Poder e Erro Tipo II}
+
+No contexto do teste $H_0: p = 0.5$ vs $H_1: p \neq 0.5$ para proporção, com $n = 100$ e $\alpha = 0.05$:
+
+\begin{enumerate}[(a)]
+    \item Calcule a função poder $\pi(p)$.
+    \item Determine $\beta(p)$ (probabilidade de erro tipo II) e relacione com $\pi(p)$.
+    \item Avalie $\beta(0.45)$ e $\beta(0.55)$. Interprete os resultados.
+\end{enumerate}
+
+\subsection*{[Questão 34] Comparação de Curvas de Poder}
+
+Considere dois testes para $H_0: \lambda = 3$ vs $H_1: \lambda \neq 3$ em uma distribuição Poisson:
+\begin{itemize}
+    \item Teste 1: $n = 20$, $\alpha = 0.05$
+    \item Teste 2: $n = 40$, $\alpha = 0.05$
+\end{itemize}
+
+\begin{enumerate}[(a)]
+    \item Calcule as funções poder $\pi_1(\lambda)$ e $\pi_2(\lambda)$.
+    \item Compare o poder em $\lambda = 2.5$ e $\lambda = 3.5$ para ambos os testes.
+    \item Discuta o efeito do tamanho amostral sobre o poder.
+\end{enumerate}
+
+\subsection*{[Questão 35] Interpretação da Curva de Poder}
+
+Para um teste de hipóteses qualquer, discuta:
+
+\begin{enumerate}[(a)]
+    \item O que significa uma curva de poder "mais íngreme"? Quando isso é desejável?
+    \item Por que $\pi(\theta_0) = \alpha$ quando $\theta_0$ é o valor da hipótese nula?
+    \item Como a escolha de $\alpha$ afeta a forma da curva de poder?
+\end{enumerate}
+
+\section{RVM e Teorema de Karlin--Rubin}
+
+\subsection*{[Questão 36] Família de Razão de Verossimilhança Monótona}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. $N(\mu, 1)$. Mostre que esta família tem razão de verossimilhança monótona (RVM) em $T(X) = \bar{X}_n$.
+
+\begin{enumerate}[(a)]
+    \item Calcule a razão de verossimilhança $\frac{L(\mu_2)}{L(\mu_1)}$ para $\mu_2 > \mu_1$.
+    \item Mostre que esta razão é uma função crescente de $\bar{X}_n$.
+    \item Conclua que a família é RVM e aplique o Teorema de Karlin--Rubin.
+\end{enumerate}
+
+\subsection*{[Questão 37] Construção de Teste UMP Unilateral via Karlin--Rubin}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Poisson($\lambda$). Teste $H_0: \lambda \leq 2$ vs $H_1: \lambda > 2$ ao nível $\alpha = 0.05$ com $n = 20$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que a família Poisson tem RVM em $T(X) = \sum_{i=1}^n X_i$.
+    \item Use o Teorema de Karlin--Rubin para construir o teste UMP (uniformemente mais poderoso).
+    \item Determine a região crítica em termos de $S_n = \sum_{i=1}^n X_i$.
+\end{enumerate}
+
+\subsection*{[Questão 38] RVM para Distribuição Exponencial}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Exp($\lambda$). Teste $H_0: \lambda \geq 1$ vs $H_1: \lambda < 1$ ao nível $\alpha = 0.10$ com $n = 25$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que a família exponencial tem RVM em $T(X) = \sum_{i=1}^n X_i$.
+    \item Use o Teorema de Karlin--Rubin para construir o teste UMP.
+    \item Expresse a região crítica usando a distribuição $\chi^2$.
+\end{enumerate}
+
+\subsection*{[Questão 39] Teste UMP para Distribuição Bernoulli}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. Bernoulli($p$). Teste $H_0: p \leq 0.3$ vs $H_1: p > 0.3$ ao nível $\alpha = 0.05$ com $n = 50$.
+
+\begin{enumerate}[(a)]
+    \item Mostre que a família Bernoulli tem RVM em $T(X) = \sum_{i=1}^n X_i$.
+    \item Construa o teste UMP usando o Teorema de Karlin--Rubin.
+    \item Para $\sum_{i=1}^{50} x_i = 20$, realize o teste e conclua.
+\end{enumerate}
+
+\subsection*{[Questão 40] Limitações do Teorema de Karlin--Rubin}
+
+Discuta as limitações do Teorema de Karlin--Rubin:
+
+\begin{enumerate}[(a)]
+    \item Por que o teorema não se aplica a testes bilaterais?
+    \item Dê um exemplo de uma família de distribuições que não possui RVM.
+    \item Explique a diferença entre um teste MP (para hipóteses simples) e um teste UMP (para hipóteses compostas).
+\end{enumerate}
+
+\section{Testes $\chi^2$}
+
+\subsection*{[Questão 41] Teste $\chi^2$ para Variância Normal}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. $N(\mu, \sigma^2)$ onde $\mu$ é desconhecido. Teste $H_0: \sigma^2 = 4$ vs $H_1: \sigma^2 \neq 4$ ao nível $\alpha = 0.05$ com $n = 20$.
+
+\begin{enumerate}[(a)]
+    \item Use o fato de que $\frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1}$ para construir o teste.
+    \item Determine a região crítica em termos de $S_n^2$.
+    \item Se $s_n^2 = 5.2$, realize o teste e conclua.
+\end{enumerate}
+
+\subsection*{[Questão 42] Teste Unilateral para Variância}
+
+Uma amostra de $n = 15$ observações normais forneceu $s_n^2 = 3.8$. Teste $H_0: \sigma^2 \geq 5$ vs $H_1: \sigma^2 < 5$ ao nível $\alpha = 0.10$.
+
+\begin{enumerate}[(a)]
+    \item Construa o teste usando a distribuição $\chi^2_{14}$.
+    \item Realize o teste e interprete.
+    \item Calcule a probabilidade de erro tipo II quando $\sigma^2 = 4$.
+\end{enumerate}
+
+\subsection*{[Questão 43] Teste $\chi^2$ com Média Conhecida}
+
+Sejam $X_1, \ldots, X_n$ i.i.d. $N(\mu, \sigma^2)$ onde $\mu = 10$ é conhecido. Teste $H_0: \sigma^2 = 9$ vs $H_1: \sigma^2 \neq 9$ ao nível $\alpha = 0.05$ com $n = 25$.
+
+\begin{enumerate}[(a)]
+    \item Note que $\frac{\sum_{i=1}^n (X_i - 10)^2}{\sigma^2} \sim \chi^2_n$ (não $n-1$ pois $\mu$ é conhecido).
+    \item Construa o teste apropriado.
+    \item Discuta a diferença entre este teste e o do item 41 (com $\mu$ desconhecido).
+\end{enumerate}
+
+\subsection*{[Questão 44] Intervalo de Confiança e Teste $\chi^2$}
+
+Para $n = 30$ observações normais com $s_n^2 = 6.5$:
+
+\begin{enumerate}[(a)]
+    \item Construa um intervalo de confiança de $95\%$ para $\sigma^2$.
+    \item Use este intervalo para testar $H_0: \sigma^2 = 8$ vs $H_1: \sigma^2 \neq 8$ ao nível $\alpha = 0.05$.
+    \item Verifique a equivalência entre os dois procedimentos.
+\end{enumerate}
+
+\subsection*{[Questão 45] Função Poder para Teste $\chi^2$}
+
+Teste $H_0: \sigma^2 = 10$ vs $H_1: \sigma^2 \neq 10$ ao nível $\alpha = 0.05$ com $n = 20$ (população normal).
+
+\begin{enumerate}[(a)]
+    \item Calcule a função poder $\pi(\sigma^2)$ para este teste.
+    \item Avalie o poder em $\sigma^2 = 8$, $\sigma^2 = 12$ e $\sigma^2 = 15$.
+    \item Esboce a curva de poder e discuta seu comportamento assimétrico.
+\end{enumerate}
+
+\section{Valor-p e Interpretação}
+
+\subsection*{[Questão 46] Cálculo e Interpretação do Valor-p}
+
+Para o teste $H_0: \mu = 100$ vs $H_1: \mu \neq 100$ com $\sigma = 15$ conhecido e $n = 36$:
+
+\begin{enumerate}[(a)]
+    \item Defina formalmente o valor-p (p-value) para este teste bilateral.
+    \item Se $\bar{x} = 105$, calcule o valor-p.
+    \item Interprete o valor-p: o que ele representa? Como usá-lo para tomar decisões?
+\end{enumerate}
+
+\subsection*{[Questão 47] Valor-p para Teste Unilateral}
+
+Teste $H_0: \mu \leq 50$ vs $H_1: \mu > 50$ com $\sigma = 8$ conhecido, $n = 25$ e $\bar{x} = 53.2$.
+
+\begin{enumerate}[(a)]
+    \item Calcule o valor-p para este teste unilateral direito.
+    \item Compare com o valor-p que obteríamos em um teste bilateral.
+    \item Discuta a relação entre valor-p e nível de significância na tomada de decisão.
+\end{enumerate}
+
+\subsection*{[Questão 48] Valor-p e Decisão Estatística}
+
+Considere os seguintes valores-p obtidos em diferentes testes:
+\begin{itemize}
+    \item Teste A: valor-p $= 0.03$
+    \item Teste B: valor-p $= 0.08$
+    \item Teste C: valor-p $= 0.001$
+    \item Teste D: valor-p $= 0.25$
+\end{itemize}
+
+\begin{enumerate}[(a)]
+    \item Para cada teste, decida se $H_0$ deve ser rejeitada ao nível $\alpha = 0.05$.
+    \item Para cada teste, decida ao nível $\alpha = 0.01$.
+    \item Discuta a interpretação: "valor-p menor indica evidência mais forte contra $H_0$".
+\end{enumerate}
+
+\subsection*{[Questão 49] Valor-p para Teste t}
+
+Para o teste $H_0: \mu = 20$ vs $H_1: \mu \neq 20$ com $\sigma^2$ desconhecido, $n = 16$, $\bar{x} = 21.5$ e $s_n = 3.2$:
+
+\begin{enumerate}[(a)]
+    \item Calcule a estatística $t$ observada.
+    \item Determine o valor-p usando a distribuição $t$ de Student com $15$ graus de liberdade.
+    \item Se $\alpha = 0.05$, qual a decisão? E se $\alpha = 0.10$?
+\end{enumerate}
+
+\subsection*{[Questão 50] Interpretação Conceitual do Valor-p}
+
+Discuta os seguintes aspectos do valor-p:
+
+\begin{enumerate}[(a)]
+    \item O que o valor-p NÃO representa? (Erro comum: "probabilidade de $H_0$ ser verdadeira").
+    \item Qual a relação entre valor-p e o tamanho do efeito?
+    \item Por que é importante reportar o valor-p além de apenas "rejeitar" ou "não rejeitar" $H_0$?
+\end{enumerate}
+
+\section{Dicas Gerais de Resolução}
+
+\subsection{Dicas por Tipo de Teste}
+
+\begin{enumerate}
+    \item \textbf{Teste Z:} Use quando $\sigma^2$ é conhecido. A estatística é $Z = \frac{\bar{X}_n - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1)$ sob $H_0$.
+    
+    \item \textbf{Teste t:} Use quando $\sigma^2$ é desconhecido. A estatística é $t = \frac{\bar{X}_n - \mu_0}{S_n/\sqrt{n}} \sim t_{n-1}$ sob $H_0$.
+    
+    \item \textbf{Teste de Proporções:} Use a aproximação normal: $Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}$ quando $np_0$ e $n(1-p_0)$ são grandes.
+    
+    \item \textbf{Testes para Poisson:} Use que $S_n = \sum_{i=1}^n X_i \sim \text{Poisson}(n\lambda)$. Para $n\lambda$ grande, use aproximação normal.
+    
+    \item \textbf{Testes para Exponencial:} Use que $2\lambda \sum_{i=1}^n X_i \sim \chi^2_{2n}$ para construir testes exatos.
+    
+    \item \textbf{Lema de Neyman--Pearson:} Construa a razão de verossimilhança $\frac{L(\theta_1)}{L(\theta_0)}$ e encontre $k$ tal que $P_{\theta_0}(\text{rejeitar}) = \alpha$.
+    
+    \item \textbf{Função Poder:} $\pi(\theta) = P_{\theta}(\text{rejeitar } H_0)$. Calcule usando a distribuição da estatística de teste sob $H_1$.
+    
+    \item \textbf{Teorema de Karlin--Rubin:} Verifique se a família tem RVM. Se sim, o teste da forma $\{T(X) > c\}$ é UMP para $H_1: \theta > \theta_0$.
+    
+    \item \textbf{Testes $\chi^2$ para Variância:} Use que $\frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1}$ quando $\mu$ é desconhecido.
+    
+    \item \textbf{Valor-p:} Para teste bilateral, valor-p $= 2P(Z \geq |z_{\text{obs}}|)$. Para unilateral, valor-p $= P(Z \geq z_{\text{obs}})$ (ou $\leq$ conforme o caso).
+\end{enumerate}
+
+\subsection{Dicas Gerais}
+
+\begin{itemize}
+    \item Sempre verifique as condições de aplicabilidade de cada teste (tamanho amostral, distribuição, etc.).
+    
+    \item Para amostras grandes, muitas vezes pode-se usar aproximações normais mesmo quando a distribuição exata está disponível.
+    
+    \item Testes unilaterais têm maior poder que testes bilaterais para a mesma direção da alternativa, mas menor poder na direção oposta.
+    
+    \item O valor-p é a probabilidade de observar uma estatística de teste tão ou mais extrema que a observada, assumindo $H_0$ verdadeira.
+    
+    \item Regra prática: rejeite $H_0$ se valor-p $\leq \alpha$, não rejeite se valor-p $> \alpha$.
+    
+    \item Para testes de variância, lembre-se: se $\mu$ é conhecido, use $\chi^2_n$; se $\mu$ é desconhecido, use $\chi^2_{n-1}$.
+    
+    \item A função poder deve ser calculada para diferentes valores do parâmetro na hipótese alternativa para avaliar o desempenho do teste.
+    
+    \item Testes MP (mais poderosos) existem apenas para hipóteses simples; para hipóteses compostas, busque testes UMP.
+    
+    \item O Teorema de Karlin--Rubin garante testes UMP apenas para hipóteses unilaterais quando a família tem RVM.
+    
+    \item Sempre interprete os resultados no contexto do problema prático, não apenas mecanicamente.
+\end{itemize}
+
+\section{Respostas Selecionadas}
+
+\textbf{Questão 1(b):} $z_{\text{obs}} = \frac{11.2 - 10}{2/5} = 3.0$. Como $|z_{\text{obs}}| = 3.0 > 1.96 = z_{0.025}$, rejeitamos $H_0$ ao nível $5\%$.
+
+\textbf{Questão 2(c):} $\beta(7) = P(\bar{X}_{36} \leq c | \mu = 7)$ onde $c$ é tal que $P(\bar{X}_{36} > c | \mu = 5) = 0.01$. Com $\sigma = 3$, $c = 5 + 3 \cdot 2.326/\sqrt{36} \approx 6.163$. Então $\beta(7) = P(\bar{X}_{36} \leq 6.163 | \mu = 7) = \Phi\left(\frac{6.163 - 7}{3/6}\right) = \Phi(-1.67) \approx 0.047$.
+
+\textbf{Questão 6(c):} $t_{\text{obs}} = \frac{52.3 - 50}{4.8/4} = 1.92$. Com $t_{15,0.025} = 2.131$, temos $|t_{\text{obs}}| = 1.92 < 2.131$, logo não rejeitamos $H_0$ ao nível $5\%$.
+
+\textbf{Questão 11(b):} $z_{\text{obs}} = \frac{0.35 - 0.40}{\sqrt{0.40 \cdot 0.60/200}} = \frac{-0.05}{0.0346} \approx -1.44$. Como $|z_{\text{obs}}| = 1.44 < 1.96$, não rejeitamos $H_0$ ao nível $5\%$.
+
+\textbf{Questão 16(c):} Sob $H_0$, $S_{20} \sim \text{Poisson}(60)$. Como $60$ é grande, usamos aproximação normal: $Z = \frac{68 - 60}{\sqrt{60}} \approx 1.03$. Como $|z| = 1.03 < 1.96$, não rejeitamos $H_0$.
+
+\textbf{Questão 21(b):} Sob $H_0$, $2 \cdot 2 \cdot 6.5 = 26 \sim \chi^2_{30}$. Com $\chi^2_{30,0.025} = 16.79$ e $\chi^2_{30,0.975} = 46.98$, temos $16.79 < 26 < 46.98$, logo não rejeitamos $H_0$.
+
+\textbf{Questão 26(c):} O LNP leva ao teste que rejeita $H_0$ se $\bar{X}_n > k$. Determinando $k$ tal que $P(\bar{X}_n > k | \mu = 0) = 0.05$ com $n$ fixo, obtemos $k = 0 + z_{0.05} \cdot \frac{1}{\sqrt{n}}$.
+
+\textbf{Questão 31(b):} $\pi(\mu) = 1 - \Phi\left(\frac{10 + z_{0.025} \cdot \frac{2}{5} - \mu}{2/5}\right) + \Phi\left(\frac{10 - z_{0.025} \cdot \frac{2}{5} - \mu}{2/5}\right)$.
+
+\textbf{Questão 36(b):} A razão é $\exp\{n(\mu_2 - \mu_1)\bar{X}_n - \frac{n}{2}(\mu_2^2 - \mu_1^2)\}$, que é crescente em $\bar{X}_n$ quando $\mu_2 > \mu_1$.
+
+\textbf{Questão 41(c):} Sob $H_0$, $\frac{19 \cdot 5.2}{4} = 24.7 \sim \chi^2_{19}$. Com $\chi^2_{19,0.025} = 8.91$ e $\chi^2_{19,0.975} = 32.85$, temos $8.91 < 24.7 < 32.85$, logo não rejeitamos $H_0$.
+
+\textbf{Questão 46(b):} Valor-p $= 2P(Z \geq |\frac{105 - 100}{15/6}|) = 2P(Z \geq 2.0) = 2(1 - \Phi(2.0)) = 2(1 - 0.9772) = 0.0456$.
+
+\textbf{Questão 49(b):} $t_{\text{obs}} = \frac{21.5 - 20}{3.2/4} = 1.875$. Valor-p $= 2P(t_{15} \geq 1.875) \approx 2(1 - 0.96) = 0.08$ (aproximado).
+
+\section{Gabarito e Dicas - Parte 2}
+
+\subsection{Dicas Adicionais}
+
+\textbf{Testes Unilaterais vs Bilaterais:}
+\begin{itemize}
+    \item Testes unilaterais têm maior poder na direção da alternativa, mas não têm poder na direção oposta.
+    \item A escolha entre unilateral e bilateral deve ser feita antes de coletar os dados, baseada na pergunta de interesse.
+    \item Valor-p unilateral é metade do valor-p bilateral para a mesma estatística observada (quando a distribuição é simétrica).
+\end{itemize}
+
+\textbf{Lema de Neyman--Pearson:}
+\begin{itemize}
+    \item O LNP garante que existe um teste MP para hipóteses simples $H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$.
+    \item O teste MP é baseado na razão de verossimilhança: rejeite se $\frac{L(\theta_1)}{L(\theta_0)} > k$ onde $k$ é tal que $P_{\theta_0}(\text{rejeitar}) = \alpha$.
+    \item Este teste é único (a menos de um conjunto de medida zero) e tem poder máximo entre todos os testes de nível $\alpha$.
+\end{itemize}
+
+\textbf{Função Poder:}
+\begin{itemize}
+    \item A função poder $\pi(\theta)$ deve satisfazer: $\pi(\theta) = \alpha$ quando $\theta \in H_0$ (para testes não-viésados).
+    \item Para testes "bons", $\pi(\theta) \to 1$ quando $\theta$ se afasta de $H_0$ na direção de $H_1$.
+    \item O poder aumenta com o tamanho amostral e com a magnitude do efeito.
+    \item O poder diminui quando $\alpha$ diminui (trade-off entre tipos de erro).
+\end{itemize}
+
+\textbf{Teorema de Karlin--Rubin:}
+\begin{itemize}
+    \item Requer que a família de distribuições tenha razão de verossimilhança monótona (RVM).
+    \item Quando aplicável, garante um teste UMP para hipóteses unilaterais.
+    \item Famílias exponenciais uniparamétricas frequentemente têm RVM.
+    \item A estatística suficiente é usada como estatística de teste.
+\end{itemize}
+
+\textbf{Testes $\chi^2$ para Variância:}
+\begin{itemize}
+    \item Quando $\mu$ é desconhecido: $\frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1}$.
+    \item Quando $\mu$ é conhecido: $\frac{\sum_{i=1}^n (X_i - \mu)^2}{\sigma^2} \sim \chi^2_n$.
+    \item A diferença de $1$ grau de liberdade é importante: afeta a região crítica e o poder.
+    \item Para testes bilaterais, a região crítica é não-simétrica (devido à assimetria da distribuição $\chi^2$).
+\end{itemize}
+
+\textbf{Valor-p:}
+\begin{itemize}
+    \item Valor-p NÃO é a probabilidade de $H_0$ ser verdadeira (erro comum!).
+    \item Valor-p é a probabilidade de observar dados tão ou mais extremos que os observados, assumindo $H_0$ verdadeira.
+    \item Valor-p menor indica evidência mais forte contra $H_0$, mas não mede a "magnitude do efeito".
+    \item Um valor-p significativo não implica necessariamente um efeito prático importante (depende do tamanho amostral).
+    \item Sempre reporte o valor-p exato quando possível, não apenas "p < 0.05".
+\end{itemize}
+
+\subsection{Respostas Selecionadas - Parte 2}
+
+\textbf{Questão 5(a):} Para poder $\geq 0.90$ quando $\mu = 105$: precisamos que $\beta(105) \leq 0.10$. Resolvendo, obtemos $n \geq \left(\frac{(z_{0.025} + z_{0.10}) \cdot 15}{5}\right)^2 = \left(\frac{(1.96 + 1.28) \cdot 15}{5}\right)^2 = (9.72)^2 \approx 95$.
+
+\textbf{Questão 13(b):} Com correção de continuidade: $Z = \frac{|45 - 50| - 0.5}{\sqrt{100 \cdot 0.5 \cdot 0.5}} = \frac{4.5}{5} = 0.9$. Valor-p $= 2P(Z \geq 0.9) = 2(1 - 0.8159) = 0.3682$, maior que sem correção.
+
+\textbf{Questão 19(b):} $P(S_{25} \geq 82) \approx P(Z \geq \frac{81.5 - 75}{\sqrt{75}}) = P(Z \geq 0.75) = 1 - \Phi(0.75) = 1 - 0.7734 = 0.2266$ (usando correção de continuidade).
+
+\textbf{Questão 23(c):} Usando aproximação normal: $Z = \frac{1.8 - 2}{\sqrt{1/(100 \cdot 0.25)}} = \frac{-0.2}{0.2} = -1.0$. Como $|z| = 1.0 < 1.96$, não rejeitamos $H_0$.
+
+\textbf{Questão 27(c):} A razão $\frac{L(4)}{L(2)} = \exp\{S_n(\log 4 - \log 2) - n(4 - 2)\} = \exp\{S_n \log 2 - 2n\}$. O teste MP rejeita se $S_n > c$ onde $c$ é tal que $P(S_{10} > c | \lambda = 2) = 0.05$.
+
+\textbf{Questão 32(b):} $\pi(48) \approx 0.35$, $\pi(52) \approx 0.65$, $\pi(55) \approx 0.90$ (valores aproximados usando distribuição $t$).
+
+\textbf{Questão 37(c):} O teste UMP rejeita $H_0$ se $S_{20} > c$ onde $c$ é tal que $P(S_{20} > c | \lambda = 2) = 0.05$. Como $S_{20} \sim \text{Poisson}(40)$ sob $H_0$ no limite, podemos usar aproximação normal.
+
+\textbf{Questão 42(c):} $\beta(4) = P(\text{não rejeitar} | \sigma^2 = 4) = P(\frac{14 \cdot S_n^2}{4} \geq \chi^2_{14,0.90} | \sigma^2 = 4)$, onde a distribuição de $\frac{14 \cdot S_n^2}{4}$ sob $\sigma^2 = 4$ é $\chi^2_{14}$.
+
+\textbf{Questão 45(b):} $\pi(8) \approx 0.42$, $\pi(12) \approx 0.38$, $\pi(15) \approx 0.65$ (valores aproximados). Note que o poder não é simétrico em torno de $\sigma^2_0 = 10$.
+
+\textbf{Questão 48:} Ao nível $\alpha = 0.05$: Teste A (rejeitar), B (não rejeitar), C (rejeitar), D (não rejeitar). Ao nível $\alpha = 0.01$: Apenas C rejeita.
+
+\end{document}

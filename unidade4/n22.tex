@@ -1,0 +1,39 @@
+﻿Logo, 
+\begin{equation}
+T(x) = \sum_{i=1}^n x_i
+\end{equation}
+é suficiente para $\mu$ e tem a densidade 
+\[
+T \sim N(n\mu, n\sigma^2)
+\]
+\[
+U(t; \mu) = (2\pi n \sigma^2)^{-1/2} \cdot \exp \left\{ -\frac{1}{2n\sigma^2} (t - n\mu)^2 \right\}
+\]
+para $\mu^* > \mu$.
+
+\[
+\frac{L(t; \mu^*)}{L(t; \mu)} = \exp \left\{ -\frac{1}{2n\sigma^2} \left( t^2 - 2n t \mu^* + n^2 (\mu^*)^2 - t^2 + 2n t \mu - n^2 \mu^2 \right) \right\}
+\]
+\[
+= \exp \left\{ \frac{1}{2n\sigma^2} \left( 2n t (\mu - \mu^*) + n^2 \left( \mu^2 - (\mu^*)^2 \right) \right) \right\}
+\]
+
+O que implica que $L(t; \mu)$ tem RVM não decrescente em $t$. Logo, o seguinte teste de nível $\alpha$ é UMP pelo teorema de Karlin-Rubin:
+
+\[
+\psi_Y(x) = 
+\begin{cases}
+1, & \text{se } T(x) > k_1, \\
+0, & \text{se } T(x) < k_1.
+\end{cases}
+\]
+
+Ou, equivalentemente,
+
+\[
+\psi_Y(x) = 
+\begin{cases}
+1, & \text{se } \sqrt{n} \frac{\bar{x}_n - \mu_0}{\sigma} > k_1, \\
+0, & \text{se } \sqrt{n} \frac{\bar{x}_n - \mu_0}{\sigma} < k_1.
+\end{cases}
+\]

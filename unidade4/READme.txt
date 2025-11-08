@@ -1,0 +1,1 @@
+trata-se das anotações do caderno do renato realizada no semestre anterior, atenção pode existir incosistências com material atualizado em unidade2

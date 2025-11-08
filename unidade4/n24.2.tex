@@ -1,0 +1,36 @@
+﻿Para $\theta > 0$,
+\begin{equation}
+\frac{f(t; \theta_1)}{f(t; \theta_0)} = \left( \frac{\theta_0}{\theta_1} \right)^n \cdot \frac{\prod_{(1, \theta_0, \theta_1)}}{\prod_{(1, \theta_0, \theta_1)}}
+\end{equation}
+
+$t$ não é decrescente, portanto $f(t; \theta)$ tem RUM não decrescente. Assim, o seguinte teste $\psi$ de nível $\alpha$ é UMP para
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta > \theta_0.
+\]
+
+Pelo Teorema de KR, $\psi$ com função crítica:
+\[
+\psi(x) = 
+\begin{cases}
+1, & T(x) > k, \\
+0, & T(x) \leq k,
+\end{cases}
+\]
+em que $k$ é tal que
+\begin{equation}
+\alpha = P_{\theta_0}(T(X) > k) = \int_{k}^{\theta_0} n t^{n-1} \theta_0^{-n} \, dt
+\end{equation}
+
+\begin{equation}
+= \frac{n}{\theta_0^n} \left[ \frac{t^n}{n} \right]_{k}^{\theta_0} 
+= \frac{1}{\theta_0^n} \left[ \theta_0^n - k^n \right]
+\end{equation}
+
+\begin{equation}
+= 1 - \left( \frac{k}{\theta_0} \right)^n
+\end{equation}
+
+Dado,
+\begin{equation}
+\frac{k}{\theta_0} = (1 - \alpha)^{1/n} \quad \therefore \quad k = \theta_0 (1 - \alpha)^{1/n}.
+\end{equation}

@@ -1,0 +1,34 @@
+\textbf{Caso 4:}
+\[
+\begin{cases}
+H_0: \sigma^2 = \sigma_0^2 \quad \text{para } \mu \text{ desconhecido}, \\
+H_1: \sigma^2 \neq \sigma_0^2
+\end{cases}
+\]
+(Teste $\chi^2_{n-1}$)
+
+\bigskip
+
+\textbf{Caso 1}
+
+Sejam $X_1, \ldots, X_n$ uma a.a. de $X_i \sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma_0$ conhecido. Aqui, temos
+\[
+\Theta = \mathbb{R} \quad \text{e} \quad \Theta_0 = \mathbb{R} - \{\mu_0\}.
+\]
+
+A função de verossimilhança é
+\begin{equation}
+L(\mu) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu}{\sigma} \right)^2 \right\}.
+\end{equation}
+
+Desta última identidade, tem-se
+\begin{equation}
+\sup_{\mu \in \Theta_0} \{ L(\mu) \} = (2\pi\sigma^2)^{-n/2} \sup_{\mu \in \Theta_0} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu}{\sigma} \right)^2 \right\}
+\end{equation}
+
+\begin{equation}
+\sup_{\mu \in \Theta} \{ L(\mu) \} = (2\pi\sigma^2)^{-n/2} \sup_{\mu \in \Theta} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \bar{x}}{\sigma} \right)^2 \right\}
+\end{equation}
+
+em que $\bar{x} = \hat{\mu}$ é a estimativa de MV para $\mu$. Note que, para algum certo valor, vale-se.
+

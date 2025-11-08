@@ -1,0 +1,42 @@
+\newpage
+
+Bilateral com confiança $1 - \alpha$ para $\mu(\theta) = \sigma_1^2 / \sigma_2^2$
+
+\textbf{Idéia:} Pode-se mostrar (fica como exercício) que
+\begin{equation}
+\bar{X}_1 = \frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}, \quad \bar{X}_2 = \frac{1}{n_2} \sum_{i=1}^{n_2} X_{2i}, \quad S_1^2 = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2, \quad S_2^2 = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2
+\end{equation}
+
+são estatísticas suficientes para $\mu_1, \mu_2, \sigma_1^2$ e $\sigma_2^2$ respectivamente. Note que (por definição da distribuição $F$)
+\begin{equation}
+U = \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F_{n_1 - 1, \, n_2 - 1}
+\end{equation}
+
+uma vez que $(n_1 - 1) S_1^2 / \sigma_1^2 \sim \chi^2_{n_1 - 1}$ e $(n_2 - 1) S_2^2 / \sigma_2^2 \sim \chi^2_{n_2 - 1}$ são independentes. Logo, $U$ é uma quantidade pivotal.
+
+Sejam $h_1 = F_{n_1 - 1, \, n_2 - 1; \, \alpha/2}$ e $h_2 = F_{n_1 - 1, \, n_2 - 1; \, 1 - \alpha/2}$ quantidades tais que
+\[
+P(U < h_1) = \frac{\alpha}{2} \quad \text{e} \quad P(U > h_2) = \frac{\alpha}{2}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\draw[->] (-0.5,0) -- (6,0) node[right] {};
+\draw[->] (0,-0.5) -- (0,3) node[above] {};
+\draw[domain=0.5:5.5,smooth,variable=\x] plot ({\x},{-0.2*(\x-3)^2+2.5});
+\draw[dashed] (1,0) -- (1,1.5);
+\draw[dashed] (5,0) -- (5,1.5);
+\draw (1,-0.2) node[below] {$h_1$};
+\draw (5,-0.2) node[below] {$h_2$};
+\draw (3,2.7) node {$\alpha$};
+\draw[pattern=north east lines] (0.5,0) -- (1,0) -- (1,1.5) -- (0.5,1.5) -- cycle;
+\draw[pattern=north east lines] (5,0) -- (5.5,0) -- (5.5,1.5) -- (5,1.5) -- cycle;
+\end{tikzpicture}
+\end{center}
+
+Daí,
+\begin{equation}
+P_\theta(h_1 < U < h_2) = 1 - \alpha \quad \Rightarrow \quad P_\theta\left(h_1 < \frac{\sigma_2^2}{\sigma_1^2} \cdot \frac{S_1^2}{S_2^2} < h_2\right) = 1 - \alpha
+\end{equation}
+
+\end{document}

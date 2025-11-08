@@ -1,0 +1,35 @@
+\newpage
+
+\textbf{03/11/25}
+
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \frac{L_1}{L_0} > k \right\} = \left\{ x \in \mathcal{X} : \exp\left\{ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^n x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\} > k \right\}
+\end{equation}
+
+\begin{equation}
+= \left\{ x \in \mathcal{X} : \exp\left\{ \frac{(\mu_1 - \mu_0)}{\sigma^2} \sum_{i=1}^n x_i \right\} > k \cdot e^{\frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2}} \right\}
+\end{equation}
+onde $k_1 = k \cdot e^{\frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2}}$
+
+\begin{equation}
+= \left\{ x \in \mathcal{X} : \sum_{i=1}^n x_i > \frac{\sigma^2}{\mu_1 - \mu_0} \log(k_1) \right\}
+\end{equation}
+onde $k_2 = \frac{\sigma^2}{\mu_1 - \mu_0} \log(k_1)$
+
+\noindent (uma versão mais manipulável)
+
+\begin{equation}
+R_c = \left\{ x \in \mathcal{X} : \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma} > \sqrt{n} \frac{k_2 - n\mu_0}{n\sigma} \right\}
+\end{equation}
+
+\begin{equation}
+\therefore R_c = \left\{ x \in \mathcal{X} : \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma} > k_3 \right\} \quad (4.3.5), \, 
+\end{equation}
+
+Definamos a função $Z$: $\mathcal{X} \to \mathbb{R}$ dada por:
+
+\begin{equation}
+Z(x) \triangleq \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma}
+\end{equation}
+
+Quando $Z(x)$ é avaliada numa aa $X = (X_1, \ldots, X_n)^T$, a quantidade resultante $Z(x)$ é uma estatística de teste com distribuição conhecida sob $H_0$.

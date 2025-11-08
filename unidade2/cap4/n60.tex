@@ -1,0 +1,42 @@
+\newpage
+
+\section*{Resumo Teste $\chi^2$}
+
+\subsection*{Suposição}
+\[
+X_1, \ldots, X_n \overset{i.i.d.}{\sim} \exp(\theta)
+\]
+
+\subsection*{Hipóteses}
+\[
+H_0: \theta = \theta_0
+\]
+\[
+H_1: \theta = \theta_1 \quad (\theta_1 > \theta_0)
+\]
+
+\subsection*{Estatística de Teste}
+\begin{equation}
+Q(X) = \frac{2}{\theta_0} \sum_{i=1}^n X_i \sim \chi^2_{2n} \quad \text{para } H_0
+\end{equation}
+\[
+Q_{\text{cal}} = Q(x)
+\]
+
+\subsection*{Regra de decisão}
+Rejeita-se $H_0$ se $Q_{\text{cal}} > q_\alpha$ \\
+Rejeita-se $H_0$ se $P(Q > Q_{\text{cal}}) < \alpha$
+
+\subsection*{Questão (4.6)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Bernoulli}(p)$ para $p \in (0,1)$ desconhecida. \\
+Encontre o teste MP para:
+\[
+H_0: p = p_0 \quad \text{vs} \quad H_1: p > p_0
+\]
+
+\subsection*{Solução}
+Como o contexto é do tipo simples vs simples, aplica-se o LNP. A verossimilhança associada é dada por:
+\begin{equation}
+L_i \triangleq L(p_i; x) = \prod_{k=1}^n \left[ p_i^{x_k} (1 - p_i)^{1 - x_k} \right]
+\end{equation}
+

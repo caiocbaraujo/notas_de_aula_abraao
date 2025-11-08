@@ -1,0 +1,53 @@
+\newpage
+
+\textbf{03/11/25}
+
+Que é a densidade da exponencial padrão.
+
+Ainda note que $\dot{X}_i \triangleq 2 \frac{X_i}{\theta} = 2 \theta^{-1} X_i$ tem densidade
+
+\begin{equation}
+f_{\dot{X}_i}(x) = \frac{1}{2} f_{X_i}\left( \frac{x}{2} \right) = \frac{1}{2} e^{-x/2}, \quad x > 0
+\end{equation}
+
+que é a densidade de $\chi^2_2$, pois $\frac{1}{2} e^{-x/2} = \frac{1}{2^{1} \Gamma(1)} e^{-x/2} x^{1-1}$.
+
+Assim, $\sum_{i=1}^n \dot{X}_i \sim \chi^2_{2n}$, para $\dot{X}_i$ i.i.d.
+
+Logo
+
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : \frac{2}{\theta_0} \sum_{i=1}^n x_i > k_{3} \right\}
+\end{equation}
+
+Definimos a função $Q : \mathcal{X} \to \mathbb{R_+}$
+
+\begin{equation}
+Q(x) = \frac{2}{\theta_0} \sum_{i=1}^n x_i
+\end{equation}
+
+Note que para $X = (x_1, \dots, x_n)^T$, $Q(X) \overset{H_0}{\sim} \chi^2_{2n}$.
+
+A região crítica fica definida como:
+
+\begin{equation}
+R_c = \{ x \in \mathcal{X} : Q(x) > q_{\alpha} \}
+\end{equation}
+
+em que $q_{\alpha}$ é tal que
+
+\begin{equation}
+P(Q > q_{\alpha}) = \alpha, \quad Q \sim \chi^2_{2n}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\draw[->] (-0.5,0) -- (6,0) node[right] {};
+\draw[->] (0,-0.5) -- (0,2.5) node[above] {};
+\draw[domain=0:5,smooth,variable=\x,black] plot ({\x},{2*exp(-(\x-2)^2)});
+\draw[dashed] (4,0) -- (4,1.2);
+\draw[->] (4,0.2) -- (4.5,0.8) node[right] {$\alpha$};
+\node at (4,-0.3) {$q_{\alpha}$};
+\end{tikzpicture}
+\end{center}
+

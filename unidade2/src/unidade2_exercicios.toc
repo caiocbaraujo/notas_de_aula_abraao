@@ -1,0 +1,24 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{2}{section.1}%
+\contentsline {section}{\numberline {2}Lei Fraca dos Grandes Números}{2}{section.2}%
+\contentsline {section}{\numberline {3}Convergência via Momentos (Resultado 2P)}{3}{section.3}%
+\contentsline {section}{\numberline {4}Teorema de Slutsky}{4}{section.4}%
+\contentsline {section}{\numberline {5}Teorema Central do Limite}{5}{section.5}%
+\contentsline {section}{\numberline {6}Método Delta / Teorema de Mann-Wald}{6}{section.6}%
+\contentsline {section}{\numberline {7}Convergência em Distribuição}{7}{section.7}%
+\contentsline {section}{\numberline {8}Gabarito e Dicas}{8}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Dicas Gerais de Resolução}{8}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Respostas Selecionadas}{9}{subsection.8.2}%
+\contentsline {section}{\numberline {9}TCL para Variância Amostral}{9}{section.9}%
+\contentsline {section}{\numberline {10}Teorema da Função Contínua para Convergência em Distribuição}{10}{section.10}%
+\contentsline {section}{\numberline {11}Estimadores Consistentes}{11}{section.11}%
+\contentsline {section}{\numberline {12}Propriedades Assintóticas dos EMVs}{13}{section.12}%
+\contentsline {section}{\numberline {13}Gabarito e Dicas - Parte 2}{14}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Dicas para as Novas Questões}{14}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Respostas Selecionadas - Parte 2}{15}{subsection.13.2}%
+\contentsline {section}{\numberline {14}Capítulo 4 - Testes de Hipóteses}{16}{section.14}%
+\contentsline {section}{\numberline {15}Gabarito - Capítulo 4}{18}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Dicas para Questões de Testes de Hipóteses}{18}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Respostas Selecionadas - Capítulo 4}{19}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Questões Adicionais Integradas}{19}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Respostas Selecionadas - Questões Adicionais}{21}{subsection.16.1}%

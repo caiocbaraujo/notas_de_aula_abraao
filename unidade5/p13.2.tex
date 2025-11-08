@@ -1,0 +1,32 @@
+\section*{Aula 30 (04/07/2018)}
+
+Considere testar $H_0: \mu = \mu_0$ e $H_1: \mu \neq \mu_0$ baseado em $x_1, \ldots, x_n$ como uma a.a. de $X \sim N(\mu, \sigma^2)$. Neste caso
+\[
+\Theta_0 = \{ (\mu_0, \sigma^2); \ \mu_0 \ \text{é fixado e} \ \sigma \in \mathbb{R}_+ \}.
+\]
+
+Aqui a função de verossimilhança é
+\begin{equation}
+L(\mu, \sigma^2) = (2\pi\sigma^2)^{-n/2} \cdot \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu}{\sigma} \right)^2 \right\}.
+\end{equation}
+
+Desta expressão,
+\begin{equation}
+\sup_{(\mu_0, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = L(\mu_0, \hat{\sigma}^2) 
+= (2\pi \hat{\sigma}^2)^{-n/2} \cdot \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu_0)^2 \right\},
+\end{equation}
+em que 
+\[
+\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \mu_0)^2
+\]
+é a estimativa de MV para $\sigma^2$. Simplificando a última expressão temos:
+\begin{equation}
+\sup_{(\mu_0, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = (2\pi \hat{\sigma}^2)^{-n/2} e^{-n/2}.
+\end{equation}
+
+Por outro lado, tem-se:
+\begin{equation}
+\sup_{(\mu, \sigma^2) \in \Theta} L(\mu, \sigma^2) = L(\bar{x}, \hat{\sigma}^2) 
+= (2\pi \hat{\sigma}^2)^{-n/2} \cdot \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}.
+\end{equation}
+
