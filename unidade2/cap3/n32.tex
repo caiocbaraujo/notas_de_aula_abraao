@@ -1,0 +1,28 @@
+\textbf{Obs 3:} Um fato interessante é que se pode obter o tamanho amostral mínimo, diga-se $n_0$, tal que
+\begin{equation}
+    P\left( \left| X_{n:n} - \theta \right| < \varepsilon \right) \geq 1 - \delta,
+\end{equation}
+em que $\varepsilon > 0$ e $\delta \in (0,1)$ são constantes pré-especificadas para $\varepsilon < \theta$.
+
+\begin{equation}
+    P\left( \left| X_{n:n} - \theta \right| < \varepsilon \right) \geq 1 - \delta
+\end{equation}
+
+\[
+\therefore 1 - \left( \frac{\theta - \varepsilon}{\theta} \right)^n \geq 1 - \delta
+\]
+\[
+\therefore \left( \frac{\theta - \varepsilon}{\theta} \right)^n \leq \delta
+\]
+\[
+\therefore n \geq \frac{\log \delta}{\log \left( \frac{\theta - \varepsilon}{\theta} \right)}
+\]
+Assim:
+\begin{equation}
+    n_0 = \left\lceil \frac{\log \delta}{\log \left( \frac{\theta - \varepsilon}{\theta} \right)} \right\rceil + 1
+\end{equation}
+
+Para $\theta \leq \varepsilon$:
+\[
+n_0 = 1
+\]

@@ -1,0 +1,40 @@
+Logo,
+\begin{equation}
+e^{x} \log(1+x) = \left[ 1 + x + O(x^2) \right] \left[ x + O(x^2) \right]
+\end{equation}
+
+\begin{equation}
+= \left[ 1 + x + O(x^2) \right] x + \left[ 1 + x + O(x^2) \right] O(x^2)
+\end{equation}
+
+\begin{equation}
+= x + x^2 + x \cdot O(x^2) + O(x^2) + x \cdot O(x^2) + O(x^2) \cdot O(x^2)
+\end{equation}
+
+\begin{equation}
+= x + x^2 + O(x^3) + O(x^2) + O(x^3) + O(x^4)
+\end{equation}
+
+\begin{equation}
+= x + x^2 + O(x^2) + O(x^3) + O(x^4)
+\end{equation}
+
+\begin{equation}
+= x + x^2 + O(x^2) = x + O(x^2) + O(x^2)
+\end{equation}
+
+\begin{equation}
+= x + O(x^2)
+\end{equation}
+
+\subsection*{3.7.4(a) Convergência em Probabilidade}
+
+\textbf{Definições (3.7.4.1(a))} Considere uma sequência de v.a.'s de valores reais $\{U_n, n \geq 1\}$. $U_n$ converge em probabilidade a um número $u$ para $n \to \infty$ se, e só se:
+\begin{equation}
+P\left( |U_n - u| \geq \varepsilon \right) \xrightarrow[n \to \infty]{} 0, \quad \forall \varepsilon > 0.
+\end{equation}
+
+Este caso é denotado como:
+\begin{equation}
+U_n \xrightarrow{P} u
+\end{equation}

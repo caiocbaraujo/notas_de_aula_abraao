@@ -1,0 +1,43 @@
+\[
+O(b_n) O(d_n)
+\]
+
+\noindent \textless iii.1\textgreater \quad $a_n \cdot c_n = O(b_n \cdot d_n)$
+
+\noindent \textless iii.2\textgreater \quad $|a_n|^5 = O(|b_n|^5)$
+
+\noindent \textless iii.3\textgreater \quad $a_n + c_n = O\left( \max\{ |b_n|, |d_n| \} \right), \quad \text{em que } r > 0$
+
+\noindent (iii) Se $a_n = \Theta(b_n)$ e $c_n = \Theta(d_n)$, então
+
+\noindent \textless iii.1\textgreater \quad $a_n \cdot c_n = \Theta(b_n \cdot d_n)$
+
+\noindent \textless iii.2\textgreater \quad $|a_n|^5 = \Theta(|b_n|^5)$
+
+\noindent \textless iii.3\textgreater \quad $a_n + c_n = \Theta\left( \max\{ |b_n|, |d_n| \} \right)$
+
+\noindent (iv) Se $a_n = O(b_n)$ e $c_n = \Theta(d_n)$, então
+\[
+a_n \cdot c_n = \Theta(b_n \cdot d_n)
+\]
+
+\noindent (v) Se $a_n = O(b_n)$ e $b_n = \Theta(c_n)$, $O(\Theta(c_n)) = \Theta(c_n)$
+\[
+a_n = \Theta(c_n)
+\]
+
+\noindent \textbf{Exemplo:}
+\[
+O(n^{-1/3}) + O(n^{-1/2}) \overset{\text{iii.3}}{=} O\left( \max\{ n^{-1/3}, n^{-1/2} \} \right) = O(n^{-1/3})
+\]
+
+\noindent \textbf{Exemplo:}
+\[
+O(1) + O(n^{-1/3}) + O(n^{-1/2}) = O(1) + O(n^{-1/3})
+\]
+\[
+\overset{\text{iii.3}}{=} \Theta(1) + O(\Theta(1)) \overset{\text{v}}{=} \Theta(1) + \Theta(1)
+\]
+\[
+\overset{\text{iii}}{=} \Theta(1)
+\]

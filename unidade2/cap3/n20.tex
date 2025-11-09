@@ -1,0 +1,30 @@
+\[
+\log M_{U_n}(t) = \sqrt{\frac{n}{2}} \left[ t + \frac{t^2}{2n} - \sqrt{1 + \frac{2t^2}{n}} \right] + O\left( \sqrt{\frac{2t^2}{n}} \cdot O\left( \sqrt{\frac{n}{2}} \right) \right)
+\]
+\[
+= \frac{t^2}{2} + O\left( \frac{t^2}{n} + \left( \sqrt{\frac{2}{n}} \cdot \frac{t^2}{n^{3/2}} \right) \right)
+\]
+\[
+= \frac{t^2}{2} + \frac{t^2}{n} + O\left( \sqrt{\frac{2}{n}} \cdot \frac{t^2}{n^{3/2}} \right) = O\left( \sqrt{\frac{n}{2}} \right)
+\]
+\[
+= \frac{t^2}{2} + O\left( \frac{t^2}{n} \right)
+\]
+\[
+t \to 0 \quad \frac{t^2}{2} + O\left( \frac{1}{n} \right)
+\]
+
+Então:
+\[
+M_{U_n}(t) = \exp\left( \frac{t^2}{2} + O(n^{-1}) \right)
+\]
+e
+\[
+\lim_{n \to \infty} M_{U_n}(t) = e^{t^2/2} = M_Z(t) \quad \text{tal que} \quad Z \sim N(0,1)
+\]
+Logo:
+\[
+U_n \xrightarrow[n \to \infty]{d} Z
+\]
+
+\textbf{Resultado 2D:} Seja $\{U_n, n \geq 1\}$ uma sequência de VAs. Se $U_n \xrightarrow[n \to \infty]{p} U$ então $U_n \xrightarrow[n \to \infty]{d} U$. A recíproca não é verdadeira, exceto quando $U$ é uma VA degenerada em um valor.

@@ -1,0 +1,39 @@
+\section*{13$\heartsuit$10$\heartsuit$25}
+
+\noindent \textbf{- Revisão: James Baxly.}
+
+\noindent \textbf{3.7(a) Revisão de Convergência Estocástica}
+
+\noindent \textbf{3.7.1(a) Alguns resultados limites}
+
+\begin{equation}
+(R.1) \quad \lim_{n \to \infty} n^{1/n} = 1,
+\end{equation}
+
+\begin{equation}
+(R.2) \quad \lim_{n \to \infty} \left( 1 + \frac{1}{n} \right)^n = e,
+\end{equation}
+
+\begin{equation}
+(R.3) \quad \lim_{n \to \infty} \left( 1 + \frac{x}{n} \right)^n = e^x.
+\end{equation}
+
+\noindent \textbf{Exemplo:} Uma ilustração do uso destes resultados é a aproximação da Binomial para Poisson: Seja $X \sim \text{Binomial}(n, p_n)$ tal que $p_n = \frac{\lambda}{n} \in (0,1)$, então
+
+\begin{equation}
+P(X = k) = \binom{n}{k} p_n^k (1 - p_n)^{n-k}
+\end{equation}
+
+\begin{equation}
+= \frac{n!}{(n-k)! \, k!} \left( \frac{\lambda}{n} \right)^k \left( 1 - \frac{\lambda}{n} \right)^{n-k}
+\end{equation}
+
+\begin{equation}
+= \frac{n (n-1) \cdots (n-k+1)}{n^k} \cdot \frac{\lambda^k}{k!} \left( 1 - \frac{\lambda}{n} \right)^n \left( 1 - \frac{\lambda}{n} \right)^{-k}
+\end{equation}
+
+\begin{equation}
+= \frac{\lambda^k}{k!} \prod_{j=0}^{k-1} \left( \frac{n-j}{n} \right) \prod_{j=0}^{k-1} \left( 1 - \frac{\lambda}{n} \right)
+\end{equation}
+
+\noindent e, portanto, \dots

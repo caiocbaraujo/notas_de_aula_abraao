@@ -1,0 +1,36 @@
+\newpage
+
+\textbf{27/10/25}
+
+\[
++ \frac{2^3 l(\theta)}{2\theta^3} (\hat{\theta}_n - \theta)^2
+\]
+
+Em que $\theta^*$ cai em segmento formado por $\theta$ e $\hat{\theta}_n$. Assim, colocando $(\hat{\theta}_n - \theta)$ em evidência.
+
+Por TCL:
+\begin{equation}
+\sqrt{n} (\hat{\theta}_n - \theta) - \frac{1}{\sqrt{n}} \frac{\partial l(\theta)}{\partial \theta} = 0
+\end{equation}
+\begin{equation}
+\frac{1}{n} \frac{\partial^2 l(\theta)}{\partial \theta^2} (\hat{\theta}_n - \theta) + \frac{1}{n} \frac{\partial^3 l(\theta)}{\partial \theta^3} \frac{(\hat{\theta}_n - \theta)^2}{2} = 0
+\end{equation}
+
+Note que 
+\[
+E_\theta \frac{\partial^2 \log f(X_i, \theta)}{\partial \theta^2} = - I_{X_i}(\theta)
+\]
+que é $(A_1)$.
+
+Finito pela condição $(A_2)$. Daí, pela Lei Forte (fraca) dos grandes números:
+\begin{equation}
+\frac{1}{n} \frac{\partial^2 l(\theta)}{\partial \theta^2} = \frac{1}{n} \sum_{i=1}^n \frac{\partial^2 \log f(X_i, \theta)}{\partial \theta^2} \xrightarrow{q.c.(P)} - I_X(\theta), \quad \theta = \theta_0, \; n \to \infty
+\end{equation}
+
+De $(A_4)$:
+\begin{equation}
+\frac{1}{n} \frac{\partial^3 l(\theta)}{\partial \theta^3} \leq \frac{1}{n} \sum_{i=1}^n g(X_i), \quad \forall \theta \in [\theta_0 - \varepsilon, \theta_0 + \varepsilon]
+\end{equation}
+
+Adicionalmente, de $(A_5)$:
+

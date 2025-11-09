@@ -1,0 +1,43 @@
+\section*{20-10-25}
+
+\textbf{Questão 4} Sejam $X_n \sim \chi^2_n$ e $U_n = \frac{1}{\sqrt{2n}}(X_n - n)$. Para $n \to \infty$ encontre a distribuição limite de $U_n$. 
+
+\textbf{Lembre:} $\frac{X_n - E(X_n)}{\sqrt{Var(X_n)}} \xrightarrow{d} N(0,1)$.
+
+\subsection*{Solução}
+
+\begin{equation}
+M_{U_n}(t) = E\left[ e^{t U_n} \right] = E\left[ e^{\frac{t}{\sqrt{2n}}(X_n - n)} \right]
+\end{equation}
+
+\begin{equation}
+= e^{-\frac{t n}{\sqrt{2n}}} \cdot M_{X_n}\left( \frac{t}{\sqrt{2n}} \right)
+\end{equation}
+
+A fmg de $G \sim \Gamma(\alpha, \beta)$ é $M_G(t) = (1 - \frac{t}{\beta })^{-\alpha}$.
+
+Como $X_n \sim \chi^2_n$ é equivalente a $\Gamma\left( \frac{n}{2}, \frac{1}{2} \right)$, então:
+
+\begin{equation}
+M_{U_n}(t) = e^{-\sqrt{\frac{n}{2}} t} \cdot \left( 1 - \sqrt{\frac{2}{n}} t \right)^{-n/2}
+\end{equation}
+
+\begin{equation}
+= \left( 1 - \sqrt{\frac{2}{n}} t \right)^{-n/2} \cdot e^{-\sqrt{\frac{n}{2}} t}
+\end{equation}
+
+Tomando o $\log(\cdot)$ em ambos os lados da última identidade:
+
+\begin{equation}
+\log M_{U_n}(t) = -\sqrt{\frac{n}{2}} t - \frac{n}{2} \log\left( 1 - \sqrt{\frac{2}{n}} t \right)
+\end{equation}
+
+Note que a seguinte expressão em série de Taylor em torno de zero se verifica:
+
+\begin{equation}
+\log(1 - x) = 0 + \left[ -\frac{1}{1 - x} \right]_{x=0} x + \frac{\left[ -\frac{1}{(1 - x)^2} \right]_{x=0}}{2} x^2 + O(x^3)
+\end{equation}
+
+\begin{equation}
+\log M_{U_n}(t) = -\sqrt{\frac{n}{2}} t - \frac{n}{2} \left( -\sqrt{\frac{2}{n}} t - \frac{t^2}{n} + O\left( \frac{t^3}{n^{3/2}} \right) \right)
+\end{equation}

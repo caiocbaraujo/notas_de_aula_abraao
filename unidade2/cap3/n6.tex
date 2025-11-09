@@ -1,0 +1,23 @@
+Pode-se mostrar que se $F: \mathbb{R} \to \mathbb{R}$ é uma função derivável até a ordem $n$ em um ponto $x_0$, sua expansão em série de Taylor em torno de $x_0$ pode ser escrita como: Quando $x \to x_0$,
+
+\begin{equation}
+F(x) = \sum_{k=0}^{n} \frac{F^{(k)}(x_0)}{k!} (x - x_0)^k + o\left( (x - x_0)^n \right)
+\tag{Expansão de Taylor}
+\label{eq:taylor}
+\end{equation}
+
+Em que $F^{(k)}$ é a derivada de ordem $k$ de $F(\cdot)$.
+
+\textbf{Ex:} Mostre que
+\begin{equation}
+\log(1+x) \cdot e^x = x + O(x^2), \quad \text{quando } x \to 0
+\end{equation}
+
+\textbf{Solução:} Note que, usando a expansão de Taylor \eqref{eq:taylor}, valem-se
+\begin{equation}
+e^x = e^0 + x \cdot e^0 + o(x) = 1 + x + O(x^2)
+\end{equation}
+e
+\begin{equation}
+\log(1+x) = \log(1) + \frac{1}{1+x}\bigg|_{x=0} \cdot x + o(x) = x + O(x^2)
+\end{equation}

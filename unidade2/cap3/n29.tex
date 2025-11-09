@@ -1,0 +1,26 @@
+\textbf{Teorema (3.7.6.4(a))} \\
+Sejam $\{U_n, n \geq 1\}$ uma sequência de reais e $U$ uma variável real. Seja $g(\cdot)$ uma função contínua de valor real. \\
+Se $U_n \xrightarrow[n \to \infty]{d} U$, então $g(U_n) \xrightarrow[n \to \infty]{d} g(U)$.
+
+\vspace{0.5cm}
+
+\textbf{Exercício (11) Q} \\
+Sejam $X_1, \dots, X_n$ v.a.'s i.i.d. reais tais que $\mu = \mathbb{E}\{X_i\} < \infty$ e $\sigma^2 = \mathrm{Var}\{X_i\} < \infty$. Mostre que
+\begin{equation}
+n \left( \frac{\overline{X}_n - \mu}{\sigma} \right)^2 \xrightarrow[n \to \infty]{d} Q,
+\end{equation}
+tal que $Q \sim \chi^2_1$.
+
+\vspace{0.5cm}
+
+\textbf{Solução} \\
+Pelo $Z_n \triangleq \sqrt{n} \left( \frac{\overline{X}_n - \mu}{\sigma} \right)$, tem-se
+\begin{equation}
+Z_n \xrightarrow[n \to \infty]{d} Z \sim N(0,1).
+\end{equation}
+
+Pelo Teorema (3.7.6.4(a)), como $g(x) = x^2$ é uma função contínua,
+\begin{equation}
+g(Z_n) = n \left( \frac{\overline{X}_n - \mu}{\sigma} \right)^2 \xrightarrow[n \to \infty]{d} Z^2,
+\end{equation}
+isto é, converge para $Q \sim \chi^2_1$.

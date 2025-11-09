@@ -1,0 +1,50 @@
+\section*{3.7.3 (2) O($\cdot$) e o($\cdot$) para função reais de valor real}
+
+\[
+\Rightarrow f(x) = O(g(x)) \quad \text{quando} \quad x \to x_0 \quad \text{se, e só se}
+\]
+\[
+\forall k > 0, \ \exists \varepsilon > 0 : \ \left| \frac{f(x)}{g(x)} \right| \leq k, \ \forall x, \ |x - x_0| < \varepsilon
+\]
+\[
+x \in (x_0 - \varepsilon, x_0 + \varepsilon)
+\]
+
+\[
+\Rightarrow f(x) = O(g(x)) \quad \text{quando} \quad x \to \infty \ (-\infty) \quad \text{se, e só se}
+\]
+\[
+\forall k > 0, \ \exists M > 0 \ (M > 0) : \ \left| \frac{f(x)}{g(x)} \right| \leq k, \ \forall x > M \ (\forall x < M)
+\]
+
+\textbf{Ex:} \quad $8x^2 = O(x^2)$ \quad quando \quad $x \to \infty$ \quad pois
+\[
+\frac{8x^2}{x^2} = 8
+\]
+
+\[
+\Rightarrow f(x) = o(g(x)) \quad \text{quando} \quad x \to x_0 \quad \text{se, e só se}
+\]
+\[
+\forall \varepsilon > 0, \ \exists \delta > 0 : \ \left| \frac{f(x)}{g(x)} \right| < \varepsilon, \ \forall x, \ |x - x_0| < \delta
+\]
+\[
+x \in (x_0 - \delta, x_0 + \delta)
+\]
+
+\[
+\Rightarrow f(x) = o(g(x)) \quad \text{quando} \quad x \to \infty \ (-\infty) \quad \text{se, e só se}
+\]
+\[
+\forall \varepsilon > 0, \ \exists M > 0 \ (M > 0) : \ \left| \frac{f(x)}{g(x)} \right| < \varepsilon, \ \forall x > M \ (\forall x < M)
+\]
+
+\textbf{Ex:} \quad $8x^2 \neq o(x^2)$ \quad pois
+\[
+\frac{8x^2}{x^2} \xrightarrow{x \to \infty} 8
+\]
+
+\textbf{Ex:} \quad $8x^2 = o(x^3)$ \quad pois
+\[
+\frac{8x^2}{x^3} = \frac{8}{x} \xrightarrow{x \to \infty} 0
+\]

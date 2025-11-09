@@ -1,0 +1,28 @@
+\begin{equation}
+\sqrt{n} \left[ T_n^{(2)} - g(\theta) \right] \xrightarrow[n \to \infty]{d} N\left(0, \sigma_2^2(\theta)\right),
+\end{equation}
+
+então a eficiência relativa assintótica de $T^{(2)}$ com respeito a $T^{(1)}$ é definida como
+
+\begin{equation}
+\frac{\sigma_1^2(\theta)}{\sigma_2^2(\theta)}
+\end{equation}
+
+Os EMVs são assintoticamente eficientes pelo teorema abaixo.
+
+\textbf{Teorema (3.8.1) [TCL para os EMVs]}
+
+Sejam $X_1, \ldots, X_n$ uma amostra de $X$ com fdp (ou fmp) $f(x; \theta)$ para $x \in \mathbb{X} \subset \mathbb{R}$ e $\theta \in \Theta \subset \mathbb{R}$ tal que $\Theta$ é um intervalo aberto.
+
+Assuma que:
+
+\textbf{(A1)} $\theta \mapsto f(x; \theta)$ é três vezes diferenciável sobre $\Theta$, $\forall x \in \mathbb{X}$.
+
+\textbf{(A2)} 
+\begin{equation}
+\int_{\mathbb{X}} \frac{\partial}{\partial \theta} f(x; \theta) \, dx = 0 \quad \left( = \frac{\partial}{\partial \theta} \int_{\mathbb{X}} f(x; \theta) \, dx \right)
+\end{equation}
+e
+\begin{equation}
+\int_{\mathbb{X}} \frac{\partial^2}{\partial \theta^2} f(x; \theta) \, dx = 0 \quad \left( = \frac{\partial^2}{\partial \theta^2} \int_{\mathbb{X}} f(x; \theta) \, dx \right)
+\end{equation}

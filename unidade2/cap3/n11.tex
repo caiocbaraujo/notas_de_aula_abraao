@@ -1,0 +1,35 @@
+\section*{Questão (Extra 2)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Uniforme}(0, \theta)$ para $\theta > 0$. Mostre que
+\begin{equation}
+    T_n = X_{(n)} \xrightarrow{P} \theta.
+\end{equation}
+
+\subsection*{Solução}
+Note que
+\begin{equation}
+    F_{T_n}(t) = [F_{X_1}(t)]^n \quad \text{e} \quad f_{T_n}(t) = n [F_{X_1}(t)]^{n-1} f_{X_1}(t)
+\end{equation}
+e como
+\begin{equation}
+    F_{X_1}(t) = \frac{t}{\theta} \, I_{(0,\theta)}(t) + I_{(\theta,\infty)}(t)
+\end{equation}
+e
+\begin{equation}
+    f_{X_1}(t) = \frac{1}{\theta} \, I_{(0,\theta)}(t),
+\end{equation}
+temos
+\begin{equation}
+    F_{T_n}(t) = \frac{t}{\theta^n} \, t^{n-1} \, I_{(0,\theta)}(t) + I_{(\theta,\infty)}(t)
+\end{equation}
+e
+\begin{equation}
+    f_{T_n}(t) = \frac{n}{\theta^n} \, t^{n-1} \, I_{(0,\theta)}(t).
+\end{equation}
+
+As seguintes expressões tipo momento podem ser derivadas:
+\begin{equation}
+    E[T_n] = \int_{0}^{\theta} t \cdot \frac{n}{\theta^n} \, t^{n-1} \, dt
+\end{equation}
+\begin{equation}
+    = \frac{n}{\theta^n} \left[ \frac{t^{n+1}}{n+1} \right]_{0}^{\theta} = \frac{n}{n+1} \, \theta.
+\end{equation}

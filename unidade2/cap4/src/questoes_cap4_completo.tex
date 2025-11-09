@@ -146,7 +146,11 @@ R_c^{(4)} = \{ (x_1, \ldots, x_9) \in \mathbb{R}^9 : \bar{x}_n > 7.5 \}
 \end{equation}
 
 \textbf{Interpretação:} Também usa todas as observações, mas com um limiar mais alto.
+\end{solucaobox}
 
+\newpage
+
+\begin{solucaobox}
 \subsection*{Parte 2: Cálculo de $\alpha$ e $\beta$ para o Teste \#1}
 
 \paragraph{Erro Tipo I ($\alpha$):}
@@ -232,6 +236,11 @@ Q_\Upsilon(\theta) = P_\theta[\text{Rejeitar } H_0] = P_\theta[X \in R_c]
 
 Ela mede a probabilidade de rejeitar $H_0$ para cada valor possível do parâmetro $\theta$.
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Cálculo para o Teste \#4}
 
 Para o Teste \#4, temos $R_c = \{ x \in \mathbb{R}^9 : \bar{x}_n > 7.5 \}$. Portanto:
@@ -264,6 +273,11 @@ Q_\Upsilon(\theta) &= P\left[ Z > \frac{7.5 - \theta}{1/3} \right] \quad \text{o
 \boxed{Q_\Upsilon(\theta) = 1 - \Phi\left( \sqrt{n}(7.5 - \theta) \right) = 1 - \Phi(3(7.5 - \theta))}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Interpretação para Valores Específicos}
 
 \paragraph{Para $\theta = 5.5$ (sob $H_0$):}
@@ -402,6 +416,11 @@ Logo:
 L(\mu; x) = (2\pi\sigma^2)^{-\frac{n}{2}} \exp\left\{-\frac{1}{2\sigma^2} \left( \sum_{i=1}^{n} x_i^2 - 2\mu \sum_{i=1}^{n} x_i + n\mu^2 \right) \right\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 3: Calcular a Razão de Verossimilhanças}
 
 Pelo LNP, o teste MP tem a forma: ``Rejeita $H_0$ se e só se $\frac{L_1}{L_0} > k$'', onde $L_i = L(\mu_i; x)$.
@@ -415,6 +434,11 @@ Calculando a razão:
 &= \exp\left\{\frac{(\mu_1 - \mu_0)}{\sigma^2} \sum x_i - \frac{n(\mu_1^2 - \mu_0^2)}{2\sigma^2} \right\}
 \end{align}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 4: Simplificar a Região Crítica}
 
 A condição $\frac{L_1}{L_0} > k$ torna-se:
@@ -452,6 +476,11 @@ Definindo $k_3 = \frac{k_2/n - \mu_0}{\sigma/\sqrt{n}}$, a região crítica é:
 R_c = \left\{ x \in \mathbb{R}^n : \sqrt{n} \frac{\bar{x} - \mu_0}{\sigma} > k_3 \right\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Estatística de Teste}
 
 Definimos a estatística de teste:
@@ -472,6 +501,11 @@ Portanto:
 Z(X) \overset{H_0}{\sim} N(0, 1)
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 6: Determinar $k_3$ para Tamanho $\alpha$}
 
 Queremos que o teste tenha tamanho $\alpha$:
@@ -507,6 +541,8 @@ onde $z_\alpha$ é o quantil $(1-\alpha)$ da distribuição $N(0,1)$.
     \item $\alpha = 0.10$: $z_{0.10} = 1.282$
 \end{itemize}
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -595,6 +631,11 @@ Portanto, para $i = 0, 1$:
 L_i = L(\theta_i; x) = \theta_i^{-n} \exp\left\{-\frac{\sum_{j=1}^{n} x_j}{\theta_i} \right\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 3: Razão de Verossimilhanças}
 
 \begin{align}
@@ -635,6 +676,11 @@ Logo, a região crítica é:
 R_c = \left\{ x \in \mathbb{R}_+^n : \sum_{i=1}^{n} x_i > k_2 \right\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Estatística de Teste com Distribuição Conhecida}
 
 Para termos uma estatística com distribuição livre de parâmetros sob $H_0$, precisamos transformar $\sum X_i$.
@@ -664,6 +710,11 @@ Portanto, $\frac{2X_i}{\theta} \sim \chi^2_2$ para cada $i$.
 \sum_{i=1}^{n} \frac{2X_i}{\theta} = \frac{2}{\theta} \sum_{i=1}^{n} X_i \sim \chi^2_{2n}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 6: Estatística de Teste Final}
 
 Definimos:
@@ -705,6 +756,8 @@ onde $q_\alpha = \chi^2_{2n, 1-\alpha}$ é tal que $P(\chi^2_{2n} > q_\alpha) = 
 \text{Rejeita } H_0 \text{ se } p = P(\chi^2_{2n} > Q_{\text{cal}}) < \alpha
 \end{equation}
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -809,6 +862,11 @@ Podemos reescrever como:
 L(p; x) = \left(\frac{p}{1-p}\right)^{\sum x_k} (1-p)^n
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 3: Razão de Verossimilhanças}
 
 \begin{align}
@@ -850,6 +908,11 @@ Portanto:
 R_c = \left\{ x \in \{0,1\}^n : \sum_{i=1}^{n} x_i > k_1 \right\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Teste Aleatorizado}
 
 Como $\sum X_i$ é discreta, geralmente precisamos de um teste aleatorizado para atingir exatamente o nível $\alpha$.
@@ -868,6 +931,11 @@ A função crítica é:
 \sum_{i=1}^{n} X_i \sim \text{Binomial}(n, p_0)
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 6: Determinação de $k_1$ e $\delta$}
 
 \textbf{Passo 6.1:} Encontre o menor inteiro $k_1$ tal que:
@@ -898,6 +966,8 @@ O parâmetro $\delta$ representa a probabilidade com a qual rejeitamos $H_0$ qua
     \item Se $\sum x_i = k_1$: lance uma moeda com $P(\text{cara}) = \delta$ e rejeite $H_0$ se der cara
 \end{enumerate}
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -997,6 +1067,11 @@ L(\lambda; x) &= \prod_{k=1}^{n} \frac{\lambda^{x_k} e^{-\lambda}}{x_k!} \\
 &= e^{-n\lambda} \cdot \lambda^{\sum x_k} \cdot \prod_{k=1}^{n} \frac{1}{x_k!}
 \end{align}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 3: Razão de Verossimilhanças}
 
 \begin{align}
@@ -1030,7 +1105,11 @@ Portanto:
 \begin{equation}
 R_c = \left\{ x \in \mathbb{Z}_+^n : \sum_{i=1}^{n} x_i > k_1 \right\}
 \end{equation}
+\end{solucaobox}
 
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Teste Aleatorizado}
 
 A função crítica é:
@@ -1059,6 +1138,11 @@ M_{\sum X_i}(t) &= \prod_{i=1}^{n} M_{X_i}(t) = [e^{\lambda(e^t - 1)}]^n \\
 
 que é a MGF de $\text{Poisson}(n\lambda)$.
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 6: Determinação de $k_1$ e $\delta$}
 
 \textbf{Passo 6.1:} Encontre o menor inteiro $k_1$ tal que:
@@ -1083,6 +1167,8 @@ P_{n\lambda_0}\left[\sum X_i > k_1\right] &= \sum_{j=k_1+1}^{\infty} \frac{(n\la
 
 O teste MP depende apenas desta estatística suficiente, confirmando o princípio da suficiência.
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -1182,6 +1268,11 @@ Este é um exemplo de teste entre densidades completamente especificadas (hipót
 
 \textbf{Observação:} Este não é um teste paramétrico tradicional, mas o LNP ainda se aplica!
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 2: Razão de Densidades}
 
 Pelo LNP, rejeitamos $H_0$ quando:
@@ -1198,6 +1289,11 @@ Calculando a razão para $x \in (0, 4)$:
 &= 4x^{-3/2}
 \end{align}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 3: Região Crítica}
 
 Rejeitamos $H_0$ quando:
@@ -1219,6 +1315,11 @@ R_c = \{x \in (0, 4) : x < k_1\}
 
 \textbf{Interpretação importante:} Rejeitamos $H_0$ para valores PEQUENOS de $X$! Isso acontece porque $f_1$ dá mais peso para valores pequenos que $f_0$.
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 4: Determinação de $k_1$ para Tamanho $\alpha$}
 
 Queremos que o teste tenha tamanho $\alpha$:
@@ -1242,6 +1343,11 @@ Resolvendo para $k_1$:
 \boxed{k_1 = (64\alpha)^{1/3} = 4\alpha^{1/3}}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Poder do Teste}
 
 O poder é a probabilidade de rejeitar $H_0$ quando $H_1$ é verdadeira:
@@ -1261,6 +1367,11 @@ Substituindo $k_1 = 4\alpha^{1/3}$:
 &= \boxed{\alpha^{1/2} = \sqrt{\alpha}}
 \end{align}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 6: Teste Final}
 
 \textbf{Região Crítica:}
@@ -1278,6 +1389,8 @@ R_c = \left\{x \in (0, 4) : x < 4\alpha^{1/3}\right\}
 \beta(f_1) = \sqrt{\alpha}
 \end{equation}
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -1373,6 +1486,11 @@ Pelo LNP, rejeitamos $H_0$ quando:
 \frac{f_1(x_1)f_1(x_2)}{f_0(x_1)f_0(x_2)} > k
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 2: Simplificação da Razão}
 
 Da Questão 4.8, sabemos que $\frac{f_1(x)}{f_0(x)} = 4x^{-3/2}$ para $x \in (0,4)$.
@@ -1403,6 +1521,11 @@ Definindo $K_1 = \left(\frac{16}{k}\right)^{2/3}$:
 R_c = \{(x_1, x_2) \in (0,4) \times (0,4) : x_1 x_2 < K_1\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 4: Usando a Função de Distribuição}
 
 Para determinar $K_1$, usamos a função de distribuição acumulada de $f_0$.
@@ -1421,6 +1544,11 @@ F_0(x) = \begin{cases}
 F_0(x) = \int_0^x \frac{3t^2}{64}\,dt = \frac{3}{64} \cdot \frac{t^3}{3}\Big|_0^x = \frac{x^3}{64}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Estatística qui-Quadrado}
 
 Uma propriedade útil: Se $X \sim f_0$, então:
@@ -1445,6 +1573,11 @@ x_1 x_2 < K_1 &\Leftrightarrow \frac{x_1^3}{64} \cdot \frac{x_2^3}{64} < k_2 \\
 &\Leftrightarrow -2\log F_0(x_1) - 2\log F_0(x_2) > -2\log k_2
 \end{align}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 7: Estatística de Teste Final}
 
 Definimos:
@@ -1469,6 +1602,11 @@ onde $q_\alpha = \chi^2_{4,1-\alpha}$ satisfaz:
 P_{\chi^2_4}[Q > q_\alpha] = \alpha
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 8: Teste Final}
 
 \textbf{Estatística de Teste:}
@@ -1486,6 +1624,8 @@ Para os dados, calculamos:
 Q = -2\log\left(\frac{x_1^3}{64}\right) - 2\log\left(\frac{x_2^3}{64}\right)
 \end{equation}
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -1577,6 +1717,11 @@ H_0: \sigma = \sigma_0 \quad \text{vs} \quad H_1': \sigma = \sigma_1
 
 Aplicamos o LNP e depois mostramos que o teste resultante não depende da escolha de $\sigma_1$, provando que é UMP.
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 2: Função de Verossimilhança}
 
 Para $X \sim N(0, \sigma^2)$, a densidade é:
@@ -1602,6 +1747,11 @@ L_k = L(\sigma_k; x) = (2\pi\sigma_k^2)^{-n/2} \exp\left\{-\frac{\sum x_j^2}{2\s
 &= \left(\frac{\sigma_0^2}{\sigma_1^2}\right)^{n/2} \exp\left\{-\frac{\sum x_j^2}{2}\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_0^2}\right)\right\}
 \end{align}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 4: Região Crítica}
 
 Pelo LNP, rejeitamos $H_0$ quando $\frac{L_1}{L_0} > k$:
@@ -1643,6 +1793,11 @@ Simplificando o lado direito:
 
 onde $k_2$ depende de $k$, $n$, $\sigma_0$, $\sigma_1$, mas veremos que podemos determinar $k_2$ apenas por $\alpha$ e $\sigma_0$.
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Estatística de Teste}
 
 Definimos:
@@ -1707,6 +1862,8 @@ P_{H_0}\{Q < \chi^2_{n, 1-\alpha}\} = \alpha
 
 \textbf{Nota importante:} Rejeitamos para valores PEQUENOS de $Q$ (i.e., para $\sum x_i^2$ pequeno), o que faz sentido porque valores pequenos de $\sum x_i^2$ sugerem que $\sigma$ é pequeno.
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}
@@ -1827,6 +1984,11 @@ T(X) = \sum_{i=1}^{n} X_i
 
 é suficiente para $\mu$ (com $\sigma^2$ conhecido).
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 3: Densidade Induzida de $T$}
 
 Como $X_i \sim N(\mu, \sigma^2)$ são independentes:
@@ -1839,6 +2001,11 @@ A densidade de $T$ é:
 f(t; \mu) = \frac{1}{\sqrt{2\pi n\sigma^2}} \exp\left\{-\frac{(t - n\mu)^2}{2n\sigma^2}\right\}
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 4: Verificar RVM}
 
 Para $\mu^* > \mu$, calculamos:
@@ -1854,6 +2021,11 @@ Como $\mu^* > \mu$, o coeficiente de $t$ é $\frac{\mu^* - \mu}{\sigma^2} > 0$.
 
 Portanto, $\frac{f(t; \mu^*)}{f(t; \mu)}$ é CRESCENTE em $t$, provando que $\{f(t; \mu) : \mu \in \mathbb{R}\}$ tem RVM.
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 5: Aplicação do Teorema de Karlin-Rubin}
 
 Pelo Teorema de Karlin-Rubin, o teste UMP de nível $\alpha$ tem função crítica:
@@ -1874,6 +2046,11 @@ ou seja:
 P_{\mu_0}[T(X) > k] = \alpha
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 6: Padronização}
 
 Como $T = \sum X_i \sim N(n\mu_0, n\sigma^2)$ sob $H_0: \mu = \mu_0$:
@@ -1886,6 +2063,11 @@ Equivalentemente, em termos da média amostral $\bar{X} = T/n$:
 Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} = \frac{\sqrt{n}(\bar{X} - \mu_0)}{\sigma} \sim N(0, 1)
 \end{equation}
 
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
 \subsection*{Passo 7: Determinação de $k$}
 
 A condição $P_{\mu_0}[T > k] = \alpha$ se traduz em:
@@ -1930,6 +2112,8 @@ onde $z_\alpha$ é o quantil $(1-\alpha)$ da $N(0,1)$:
     \item $\alpha = 0.10$: $z_{0.10} = 1.282$
 \end{itemize}
 \end{solucaobox}
+
+\newpage
 
 \begin{observacaobox}
 \subsection*{Pontos Importantes}

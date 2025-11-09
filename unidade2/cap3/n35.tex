@@ -1,0 +1,28 @@
+\textbf{(A3)} \quad $0 < I_X(\theta) \triangleq E_{\theta} \left[ \left( \frac{\partial \log f(x; \theta)}{\partial \theta} \right)^2 \right] < \infty$, \quad $\forall \theta \in \Theta$
+
+\textbf{(A4)} \quad Para cada $\theta_0 \in \Theta$, $\exists \ \varepsilon \in E(\theta_0) > 0$
+\[
+\left| \frac{\partial^3 \log f(x; \theta)}{\partial \theta^3} \right| \leq g(x), \quad \forall \theta \in [\theta_0 - \varepsilon, \theta_0 + \varepsilon],
+\]
+em que
+\[
+\int_X g(x) f(x; \theta) \, dx < \infty.
+\]
+
+\textbf{(A5)} \quad A equação de verossimilhança
+\[
+\frac{\partial l(\theta)}{\partial \theta} = 0 \quad \Leftrightarrow \quad \sum_{i=1}^n \frac{\partial \log f(x_i; \theta)}{\partial \theta} = 0
+\]
+tem uma solução consistente $\hat{\theta}_n$. Então
+\[
+\sqrt{n} (\hat{\theta}_n - \theta_0) \xrightarrow{D} N\left(0, I_X^{-1}(\theta_0)\right), \quad n \to \infty.
+\]
+
+{27/10/2025}
+
+\textbf{Prova (3.8.1)} \quad Usando a expansão de Taylor de $\frac{\partial l(\theta)}{\partial \theta}$ em torno de $\theta_0$, tem-se
+\[
+0 = \left. \frac{\partial l(\theta)}{\partial \theta} \right|_{\theta = \hat{\theta}_n} 
+= \left. \frac{\partial l(\theta)}{\partial \theta} \right|_{\theta = \theta_0} 
++ \left. \frac{\partial^2 l(\theta)}{\partial \theta^2} \right|_{\theta = \theta_0} (\hat{\theta}_n - \theta_0).
+\]

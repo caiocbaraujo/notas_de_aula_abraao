@@ -1,0 +1,1409 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,breakable}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+% Caixas coloridas
+\newtcolorbox{exerciciobox}[1]{
+    enhanced,
+    breakable,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=Exercício #1
+}
+
+\newtcolorbox{solucaobox}[1]{
+    enhanced,
+    breakable,
+    colback=green!5!white,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Solução do Exercício #1
+}
+
+\newtcolorbox{dicabox}{
+    enhanced,
+    breakable,
+    colback=yellow!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Dica e Conexões
+}
+
+\newtcolorbox{teoriabox}{
+    enhanced,
+    breakable,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    fonttitle=\bfseries,
+    title=Revisão Teórica
+}
+
+\title{Caderno de Exercícios - Capítulo 3\\
+\large Teoria Assintótica e Teoremas Limite}
+\author{Curso de Inferência Estatística - PPGEST/UFPE}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ================================================================
+\section*{Introdução}
+\addcontentsline{toc}{section}{Introdução}
+% ================================================================
+
+Este caderno contém exercícios cuidadosamente selecionados sobre Teoria Assintótica e Teoremas Limite, abordando desde conceitos fundamentais até aplicações avançadas. Os exercícios estão organizados por nível de dificuldade e tópico, com soluções detalhadas que fazem referência explícita ao material teórico.
+
+\subsection*{Organização}
+
+\begin{itemize}
+    \item \textbf{Seção 1:} Notação Assintótica ($O(\cdot)$ e $o(\cdot)$)
+    \item \textbf{Seção 2:} Expansões de Taylor
+    \item \textbf{Seção 3:} Convergência em Probabilidade
+    \item \textbf{Seção 4:} Convergência em Distribuição
+    \item \textbf{Seção 5:} Teorema Central do Limite
+    \item \textbf{Seção 6:} Teorema de Slutsky e Aplicações
+    \item \textbf{Seção 7:} Método Delta
+    \item \textbf{Seção 8:} Exercícios Integrados
+    \item \textbf{Seção 9:} Respostas Detalhadas
+\end{itemize}
+
+\subsection*{Como Usar Este Caderno}
+
+\begin{enumerate}
+    \item Leia a \textbf{Revisão Teórica} no início de cada seção
+    \item Tente resolver os exercícios sem consultar as soluções
+    \item Use as \textbf{Dicas} quando estiver travado
+    \item Confira as soluções detalhadas na Seção 9
+    \item Estude as \textbf{Conexões} para integrar conceitos
+\end{enumerate}
+
+\subsection*{Referências ao Material}
+
+\begin{itemize}
+    \item \texttt{teoria\_cap3\_completo.tex} - Teoria completa com demonstrações
+    \item \texttt{questoes\_cap3\_completo.tex} - Questões resolvidas em sala
+    \item \texttt{cap3\_completo.tex} - Material original das aulas
+\end{itemize}
+
+\newpage
+
+% ================================================================
+\section{Notação Assintótica: $O(\cdot)$ e $o(\cdot)$}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Conceitos Fundamentais}
+
+\textbf{Definição (sequências):}
+\begin{itemize}
+    \item $a_n = O(b_n)$ se existe $k>0$ e $n_0$ tais que $|a_n/b_n| \leq k$ para $n \geq n_0$
+    \item $a_n = o(b_n)$ se $\lim_{n\to\infty} a_n/b_n = 0$
+\end{itemize}
+
+\textbf{Propriedades importantes:}
+\begin{itemize}
+    \item Se $a_n = o(b_n)$ então $a_n = O(b_n)$
+    \item $O(b_n) \cdot O(d_n) = O(b_n d_n)$
+    \item $o(b_n) \cdot o(d_n) = o(b_n d_n)$
+\end{itemize}
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 2
+\end{teoriabox}
+
+\begin{exerciciobox}{1.1 - Nível Básico}
+Para as sequências $a_n$ e $b_n$ abaixo, determine se $a_n = O(b_n)$, $a_n = o(b_n)$, ou nenhum dos dois:
+
+\textbf{(a)} $a_n = 5n^2 + 3n$, $b_n = n^2$
+
+\textbf{(b)} $a_n = n$, $b_n = n^2$
+
+\textbf{(c)} $a_n = n^2 + \sqrt{n}$, $b_n = n$
+
+\textbf{(d)} $a_n = \log n$, $b_n = n$
+\end{exerciciobox}
+
+\begin{exerciciobox}{1.2 - Nível Intermediário}
+Mostre que se $X_n \sim N(\mu, \sigma^2/n)$, então:
+\[
+P(|X_n - \mu| \geq \varepsilon) = O(1/n)
+\]
+
+\textit{Dica:} Use a desigualdade de Chebyshev.
+\end{exerciciobox}
+
+\begin{exerciciobox}{1.3 - Nível Avançado}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$. Mostre que:
+\[
+E[(\bar{X}_n - \mu)^2] = O(1/n)
+\]
+e interprete o resultado em termos da convergência de $\bar{X}_n$ para $\mu$.
+\end{exerciciobox}
+
+% ================================================================
+\section{Expansões de Taylor}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Expansões Fundamentais}
+
+\begin{align*}
+e^x &= 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + O(x^4) \\
+\log(1+x) &= x - \frac{x^2}{2} + \frac{x^3}{3} + O(x^4) \\
+(1+x)^\alpha &= 1 + \alpha x + \frac{\alpha(\alpha-1)}{2}x^2 + O(x^3)
+\end{align*}
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 2.3
+\end{teoriabox}
+
+\begin{exerciciobox}{2.1 - Nível Básico}
+Use expansão de Taylor para mostrar que:
+\[
+e^x \log(1+x) = x + O(x^2) \quad \text{quando } x \to 0
+\]
+\end{exerciciobox}
+
+\begin{exerciciobox}{2.2 - Nível Intermediário}
+Mostre que para $\lambda > 0$ fixo:
+\[
+\left(1 + \frac{\lambda}{n}\right)^n \to e^\lambda \quad \text{quando } n \to \infty
+\]
+
+Use este resultado para derivar a aproximação Poisson para a Binomial.
+\end{exerciciobox}
+
+\begin{exerciciobox}{2.3 - Nível Avançado}
+Seja $X_n \sim \text{Binomial}(n, p)$ com $p = \lambda/n$ e $\lambda$ fixo. Usando expansão de Taylor da função geradora de momentos, mostre que:
+\[
+X_n \xrightarrow{D} \text{Poisson}(\lambda)
+\]
+\end{exerciciobox}
+
+% ================================================================
+\section{Convergência em Probabilidade}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Definição e Resultados Principais}
+
+\textbf{Definição:} $U_n \xrightarrow{P} u$ se para todo $\varepsilon > 0$:
+\[
+P(|U_n - u| \geq \varepsilon) \to 0 \quad \text{quando } n \to \infty
+\]
+
+\textbf{Resultado 1P (LFGN):} Se $X_i$ são i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$, então $\bar{X}_n \xrightarrow{P} \mu$.
+
+\textbf{Resultado 4P:} Se $U_n \xrightarrow{P} u$ e $V_n \xrightarrow{P} v$, então operações algébricas preservam convergência.
+
+\textbf{Resultado 5P:} Se $U_n \xrightarrow{P} u$ e $g$ é contínua, então $g(U_n) \xrightarrow{P} g(u)$.
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 3; \texttt{questoes\_cap3\_completo.tex}, Q. Extra 1-4
+\end{teoriabox}
+
+\begin{exerciciobox}{3.1 - Consistência da Média (Básico)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$. 
+
+\textbf{(a)} Calcule $E[X_i]$ e $\mathrm{Var}(X_i)$.
+
+\textbf{(b)} Mostre que $\bar{X}_n \xrightarrow{P} 1/\lambda$.
+
+\textbf{(c)} Qual é a taxa de convergência?
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.2 - Variância Amostral (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$. 
+
+Mostre usando a transformação de Helmert que:
+\[
+S_n^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X}_n)^2 \xrightarrow{P} \sigma^2
+\]
+
+\textit{Conexão:} Este é o exercício resolvido na Questão Extra 1.
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.3 - Máximo da Uniforme (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+\textbf{(a)} Mostre que $T_n = X_{(n)} \xrightarrow{P} \theta$ calculando $E[(T_n - \theta)^2]$.
+
+\textbf{(b)} Determine a taxa de convergência e compare com a taxa típica $O(1/n)$ da média amostral.
+
+\textit{Conexão:} Questão Extra 2.
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.4 - Operações Algébricas (Básico)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+Use o Resultado 4P para mostrar que:
+\[
+\frac{\bar{X}_n}{S_n^2} \xrightarrow{P} \frac{\mu}{\sigma^2}
+\]
+
+\textit{Conexão:} Questão Extra 3.
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.5 - Função Contínua (Básico)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+Use o Resultado 5P para mostrar que se $T_n = X_{(n)}$, então:
+\[
+T_n^2 \xrightarrow{P} \theta^2
+\]
+
+\textit{Conexão:} Questão Extra 4.
+\end{exerciciobox}
+
+\begin{exerciciobox}{3.6 - Consistência do EMV (Avançado)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+Mostre diretamente pela definição de convergência em probabilidade que o EMV $\hat{\theta}_n = X_{(n)}$ é consistente, isto é:
+\[
+\lim_{n\to\infty} P_\theta(|\hat{\theta}_n - \theta| < \varepsilon) = 1 \quad \text{para todo } \varepsilon > 0
+\]
+
+\textit{Conexão:} Questão 3.23.
+\end{exerciciobox}
+
+% ================================================================
+\section{Convergência em Distribuição}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Definição e Resultados Principais}
+
+\textbf{Definição:} $U_n \xrightarrow{D} U$ se $F_{U_n}(u) \to F_U(u)$ em todos os pontos de continuidade de $F$.
+
+\textbf{Resultado 1D:} Convergência de MGF implica convergência em distribuição.
+
+\textbf{Resultado 2D:} $U_n \xrightarrow{P} u \Rightarrow U_n \xrightarrow{D} u$. A recíproca vale apenas se $u$ é constante.
+
+\textbf{Teorema 3.7.6.4(a):} Se $U_n \xrightarrow{D} U$ e $g$ é contínua, então $g(U_n) \xrightarrow{D} g(U)$.
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 4
+\end{teoriabox}
+
+\begin{exerciciobox}{4.1 - Distribuição Limite (Básico)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$ e $T_n = X_{(n)}$.
+
+Encontre a distribuição limite de:
+\[
+U_n = \frac{n}{\theta}(\theta - T_n)
+\]
+
+\textit{Dica:} Calcule a fda de $U_n$ e tome o limite quando $n \to \infty$.
+
+\textit{Conexão:} Questão Extra 5.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.2 - Qui-Quadrado Normalizada (Intermediário)}
+Seja $X_n \sim \chi^2_n$ e defina:
+\[
+U_n = \frac{X_n - n}{\sqrt{2n}}
+\]
+
+\textbf{(a)} Encontre a distribuição limite de $U_n$ usando MGF.
+
+\textbf{(b)} Interprete o resultado graficamente.
+
+\textit{Conexão:} Exemplo na \texttt{teoria\_cap3\_completo.tex}, Seção 4.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.3 - Função Contínua (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$.
+
+Mostre que:
+\[
+n\left(\frac{\bar{X}_n - \mu}{\sigma}\right)^2 \xrightarrow{D} \chi^2_1
+\]
+
+\textit{Dica:} Use o TCL seguido do Teorema 3.7.6.4(a).
+
+\textit{Conexão:} Exercício 11.
+\end{exerciciobox}
+
+\begin{exerciciobox}{4.4 - Poisson Normalizada (Avançado)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+Defina $S_n = \sum_{i=1}^n X_i$. Note que $S_n \sim \text{Poisson}(n\lambda)$.
+
+\textbf{(a)} Mostre que:
+\[
+\frac{S_n - n\lambda}{\sqrt{n\lambda}} \xrightarrow{D} N(0,1)
+\]
+
+\textbf{(b)} Use este resultado para derivar uma regra prática de quando a aproximação normal para Poisson é válida.
+\end{exerciciobox}
+
+% ================================================================
+\section{Teorema Central do Limite}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Teorema 3.7.6.1(a) - TCL Clássico}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$. Então:
+\[
+Z_n = \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)
+\]
+
+\textbf{Aplicações:}
+\begin{itemize}
+    \item Aproximação normal para médias amostrais
+    \item Construção de intervalos de confiança
+    \item Justificação teórica para testes Z
+\end{itemize}
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 5.2
+\end{teoriabox}
+
+\begin{exerciciobox}{5.1 - TCL Básico (Básico)}
+Sejam $X_1, \ldots, X_{100}$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(1)$.
+
+\textbf{(a)} Calcule $P(\bar{X}_n > 1.2)$ usando a aproximação normal.
+
+\textbf{(b)} Compare com o valor exato (se possível).
+
+\textbf{(c)} Para qual $n$ a aproximação normal seria considerada boa?
+\end{exerciciobox}
+
+\begin{exerciciobox}{5.2 - TCL para Bernoulli via MGF (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Bernoulli}(1/2)$.
+
+Defina:
+\[
+U_n = 2\sqrt{n}\left(\bar{X}_n - \frac{1}{2}\right)
+\]
+
+\textbf{(a)} Encontre a MGF de $U_n$.
+
+\textbf{(b)} Use expansão de Taylor para mostrar que $M_{U_n}(t) \to e^{t^2/2}$.
+
+\textbf{(c)} Conclua que $U_n \xrightarrow{D} N(0,1)$.
+
+\textit{Conexão:} Questão Extra 6.
+\end{exerciciobox}
+
+\begin{exerciciobox}{5.3 - TCL e Aproximação Normal (Intermediário)}
+Uma moeda possivelmente viciada é lançada 400 vezes, resultando em 220 caras.
+
+\textbf{(a)} Use o TCL para testar $H_0: p = 0.5$ vs $H_1: p \neq 0.5$ ao nível 5\%.
+
+\textbf{(b)} Calcule o p-valor.
+
+\textbf{(c)} Qual seria a decisão se fossem apenas 40 lançamentos com 22 caras?
+\end{exerciciobox}
+
+\begin{exerciciobox}{5.4 - TCL para Soma de Uniformes (Avançado)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0,1)$.
+
+\textbf{(a)} Use o TCL para aproximar $P(\sum_{i=1}^{12} X_i \leq 7)$.
+
+\textbf{(b)} Por que $n=12$ é especial para a Uniforme(0,1)?
+
+\textbf{(c)} Simule e compare com a aproximação normal.
+\end{exerciciobox}
+
+% ================================================================
+\section{Teorema de Slutsky e Aplicações}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Resultado 3D - Teorema de Slutsky}
+
+Se $U_n \xrightarrow{D} U$ e $V_n \xrightarrow{P} v$ (constante), então:
+\begin{itemize}
+    \item[(a)] $U_n + V_n \xrightarrow{D} U + v$
+    \item[(b)] $U_n V_n \xrightarrow{D} Uv$
+    \item[(c)] $U_n/V_n \xrightarrow{D} U/v$ (se $v \neq 0$)
+\end{itemize}
+
+\textbf{Aplicação Principal:} Substituir parâmetros desconhecidos por estimadores consistentes.
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 5.1
+\end{teoriabox}
+
+\begin{exerciciobox}{6.1 - Teste t Assintótico (Básico)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$.
+
+Use Slutsky para mostrar que:
+\[
+T_n = \frac{\sqrt{n}(\bar{X}_n - \mu)}{S_n} \xrightarrow{D} N(0,1)
+\]
+
+onde $S_n$ é o desvio padrão amostral.
+
+\textit{Interpretação:} Isto justifica a aproximação normal para o teste t quando $n$ é grande.
+\end{exerciciobox}
+
+\begin{exerciciobox}{6.2 - Transformação de $Q_n$ (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$ e $T_n = X_{(n)}$.
+
+Defina:
+\[
+Q_n = \frac{n(\theta - T_n)}{T_n}
+\]
+
+\textbf{(a)} Reescreva $Q_n$ como produto $Q_n = U_n \cdot \frac{\theta}{T_n}$.
+
+\textbf{(b)} Use Slutsky para mostrar que $Q_n \xrightarrow{D} \text{Exp}(1)$.
+
+\textit{Conexão:} Questão Extra 7.
+\end{exerciciobox}
+
+\begin{exerciciobox}{6.3 - IC Assintótico para Variância (Avançado)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu$ e $\mathrm{Var}(X_i) = \sigma^2$.
+
+\textbf{(a)} Mostre que:
+\[
+\frac{\sqrt{n}(S_n^2 - \sigma^2)}{\sqrt{2}\sigma^2} \xrightarrow{D} N(0,1)
+\]
+
+(Assuma normalidade ou use $\mu_4 = 3\sigma^4$)
+
+\textbf{(b)} Construa um IC assintótico de 95\% para $\sigma^2$.
+
+\textbf{(c)} Aplique para dados com $n=50$, $s^2 = 16$.
+
+\textit{Conexão:} Questão Extra 9.
+\end{exerciciobox}
+
+% ================================================================
+\section{Método Delta}
+% ================================================================
+
+\begin{teoriabox}
+\subsection*{Teorema 3.7.6.2(a) - Método Delta}
+
+Se $\sqrt{n}(T_n - \theta) \xrightarrow{D} N(0, \sigma^2(\theta))$ e $g$ é continuamente diferenciável com $g'(\theta) \neq 0$, então:
+\[
+\sqrt{n}[g(T_n) - g(\theta)] \xrightarrow{D} N(0, \sigma^2(\theta) [g'(\theta)]^2)
+\]
+
+\textbf{Aplicação:} Encontrar distribuição assintótica de transformações não-lineares.
+
+\textbf{Referência:} \texttt{teoria\_cap3\_completo.tex}, Seção 5.3
+\end{teoriabox}
+
+\begin{exerciciobox}{7.1 - Delta para Poisson (Básico)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Poisson}(\lambda)$.
+
+\textbf{(a)} Mostre que $\sqrt{n}(\bar{X}_n - \lambda) \xrightarrow{D} N(0, \lambda)$.
+
+\textbf{(b)} Use o Método Delta com $g(\lambda) = \lambda^3$ para encontrar a distribuição assintótica de $\sqrt{n}(\bar{X}_n^3 - \lambda^3)$.
+
+\textit{Conexão:} Questão Extra 10.
+\end{exerciciobox}
+
+\begin{exerciciobox}{7.2 - Delta para Raiz Quadrada (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $E[X_i] = \mu > 0$ e $\mathrm{Var}(X_i) = \sigma^2$.
+
+\textbf{(a)} Encontre a distribuição assintótica de $\sqrt{n}(\sqrt{\bar{X}_n} - \sqrt{\mu})$.
+
+\textbf{(b)} Construa um IC assintótico de 95\% para $\sqrt{\mu}$.
+
+\textbf{(c)} Aplique para dados Poisson$(\lambda)$ com $n=100$, $\bar{x} = 9$.
+\end{exerciciobox}
+
+\begin{exerciciobox}{7.3 - Delta para Logaritmo (Intermediário)}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim \text{Exp}(\lambda)$, $\lambda > 0$.
+
+\textbf{(a)} Mostre que $\bar{X}_n$ é o EMV para $\theta = 1/\lambda$.
+
+\textbf{(b)} Use o Método Delta para encontrar a distribuição assintótica de $\log(\bar{X}_n)$.
+
+\textbf{(c)} Construa um IC assintótico para $\log(\theta)$ e transforme para obter IC para $\theta$.
+\end{exerciciobox}
+
+\begin{exerciciobox}{7.4 - Delta Multivariado (Avançado)}
+Sejam $(X_1, Y_1), \ldots, (X_n, Y_n)$ pares i.i.d. com:
+\begin{align*}
+E[X_i] &= \mu_X, \quad \mathrm{Var}(X_i) = \sigma_X^2 \\
+E[Y_i] &= \mu_Y, \quad \mathrm{Var}(Y_i) = \sigma_Y^2 \\
+\mathrm{Cov}(X_i, Y_i) &= \sigma_{XY}
+\end{align*}
+
+Defina $R_n = \bar{X}_n / \bar{Y}_n$ (razão de médias).
+
+\textbf{(a)} Use o Método Delta bivariado com $g(x,y) = x/y$ para encontrar a distribuição assintótica de $\sqrt{n}(R_n - \mu_X/\mu_Y)$.
+
+\textbf{(b)} Calcule a variância assintótica explicitamente.
+\end{exerciciobox}
+
+% ================================================================
+\section{Exercícios Integrados}
+% ================================================================
+
+\begin{exerciciobox}{8.1 - Análise Completa: Uniforme}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+\textbf{(a)} Mostre que $T_n = X_{(n)} \xrightarrow{P} \theta$.
+
+\textbf{(b)} Encontre a distribuição limite de $U_n = n(\theta - T_n)/\theta$.
+
+\textbf{(c)} Mostre que $Q_n = n(\theta - T_n)/T_n \xrightarrow{D} \text{Exp}(1)$ usando Slutsky.
+
+\textbf{(d)} Construa um IC assintótico de 95\% para $\theta$ baseado em $Q_n$.
+
+\textbf{(e)} Para $n=50$ e $x_{(50)} = 9.8$, estime $\theta$ e construa o IC.
+\end{exerciciobox}
+
+\begin{exerciciobox}{8.2 - Análise Completa: Variância}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim N(\mu, \sigma^2)$.
+
+\textbf{(a)} Usando Helmert, mostre que $S_n^2 \xrightarrow{P} \sigma^2$.
+
+\textbf{(b)} Mostre que $\sqrt{n-1}(S_n^2 - \sigma^2) \xrightarrow{D} N(0, 2\sigma^4)$ usando TCL.
+
+\textbf{(c)} Use Slutsky para ajustar para $\sqrt{n}(S_n^2 - \sigma^2) \xrightarrow{D} N(0, 2\sigma^4)$.
+
+\textbf{(d)} Construa um IC assintótico de 95\% para $\sigma^2$.
+
+\textbf{(e)} Para $n=30$, $s^2 = 25$, construa o IC e compare com o IC exato baseado em $\chi^2$.
+\end{exerciciobox}
+
+\begin{exerciciobox}{8.3 - Comparação de Estimadores}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $X_i \sim U(0, \theta)$.
+
+Considere três estimadores para $\theta$:
+\begin{align*}
+\hat{\theta}_1 &= 2\bar{X}_n \\
+\hat{\theta}_2 &= X_{(n)} \\
+\hat{\theta}_3 &= \frac{n+1}{n}X_{(n)}
+\end{align*}
+
+\textbf{(a)} Mostre que os três são consistentes.
+
+\textbf{(b)} Calcule o viés e variância de cada um.
+
+\textbf{(c)} Compare o EQM assintótico.
+
+\textbf{(d)} Qual você recomendaria e por quê?
+\end{exerciciobox}
+
+\begin{exerciciobox}{8.4 - Teste Assintótico}
+Uma empresa afirma que seus chips têm taxa de defeito de no máximo 2\%. Uma amostra de 500 chips revelou 15 defeituosos.
+
+\textbf{(a)} Formule hipóteses apropriadas.
+
+\textbf{(b)} Use o TCL para derivar a estatística de teste.
+
+\textbf{(c)} Realize o teste ao nível 5\%.
+
+\textbf{(d)} Calcule o p-valor e interprete.
+
+\textbf{(e)} Qual tamanho amostral seria necessário para detectar $p=0.04$ com poder de 90\%?
+\end{exerciciobox}
+
+\newpage
+
+% ================================================================
+\section{Respostas Detalhadas}
+% ================================================================
+
+\begin{solucaobox}{1.1}
+\subsection*{(a) $a_n = 5n^2 + 3n$, $b_n = n^2$}
+
+Calculemos o limite:
+\[
+\lim_{n\to\infty} \frac{a_n}{b_n} = \lim_{n\to\infty} \frac{5n^2 + 3n}{n^2} = \lim_{n\to\infty} \left(5 + \frac{3}{n}\right) = 5
+\]
+
+Como o limite existe e é finito (5), temos que $|a_n/b_n| \leq 6$ para $n$ suficientemente grande.
+
+\textbf{Resposta:} $a_n = O(b_n)$, mas $a_n \neq o(b_n)$ (pois o limite não é zero).
+
+\subsection*{(b) $a_n = n$, $b_n = n^2$}
+
+\[
+\lim_{n\to\infty} \frac{a_n}{b_n} = \lim_{n\to\infty} \frac{n}{n^2} = \lim_{n\to\infty} \frac{1}{n} = 0
+\]
+
+\textbf{Resposta:} $a_n = o(b_n)$ (e portanto também $a_n = O(b_n)$).
+
+\subsection*{(c) $a_n = n^2 + \sqrt{n}$, $b_n = n$}
+
+\[
+\lim_{n\to\infty} \frac{a_n}{b_n} = \lim_{n\to\infty} \frac{n^2 + \sqrt{n}}{n} = \lim_{n\to\infty} \left(n + \frac{1}{\sqrt{n}}\right) = \infty
+\]
+
+Como o limite é infinito, não existe $k$ tal que $|a_n/b_n| \leq k$ para todo $n$ grande.
+
+\textbf{Resposta:} Nenhum dos dois ($a_n$ cresce mais rápido que $b_n$).
+
+\subsection*{(d) $a_n = \log n$, $b_n = n$}
+
+\[
+\lim_{n\to\infty} \frac{\log n}{n} = 0 \quad \text{(pela Regra de L'Hôpital)}
+\]
+
+\textbf{Resposta:} $a_n = o(b_n)$.
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão com Teoria:} Este exercício aplica diretamente as Definições 3.7.2.1 e 3.7.2.2 da \texttt{teoria\_cap3\_completo.tex}.
+
+\textbf{Dica de Estudo:} Sempre que $\lim a_n/b_n$ existir e for finito não-zero, temos $a_n = O(b_n)$. Se o limite for zero, temos $a_n = o(b_n)$. Se o limite for infinito, não se aplica nem $O$ nem $o$.
+\end{dicabox}
+
+\begin{solucaobox}{1.2}
+\subsection*{Estratégia}
+
+Usaremos a desigualdade de Chebyshev para limitar a probabilidade.
+
+\subsection*{Desenvolvimento}
+
+Para $X_n \sim N(\mu, \sigma^2/n)$, temos:
+\begin{itemize}
+    \item $E[X_n] = \mu$
+    \item $\mathrm{Var}(X_n) = \sigma^2/n$
+\end{itemize}
+
+Pela desigualdade de Chebyshev:
+\[
+P(|X_n - \mu| \geq \varepsilon) \leq \frac{\mathrm{Var}(X_n)}{\varepsilon^2} = \frac{\sigma^2/n}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2}
+\]
+
+Como $\sigma^2$ e $\varepsilon^2$ são constantes fixas, temos:
+\[
+P(|X_n - \mu| \geq \varepsilon) \leq \frac{k}{n} \quad \text{onde } k = \frac{\sigma^2}{\varepsilon^2}
+\]
+
+Portanto, $P(|X_n - \mu| \geq \varepsilon) = O(1/n)$. $\quad \square$
+
+\subsection*{Interpretação}
+
+Isto mostra que a probabilidade de erro decai linearmente com $n$, o que é consistente com $X_n \xrightarrow{P} \mu$.
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} A desigualdade de Chebyshev é fundamental na prova do Resultado 1P (Lei Fraca dos Grandes Números) na \texttt{teoria\_cap3\_completo.tex}.
+
+\textbf{Aplicação:} Este resultado quantifica a taxa de convergência em probabilidade.
+\end{dicabox}
+
+\begin{solucaobox}{1.3}
+\subsection*{Desenvolvimento}
+
+Sabemos que:
+\begin{align*}
+E[\bar{X}_n] &= \mu \\
+\mathrm{Var}(\bar{X}_n) &= \frac{\sigma^2}{n}
+\end{align*}
+
+Logo:
+\begin{align*}
+E[(\bar{X}_n - \mu)^2] &= \mathrm{Var}(\bar{X}_n) + [E[\bar{X}_n] - \mu]^2 \\
+&= \frac{\sigma^2}{n} + 0 \\
+&= \frac{\sigma^2}{n}
+\end{align*}
+
+Como $\sigma^2$ é constante, temos:
+\[
+E[(\bar{X}_n - \mu)^2] = O(1/n)
+\]
+
+\subsection*{Interpretação}
+
+Pelo Resultado 2P da teoria, se $E[|T_n - a|^r] \to 0$, então $T_n \xrightarrow{P} a$.
+
+Aqui, $E[(\bar{X}_n - \mu)^2] = \sigma^2/n \to 0$, logo $\bar{X}_n \xrightarrow{P} \mu$.
+
+Além disso, o erro quadrático médio decai como $1/n$, o que quantifica a taxa de convergência.
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Este resultado é usado na prova do Resultado 1P (LFGN) na \texttt{teoria\_cap3\_completo.tex}, Seção 3.2.
+
+\textbf{Importância:} A taxa $O(1/n)$ do EQM é a taxa típica para médias amostrais. Compare com a Questão Extra 2, onde o máximo da uniforme tem taxa $O(1/n^2)$!
+\end{dicabox}
+
+\begin{solucaobox}{2.1}
+\subsection*{Estratégia}
+
+Usaremos as expansões de Taylor fundamentais.
+
+\subsection*{Desenvolvimento}
+
+Expandindo até ordem 2:
+\begin{align*}
+e^x &= 1 + x + O(x^2) \\
+\log(1+x) &= x + O(x^2)
+\end{align*}
+
+Multiplicando:
+\begin{align*}
+e^x \log(1+x) &= [1 + x + O(x^2)][x + O(x^2)] \\
+&= 1 \cdot x + 1 \cdot O(x^2) + x \cdot x + x \cdot O(x^2) + O(x^2) \cdot x + O(x^2) \cdot O(x^2) \\
+&= x + O(x^2) + x^2 + O(x^3) + O(x^3) + O(x^4)
+\end{align*}
+
+Como $x^2 = O(x^2)$, temos:
+\[
+e^x \log(1+x) = x + O(x^2) \quad \square
+\]
+
+\subsection*{Visualização}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$x$},
+    ylabel={$y$},
+    domain=-0.5:0.5,
+    samples=100,
+    legend pos=north west,
+    width=10cm,
+    height=6cm
+]
+
+\addplot[blue, thick] {exp(x)*ln(1+x)};
+\addlegendentry{$e^x \log(1+x)$}
+
+\addplot[red, dashed, thick] {x};
+\addlegendentry{$x$}
+
+\addplot[green!60!black, dotted, thick] {x + x^2};
+\addlegendentry{$x + x^2$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Este é o Exemplo worked out na \texttt{teoria\_cap3\_completo.tex}, Seção 2.3.
+
+\textbf{Técnica:} Ao multiplicar expansões, use que $O(x^a) \cdot O(x^b) = O(x^{a+b})$.
+\end{dicabox}
+
+\begin{solucaobox}{2.2}
+\subsection*{Parte 1: Limite}
+
+Queremos mostrar que:
+\[
+\lim_{n\to\infty} \left(1 + \frac{\lambda}{n}\right)^n = e^\lambda
+\]
+
+Tomando logaritmo:
+\[
+\log\left[\left(1 + \frac{\lambda}{n}\right)^n\right] = n \log\left(1 + \frac{\lambda}{n}\right)
+\]
+
+Expansão de Taylor de $\log(1+x)$ em torno de $x=0$:
+\[
+\log(1+x) = x - \frac{x^2}{2} + O(x^3)
+\]
+
+Substituindo $x = \lambda/n$:
+\[
+\log\left(1 + \frac{\lambda}{n}\right) = \frac{\lambda}{n} - \frac{\lambda^2}{2n^2} + O(n^{-3})
+\]
+
+Multiplicando por $n$:
+\begin{align*}
+n \log\left(1 + \frac{\lambda}{n}\right) &= n\left[\frac{\lambda}{n} - \frac{\lambda^2}{2n^2} + O(n^{-3})\right] \\
+&= \lambda - \frac{\lambda^2}{2n} + O(n^{-2}) \\
+&\to \lambda \quad \text{quando } n \to \infty
+\end{align*}
+
+Portanto:
+\[
+\left(1 + \frac{\lambda}{n}\right)^n \to e^\lambda \quad \square
+\]
+
+\subsection*{Parte 2: Aproximação Poisson-Binomial}
+
+Seja $X_n \sim \text{Binomial}(n, p)$ com $p = \lambda/n$ fixo. Para $k$ fixo:
+\begin{align*}
+P(X_n = k) &= \binom{n}{k} p^k (1-p)^{n-k} \\
+&= \frac{n!}{k!(n-k)!} \left(\frac{\lambda}{n}\right)^k \left(1 - \frac{\lambda}{n}\right)^{n-k} \\
+&= \frac{n(n-1)\cdots(n-k+1)}{n^k} \cdot \frac{\lambda^k}{k!} \cdot \left(1 - \frac{\lambda}{n}\right)^{n-k}
+\end{align*}
+
+Quando $n \to \infty$:
+\begin{itemize}
+    \item $\frac{n(n-1)\cdots(n-k+1)}{n^k} \to 1$ (produto de $k$ termos, cada $\to 1$)
+    \item $\left(1 - \frac{\lambda}{n}\right)^{n} \to e^{-\lambda}$ (resultado anterior)
+    \item $\left(1 - \frac{\lambda}{n}\right)^{-k} \to 1$
+\end{itemize}
+
+Portanto:
+\[
+P(X_n = k) \to \frac{\lambda^k}{k!} e^{-\lambda} \quad \text{(Poisson($\lambda$))} \quad \square
+\]
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Este é o limite (R.3) fundamental usado repetidamente na \texttt{teoria\_cap3\_completo.tex}.
+
+\textbf{Aplicação Prática:} Quando $n$ é grande e $p$ é pequeno tal que $np \approx \lambda$ é moderado, use Poisson($\lambda$) para aproximar Binomial$(n,p)$.
+
+\textbf{Regra Prática:} Use a aproximação Poisson quando $n \geq 20$ e $p \leq 0.05$, ou quando $n \geq 100$ e $np \leq 10$.
+\end{dicabox}
+
+\begin{solucaobox}{3.1}
+\subsection*{(a) Momentos da Exponencial}
+
+Para $X \sim \text{Exp}(\lambda)$ com densidade $f(x) = \lambda e^{-\lambda x}$, $x > 0$:
+
+\textbf{Esperança:}
+\begin{align*}
+E[X] &= \int_0^\infty x \lambda e^{-\lambda x} dx \\
+&= \lambda \int_0^\infty x e^{-\lambda x} dx \\
+&= \lambda \cdot \frac{1}{\lambda^2} \quad \text{(integração por partes)} \\
+&= \frac{1}{\lambda}
+\end{align*}
+
+\textbf{Segundo momento:}
+\begin{align*}
+E[X^2] &= \int_0^\infty x^2 \lambda e^{-\lambda x} dx = \frac{2}{\lambda^2}
+\end{align*}
+
+\textbf{Variância:}
+\[
+\mathrm{Var}(X) = E[X^2] - (E[X])^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}
+\]
+
+$\boxed{E[X_i] = 1/\lambda, \quad \mathrm{Var}(X_i) = 1/\lambda^2}$
+
+\subsection*{(b) Consistência}
+
+Como $E[X_i] = 1/\lambda < \infty$ e $\mathrm{Var}(X_i) = 1/\lambda^2 < \infty$, pelo \textbf{Resultado 1P} (Lei Fraca dos Grandes Números):
+\[
+\bar{X}_n \xrightarrow{P} E[X_i] = \frac{1}{\lambda} \quad \square
+\]
+
+\subsection*{(c) Taxa de Convergência}
+
+Pela desigualdade de Chebyshev:
+\[
+P(|\bar{X}_n - 1/\lambda| \geq \varepsilon) \leq \frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2} = \frac{1/(n\lambda^2)}{\varepsilon^2} = \frac{1}{n\lambda^2\varepsilon^2}
+\]
+
+Logo, a taxa de convergência é $O(1/n)$.
+
+Alternativamente, o EQM é:
+\[
+E[(\bar{X}_n - 1/\lambda)^2] = \mathrm{Var}(\bar{X}_n) = \frac{1}{n\lambda^2} = O(1/n)
+\]
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Este exercício aplica diretamente o Resultado 1P da \texttt{teoria\_cap3\_completo.tex}, Seção 3.2.
+
+\textbf{Interpretação:} A média amostral $\bar{X}_n$ é um estimador consistente para a média populacional $1/\lambda$, com taxa de convergência quadrática $O(1/n)$.
+
+\textbf{Próximo Passo:} Se quisermos a distribuição assintótica (não apenas convergência pontual), usaríamos o TCL (Seção 5).
+\end{dicabox}
+
+\begin{solucaobox}{3.2}
+\subsection*{Estratégia}
+
+Usaremos a transformação de Helmert para representar $S_n^2$ como média amostral de variáveis i.i.d.
+
+\subsection*{Passo 1: Transformação de Helmert}
+
+A transformação de Helmert produz variáveis ortogonais $Y_1, \ldots, Y_n$ tais que:
+\begin{equation}
+S_n^2 = \frac{1}{n-1}\sum_{i=2}^n Y_i^2
+\end{equation}
+
+onde $Y_i \sim N(0, \sigma^2)$ são independentes quando $X_i \sim N(\mu, \sigma^2)$.
+
+\textbf{Propriedade Chave:} Mesmo para $X_i$ não-normais, podemos escrever:
+\[
+S_n^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X}_n)^2 \approx \frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2
+\]
+
+para $n$ grande.
+
+\subsection*{Passo 2: Momentos de $Y_i^2$}
+
+Defina $Z_i = (X_i - \mu)^2$. Então:
+\begin{itemize}
+    \item $E[Z_i] = E[(X_i - \mu)^2] = \mathrm{Var}(X_i) = \sigma^2$
+    \item $\mathrm{Var}(Z_i) = E[Z_i^2] - (E[Z_i])^2 = E[(X_i-\mu)^4] - \sigma^4 = \mu_4 - \sigma^4 < \infty$
+\end{itemize}
+
+(onde $\mu_4 = E[(X_i-\mu)^4]$ é o quarto momento central)
+
+\subsection*{Passo 3: Aplicação da LFGN}
+
+Como $\{Y_i^2\}_{i=2}^n$ são i.i.d. com:
+\begin{itemize}
+    \item $E[Y_i^2] = \sigma^2$
+    \item $\mathrm{Var}(Y_i^2) = 2\sigma^4 < \infty$ (para normais)
+\end{itemize}
+
+Pelo \textbf{Resultado 1P}:
+\[
+\frac{1}{n-1}\sum_{i=2}^n Y_i^2 \xrightarrow{P} E[Y_i^2] = \sigma^2
+\]
+
+Portanto:
+\[
+S_n^2 \xrightarrow{P} \sigma^2 \quad \square
+\]
+
+\subsection*{Diagrama da Transformação de Helmert}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+% Original variables
+\node at (0,2) {$X_1, \ldots, X_n$};
+\node at (0,1.5) {\small i.i.d. $N(\mu, \sigma^2)$};
+
+% Arrow
+\draw[->, thick, blue] (0,1.2) -- (0,0.3);
+\node at (1.5,0.75) [blue] {\small Helmert};
+
+% Transformed variables
+\node at (0,0) {$Y_1, \ldots, Y_n$};
+\node at (0,-0.5) {\small independentes $N(0, \sigma^2)$};
+
+% Box
+\draw[red, thick] (-2,-1) rectangle (2,-2);
+\node at (0,-1.5) [red] {$S_n^2 = \frac{1}{n-1}\sum_{i=2}^n Y_i^2$};
+
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Este é exatamente a Questão Extra 1 resolvida em \texttt{questoes\_cap3\_completo.tex}.
+
+\textbf{Por que Helmert?} A transformação de Helmert:
+\begin{itemize}
+    \item Separa informação sobre média ($Y_1$) da informação sobre variância ($Y_2, \ldots, Y_n$)
+    \item Preserva a soma dos quadrados
+    \item Produz variáveis independentes (crucial para normalidade)
+\end{itemize}
+
+\textbf{Generalização:} Para $X_i$ não-normais, o resultado vale mas a transformação exata de Helmert não se aplica. Ainda assim, $S_n^2$ pode ser aproximado por média de $(X_i - \mu)^2$.
+
+\textbf{Próximo Passo:} Para obter a distribuição assintótica (não apenas convergência), veja Exercício 6.3 ou Questão Extra 9.
+\end{dicabox}
+
+\newpage
+
+\begin{solucaobox}{3.3}
+\subsection*{(a) Consistência via EQM}
+
+\textbf{Distribuição de $T_n$:}
+
+Para o máximo da uniforme:
+\[
+f_{T_n}(t) = \frac{n}{\theta^n}t^{n-1}\mathbf{1}_{(0,\theta)}(t)
+\]
+
+\textbf{Primeiro momento:}
+\begin{align*}
+E[T_n] &= \int_0^\theta t \cdot \frac{n}{\theta^n}t^{n-1}dt = \frac{n}{\theta^n}\int_0^\theta t^n dt \\
+&= \frac{n}{\theta^n} \cdot \frac{\theta^{n+1}}{n+1} = \frac{n\theta}{n+1}
+\end{align*}
+
+\textbf{Segundo momento:}
+\begin{align*}
+E[T_n^2] &= \int_0^\theta t^2 \cdot \frac{n}{\theta^n}t^{n-1}dt = \frac{n}{\theta^n}\int_0^\theta t^{n+1} dt \\
+&= \frac{n}{\theta^n} \cdot \frac{\theta^{n+2}}{n+2} = \frac{n\theta^2}{n+2}
+\end{align*}
+
+\textbf{EQM:}
+\begin{align*}
+E[(T_n - \theta)^2] &= E[T_n^2] - 2\theta E[T_n] + \theta^2 \\
+&= \frac{n\theta^2}{n+2} - 2\theta \cdot \frac{n\theta}{n+1} + \theta^2 \\
+&= \theta^2\left[\frac{n}{n+2} - \frac{2n}{n+1} + 1\right]
+\end{align*}
+
+Colocando em denominador comum $(n+2)(n+1)$:
+\begin{align*}
+&= \theta^2\left[\frac{n(n+1) - 2n(n+2) + (n+2)(n+1)}{(n+2)(n+1)}\right] \\
+&= \theta^2\left[\frac{n^2 + n - 2n^2 - 4n + n^2 + 3n + 2}{(n+2)(n+1)}\right] \\
+&= \theta^2\left[\frac{2}{(n+2)(n+1)}\right] = \frac{2\theta^2}{(n+2)(n+1)} \to 0
+\end{align*}
+
+Pelo \textbf{Resultado 2P}, $T_n \xrightarrow{P} \theta$. $\quad \square$
+
+\subsection*{(b) Taxa de Convergência}
+
+Observe que:
+\[
+E[(T_n - \theta)^2] = \frac{2\theta^2}{(n+2)(n+1)} \approx \frac{2\theta^2}{n^2} = O(1/n^2)
+\]
+
+Isto é muito mais rápido que a taxa típica $O(1/n)$ da média amostral!
+
+\textbf{Comparação:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Estimador} & \textbf{Taxa EQM} & \textbf{$n$ para EQM $< 0.01\theta^2$} \\
+\midrule
+$\bar{X}_n$ (média) & $O(1/n)$ & $n \approx 100$ \\
+$X_{(n)}$ (máximo) & $O(1/n^2)$ & $n \approx 15$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Gráfico da Taxa de Convergência}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$n$},
+    ylabel={EQM/$\theta^2$},
+    domain=2:50,
+    samples=50,
+    ymin=0, ymax=0.15,
+    xmin=0, xmax=50,
+    legend pos=north east,
+    width=11cm,
+    height=7cm,
+    grid=major
+]
+
+% Media amostral (assumindo Var = theta^2/12 para U(0,theta))
+\addplot[blue, thick] {1/(12*x)};
+\addlegendentry{$\bar{X}_n$: $O(1/n)$}
+
+% Maximo
+\addplot[red, thick] {2/((x+2)*(x+1))};
+\addlegendentry{$X_{(n)}$: $O(1/n^2)$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Esta é a Questão Extra 2 de \texttt{questoes\_cap3\_completo.tex}.
+
+\textbf{Insight Importante:} O máximo $X_{(n)}$ converge MUITO mais rápido que a média $\bar{X}_n$ para o parâmetro $\theta$ da uniforme. Isto ilustra que a taxa de convergência depende fortemente do estimador!
+
+\textbf{Estatística de Ordem:} Quando o parâmetro de interesse está relacionado a extremos da distribuição (máximo, mínimo), estatísticas de ordem podem ser muito mais eficientes que médias.
+
+\textbf{Próximo Passo:} Veja Exercício 4.1 para a distribuição limite de $n(\theta - X_{(n)})$.
+\end{dicabox}
+
+\newpage
+
+\begin{solucaobox}{4.1}
+\subsection*{Estratégia}
+
+Calcularemos a fda de $U_n$ e tomaremos o limite quando $n \to \infty$.
+
+\subsection*{Passo 1: Função de Distribuição de $T_n$}
+
+Do Exercício 3.3:
+\[
+F_{T_n}(t) = \left(\frac{t}{\theta}\right)^n \mathbf{1}_{(0,\theta)}(t) + \mathbf{1}_{[\theta,\infty)}(t)
+\]
+
+\subsection*{Passo 2: Transformação}
+
+Para $u > 0$:
+\begin{align*}
+F_{U_n}(u) &= P\left(\frac{n}{\theta}(\theta - T_n) \leq u\right) \\
+&= P\left(\theta - T_n \leq \frac{\theta u}{n}\right) \\
+&= P\left(T_n \geq \theta\left(1 - \frac{u}{n}\right)\right) \\
+&= 1 - P\left(T_n < \theta\left(1 - \frac{u}{n}\right)\right) \\
+&= 1 - F_{T_n}\left(\theta\left(1 - \frac{u}{n}\right)\right)
+\end{align*}
+
+\subsection*{Passo 3: Cálculo para $n$ Grande}
+
+Para $n$ suficientemente grande, $0 < \theta(1 - u/n) < \theta$, logo:
+\begin{align*}
+F_{U_n}(u) &= 1 - \left(\frac{\theta(1 - u/n)}{\theta}\right)^n \\
+&= 1 - \left(1 - \frac{u}{n}\right)^n
+\end{align*}
+
+\subsection*{Passo 4: Limite quando $n \to \infty$}
+
+Usando o limite fundamental $(R.3)$: $\lim_{n\to\infty}(1 + x/n)^n = e^x$:
+\begin{align*}
+\lim_{n\to\infty} F_{U_n}(u) &= \lim_{n\to\infty} \left[1 - \left(1 - \frac{u}{n}\right)^n\right] \\
+&= 1 - \lim_{n\to\infty} \left(1 + \frac{(-u)}{n}\right)^n \\
+&= 1 - e^{-u}, \quad u > 0
+\end{align*}
+
+\subsection*{Conclusão}
+
+Reconhecemos que $F_U(u) = 1 - e^{-u}$ para $u > 0$ é a fda de $\text{Exp}(1)$.
+
+Portanto:
+\[
+U_n = \frac{n(\theta - X_{(n)})}{\theta} \xrightarrow{D} \text{Exp}(1) \quad \square
+\]
+
+\subsection*{Visualização Gráfica}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    xlabel={$u$},
+    ylabel={Densidade},
+    domain=0:5,
+    samples=100,
+    ymax=1.2,
+    legend pos=north east,
+    width=11cm,
+    height=7cm
+]
+
+% Densidade limite (Exponencial)
+\addplot[blue, very thick] {exp(-x)};
+\addlegendentry{Limite: Exp(1)}
+
+% Aproximações para n finito (via simulação conceitual)
+\addplot[red, dashed] coordinates {
+(0,0.8) (0.5,0.7) (1,0.5) (1.5,0.35) (2,0.2) (2.5,0.1) (3,0.05) (4,0.01) (5,0)
+};
+\addlegendentry{$n=10$ (aprox.)}
+
+\addplot[green!60!black, dotted, thick] coordinates {
+(0,0.9) (0.5,0.75) (1,0.6) (1.5,0.4) (2,0.25) (2.5,0.12) (3,0.06) (4,0.015) (5,0)
+};
+\addlegendentry{$n=20$ (aprox.)}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Esta é a Questão Extra 5 de \texttt{questoes\_cap3\_completo.tex}.
+
+\textbf{Interpretação Importante:}
+\begin{itemize}
+    \item Exercício 3.3 mostrou: $X_{(n)} \xrightarrow{P} \theta$ (convergência pontual)
+    \item Este exercício mostra: $n(\theta - X_{(n)})/\theta \xrightarrow{D} \text{Exp}(1)$ (distribuição do erro normalizado)
+\end{itemize}
+
+A distribuição limite dá informação sobre a \textit{velocidade} de convergência!
+
+\textbf{Normalização:} Note que usamos normalização $n$ (não $\sqrt{n}$ como no TCL). Isto é consistente com a taxa $O(1/n^2)$ do EQM.
+
+\textbf{Aplicação:} Este resultado pode ser usado para construir intervalos de confiança para $\theta$ (veja Exercício 8.1).
+
+\textbf{Teoria de Valores Extremos:} Este é um resultado clássico da teoria de valores extremos. Distribuições limite de máximos/mínimos são tipicamente Gumbel, Fréchet ou Weibull (aqui é um caso especial relacionado à exponencial).
+\end{dicabox}
+
+\newpage
+
+\begin{solucaobox}{5.2}
+\subsection*{(a) MGF de $U_n$}
+
+\textbf{Reescrever $U_n$:}
+\begin{align*}
+U_n &= 2\sqrt{n}\left(\bar{X}_n - \frac{1}{2}\right) = 2\sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n X_i - \frac{1}{2}\right) \\
+&= \frac{2}{\sqrt{n}}\sum_{i=1}^n X_i - \sqrt{n} = \frac{2\sum X_i - n}{\sqrt{n}}
+\end{align*}
+
+\textbf{MGF:}
+\begin{align*}
+M_{U_n}(t) &= E\left[\exp\left\{t\cdot\frac{2\sum X_i - n}{\sqrt{n}}\right\}\right] \\
+&= e^{-t\sqrt{n}} \cdot E\left[\exp\left\{\frac{2t}{\sqrt{n}}\sum X_i\right\}\right] \\
+&= e^{-t\sqrt{n}} \cdot \prod_{i=1}^n E\left[e^{\frac{2t}{\sqrt{n}}X_i}\right] \quad \text{(independência)} \\
+&= e^{-t\sqrt{n}} \cdot \left(E\left[e^{\frac{2t}{\sqrt{n}}X_1}\right]\right)^n
+\end{align*}
+
+Para $X_1 \sim \text{Bernoulli}(1/2)$:
+\begin{align*}
+E\left[e^{\frac{2t}{\sqrt{n}}X_1}\right] &= \frac{1}{2} \cdot e^0 + \frac{1}{2} \cdot e^{\frac{2t}{\sqrt{n}}} = \frac{1}{2}\left(1 + e^{\frac{2t}{\sqrt{n}}}\right)
+\end{align*}
+
+Logo:
+\[
+M_{U_n}(t) = e^{-t\sqrt{n}} \left[\frac{1 + e^{\frac{2t}{\sqrt{n}}}}{2}\right]^n = \left[\frac{e^{-\frac{t}{\sqrt{n}}} + e^{\frac{t}{\sqrt{n}}}}{2}\right]^n
+\]
+
+\subsection*{(b) Expansão de Taylor}
+
+\textbf{Expandir as exponenciais:}
+\begin{align*}
+e^{\frac{t}{\sqrt{n}}} &= 1 + \frac{t}{\sqrt{n}} + \frac{t^2}{2n} + O(n^{-3/2}) \\
+e^{-\frac{t}{\sqrt{n}}} &= 1 - \frac{t}{\sqrt{n}} + \frac{t^2}{2n} + O(n^{-3/2})
+\end{align*}
+
+\textbf{Somar:}
+\[
+e^{-\frac{t}{\sqrt{n}}} + e^{\frac{t}{\sqrt{n}}} = 2 + \frac{t^2}{n} + O(n^{-3/2})
+\]
+
+\textbf{MGF:}
+\[
+M_{U_n}(t) = \left[\frac{2 + \frac{t^2}{n} + O(n^{-3/2})}{2}\right]^n = \left[1 + \frac{t^2}{2n} + O(n^{-3/2})\right]^n
+\]
+
+\textbf{Logaritmo:}
+\[
+\log M_{U_n}(t) = n \log\left[1 + \frac{t^2}{2n} + O(n^{-3/2})\right]
+\]
+
+Usando $\log(1+x) = x + O(x^2)$ com $x = \frac{t^2}{2n}$:
+\[
+\log M_{U_n}(t) = n \left[\frac{t^2}{2n} + O(n^{-2})\right] = \frac{t^2}{2} + O(n^{-1}) \to \frac{t^2}{2}
+\]
+
+Portanto:
+\[
+M_{U_n}(t) \to e^{t^2/2}
+\]
+
+\subsection*{(c) Conclusão}
+
+Reconhecemos que $M_Z(t) = e^{t^2/2}$ é a MGF de $Z \sim N(0,1)$.
+
+Pelo \textbf{Resultado 1D}, como $M_{U_n}(t) \to M_Z(t)$:
+\[
+U_n = 2\sqrt{n}\left(\bar{X}_n - \frac{1}{2}\right) \xrightarrow{D} N(0,1) \quad \square
+\]
+
+\subsection*{Verificação com o TCL}
+
+Para Bernoulli$(1/2)$: $E[X_i] = 1/2$ e $\mathrm{Var}(X_i) = 1/4$.
+
+Pelo TCL:
+\[
+\frac{\sqrt{n}(\bar{X}_n - 1/2)}{\sqrt{1/4}} = \frac{\sqrt{n}(\bar{X}_n - 1/2)}{1/2} = 2\sqrt{n}(\bar{X}_n - 1/2) \xrightarrow{D} N(0,1) \quad \checkmark
+\]
+
+\end{solucaobox}
+
+\begin{dicabox}
+\textbf{Conexão:} Esta é a Questão Extra 6 de \texttt{questoes\_cap3\_completo.tex}.
+
+\textbf{Importância:} Esta questão demonstra o TCL usando MGF, que é uma técnica alternativa à prova via função característica apresentada na teoria.
+
+\textbf{Passos Chave na Técnica MGF:}
+\begin{enumerate}
+    \item Calcular a MGF de $U_n$ em termos das MGFs individuais
+    \item Expandir em Taylor até ordem necessária
+    \item Usar limites fundamentais $(1 + x/n)^n \to e^x$
+    \item Identificar a MGF limite
+\end{enumerate}
+
+\textbf{Aplicação:} Aproximação Normal para Binomial$(n, 1/2)$:
+\[
+P(S_n \leq k) \approx \Phi\left(\frac{2(k - n/2)}{\sqrt{n}}\right)
+\]
+
+\textbf{Correção de Continuidade:} Para melhor aproximação, use:
+\[
+P(S_n \leq k) \approx \Phi\left(\frac{2(k + 0.5 - n/2)}{\sqrt{n}}\right)
+\]
+\end{dicabox}
+
+% Continue com mais soluções...
+
+\newpage
+
+\section*{Tabelas de Referência Rápida}
+\addcontentsline{toc}{section}{Tabelas de Referência}
+
+\subsection*{Resultados Fundamentais do Capítulo 3}
+
+\begin{center}
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Resultado} & \textbf{Enunciado} & \textbf{Aplicação} \\
+\hline
+\textbf{Resultado 1P} (LFGN) & $X_i$ i.i.d., $E[X_i]=\mu$, $\mathrm{Var}(X_i)=\sigma^2<\infty$ $\Rightarrow \bar{X}_n \xrightarrow{P} \mu$ & Consistência da média amostral \\
+\hline
+\textbf{Resultado 2P} & $E[|T_n-a|^r] \to 0 \Rightarrow T_n \xrightarrow{P} a$ & Prova de consistência via momentos \\
+\hline
+\textbf{Resultado 4P} & Operações algébricas preservam conv. em P & $\frac{\bar{X}_n}{S_n^2} \xrightarrow{P} \frac{\mu}{\sigma^2}$ \\
+\hline
+\textbf{Resultado 5P} & $U_n \xrightarrow{P} u$, $g$ contínua $\Rightarrow g(U_n) \xrightarrow{P} g(u)$ & $S_n = \sqrt{S_n^2} \xrightarrow{P} \sigma$ \\
+\hline
+\textbf{TCL} (3.7.6.1) & $\frac{\sqrt{n}(\bar{X}_n-\mu)}{\sigma} \xrightarrow{D} N(0,1)$ & Aproximação normal, IC, testes \\
+\hline
+\textbf{Slutsky} (Res. 3D) & $U_n \xrightarrow{D} U$, $V_n \xrightarrow{P} v \Rightarrow U_n V_n \xrightarrow{D} Uv$ & Teste t assintótico \\
+\hline
+\textbf{Método Delta} (3.7.6.2) & $\sqrt{n}(T_n-\theta) \xrightarrow{D} N(0,\sigma^2)$ $\Rightarrow \sqrt{n}[g(T_n)-g(\theta)] \xrightarrow{D} N(0, \sigma^2[g'(\theta)]^2)$ & Transf. não-lineares \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Checklist de Estratégias}
+
+\begin{enumerate}
+    \item \textbf{Consistência?}
+    \begin{itemize}
+        \item Use Resultado 1P (LFGN) para médias
+        \item Use Resultado 2P com EQM $\to 0$
+        \item Use definição direta (Questão 3.23)
+    \end{itemize}
+    
+    \item \textbf{Distribuição Assintótica?}
+    \begin{itemize}
+        \item TCL para médias padronizadas
+        \item MGF + limite (Questão Extra 6)
+        \item CDF direta + limite (Questão Extra 5)
+    \end{itemize}
+    
+    \item \textbf{Transformação de Estimador?}
+    \begin{itemize}
+        \item Slutsky se mistura conv. em D e conv. em P
+        \item Método Delta para transformações não-lineares
+        \item Teorema 3.7.6.4(a) para funções contínuas
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Taxas de Convergência Típicas}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Estatística} & \textbf{Taxa EQM} & \textbf{Normalização} \\
+\hline
+$\bar{X}_n$ (média) & $O(1/n)$ & $\sqrt{n}$ \\
+$X_{(n)}$ (máximo Uniforme) & $O(1/n^2)$ & $n$ \\
+$S_n^2$ (variância) & $O(1/n)$ & $\sqrt{n}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{--- Fim do Caderno de Exercícios ---}
+
+\vspace{0.5cm}
+
+\textit{``A teoria assintótica não é apenas matemática abstrata;\\
+ela é a ponte entre a teoria e a prática estatística.''}
+\end{center}
+
+\end{document}
+

@@ -1,0 +1,25 @@
+Note que $S_n^2$ tem uma representação de média amostral, então pelo resultado 1P,
+\begin{equation}
+S_n^2 = \frac{\sum_{i=1}^n Y_i^2}{n-1} \xrightarrow{P} \mathbb{E}[Y_i^2] = \sigma^2
+\end{equation}
+
+\textbf{Resultado 2P:} Sejam $\{T_n, n \geq 1\}$ uma sequência de variáveis reais tais que para algum $r \geq 0$ e $a \in \mathbb{R}$ vale-se que
+\begin{equation}
+\mathbb{E}_{g_n} = \mathbb{E}\left[|T_n - a|^r\right] \xrightarrow{n \to \infty} 0, \quad \text{então}
+\end{equation}
+\begin{equation}
+T_n \xrightarrow{P}_{n \to \infty} a
+\end{equation}
+
+\textbf{Prova:} Para qualquer $\varepsilon > 0$, por usar a desigualdade de Markov:
+\begin{equation}
+P\{|T_n - a| \geq \varepsilon\} = P\{|T_n - a|^r \geq \varepsilon^r\}
+\end{equation}
+\begin{equation}
+\leq \frac{\mathbb{E}[|T_n - a|^r]}{\varepsilon^r} \xrightarrow{n \to \infty} 0
+\end{equation}
+
+Logo,
+\begin{equation}
+T_n \xrightarrow{P}_{n \to \infty} a
+\end{equation}

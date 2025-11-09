@@ -1,0 +1,36 @@
+\begin{equation}
+\lim_{n \to \infty} p(X = k) = \lim_{n \to \infty} \prod_{i=0}^{k-1} \left( 1 - \frac{i}{n} \right)
+\end{equation}
+
+\begin{equation}
+\tag{R2}
+= e \lim_{n \to \infty} \frac{\lambda^k}{k!} \times \lim_{n \to \infty} \left( 1 - \frac{\lambda}{n} \right)^n \times \lim_{n \to \infty} \left( 1 - \frac{\lambda}{n} \right)^{-k}
+\end{equation}
+\begin{equation}
+= \frac{\lambda^k}{k!} \cdot e^{-\lambda} \cdot 1 \tag{usando R3 e R2}
+\end{equation}
+
+\[
+= \frac{\lambda^k}{k!} e^{-\lambda}, \quad \text{isto é } X \overset{n \to \infty}{\sim} \text{Poisson}(\lambda)
+\]
+
+\subsection*{3.7.2 (O) e (o) para sequências de números reais}
+
+Sejam $\{a_n, n \geq 1\}$ e $\{b_n, n \geq 1\}$ duas sequências de números reais. Os seguintes conceitos são importantes:
+
+\[
+a_n = O(b_n) \quad \text{se e só se} \quad \exists k > 0, \, n_0 \in \mathbb{N}(k) : \frac{|a_n|}{|b_n|} \leq k, \quad \forall n \geq n_0
+\]
+isto é, se $|a_n / b_n|$ é limitada para $n$ suficientemente grande. Em particular:
+
+\[
+a_n = O(1) \quad \text{implica} \quad \exists k > 0, \, n_0 : |a_n| \leq k, \quad \forall n \geq n_0
+\]
+
+\textbf{Ex:} $10n^2 + n = O(n^2)$ pois
+\[
+\frac{10n^2 + n}{n^2} = 10 + \frac{1}{n} \leq 11, \quad \forall n \geq 1
+\]
+\[
+10 + \frac{1}{1} = 11, \quad 10 + \frac{1}{2} = 10.5, \quad 10 + \frac{1}{3} \approx 10.333
+\]

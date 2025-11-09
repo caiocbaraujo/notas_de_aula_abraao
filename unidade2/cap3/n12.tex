@@ -1,0 +1,33 @@
+\begin{equation}
+E[T_n^2] = \int_{0}^{\theta} t^2 \cdot \frac{n \cdot t^{n-1}}{\theta^n} \, dt
+\end{equation}
+
+\begin{equation}
+= \frac{n}{\theta^n} \left[ \frac{t^{n+2}}{n+2} \right]_{0}^{\theta} = \frac{n}{n+2} \theta^2
+\end{equation}
+
+\begin{equation}
+E[(T_n - \theta)^2] = E[T_n^2] - 2\theta E[T_n] + \theta^2
+\end{equation}
+
+\begin{equation}
+= \frac{n}{n+2} \theta^2 - \frac{2n}{n+1} \theta^2 + \theta^2
+\end{equation}
+
+\begin{equation}
+= \theta^2 \left\{ \frac{n}{n+2} - \frac{2n}{n+1} + 1 \right\}
+\end{equation}
+
+\begin{equation}
+= \theta^2 \left\{ \frac{n^2 + n - 2n^2 - 4n + n^2 + 3n + 2}{(n+2)(n+1)} \right\}
+\end{equation}
+
+\begin{equation}
+= \frac{2\theta^2}{(n+2)(n+1)} \xrightarrow[n \to \infty]{} 0
+\end{equation}
+
+Logo, pelo resultado 2p:
+
+\begin{equation}
+T_n \xrightarrow[n \to \infty]{P} \theta
+\end{equation}

@@ -1,0 +1,75 @@
+\textbf{Ex:} $n^2 = O(6n^2 + n)$ pois
+\begin{equation}
+\frac{n^2}{6n^2 + n} = \frac{1}{6 + n^{-1}} \leq \frac{1}{6}, \quad \forall n \geq 1
+\end{equation}
+
+\[
+\frac{n^2}{6n^2 + n} = \frac{1}{6 + n^{-1}} \leq \frac{1}{6 + (1)^{-1}} = \frac{1}{7}
+\]
+
+$a_n = \theta(b_n)$ se, sse, $\forall \varepsilon > 0, \exists n_0 = n_0(\varepsilon): \frac{|a_n|}{|b_n|} \leq \varepsilon, \ \forall n \geq n_0$, isto é, $\lim_{n \to \infty} \frac{a_n}{b_n} = 0$. Em particular, $a_n = \theta(1)$ implica que
+\begin{equation}
+\lim_{n \to \infty} a_n = 0
+\end{equation}
+
+\textbf{Ex:} $n = \theta(n^2)$ pois
+\begin{equation}
+\frac{n}{n^2} = \frac{1}{n} \xrightarrow[n \to \infty]{} 0
+\end{equation}
+
+\textbf{Ex:} $n^{-1} = \theta(1)$ pois
+\begin{equation}
+\frac{1}{n} \xrightarrow[n \to \infty]{} 0
+\end{equation}
+
+\textbf{Teorema (Extra 1) [Propriedades de $O(\cdot)$ e $\theta(\cdot)$]} \\
+Sejam $\{a_n, n \geq 1\}$, $\{b_n, n \geq 1\}$, $\{c_n, n \geq 1\}$ e $\{d_n, n \geq 1\}$ sequências de números reais, valem-se:
+
+\begin{itemize}
+    \item[(i)] Se $a_n = \theta(b_n)$, então $a_n = o(b_n)$.
+    \item[(ii)] Se $a_n = O(b_n)$ e $c_n = O(d_n)$, então:
+\end{itemize}
+
+\begin{equation}
+O(b_n) \cdot O(d_n)
+\end{equation}
+
+\begin{itemize}
+    \item[(ii.1)] $a_n \cdot c_n = O(b_n \cdot d_n)$
+    \item[(ii.2)] $|a_n|^r = O(|b_n|^r)$
+    \item[(ii.3)] $a_n + c_n = O\left( \max\{ |b_n|, |d_n| \} \right), \quad \text{em que } r > 0$
+\end{itemize}
+
+\noindent (iii) Se $a_n = \theta(b_n)$ e $c_n = \theta(d_n)$, então:
+
+\begin{itemize}
+    \item[(iii.1)] $a_n \cdot c_n = \theta(b_n \cdot d_n)$
+    \item[(iii.2)] $|a_n|^r = \theta(|b_n|^r)$
+    \item[(iii.3)] $a_n + c_n = \theta\left( \max\{ |b_n|, |d_n| \} \right)$
+\end{itemize}
+
+\noindent (iv) Se $a_n = O(b_n)$ e $c_n = \theta(d_n)$, então:
+\begin{equation}
+a_n \cdot c_n = \theta(b_n \cdot d_n)
+\end{equation}
+
+\noindent (v) Se $a_n = O(b_n)$ e $b_n = \theta(c_n)$, então $O(\theta(c_n)) = \theta(c_n)$, isto é:
+\begin{equation}
+a_n = \theta(c_n)
+\end{equation}
+
+\textbf{Exemplo:}
+\[
+O(n^{-1/3}) + O(n^{-1/2}) \overset{\text{ii.3}}{=} O\left( \max\{ n^{-1/3}, n^{-1/2} \} \right) = O(n^{-1/3})
+\]
+
+\textbf{Exemplo:}
+\[
+o(1) + O(n^{-1/3}) + O(n^{-1/2}) = o(1) + O(n^{-1/3})
+\]
+\[
+\overset{\text{ii.3}}{=} \theta(1) + O(\theta(1)) \overset{\text{v}}{=} \theta(1) + \theta(1)
+\]
+\[
+\overset{\text{iii}}{=} \theta(1)
+\]

@@ -1,0 +1,24 @@
+Logo $V_n \to 1$. Então $\sqrt{V_n} \xrightarrow{P} 1$, pelo resultado 5P.
+
+Finalmente,
+\begin{equation}
+H_n = \sqrt{V_n} \cdot U_n \xrightarrow[n \to \infty]{\mathcal{D}} N(0, 2\theta^4)
+\end{equation}
+
+\textbf{Teorema (3.7.6.2(a)) [Teorema de Man Wald]}
+
+Seja $\{T_n, n \geq 1\}$ uma sequência de v.a.'s reais tais que
+\begin{equation}
+\sqrt{n} \, (T_n - \theta) \xrightarrow[n \to \infty]{\mathcal{D}} N\left(0, \sigma^2(\theta)\right)
+\end{equation}
+
+Seja $g(\cdot)$ uma função contínua de valor real tal que
+\begin{equation}
+g'(\theta) = \frac{\partial g(\theta)}{\partial \theta}
+\end{equation}
+é finita e não nula.
+
+Então tem-se
+\begin{equation}
+\sqrt{n} \left[ g(T_n) - g(\theta) \right] \xrightarrow[n \to \infty]{\mathcal{D}} N\left(0, \sigma^2(\theta) \, g'(\theta)^2 \right)
+\end{equation}

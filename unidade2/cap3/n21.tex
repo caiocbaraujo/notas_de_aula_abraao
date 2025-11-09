@@ -1,0 +1,31 @@
+\section*{20$\heartsuit$10$\heartsuit$25}
+
+\textbf{Resultado 3D (Teorema de Slutsky)} Sejam $\{U_n, n \geq 1\}$ e $\{V_n, n \geq 1\}$ duas sequências de v.a.'s tais que 
+\[
+U_n \xrightarrow{d} U \quad \text{e} \quad V_n \xrightarrow{p} v,
+\]
+então:
+\begin{enumerate}
+    \item $U_n + V_n \xrightarrow{d} U + v$
+    \item $U_n V_n \xrightarrow{d} U \cdot v$
+    \item $U_n / V_n \xrightarrow{d} U / v$, assumindo que $P(V_n = 0) = 0$, $\forall n$ e $v \neq 0$.
+\end{enumerate}
+
+\textbf{Q (Extra 4)} Sejam $\{X_n, n \geq 1\} \overset{i.i.d.}{\sim} U(0, \theta)$, $T_n = X_{n:n}$, 
+\[
+U_n = n \cdot (\theta - T_n)/\theta \quad \text{e} \quad Q_n = n \cdot (\theta - T_n)/T_n.
+\]
+Encontre a distribuição limite de $Q_n$.
+
+\textbf{Solução:} Como já discutido,
+\[
+T_n \xrightarrow{p}_{n \to \infty} \theta \quad \text{e} \quad U_n \xrightarrow{d} E
+\]
+tal que $E \overset{d}{\sim} \text{Exp}(1)$. Pelo resultado 4P, 
+\[
+\frac{\theta}{T_n} \xrightarrow{p}_{n \to \infty} 1.
+\]
+Logo, do resultado 39:
+\[
+Q_n = \frac{n \cdot (\theta - T_n)}{\theta} \cdot \frac{\theta}{T_n} \xrightarrow{d}_{n \to \infty} E.
+\]

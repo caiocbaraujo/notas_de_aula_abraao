@@ -1,0 +1,30 @@
+\section*{3.7 Estimadores Consistentes}
+
+Consistência é uma propriedade de grandes amostras introduzida por Fisher (1922).
+
+Seja 
+\[
+\{T_n = T_n(X_1, \ldots, X_n); n \geq 1\}
+\]
+uma sequência de estimadores para $\tau(\theta)$ tal que $\theta \in \Theta \subset \mathbb{R}^p$.
+
+\textbf{Definição (3.7.1)}: $T_n$ é consistente no sentido fraco para $\tau(\theta)$ se, e só se
+\begin{equation}
+T_n \xrightarrow[n \to \infty]{P} \tau(\theta)
+\end{equation}
+
+$T_n$ é inconsistente para $\tau(\theta)$ se $T_n$ não converge em probabilidade para $\tau(\theta)$.
+
+\textbf{Obs 1}: Dados $\varepsilon > 0$ e $\delta \in (0,1)$, $n_0 = n_0(\varepsilon, \delta, \theta)$:
+\begin{equation}
+P_\theta\{|T_n - \theta| > \varepsilon\} \leq \delta \ \Longleftrightarrow \ P_\theta\{|T_n - \theta| \leq \varepsilon\} \geq 1 - \delta, \quad \forall n \geq n_0
+\end{equation}
+
+\textbf{Obs 2}: $T_n$ é consistente se, e só se
+\begin{equation}
+\lim_{n \to \infty} P_\theta\{|T_n - \theta| > \varepsilon\} = 0
+\end{equation}
+ou
+\begin{equation}
+\lim_{n \to \infty} P_\theta\{|T_n - \theta| \leq \varepsilon\} = 1
+\end{equation}

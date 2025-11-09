@@ -1,0 +1,44 @@
+Daí, pelo Teorema (3.7.6.1(a)) (TCL),
+
+\begin{equation}
+U_n \xrightarrow[n \to \infty]{d} N(0, \mu_4 - \sigma^4) \quad \text{como já discutido,}
+\end{equation}
+
+\begin{equation}
+U_n \xrightarrow[n \to \infty]{P} 0
+\end{equation}
+
+Daí, pelo Teorema de Slutsky,
+
+\begin{equation}
+\sqrt{n} \left( W_n - \sigma^2 \right) \xrightarrow[n \to \infty]{d} N(0, \mu_4 - \sigma^4)
+\end{equation}
+
+Agora escrevemos
+
+\begin{equation}
+\sqrt{n} \left( S_n^2 - \sigma^2 \right) = \sqrt{n} \left( \frac{n}{n-1} W_n - \sigma^2 \right)
+\end{equation}
+
+\begin{equation}
+= \sqrt{n} \left( \frac{n}{n+1} - 1 + 1 \right) \left( W_n - \sigma^2 \right)
+\end{equation}
+
+\begin{equation}
+= \sqrt{n} \left( W_n - \sigma^2 \right) + \frac{\sqrt{n}}{n-1} W_n
+\end{equation}
+
+Como 
+\begin{equation}
+\sqrt{n} \left( W_n - \sigma^2 \right) \xrightarrow[n \to \infty]{d} N(0, \mu_4 - \sigma^4),
+\end{equation}
+
+\begin{equation}
+W_n \xrightarrow[n \to \infty]{P} \sigma^2, \quad \frac{\sqrt{n}}{n-1} \xrightarrow[n \to \infty]{} 0, \quad \text{e} \quad \frac{\sqrt{n}}{n-1} W_n \xrightarrow[n \to \infty]{P} 0,
+\end{equation}
+
+então, do Teorema de Slutsky,
+
+\begin{equation}
+\sqrt{n} \left( S_n^2 - \sigma^2 \right) \xrightarrow[n \to \infty]{d} N(0, \mu_4 - \sigma^4)
+\end{equation}

@@ -1,0 +1,34 @@
+\textbf{Resultado 5P} \\
+Sejam $\{U_n, n \geq 1\}$ uma sequência de v.a.'s tal que
+\begin{equation}
+    U_n \xrightarrow{P} u \quad \text{e} \quad g(\cdot) \ \text{uma função contínua}.
+\end{equation}
+Então
+\begin{equation}
+    g(U_n) \xrightarrow[n \to \infty]{P} g(u)
+\end{equation}
+
+\textbf{Prova:} Note que se $g(x)$ é contínua, então: dado algum $\varepsilon > 0$, existe $\delta > 0$ tal que
+\begin{equation}
+    |g(x) - g(u)| \geq \varepsilon \ \Rightarrow \ |x - u| \geq \delta
+\end{equation}
+Assim, para $n$ suficientemente grande
+\begin{equation}
+    0 \leq P\left( |g(U_n) - g(u)| \geq \varepsilon \right) \leq P\left( |U_n - u| \geq \delta \right) \xrightarrow{n \to \infty} 0
+\end{equation}
+Então,
+\begin{equation}
+    g(U_n) \xrightarrow[n \to \infty]{P} g(u) \quad \square
+\end{equation}
+
+\textbf{Q (extra 4)} Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. tais que $X_i \sim U(0, \theta)$ para $\theta > 0$. \\
+Mostre que
+\begin{equation}
+    T_n^2 = X_{n:n}^2 \xrightarrow[n \to \infty]{P} \theta^2
+\end{equation}
+
+\textbf{Solução:} \\
+Como $X_{n:n} \xrightarrow{P} \theta$ e $g(x) = x^2$ é contínua, então pelo resultado 5P
+\begin{equation}
+    X_{n:n}^2 \xrightarrow[n \to \infty]{P} \theta^2
+\end{equation}

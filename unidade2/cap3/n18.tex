@@ -1,0 +1,43 @@
+\begin{equation}
+p = \frac{1}{2}: \quad \frac{1}{2} e^{-t\frac{\sqrt{n}}{n}} \left[ 1 + e^{\frac{2t}{\sqrt{n}}} \right]
+\end{equation}
+
+\begin{equation}
+= \frac{1}{2^n} \left[ e^{-t\sqrt{n}} + e^{t\sqrt{n}} \right]
+\end{equation}
+
+\begin{equation}
+M_{Un}(t) = \frac{1}{2} \left( e^{-t\frac{\sqrt{n}}{n}} + e^{t\frac{\sqrt{n}}{n}} \right)^n
+\end{equation}
+
+\begin{equation}
+= \frac{1}{2} \left[ \left( 1 - \frac{t}{\sqrt{n}} + \frac{t^2}{2n} + o\left( \frac{t^2}{n} \right) \right) \left( 1 + \frac{t}{\sqrt{n}} + \frac{t^2}{2n} + o\left( \frac{t^2}{n} \right) \right) \right]^n
+\end{equation}
+
+\begin{equation}
+= \frac{1}{2} \left[ 2 + \frac{t^2}{n} + o\left( \frac{t^2}{n} \right) \right]^n
+\end{equation}
+
+\begin{equation}
+R_n = o\left( \max\left[ \frac{t^2}{n}, \frac{t^2}{n^2} \right] \right)
+\end{equation}
+
+\begin{equation}
+= \left\{ \frac{1}{2} + \frac{t^2}{n} + R_n \right\}
+\end{equation}
+
+Em que $R_n = O(n^{-2})$. Assim, de
+
+\begin{equation}
+\lim_{n \to \infty} \left( 1 + \frac{t^2}{2n} \right)^n = e^{t^2/2}
+\end{equation}
+
+\begin{equation}
+M_{Un}(t) \xrightarrow[n \to \infty]{} e^{t^2/2} = M_U(t)
+\end{equation}
+
+que é a fgm de $Z \sim N(0,1)$, logo
+
+\begin{equation}
+U_n \xrightarrow[n \to \infty]{} Z
+\end{equation}

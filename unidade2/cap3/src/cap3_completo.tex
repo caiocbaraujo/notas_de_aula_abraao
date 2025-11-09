@@ -1,0 +1,404 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{import}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+% Título e informações do documento
+\title{Capítulo 3 - Compilação Completa\\
+\large Teoria Assintótica e Teoremas Limite}
+\author{Curso de Inferência Estatística - PPGEST/UFPE}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introdução ao Capítulo 3: Teoria Assintótica e Teoremas Limite}
+
+O Capítulo 3 apresenta os fundamentos da \textbf{Teoria Assintótica} em Estatística, um dos pilares mais importantes da inferência estatística moderna. Esta teoria estuda o comportamento de sequências de variáveis aleatórias e estatísticas quando o tamanho amostral tende ao infinito, fornecendo justificativas teóricas para muitos procedimentos estatísticos amplamente utilizados na prática.
+
+\subsection*{Contexto e Motivação}
+
+A teoria assintótica responde a questões fundamentais como: \emph{``O que acontece com a média amostral $\bar{X}_n$ quando $n \to \infty$? Ela converge para a média populacional $\mu$? Em que sentido? Qual é a distribuição limite?''}
+
+Estas questões são essenciais porque:
+\begin{itemize}
+    \item Na prática, raramente conhecemos a distribuição exata de estatísticas complexas para amostras finitas
+    \item Resultados assintóticos fornecem aproximações que são válidas para amostras grandes
+    \item Justificam teoricamente o uso de testes baseados na distribuição normal, mesmo quando os dados não são normais
+    \item Permitem comparar a eficiência de diferentes estimadores e testes
+\end{itemize}
+
+\subsection*{Estrutura do Capítulo}
+
+O capítulo está organizado de forma a construir progressivamente os conceitos de convergência e suas aplicações:
+
+\paragraph{3.7.2 Notação Assintótica: $O(\cdot)$ e $o(\cdot)$}
+Introduz ferramentas matemáticas essenciais para análise assintótica:
+\begin{itemize}
+    \item Notação $O$ grande e $o$ pequeno para sequências numéricas
+    \item Notação $O$ grande e $o$ pequeno para funções reais
+    \item Propriedades e manipulações algébricas
+    \item Expansões de Taylor e sua relação com notação assintótica
+\end{itemize}
+
+\paragraph{3.7.4 Convergência em Probabilidade}
+Desenvolve o primeiro tipo de convergência estocástica:
+\begin{itemize}
+    \item Definição formal: $U_n \xrightarrow{P} u$
+    \item Lei Fraca dos Grandes Números (versões simples e de Khinchine)
+    \item Propriedades de convergência em probabilidade (soma, produto, quociente)
+    \item Teorema da aplicação contínua (Slutsky)
+\end{itemize}
+
+\paragraph{3.7.5 Convergência em Distribuição}
+Apresenta o conceito mais geral de convergência:
+\begin{itemize}
+    \item Definição: $U_n \xrightarrow{D} U$ através de funções de distribuição
+    \item Convergência via função geradora de momentos
+    \item Teorema Central do Limite (TCL)
+    \item Relação entre convergência em probabilidade e em distribuição
+    \item Método Delta para funções de variáveis aleatórias
+\end{itemize}
+
+\paragraph{3.7.6 Aplicações e Exemplos}
+Ilustra a teoria com exemplos práticos:
+\begin{itemize}
+    \item Convergência de estatísticas de ordem
+    \item Normalização de distribuições discretas (Binomial, Poisson)
+    \item Distribuições limite para transformações não-lineares
+    \item Aplicações do Método Delta
+\end{itemize}
+
+\subsection*{Objetivos de Aprendizagem}
+
+Ao final deste capítulo, espera-se que o estudante seja capaz de:
+
+\begin{enumerate}
+    \item Utilizar corretamente a notação $O(\cdot)$ e $o(\cdot)$ em manipulações algébricas
+    \item Compreender e distinguir os diferentes tipos de convergência estocástica
+    \item Aplicar a Lei Fraca dos Grandes Números em problemas práticos
+    \item Reconhecer quando o Teorema Central do Limite é aplicável
+    \item Determinar distribuições limite de sequências de variáveis aleatórias
+    \item Utilizar o Método Delta para aproximar distribuições de transformações
+    \item Justificar aproximações normais em inferência estatística
+\end{enumerate}
+
+\subsection*{Importância da Teoria Assintótica}
+
+A teoria assintótica é fundamental porque:
+\begin{itemize}
+    \item \textbf{Justificação Teórica:} Fornece base rigorosa para aproximações usadas na prática
+    \item \textbf{Simplicidade:} Resultados assintóticos são geralmente mais simples que resultados exatos
+    \item \textbf{Universalidade:} O TCL explica por que a distribuição normal aparece em tantos contextos
+    \item \textbf{Comparação:} Permite comparar a eficiência assintótica de estimadores e testes
+\end{itemize}
+
+\vspace{0.5cm}
+
+\noindent Este capítulo não apenas fornece ferramentas técnicas essenciais, mas também desenvolve a intuição fundamental para compreender o comportamento de longo prazo de processos estatísticos, preparando o terreno para os capítulos seguintes sobre estimação e testes de hipóteses.
+
+\newpage
+
+% ===============================================================
+% CONTEÚDO DO CAPÍTULO 3
+% Importando todas as páginas da pasta cap3 
+% ===============================================================
+
+\import{../../cap3/}{n1.tex}
+\import{../../cap3/}{n2.tex}
+\import{../../cap3/}{n3.tex}
+\import{../../cap3/}{n4.tex}
+\import{../../cap3/}{n5.tex}
+\import{../../cap3/}{n6.tex}
+\import{../../cap3/}{n7.tex}
+\import{../../cap3/}{n8.tex}
+\import{../../cap3/}{n9.tex}
+\import{../../cap3/}{n10.tex}
+\import{../../cap3/}{n11.tex}
+\import{../../cap3/}{n12.tex}
+\import{../../cap3/}{n13.tex}
+\import{../../cap3/}{n14.tex}
+\import{../../cap3/}{n15.tex}
+\import{../../cap3/}{n16.tex}
+\import{../../cap3/}{n17.tex}
+\import{../../cap3/}{n18.tex}
+\import{../../cap3/}{n19.tex}
+\import{../../cap3/}{n20.tex}
+\import{../../cap3/}{n21.tex}
+\import{../../cap3/}{n22.tex}
+\import{../../cap3/}{n23.tex}
+\import{../../cap3/}{n24.tex}
+\import{../../cap3/}{n25.tex}
+\import{../../cap3/}{n26.tex}
+\import{../../cap3/}{n27.tex}
+\import{../../cap3/}{n28.tex}
+\import{../../cap3/}{n29.tex}
+\import{../../cap3/}{n30.tex}
+\import{../../cap3/}{n31.tex}
+\import{../../cap3/}{n32.tex}
+\import{../../cap3/}{n33.tex}
+\import{../../cap3/}{n34.tex}
+\import{../../cap3/}{n35.tex}
+\import{../../cap3/}{n36.tex}
+\import{../../cap3/}{n37.tex}
+\import{../../cap3/}{n38.tex}
+
+
+% ===============================================================
+% RESUMO E CONSOLIDAÇÃO DO CAPÍTULO 3
+% ===============================================================
+
+\newpage
+\section*{Resumo e Consolidação: Capítulo 3 - Teoria Assintótica}
+
+\subsection*{Visão Geral}
+
+Este capítulo apresentou os fundamentos da teoria assintótica em estatística, focando em diferentes tipos de convergência de sequências de variáveis aleatórias e suas aplicações práticas. A seguir, consolidamos os principais conceitos e resultados.
+
+\subsection*{1. Notação Assintótica}
+
+\begin{table}[h!]
+\centering
+\caption{Notação $O(\cdot)$ e $o(\cdot)$}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Notação} & \textbf{Definição} & \textbf{Interpretação} \\ \midrule
+$a_n = O(b_n)$ & $\exists k > 0, n_0: |a_n/b_n| \leq k, \forall n \geq n_0$ & $a_n$ cresce no máximo tão rápido quanto $b_n$ \\
+$a_n = o(b_n)$ & $\lim_{n \to \infty} a_n/b_n = 0$ & $a_n$ cresce mais lentamente que $b_n$ \\
+$f(x) = O(g(x))$ & $\exists k > 0, \delta > 0: |f(x)/g(x)| \leq k$ para $|x-x_0| < \delta$ & $f$ limitada por $g$ perto de $x_0$ \\
+$f(x) = o(g(x))$ & $\lim_{x \to x_0} f(x)/g(x) = 0$ & $f$ vai a zero mais rápido que $g$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Propriedades Importantes:}
+\begin{itemize}
+    \item Se $a_n = o(b_n)$, então $a_n = O(b_n)$
+    \item $O(b_n) + O(d_n) = O(\max\{|b_n|, |d_n|\})$
+    \item $O(b_n) \cdot O(d_n) = O(b_n \cdot d_n)$
+    \item $o(b_n) \cdot o(d_n) = o(b_n \cdot d_n)$
+\end{itemize}
+
+\subsection*{2. Tipos de Convergência}
+
+\begin{table}[h!]
+\centering
+\caption{Modos de Convergência Estocástica}
+\begin{tabular}{@{}p{3cm}p{4.5cm}p{5.5cm}@{}}
+\toprule
+\textbf{Tipo} & \textbf{Notação e Definição} & \textbf{Significado} \\ \midrule
+Convergência em Probabilidade & 
+$U_n \xrightarrow{P} u$ 
+
+$P(|U_n - u| \geq \varepsilon) \to 0$ & 
+A probabilidade de $U_n$ estar longe de $u$ vai a zero \\ \midrule
+
+Convergência em Distribuição & 
+$U_n \xrightarrow{D} U$ 
+
+$F_{U_n}(x) \to F_U(x)$ & 
+As distribuições de $U_n$ convergem para a distribuição de $U$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Relação entre Convergências:}
+\begin{itemize}
+    \item Convergência em Probabilidade $\Rightarrow$ Convergência em Distribuição
+    \item A recíproca só vale quando $U$ é degenerada (constante)
+    \item Convergência de MGF $\Rightarrow$ Convergência em Distribuição
+\end{itemize}
+
+\subsection*{3. Teoremas Fundamentais}
+
+\begin{table}[h!]
+\centering
+\caption{Principais Resultados Teóricos}
+\begin{tabular}{@{}p{4cm}p{5cm}p{4cm}@{}}
+\toprule
+\textbf{Teorema} & \textbf{Enunciado} & \textbf{Aplicação} \\ \midrule
+Lei Fraca dos Grandes Números (versão simples) & 
+$X_i$ i.i.d., $E[X_i] = \mu < \infty$, $\text{Var}(X_i) = \sigma^2 < \infty$ 
+
+$\Rightarrow \bar{X}_n \xrightarrow{P} \mu$ & 
+Justifica uso da média amostral como estimador de $\mu$ \\ \midrule
+
+Lei Fraca dos Grandes Números (Khinchine) & 
+$X_i$ i.i.d., $E[X_i] = \mu < \infty$ 
+
+$\Rightarrow \bar{X}_n \xrightarrow{P} \mu$ & 
+Versão mais geral (não requer variância finita) \\ \midrule
+
+Teorema da Aplicação Contínua (Slutsky) & 
+$U_n \xrightarrow{P} u$ e $g(\cdot)$ contínua 
+
+$\Rightarrow g(U_n) \xrightarrow{P} g(u)$ & 
+Preservação de convergência sob transformações \\ \midrule
+
+Propriedades de Convergência em P & 
+$U_n \xrightarrow{P} u$, $V_n \xrightarrow{P} v$ 
+
+$\Rightarrow U_n \pm V_n \xrightarrow{P} u \pm v$
+
+$U_n \cdot V_n \xrightarrow{P} u \cdot v$
+
+$U_n / V_n \xrightarrow{P} u / v$ (se $v \neq 0$) & 
+Operações algébricas preservam convergência \\ \midrule
+
+Teorema Central do Limite & 
+$X_i$ i.i.d., $E[X_i] = \mu$, $\text{Var}(X_i) = \sigma^2 < \infty$ 
+
+$\Rightarrow \frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)$ & 
+Justifica aproximação normal para médias amostrais \\ \midrule
+
+Método Delta & 
+$\sqrt{n}(U_n - \mu) \xrightarrow{D} N(0, \sigma^2)$, $g'(\mu) \neq 0$ 
+
+$\Rightarrow \sqrt{n}(g(U_n) - g(\mu)) \xrightarrow{D} N(0, [g'(\mu)]^2 \sigma^2)$ & 
+Distribuição limite de transformações não-lineares \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{4. Aplicações Clássicas}
+
+\paragraph{Convergência de Estatísticas de Ordem:}
+Para $X_i \sim \text{Uniforme}(0, \theta)$:
+\begin{itemize}
+    \item $X_{(n)} \xrightarrow{P} \theta$ (máximo converge para o limite superior)
+    \item $\frac{n}{\theta}(\theta - X_{(n)}) \xrightarrow{D} \text{Exp}(1)$
+\end{itemize}
+
+\paragraph{Normalização de Distribuições Discretas:}
+\begin{itemize}
+    \item Binomial: $\frac{S_n - np}{\sqrt{np(1-p)}} \xrightarrow{D} N(0,1)$, onde $S_n \sim \text{Binomial}(n,p)$
+    \item Poisson: $\frac{X_n - n}{\sqrt{n}} \xrightarrow{D} N(0,1)$, onde $X_n \sim \text{Poisson}(n)$
+    \item Qui-quadrado: $\frac{X_n - n}{\sqrt{2n}} \xrightarrow{D} N(0,1)$, onde $X_n \sim \chi^2_n$
+\end{itemize}
+
+\subsection*{5. Expansão de Taylor e Notação Assintótica}
+
+\paragraph{Fórmula Geral:}
+Para $f: \mathbb{R} \to \mathbb{R}$ derivável até ordem $n$ em $x_0$:
+\begin{equation}
+f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k + o((x - x_0)^n) \quad \text{quando } x \to x_0
+\end{equation}
+
+\paragraph{Expansões Úteis:}
+\begin{itemize}
+    \item $e^x = 1 + x + \frac{x^2}{2!} + O(x^3)$
+    \item $\log(1+x) = x - \frac{x^2}{2} + O(x^3)$
+    \item $(1+x)^{\alpha} = 1 + \alpha x + \frac{\alpha(\alpha-1)}{2}x^2 + O(x^3)$
+\end{itemize}
+
+\subsection*{6. Estratégia para Problemas de Convergência}
+
+\paragraph{Etapa 1: Identificar o Tipo de Problema}
+\begin{itemize}
+    \item Convergência em probabilidade? $\rightarrow$ Use Lei Fraca ou propriedades
+    \item Convergência em distribuição? $\rightarrow$ Use TCL, MGF ou FDAs
+    \item Distribuição limite de transformação? $\rightarrow$ Use Método Delta
+\end{itemize}
+
+\paragraph{Etapa 2: Escolher o Método}
+\begin{itemize}
+    \item Para médias amostrais $\rightarrow$ Lei Fraca dos Grandes Números ou TCL
+    \item Para funções de convergentes $\rightarrow$ Teorema da aplicação contínua
+    \item Para estatísticas complexas $\rightarrow$ MGF ou aproximações via Taylor
+\end{itemize}
+
+\paragraph{Etapa 3: Normalização (se necessário)}
+\begin{itemize}
+    \item Identificar $E[U_n]$ e $\text{Var}(U_n)$
+    \item Padronizar: $\frac{U_n - E[U_n]}{\sqrt{\text{Var}(U_n)}}$
+    \item Aplicar TCL ou resultado apropriado
+\end{itemize}
+
+\paragraph{Etapa 4: Verificar Condições}
+\begin{itemize}
+    \item i.i.d.? Momentos finitos? Continuidade?
+    \item Todas as condições dos teoremas satisfeitas?
+\end{itemize}
+
+\subsection*{7. Conexões Importantes}
+
+\paragraph{Teoria Assintótica e Estimação:}
+\begin{itemize}
+    \item Consistência de estimadores: $\hat{\theta}_n \xrightarrow{P} \theta$
+    \item Normalidade assintótica: $\sqrt{n}(\hat{\theta}_n - \theta) \xrightarrow{D} N(0, \sigma^2)$
+    \item Eficiência assintótica via comparação de variâncias assintóticas
+\end{itemize}
+
+\paragraph{Teoria Assintótica e Testes:}
+\begin{itemize}
+    \item Justifica aproximação normal para testes com amostras grandes
+    \item Permite construir intervalos de confiança assintóticos
+    \item Fundamenta testes baseados na razão de verossimilhança
+\end{itemize}
+
+\subsection*{8. Checklist de Verificação}
+
+Ao resolver problemas de convergência, verifique:
+
+\begin{enumerate}
+    \item[$\square$] As variáveis são independentes e identicamente distribuídas?
+    \item[$\square$] Os momentos necessários existem e são finitos?
+    \item[$\square$] A função envolvida é contínua (para aplicação contínua)?
+    \item[$\square$] A normalização está correta (para TCL)?
+    \item[$\square$] A derivada não é zero no ponto de interesse (para Método Delta)?
+    \item[$\square$] O limite foi calculado corretamente?
+    \item[$\square$] A interpretação está no contexto do problema?
+\end{enumerate}
+
+\subsection*{9. Tabela de Referência Rápida}
+
+\begin{table}[h!]
+\centering
+\caption{Guia Rápido de Resultados Assintóticos}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Situação} & \textbf{Resultado} & \textbf{Teorema} \\ \midrule
+$\bar{X}_n$ para qualquer distribuição & $\bar{X}_n \xrightarrow{P} \mu$ & Lei Fraca \\
+$\bar{X}_n$ normalizado & $\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \xrightarrow{D} N(0,1)$ & TCL \\
+$S_n^2$ (variância amostral) & $S_n^2 \xrightarrow{P} \sigma^2$ & Lei Fraca \\
+Máximo de Uniforme$(0,\theta)$ & $X_{(n)} \xrightarrow{P} \theta$ & Resultado direto \\
+Função de estatística convergente & $g(\hat{\theta}_n) \xrightarrow{P} g(\theta)$ & Aplicação contínua \\
+Transformação não-linear & $\sqrt{n}(g(\hat{\theta}_n) - g(\theta)) \xrightarrow{D} N(0, [g'(\theta)]^2\sigma^2)$ & Método Delta \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{10. Conclusão}
+
+O Capítulo 3 forneceu os fundamentos essenciais da teoria assintótica, que é absolutamente central para toda a inferência estatística moderna. Os principais aprendizados são:
+
+\begin{itemize}
+    \item A notação $O(\cdot)$ e $o(\cdot)$ permite manipulações precisas de aproximações
+    \item Diferentes tipos de convergência têm aplicações distintas
+    \item A Lei Fraca dos Grandes Números justifica o uso de médias amostrais
+    \item O Teorema Central do Limite explica a ubiquidade da distribuição normal
+    \item O Método Delta estende resultados de normalidade para transformações
+\end{itemize}
+
+\vspace{1cm}
+
+\noindent \textbf{Recomendação de Estudo:} Para dominar este capítulo:
+\begin{enumerate}
+    \item Pratique manipulações com notação $O(\cdot)$ e $o(\cdot)$
+    \item Resolva muitos exemplos de aplicação da Lei Fraca e do TCL
+    \item Visualize convergências através de simulações
+    \item Conecte a teoria com os capítulos de estimação e testes
+    \item Compreenda as condições de aplicabilidade de cada teorema
+\end{enumerate}
+
+\noindent Este capítulo estabelece a base teórica para compreender o comportamento de estimadores e testes quando o tamanho amostral é grande, preparando o terreno para os métodos avançados nos capítulos subsequentes.
+
+\end{document}
+

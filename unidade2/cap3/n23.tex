@@ -1,0 +1,42 @@
+\section*{Q (extra 9)}
+
+Sejam $X_1, \ldots, X_n$ uma a.a de $X \sim N(\mu, \sigma^2)$ tal que $\mu, \sigma^2 < \infty$.  
+Encontre a distribuição assintótica de
+\begin{equation}
+    H_n = \sqrt{n} \left( S_n^2 - \sigma^2 \right)
+\end{equation}
+
+\subsection*{Solução}
+
+Usando a transformação de Helmet:
+\begin{equation}
+    S_n^2 = \frac{1}{n-1} \sum_{i=2}^n Y_i^2, \quad \text{para } Y_i \sim N(0, \sigma^2)
+\end{equation}
+
+Que caracteriza $S_n^2$ como uma média amostral de $Y_i^2$.  
+Pelo Teo (3.7, 6.1(a)):
+\begin{equation}
+    U_n = (n-1)^{-1/2} \left[ S_n^2 - E(Y_i^2) \right] \xrightarrow{d} N\left(0, \mathrm{Var}(Y_i^2)\right)
+\end{equation}
+
+Como $E(Y_i^2) = \sigma^2$ e $\mathrm{Var}(Y_i^2) = 2\sigma^4$:
+\begin{equation}
+    U_n = (n-1)^{-1/2} \left[ S_n^2 - \sigma^2 \right] \xrightarrow{d} N\left(0, 2\sigma^4\right)
+\end{equation}
+
+Defina
+\begin{equation}
+    V_n = \frac{n}{n-1}
+\end{equation}
+
+\begin{equation}
+    P\left( |V_n - 1| \geq \varepsilon \right) = P\left( |V_n - 1|^2 \geq \varepsilon^2 \right) \quad \text{(Desigualdade de Tschebisheff)}
+\end{equation}
+
+\begin{equation}
+    \Rightarrow \quad \leq \frac{E\left[ |V_n - 1|^2 \right]}{\varepsilon^2} = \frac{\left( \frac{n}{n-1} - 1 \right)^2}{\varepsilon^2}
+\end{equation}
+
+\begin{equation}
+    = \frac{1}{(n-1)^2 \, \varepsilon^2} \xrightarrow{n \to \infty} 0
+\end{equation}

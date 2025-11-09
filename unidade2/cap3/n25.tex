@@ -1,0 +1,49 @@
+\textbf{Prova:} \\
+Considere
+\begin{equation}
+\sqrt{n} \left[ g(T_n) - g(\theta) \right] = U_n \cdot V_n,
+\end{equation}
+em que
+\begin{equation}
+U_n = \sqrt{n} (T_n - \theta) \quad \text{e} \quad V_n = \frac{g(T_n) - g(\theta)}{T_n - \theta}.
+\end{equation}
+
+Note que 
+\begin{equation}
+T_n - \theta = \frac{U_n}{\sqrt{n}}.
+\end{equation}
+
+Como
+\begin{equation}
+U_n \xrightarrow{d} N(0, \sigma^2) \quad \text{e} \quad \frac{1}{\sqrt{n}} \xrightarrow{P}_{n \to \infty} 0, \quad \text{do Teo. Slutsky},
+\end{equation}
+temos
+\begin{equation}
+T_n - \theta \xrightarrow{P}_{n \to \infty} 0.
+\end{equation}
+
+Daí, 
+\begin{equation}
+V_n \xrightarrow{P}_{n \to \infty} g'(\theta), \quad \text{pela definição}
+\end{equation}
+\begin{equation}
+g'(x) = \lim_{g \to x} \frac{g(x) - g(z)}{g - x}.
+\end{equation}
+
+Assim, pelo Teo. Slutsky,
+\begin{equation}
+\sqrt{n} \left[ g(T_n) - g(\theta) \right] \xrightarrow{d}_{n \to \infty} N\left(0, \left[ g'(\theta) \right]^2 \sigma^2 \right).
+\end{equation}
+
+\textbf{Q (extra 10)} \\
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. tais que $X_i \sim \text{Poisson}(\lambda)$. Encontre a distribuição assintótica de 
+\begin{equation}
+\sqrt{n} \left( \overline{X_n^3} - \lambda^3 \right).
+\end{equation}
+
+\textbf{Solução} \\
+Pode-se mostrar que
+\begin{equation}
+E\{ X_i^3 \} = \lambda < \infty \quad \text{e} \quad \text{Var}\{ X_i^3 \} = \lambda < \infty.
+\end{equation}
+Pelo Teo. (3.7.6.1(a)).

@@ -1,0 +1,35 @@
+\section*{15/10/25}
+
+\subsection*{Definição 3.7.42(a)}
+Sejam $\{U_n, n \geq 1\}$ uma sequência de v.a.'s e $U$ uma v.a.
+
+\[
+U_n \xrightarrow{P} U \ \text{se e só se} \ U_n - U \xrightarrow{P}_{n \to \infty} 0.
+\]
+
+\subsection*{Resultado 1P: Versão simples da Lei fraca dos grandes números}
+Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. com $\mathbb{E}(X_i) = \mu < \infty$ e $\mathrm{Var}(X_i) = \sigma^2 < \infty$. Então:
+\[
+\overline{X}_n \xrightarrow{P}_{n \to \infty} \mu.
+\]
+
+\subsection*{Prova}
+Para um $\varepsilon > 0$ qualquer, pela desigualdade de Tchebysheff:
+\begin{equation}
+\begin{aligned}
+P\left( \left| \overline{X}_n - \mu \right| \geq \varepsilon \right) &= P\left( \left( \overline{X}_n - \mu \right)^2 \geq \varepsilon^2 \right) \\
+&\leq \varepsilon^{-2} \, \mathbb{E} \left[ \left( \overline{X}_n - \mu \right)^2 \right] \\
+&= \frac{\sigma^2}{n \, \varepsilon^2} \xrightarrow{P}_{n \to \infty} 0.
+\end{aligned}
+\end{equation}
+
+Logo,
+\[
+\overline{X}_n \xrightarrow{P}_{n \to \infty} \mu.
+\]
+
+\subsection*{Questão (extra 1)}
+Sejam $X_1, \ldots, X_n$ v.a.'s com $\mu < \infty$ e $\sigma^2 < \infty$. Mostre que:
+\[
+S_n^2 \xrightarrow{P}_{n \to \infty} \sigma^2.
+\]

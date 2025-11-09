@@ -1,0 +1,33 @@
+\section*{3.15(a) Convergência em Distribuição}
+
+\textbf{Definição (3.15.1(a))} Sejam $\{U_n, n \geq 1\}$ uma sequência de v.a.'s tal que $F_n(u)$ é a f.d.a de $U_n$ e $U$ uma v.a com f.d.a $F(u)$.
+
+$U_n$ converge em distribuições para $U$ quando $n \to \infty$, denotado por 
+\[
+U_n \xrightarrow{D} U \quad \text{quando} \quad n \to \infty,
+\]
+se e somente se
+\[
+F_n(u) \xrightarrow[n \to \infty]{} F(u) \quad \text{em todos os pontos de continuidade de } F(\cdot).
+\]
+
+\textbf{Q (Extra 5)} Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d tais que $X_i \sim U(0, \theta)$ para $\theta > 0$. 
+
+Encontre a distribuição limite da sequência
+\[
+U_n = \frac{n}{\theta} (\theta - T_n) \quad \text{para} \quad T_n \triangleq X_{n:n}.
+\]
+
+\textbf{Solução} Note que a f.d.a de $T_n$ é
+\begin{equation}
+F_{T_n}(t) = \left( \frac{t}{\theta} \right)^n \mathbb{I}_{(0,\theta)}(t) + \mathbb{I}_{(\theta, \infty)}(t)
+\end{equation}
+
+A f.d.a de $U_n$ é dada por (para $u \in (0,\theta)$):
+\begin{equation}
+\begin{aligned}
+F_{U_n}(u) &= \mathbb{P}(U_n \leq u) = \mathbb{P}\left( \frac{n}{\theta} (\theta - T_n) \leq u \right) \\
+&= \mathbb{P}\left( -T_n \leq \frac{\theta}{n} u - \theta \right) \\
+&= \mathbb{P}\left( T_n \geq \theta \left( 1 - \frac{u}{n} \right) \right)
+\end{aligned}
+\end{equation}

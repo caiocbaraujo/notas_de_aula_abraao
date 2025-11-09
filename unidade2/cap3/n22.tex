@@ -1,0 +1,25 @@
+\section*{3.7.6 (a) Teorema Central do Limite (TCL)}
+
+Sejam $X_1, \ldots, X_n$ VAs iid tais que $\mu = \mathbb{E}\{X_i\} < \infty$ e $\sigma^2 = \mathrm{Var}\{X_i\} < \infty$.
+
+Considere estudar a distribuição limite de $\bar{X}_n$ e $S_n^2$. Na literatura,
+
+\begin{equation}
+Z_n = \sqrt{n} \left( \frac{\bar{X}_n - \mu}{\sigma} \right)
+\end{equation}
+Versão padronizada da média amostral para $\sigma$ conhecido.
+
+\begin{equation}
+T_n = \sqrt{n} \left( \frac{\bar{X}_n - \mu}{S_n} \right)
+\end{equation}
+Versão padronizada da média amostral para $\sigma$ desconhecido.
+
+No que segue, apresentam-se algumas versões do TCL.
+
+\subsection*{Teorema 3.7.6.1(a) [TCL]}
+Sejam $X_1, \ldots, X_n$ uma VA tal que $\mu = \mathbb{E}\{X_i\} < \infty$ e $\sigma^2 = \mathrm{Var}\{X_i\} < \infty$.
+
+Então
+\begin{equation}
+\sqrt{n} \left( \frac{\bar{X}_n - \mu}{\sigma} \right) \xrightarrow{d} N(0,1), \quad n \to \infty
+\end{equation}

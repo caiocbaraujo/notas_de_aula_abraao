@@ -1,0 +1,29 @@
+\textbf{Obs:} $T_n \xrightarrow[n \to \infty]{P} \theta$ se $EQM_\theta[T_n] \xrightarrow[n \to \infty]{} 0$.
+
+Isto pode ser verificado pela desigualdade de Chebyschev. Para qualquer $\varepsilon > 0$ e $\theta \in \Theta$,
+\begin{equation}
+P_\theta\left( |T_n - \theta| > \varepsilon \right) \leq \frac{E_\theta\left[ (T_n - \theta)^2 \right]}{\varepsilon^2}
+\end{equation}
+
+\begin{equation}
+= \frac{EQM_\theta[T_n]}{\varepsilon^2} \xrightarrow[n \to \infty]{} 0
+\end{equation}
+
+Deste último resultado, $T_n \xrightarrow[n \to \infty]{P} \theta$ implica que
+\[
+B_\theta[T_n], \ Var_\theta[T_n] \xrightarrow[n \to \infty]{} 0 \quad \text{se $T_n$ é centrado}
+\]
+basta checar
+\[
+Var_\theta[T_n] \xrightarrow[n \to \infty]{} 0
+\]
+
+\section*{3.8 Propriedades assintóticas do EMV}
+
+Neste seção veremos a normalidade assintótica para os EMVs, propriedades que é também satisfeita por outros estimadores. Para isto, temos que definir o conceito de eficiência.
+
+\textbf{Definição (3.4.1)} Se dois estimadores $T_n^{(1)}$ e $T_n^{(2)}$ para $g(\theta)$ são ambos assintoticamente normais,
+\begin{equation}
+\sqrt{n} \left( T_n^{(1)} - g(\theta) \right) \xrightarrow[n \to \infty]{d} N\left(0, \sigma_1^2(\theta)\right)
+\end{equation}
+e

@@ -1,0 +1,53 @@
+\textbf{(Q 3.23)} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim U(0, \theta)$. Mostre que o estimador de MV para $\theta$, $T_n = X_{n:n}$, é consistente para $\theta$.
+
+\textbf{Solução}
+
+Note que
+\begin{equation}
+F_{T_n}(t) = P_\theta(T_n \leq t)
+\end{equation}
+
+\begin{equation}
+= P_\theta \left\{ \bigcap_{i=1}^n X_i \leq t \right\}
+\end{equation}
+
+\begin{equation}
+\overset{\text{iid}}{=} \left[ F_{X_1}(t) \right]^n = 
+\begin{cases}
+0, & t < 0, \\
+\left( \frac{t}{\theta} \right)^n, & 0 \leq t \leq \theta, \\
+1, & t > \theta
+\end{cases}
+\end{equation}
+
+Para $\varepsilon > 0$:
+\begin{equation}
+P_\theta \left\{ |X_{n:n} - \theta| < \varepsilon \right\} 
+= P_\theta \left\{ \theta - \varepsilon < X_{n:n} < \theta + \varepsilon \right\}
+\end{equation}
+
+\begin{equation}
+= P_\theta \left\{ \theta - \varepsilon < X_{n:n} < \theta \right\}
+\end{equation}
+
+\begin{equation}
+= F_{X_{n:n}}(\theta) - F_{X_{n:n}}(\theta - \varepsilon)
+\end{equation}
+
+\begin{equation}
+= 
+\begin{cases}
+1, & \varepsilon \geq \theta, \\
+1 - \left( \frac{\theta - \varepsilon}{\theta} \right)^n, & \varepsilon < \theta
+\end{cases}
+\end{equation}
+
+É, portanto:
+\begin{equation}
+\lim_{n \to \infty} P_\theta \left\{ |X_{n:n} - \theta| < \varepsilon \right\} = 1
+\end{equation}
+
+Logo,
+\begin{equation}
+X_{n:n} \xrightarrow[n \to \infty]{P} \theta
+\end{equation}

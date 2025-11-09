@@ -1,0 +1,48 @@
+Com média zero e variância $I_{X_i}(\theta_0)$. Portanto, pelo TCL clássico, para $Z \overset{d}{\to} N(0, I_{X_i}(\theta_0))$:
+
+\begin{equation}
+\sqrt{n}(\hat{\theta}_n - \theta_0) \overset{d}{\to} Z \overset{d}{\to} N\left(0, \frac{I_{X_i}(\theta_0)}{I_{X_i}^2(\theta_0)}\right) = N\left(0, \frac{1}{I_{X_i}(\theta_0)}\right)
+\end{equation}
+
+\textbf{Teorema (3.9.2)} Sejam $X_1, \ldots, X_n$ uma amostra de $X$ com fdp (ou fdm) $f(x; \theta)$ para $x \in \mathcal{X} \subset \mathbb{R}$ e $\theta \in \Theta \subset \mathbb{R}^p$. 
+
+Assuma os seguintes pressupostos:
+
+\textbf{(B1)} $\mathcal{C} = \{x : F(x; \theta) > 0 \}$ independe de $\theta$.
+
+\textbf{(B2)} $f(x; \theta)$ é três vezes diferenciável em $\theta$ para todo $x \in \mathcal{C}$.
+
+\textbf{(B3)} 
+\begin{equation}
+\frac{\partial}{\partial \theta_r} \int_{\mathcal{C}} F(x; \theta) dx = \int_{\mathcal{C}} \frac{\partial}{\partial \theta_r} F(x; \theta) dx = 0
+\end{equation}
+e
+\begin{equation}
+\int_{\mathcal{C}} \frac{\partial^2}{\partial \theta_r \partial \theta_s} F(x; \theta) dx = \frac{\partial^2}{\partial \theta_r \partial \theta_s} \int_{\mathcal{C}} F(x; \theta) dx = 0,
+\end{equation}
+para $r, s = 1, \ldots, p$ e para todo $\theta \in \Theta$.
+
+\textbf{(B4)} A matriz
+\begin{equation}
+I_{X_i}(\theta) = \left[ E \left( \frac{\partial \log f(X_i; \theta)}{\partial \theta_r} \frac{\partial \log f(X_i; \theta)}{\partial \theta_s} \right) \right]
+\end{equation}
+é finita e não singular para todo $\theta \in \Theta$, $r, s = 1, \ldots, p$.
+
+\textbf{27/10/25}
+
+\noindent
+\textbf{(B5)} Para cada $\theta_0 \in \Theta$, $\exists \varepsilon > 0$ e uma função integrável $g(x)$ tal que, $\forall x, y^1, y^2, \dots, y^p$
+\begin{equation}
+    \frac{\partial^3 \log f(x; \theta)}{\partial \theta^j \partial \theta^l \partial \theta^m} \leq g(x), \quad \text{se} \quad |\theta - \theta_0| < \varepsilon
+\end{equation}
+
+\noindent
+Então para cada $\theta_0 \in \Theta$, existe uma sequência $\hat{\theta}_n$ que satisfaz:
+\begin{enumerate}
+    \item $\hat{\theta}_n$ é solução da equação de verossimilhança
+    \begin{equation}
+        \left. \frac{\partial}{\partial \theta} \sum_{i=1}^n \log f(x_i; \theta) \right|_{\theta = \hat{\theta}_n} = 0 \quad (\text{para } x_1, \dots, x_n)
+    \end{equation}
+    \item $\hat{\theta}_n \xrightarrow{P} \theta_0 \quad \text{quando} \quad n \to \infty$
+    \item $\sqrt{n} (\hat{\theta}_n - \theta_0) \xrightarrow{d} N_p \left( 0, I^{-1}(\theta_0) \right)$
+\end{enumerate}

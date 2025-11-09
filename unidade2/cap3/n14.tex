@@ -1,0 +1,29 @@
+Como a variável limite é degenerada em
+\begin{equation}
+\mu, \quad \overline{X}_n \xrightarrow{P}_{n \to \infty} \mu
+\end{equation}
+
+\textbf{Resultado 4P} Sejam $\{U_n, n \geq 1\}$ e $\{V_n, n \geq 1\}$ duas sequências de v.a.'s tais que
+\begin{equation}
+U_n \xrightarrow{P}_{n \to \infty} u \quad \text{e} \quad V_n \xrightarrow{P}_{n \to \infty} v
+\end{equation}
+então:
+\begin{itemize}
+    \item[(i)] $U_n + V_n \xrightarrow{P}_{n \to \infty} u + v$
+    \item[(ii)] $U_n \cdot V_n \xrightarrow{P}_{n \to \infty} u \cdot v$
+    \item[(iii)] $\frac{U_n}{V_n} \xrightarrow{P}_{n \to \infty} \frac{u}{v}$ se $P(V_n = 0) = 0$, $\forall n$, e $v \neq 0$
+\end{itemize}
+
+\textbf{(Extra 3)} Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. tais que $X_i \sim N(\mu, \sigma^2)$ para $\mu, \sigma^2 < \infty$. Mostre que:
+\begin{equation}
+\frac{\overline{X}_n}{S_n^2} \xrightarrow{P}_{n \to \infty} \frac{\mu}{\sigma^2}
+\end{equation}
+
+\textbf{Solução:} Pelo resultado 1P,
+\begin{equation}
+\overline{X}_n \xrightarrow{P}_{n \to \infty} \mu \quad \text{e} \quad S_n^2 \xrightarrow{P}_{n \to \infty} \sigma^2
+\end{equation}
+Pelo resultado 4P:
+\begin{equation}
+\frac{\overline{X}_n}{S_n^2} \xrightarrow{P}_{n \to \infty} \frac{\mu}{\sigma^2}
+\end{equation}

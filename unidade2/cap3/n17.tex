@@ -1,0 +1,41 @@
+\[
+= 1 - F_{T_n}(\theta (1 - \frac{u}{n}))
+\]
+\[
+= 1 - \left(1 - \frac{u}{n}\right)^n, \quad u > 0.
+\]
+
+Daí,
+\[
+\lim_{n \to \infty} F_{U_n}(u) = 1 - e^{-u} = F_U(u), \quad \text{que é a fda de } E \in \text{EXP}(1).
+\]
+Então,
+\[
+U_n \xrightarrow[n \to \infty]{} E.
+\]
+
+\textbf{Resultado 1D:} Sejam $\{U_n, n \geq 1\}$ uma sequência de v.a.'s tal que $M_{U_n}(t)$ é a fgm de $U_n$ e $U$ uma v.a. com fgm $M_U(t)$, então
+\[
+\text{Se } M_{U_n}(t) \xrightarrow[n \to \infty]{} M_U(t), \text{ então } U_n \xrightarrow[n \to \infty]{} U.
+\]
+
+\textbf{Q (extra 6)} Sejam $X_1, \ldots, X_n$ v.a.'s i.i.d. tais que $X_i \sim \text{Bernoulli}(p)$ com $p = \frac{1}{2}$ e 
+\[
+U_n = 2 \sqrt{n} \left( \bar{X}_n - \frac{1}{2} \right).
+\]
+Estude a distribuição limite de $U_n$.
+
+\textbf{Solução:} Note que 
+\[
+U_n = \frac{2 \sum_{i=1}^n X_i - n}{\sqrt{n}}.
+\]
+\[
+M_{U_n}(t) = E\left[ e^{\frac{2t}{\sqrt{n}} \sum_{i=1}^n X_i - t \sqrt{n}} \right] 
+= e^{-t \sqrt{n}} E\left[ e^{\frac{2t}{\sqrt{n}} \sum_{i=1}^n X_i} \right]
+\]
+\[
+= e^{-t \sqrt{n}} \left( E\left[ e^{\frac{2t}{\sqrt{n}} X_1} \right] \right)^n
+\]
+\[
+= e^{-t \sqrt{n}} \left( (1-p) + p \cdot e^{\frac{2t}{\sqrt{n}}} \right)^n
+\]

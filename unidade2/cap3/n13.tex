@@ -1,0 +1,32 @@
+\section*{Resultado 3P (Lei fraca dos grandes números de Khinchine)}
+
+Sejam $X_1, \ldots, X_n$ v.a.'s reais i.i.d. com
+\begin{equation}
+    E[X_i] = \mu < \infty, \quad \text{Então} \quad \overline{X}_n \xrightarrow{P}_{n \to \infty} \mu
+\end{equation}
+
+\subsection*{Prova}
+Sejam $M_{\overline{X}_n}(t)$ e $M_{X_i}(t)$ f.m.g. de $\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i$ e $X_i$, respectivamente. Logo, para $t \in \mathbb{R}$, vale-se:
+\begin{equation}
+    M_{\overline{X}_n}(t) = M_{\frac{S_n}{n}}(t) \overset{\text{p.v.}}{=} \prod_{i=1}^n M_{X_i}\left(\frac{t}{n}\right)
+\end{equation}
+\begin{equation}
+    = \left[ M_{X_1}\left(\frac{t}{n}\right) \right]^n \tag{3P.1}
+\end{equation}
+
+Expandindo em série de Taylor $M_{X_1}\left(\frac{t}{n}\right)$ em torno de zero (dado que $M_{X_1}(0) = 1$ e $M'_{X_1}(0) = \mu$) até a 1ª ordem, tem-se:
+\begin{equation}
+    M_{X_1}\left(\frac{t}{n}\right) = M_{X_1}(0) + M'_{X_1}(0) \frac{t}{n} + o\left(\frac{t}{n}\right)
+\end{equation}
+\begin{equation}
+    = 1 + \mu \frac{t}{n} + o\left(\frac{t}{n}\right)
+\end{equation}
+
+Daí, usando resultado limite (R.3):
+\begin{equation}
+    \left(1 + \frac{k}{n}\right)^n \xrightarrow{n \to \infty} e^k
+\end{equation}
+
+\begin{equation}
+    M_{\overline{X}_n}(t) = \left[ 1 + \frac{\mu t}{n} + o\left(\frac{t}{n}\right) \right]^n \xrightarrow{n \to \infty} e^{t\mu} = M_{\mu}(t)
+\end{equation}

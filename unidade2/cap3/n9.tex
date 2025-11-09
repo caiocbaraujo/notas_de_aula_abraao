@@ -1,0 +1,39 @@
+\textbf{Solução} Note que
+\begin{equation}
+S_n^2 = (n-1)^{-1} \sum_{i=2}^n Y_i^2 \quad \text{para} \quad Y_i \sim N(0, \sigma^2),
+\end{equation}
+em que $Y_1, \ldots, Y_n$ são v.a.'s de Helmert.
+
+Além disso,
+\begin{equation}
+\mathrm{Var}(Y_i^2) = \mathbb{E}[Y_i^4] - \mathbb{E}^2[Y_i^2]
+\end{equation}
+\begin{equation}
+= 3\sigma^4 - \sigma^4 = 2\sigma^4 < \infty, \quad \text{uma vez que:}
+\end{equation}
+
+Como
+\begin{equation}
+M_{Y_i^2}(t) = e^{\frac{t^2\sigma^2}{2}},
+\end{equation}
+calculamos as derivadas:
+
+\begin{equation}
+\left. \frac{d M_{Y_i^2}(t)}{dt} \right|_{t=0} = \left. t\sigma^2 e^{\frac{t^2\sigma^2}{2}} \right|_{t=0} = 0 = \mathbb{E}(Y_i)
+\end{equation}
+
+\begin{equation}
+\left. \frac{d^2 M_{Y_i^2}(t)}{dt^2} \right|_{t=0} = t^2\sigma^4 e^{\frac{t^2\sigma^2}{2}} + \sigma^2 e^{\frac{t^2\sigma^2}{2}} \bigg|_{t=0} = \sigma^2 = \mathbb{E}(Y_i^2)
+\end{equation}
+
+\begin{equation}
+\left. \frac{d^3 M_{Y_i^2}(t)}{dt^3} \right|_{t=0} = t^3\sigma^6 e^{\frac{t^2\sigma^2}{2}} + 2t\sigma^4 e^{\frac{t^2\sigma^2}{2}} + t\sigma^4 e^{\frac{t^2\sigma^2}{2}} \bigg|_{t=0} = 0 = \mathbb{E}(Y_i^3)
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\left. \frac{d^4 M_{Y_i^2}(t)}{dt^4} \right|_{t=0} &= t^4\sigma^8 e^{\frac{t^2\sigma^2}{2}} + 3t^2\sigma^6 e^{\frac{t^2\sigma^2}{2}} \\
+&\quad + 2t^2\sigma^6 e^{\frac{t^2\sigma^2}{2}} + 2\sigma^4 e^{\frac{t^2\sigma^2}{2}} + t^2\sigma^6 e^{\frac{t^2\sigma^2}{2}} + \sigma^4 e^{\frac{t^2\sigma^2}{2}} \bigg|_{t=0} \\
+&= 3\sigma^4 = \mathbb{E}(Y_i^4)
+\end{aligned}
+\end{equation}
