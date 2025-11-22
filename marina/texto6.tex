@@ -1,0 +1,198 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{indentfirst}
+\usepackage{setspace}
+
+% Layout
+\geometry{left=3cm, right=2cm, top=3cm, bottom=2cm}
+\onehalfspacing
+
+\title{Teste de Hipótese em ANOVA para Delineamento Inteiramente Casualizado}
+\author{Marina Oliveira Cunha \\ Universidade Federal de Pernambuco}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introdução}
+
+A Análise de Variância (ANOVA), desenvolvida por Fisher, permite testar a igualdade das médias de múltiplos tratamentos. No Delineamento Inteiramente Casualizado (DIC), os tratamentos são distribuídos aleatoriamente às unidades experimentais. O objetivo é testar:
+\[
+H_0: \mu_1 = \cdots = \mu_t
+\quad\text{versus}\quad
+H_1: \text{pelo menos uma média difere}.
+\]
+
+A ANOVA de um fator pode ser vista como caso particular do modelo linear geral \(y = X\beta + \epsilon\). Assim, seu teste F decorre diretamente da teoria de testes em modelos lineares.
+
+\section{Modelo Estatístico}
+
+O modelo do DIC é
+\[
+y_{ij} = \mu + \tau_i + \epsilon_{ij}, \qquad
+\epsilon_{ij} \sim N(0,\sigma^2),
+\]
+onde $\mu$ é a média geral e $\tau_i$ o efeito do tratamento $i$. As hipóteses são:
+\[
+H_0: \tau_1=\cdots=\tau_t=0
+\quad\text{e}\quad
+H_1: \exists\, i: \tau_i\neq 0.
+\]
+
+\section{Pressupostos e Diagnósticos}
+
+A validade do teste F depende de:  
+(i) normalidade dos erros;  
+(ii) homogeneidade das variâncias;  
+(iii) independência das observações.  
+Testes como Shapiro–Wilk, Breusch–Pagan e gráficos de resíduos podem ser utilizados para avaliar tais pressupostos.
+
+\section{Equivalência das Formulações}
+
+Como $\mu_i = \mu+\tau_i$ e $\sum_{i=1}^t \tau_i=0$, temos:
+\[
+\mu_1=\cdots=\mu_t
+\;\Longleftrightarrow\;
+\tau_1=\cdots=\tau_t=0.
+\]
+Assim, formular as hipóteses em termos de médias ou de efeitos é matematicamente equivalente.
+
+\section{Partição da Soma de Quadrados}
+
+A partir da decomposição
+\[
+y_{ij}-\bar y = (y_{ij}-\bar y_i) + (\bar y_i-\bar y),
+\]
+obtemos
+\[
+SQ_T = SQ_E + SQ_A,
+\]
+pois $\sum_j(y_{ij}-\bar y_i)=0$. Aqui, $SQ_A$ mede a variação entre as médias dos tratamentos e $SQ_E$ a variação dentro dos tratamentos.
+
+\section{Distribuições das Somas de Quadrados}
+
+Devido à normalidade e independência:
+\[
+\frac{SQ_E}{\sigma^2} \sim \chi^2_{t(r-1)}.
+\]
+Sob $H_0$,
+\[
+\frac{SQ_A}{\sigma^2} \sim \chi^2_{t-1}.
+\]
+
+A independência entre $SQ_A$ e $SQ_E$ decorre da ortogonalidade dos componentes e do Teorema de Cochran aplicado às projeções ortogonais no modelo linear.
+
+\section{Estatística F}
+
+A estatística de teste é
+\[
+F=\frac{MS_A}{MS_E}
+= \frac{SQ_A/(t-1)}{SQ_E/[t(r-1)]}.
+\]
+Sob $H_0$,
+\[
+F\sim F_{t-1,\;t(r-1)}.
+\]
+
+\section{Esperanças dos Quadrados Médios}
+
+\[
+E[MS_E]=\sigma^2,\qquad
+E[MS_A] = \sigma^2 + \frac{r}{t-1}\sum_{i=1}^t \tau_i^2.
+\]
+Sob $H_0$, as esperanças são iguais; sob $H_1$, $MS_A$ tende a ser maior, justificando o uso do teste F.
+
+\section{Tabela Geral da ANOVA}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Fonte & GL & SQ & QM & F \\
+\midrule
+Tratamentos & $t-1$ & $SQ_A$ & $MS_A$ & $MS_A/MS_E$ \\
+Erro & $t(r-1)$ & $SQ_E$ & $MS_E$ & \\
+Total & $tr-1$ & $SQ_T$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Comparações Múltiplas (Comentário)}
+
+Quando o teste F rejeita $H_0$ e há \textbf{mais de dois tratamentos}, pode ser necessário identificar quais médias diferem. Métodos comuns incluem:
+\begin{itemize}
+\item \textbf{Tukey HSD} — controla o erro tipo I familiar;
+\item \textbf{Bonferroni} — mais conservador, baseado em correção de nível.
+\end{itemize}
+Devido ao limite de páginas, omitimos detalhes matemáticos.
+
+\section{Exemplo Aplicado}
+
+Dados de produtividade (quatro variedades, cinco repetições):
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccc}
+        \toprule
+        A & B & C & D \\
+        \midrule
+        25 & 31 & 22 & 33 \\
+        26 & 25 & 26 & 29 \\
+        20 & 28 & 28 & 31 \\
+        23 & 27 & 25 & 34 \\
+        21 & 24 & 29 & 28 \\
+        \midrule
+        Totais: 115 & 135 & 130 & 155 \\
+        Médias: 23 & 27 & 26 & 31 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection*{Cálculos}
+
+\[
+SQT = 14587 - \frac{535^2}{20} = 275{,}75
+\]
+\[
+SQE = \left(\tfrac{115^2}{5}+\tfrac{135^2}{5}+\tfrac{130^2}{5}+\tfrac{155^2}{5}\right) - 14311{,}25 = 163{,}75
+\]
+\[
+SQA = 275{,}75 - 163{,}75 = 112.
+\]
+
+\subsection*{Tabela ANOVA}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Fonte & GL & SQ & QM & F \\
+\midrule
+Entre & 3 & 163,75 & 54,583 & 7,798 \\
+Dentro & 16 & 112,00 & 7,000 & \\
+Total & 19 & 275,75 & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Conclusão}
+
+Como $F_{calc}=7{,}798 > F_{crit}=3{,}24$ ($\alpha=0{,}05$), rejeita-se $H_0$. Há diferença significativa entre as variedades; a variedade D apresentou maior produtividade média.
+
+\begin{thebibliography}{9}
+\bibitem{fisher1935}
+FISHER, R. A. \textit{The design of experiments}. 1935.
+
+\bibitem{box1978}
+BOX, G. E. P. et al. \textit{Statistics for experimenters}. Wiley, 1978.
+
+\bibitem{snedecor1989}
+SNEDECOR, G. W.; COCHRAN, W. G. \textit{Statistical methods}. Iowa State, 1989.
+\end{thebibliography}
+
+\end{document}

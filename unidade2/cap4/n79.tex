@@ -1,0 +1,56 @@
+\section*{4.5.2 Exemplo de existência do teste UMP}
+
+Sejam $x_1, \ldots, x_n$ uma amostra de $X \sim U(0, \theta)$, com $\theta > 0$ desconhecido. Note que $T(x) = X_{(n)}$ para $x = (x_1, \ldots, x_n)$ é suficiente para $\theta$ e tem densidade dada por
+
+\begin{equation}
+    f(t; \theta) = n \, t^{n-1} \, \theta^{-n} \, I_{(0, \theta)}(t)
+\end{equation}
+
+e para $\theta^*, \theta^* > 0$ tal que $\theta^* > \theta$:
+
+\begin{equation}
+    \frac{f(t; \theta^*)}{f(t; \theta)} = \left( \frac{\theta}{\theta^*} \right)^n \frac{I_{(0, \theta^*)}}{I_{(0, \theta)}}
+\end{equation}
+
+tem razão de verossimilhança monotônica não decrescente.
+
+Assim, do TKR, o seguinte teste é UMP para:
+
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta > \theta_0
+\]
+
+Tal que (para $x$) como uma amostra:
+
+\[
+\psi_k(x) =
+\begin{cases}
+1, & T(x) > k \\
+0, & T(x) \leq k
+\end{cases}
+\]
+
+em que $k$ é tal que:
+
+\begin{equation}
+    \alpha = \mathbb{E}_{\theta_0} \left[ \psi_k(x) \right] = P_{\theta_0} \left( T(x) > k \right)
+\end{equation}
+
+\begin{equation}
+    \alpha = \int_{k}^{\theta_0} n \, t^{n-1} \, \theta_0^{-n} \, dt 
+    = \left[ \frac{t^{n}}{\theta_0^{n}} \right]_{k}^{\theta_0}
+\end{equation}
+
+\begin{equation}
+    = \frac{\theta_0^{n} - k^{n}}{\theta_0^{n}} 
+    = 1 - \frac{k^{n}}{\theta_0^{n}}
+\end{equation}
+
+Portanto:
+
+\begin{equation}
+    \frac{k}{\theta_0} = (1 - \alpha)^{1/n}
+    \quad \Rightarrow \quad
+    k = \theta_0 (1 - \alpha)^{1/n}
+\end{equation}
+

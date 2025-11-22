@@ -1,0 +1,38 @@
+
+
+Pois, $\varphi_{n}^{*}(.)$ e $\varphi_{n}^{*}(-)$ são de teste UMP para $H_{0} \times H_{1}$.
+
+Agora estamos em posição de provar o seguinte resultado.
+
+\textbf{Teorema (4.5.1)} 
+
+Sejam $X_{1}, \ldots, X_{n}$ uma amostra de $X \sim U(0, \theta)$. Considere testar $H_{0}: \theta = \theta_{0}$ vs $H_{1}: \theta \neq \theta_{0}$, tal que $\theta_{0} > 0$ é fixado. 
+
+O teste $\varphi$ com FC
+\begin{equation}
+\varphi_{n}(x) = 
+\begin{cases}
+1, & \text{se } T(x) > \theta_{0} \ \text{ou} \ T(x) \leq \theta_{0} \alpha^{1/n} \\
+0, & \text{o.c.}
+\end{cases}
+\end{equation}
+é UMP.
+
+\textbf{Prova:}
+
+Como 
+\begin{equation}
+P_{\theta_{0}}[T(x) \geq \theta_{0}] = 0
+\end{equation}
+
+\begin{equation}
+E_{\theta_{0}}[\varphi_{n}(x)] = P_{\theta_{0}}[T(x) \leq \theta_{0} \alpha^{1/n}]
+\end{equation}
+
+\begin{equation}
+= \int_{0}^{\theta_{0} \alpha^{1/n}} n \cdot t^{n-1} \cdot \theta_{0}^{-n} \, dt
+\end{equation}
+
+\begin{equation}
+= \frac{\theta_{0} \alpha^{1/n \cdot n}}{\theta_{0}^{n}} - \alpha
+\end{equation}

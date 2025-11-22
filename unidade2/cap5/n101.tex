@@ -1,0 +1,51 @@
+
+Uma vez que 
+\begin{equation}
+(n_1 - 1) \frac{S_1^2}{\sigma_1^2} \sim \chi^2_{n_1 - 1} \quad \text{e} \quad (n_2 - 1) \frac{S_2^2}{\sigma_2^2} \sim \chi^2_{n_2 - 1}
+\end{equation}
+são independentes.
+
+Logo $U$ é uma quantidade pivotal. Sejam 
+\[
+F_{n_1 - 1, n_2 - 1, 1 - \alpha/2} > 0 \quad \text{e} \quad F_{n_1 - 1, n_2 - 1, \alpha/2}
+\]
+tais que
+
+\begin{equation}
+P(U < F_1) = \frac{\alpha}{2}
+\end{equation}
+
+\begin{equation}
+P(U > F_2) = \frac{\alpha}{2}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-0.5,0) -- (5,0) node[right] {};
+\draw[->] (0,-0.2) -- (0,2) node[above] {};
+\draw[domain=0.5:4.5,smooth,variable=\x] plot ({\x},{1.5*exp(-(\x-2.5)^2)});
+\draw[dashed] (1,0) -- (1,0.8) node[above] {$F_1$};
+\draw[dashed] (4,0) -- (4,0.8) node[above] {$F_2$};
+\node at (2.5,1.5) {$1 - \alpha$};
+\node at (0.7,0.4) {$\alpha/2$};
+\node at (4.3,0.4) {$\alpha/2$};
+\end{tikzpicture}
+\end{center}
+
+Daí:
+\begin{equation}
+P_\theta \{ F_1 < U < F_2 \} = 1 - \alpha
+\end{equation}
+
+\begin{equation}
+P_\theta \left\{ F_1 \frac{S_2^2}{S_1^2} < \frac{\sigma_2^2}{\sigma_1^2} < F_2 \frac{S_2^2}{S_1^2} \right\} = 1 - \alpha
+\end{equation}
+
+\begin{equation}
+P_\theta \left\{ F_2^{-1} \frac{S_1^2}{S_2^2} < \frac{\sigma_1^2}{\sigma_2^2} < F_1^{-1} \frac{S_1^2}{S_2^2} \right\} = 1 - \alpha
+\end{equation}
+
+\begin{equation}
+IC_{1 - \alpha} \left( \frac{\sigma_1^2}{\sigma_2^2} \right) = \left( F_2^{-1} \frac{S_1^2}{S_2^2}, \; F_1^{-1} \frac{S_1^2}{S_2^2} \right)
+\end{equation}
+

@@ -1,0 +1,46 @@
+Resta identidade, obtém-se o intervalo com confiança de $1 - \alpha$ para $K(\theta)$.
+
+\subsection*{5.3.1 Comparando Parâmetros de localização}
+
+Aqui, vamos analisar a diferença de médias, entre duas populações normais independentes.
+
+\subsubsection*{Q (5.10)}
+Sejam $X_{i1}, \ldots, X_{in_i}$ para $i = 1, 2$ duas amostras aleatórias independentes de $X_i \sim N(\mu_i, \sigma^2)$, $X_1 \perp X_2$. 
+
+Vamos assumir que $\theta = (\mu_1, \mu_2, \sigma) \in \mathbb{R} \times \mathbb{R} \times \mathbb{R}^+$ é desconhecido. 
+
+Encontre o intervalo bilateral com confiança $1 - \alpha$ para $K(\theta) = \mu_1 - \mu_2$.
+
+\subsubsection*{Solução}
+Note que
+
+\begin{equation}
+f_{X_1, X_2}(x_1, x_2) \stackrel{X_1 \perp X_2}{=} f_{X_1}(x_1) f_{X_2}(x_2)
+\end{equation}
+
+\begin{equation}
+= (2\pi \sigma^2)^{-1} \times \exp \left\{ -\frac{1}{2} \left( \frac{x_1 - \mu_1}{\sigma} \right)^2 \right\} \exp \left\{ -\frac{1}{2} \left( \frac{x_2 - \mu_2}{\sigma} \right)^2 \right\}
+\end{equation}
+
+\begin{equation}
+f_{X_1, X_2}(x_1, x_2) = (2\pi \sigma^2)^{-1} \exp \left\{ -\frac{1}{2\sigma^2} \left( x_1^2 - 2x_1\mu_1 + \mu_1^2 + x_2^2 - 2x_2\mu_2 + \mu_2^2 \right) \right\}
+\end{equation}
+
+\begin{equation}
+g(x_1, x_2) = (2\pi)^{-1} \exp \left\{ -\frac{(\mu_1^2 + \mu_2^2)}{2\sigma^2} \right\} \sigma^{-2} \exp \left\{ -\frac{1}{2\sigma^2} (x_1^2 + x_2^2) + \frac{\mu_1}{\sigma^2} x_1 + \frac{\mu_2}{\sigma^2} x_2 \right\}
+\end{equation}
+
+\noindent onde:
+\[
+a(\theta) = (2\pi)^{-1} \exp \left\{ -\frac{\mu_1^2 + \mu_2^2}{2\sigma^2} \right\} \sigma^{-2}
+\]
+\[
+h_3(x) = x_1^2 + x_2^2, \quad b_3(\theta) = -\frac{1}{2\sigma^2}
+\]
+\[
+h_1(x) = x_1, \quad b_1(\theta) = \frac{\mu_1}{\sigma^2}
+\]
+\[
+h_2(x) = x_2, \quad b_2(\theta) = \frac{\mu_2}{\sigma^2}
+\]
+

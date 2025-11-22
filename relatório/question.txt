@@ -1,0 +1,12 @@
+assunto> Teste de hipótese em regressão normal linear múltipla,
+
+se Yi = B0 + B1X1i + ... + BpXpi + ei
+
+Yi ~ Variavel aleatoria
+X1i...Xpi ~ variáveis fixas
+
+para b1 = (b1,...bp)T
+em ho:B1 = O_p(x).
+
+
+escreva 5 páginas

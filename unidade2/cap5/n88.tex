@@ -1,0 +1,44 @@
+
+
+\[
+P_{\mu} \left\{ \sqrt{n} \frac{\overline{X}_n - \mu_0}{\sigma} \leq z_{\alpha} \right\} = 1 - \alpha
+\]
+
+\[
+\therefore P_{\mu} \left\{ \mu_0 \geq \overline{X}_n - z_{\alpha} n^{-1/2} \sigma \right\} = 1 - \alpha
+\]
+
+\[
+\text{Logo,} \quad P_{\mu} \left\{ \mu \geq \overline{X}_n - z_{\alpha} n^{-1/2} \sigma \right\} = 1 - \alpha, \quad \forall \mu \in \mathbb{R}
+\]
+
+\[
+I.C.(\mu) = \left[ \overline{X}_n - z_{\alpha} n^{-1/2} \sigma, \infty \right]_{1-\alpha}
+\]
+
+\section*{Q (5.3)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{EXP}(\theta)$ para $\theta > 0$ desconhecido. Deseja-se testar:
+
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta > \theta_0
+\]
+
+Encontre o estimador intervalar para $\theta$ com nível de confiança $1 - \alpha$.
+
+\subsection*{Solução}
+Como já foi discutido, o teste UMP para $H_0$ de nível $\alpha$ tem função crítica:
+
+\[
+\psi(\mathbf{x}) =
+\begin{cases}
+1, & 2 \sum_{i=1}^n \frac{x_i}{\theta_0} > \chi^2_{2n, \alpha} \\
+0, & 2 \sum_{i=1}^n \frac{x_i}{\theta_0} < \chi^2_{2n, \alpha}
+\end{cases}
+\]
+
+A região de não rejeição é dada por:
+
+\[
+R^c = \left\{ \mathbf{x} \in \mathcal{X} : 2 \sum_{i=1}^n \frac{x_i}{\theta_0} < \chi^2_{2n, \alpha} \right\}
+\]
+

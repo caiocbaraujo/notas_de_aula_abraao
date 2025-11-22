@@ -621,15 +621,40 @@ definimos a eficiência relativa de $T_n^{(2)}$ em relação a $T_n^{(1)}$ como 
 % ================================================================
 
 \begin{teoremabox}{Teorema 3.8.1: TCL para o EMV (caso univariado)}
-Seja $X_1,\ldots,X_n$ uma amostra de densidade $f(x;\theta)$, $\theta \in \Theta \subset \mathbb{R}$, onde:
+Seja $X_1,\ldots,X_n$ uma amostra de densidade $f(x;\theta)$, $\theta \in \Theta \subset \mathbb{R}$. Sob as seguintes condições de regularidade:
+
 \begin{enumerate}[label=(A\arabic*), leftmargin=0.9cm]
     \item $f(x;\theta)$ é três vezes diferenciável em $\theta$;
-    \item derivadas podem ser permutadas com integrais: $\displaystyle \int \frac{\partial f(x;\theta)}{\partial \theta}dx = 0$ e $\displaystyle \int \frac{\partial^2 f(x;\theta)}{\partial \theta^2}dx = 0$;
-    \item a informação de Fisher $I(\theta) = E_\theta\big[(\partial_\theta \log f(X;\theta))^2\big]$ é finita e positiva.
+    
+    \item Derivadas podem ser permutadas com integrais: 
+    \[
+    \int \frac{\partial f(x;\theta)}{\partial \theta}dx = 0 \quad \text{e} \quad \int \frac{\partial^2 f(x;\theta)}{\partial \theta^2}dx = 0;
+    \]
+    
+    \item A informação de Fisher é finita e positiva:
+    \[
+    0 < I_X(\theta) \triangleq E_{\theta} \left[ \left( \frac{\partial \log f(X; \theta)}{\partial \theta} \right)^2 \right] < \infty, \quad \forall \theta \in \Theta;
+    \]
+    
+    \item Para cada $\theta_0 \in \Theta$, existe $\varepsilon = \varepsilon(\theta_0) > 0$ tal que
+    \[
+    \left| \frac{\partial^3 \log f(x; \theta)}{\partial \theta^3} \right| \leq g(x), \quad \forall \theta \in [\theta_0 - \varepsilon, \theta_0 + \varepsilon],
+    \]
+    onde
+    \[
+    \int_{\mathcal{X}} g(x) f(x; \theta) \, dx < \infty;
+    \]
+    
+    \item A equação de verossimilhança
+    \[
+    \frac{\partial l(\theta)}{\partial \theta} = 0 \quad \Leftrightarrow \quad \sum_{i=1}^n \frac{\partial \log f(X_i; \theta)}{\partial \theta} = 0
+    \]
+    tem uma solução consistente $\hat{\theta}_n$ (i.e., $\hat{\theta}_n \xrightarrow{P} \theta_0$).
 \end{enumerate}
-Então existe uma solução $\hat{\theta}_n$ da equação de verossimilhança tal que
+
+Então:
 \[
-\hat{\theta}_n \xrightarrow{P} \theta_0 \qquad \text{e} \qquad \sqrt{n}(\hat{\theta}_n - \theta_0) \xrightarrow{D} N\big(0, I^{-1}(\theta_0)\big).
+\sqrt{n} (\hat{\theta}_n - \theta_0) \xrightarrow{D} N\left(0, I_X^{-1}(\theta_0)\right), \quad \text{quando } n \to \infty.
 \]
 \end{teoremabox}
 

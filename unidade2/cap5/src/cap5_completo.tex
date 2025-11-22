@@ -1,0 +1,459 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{import}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+% Título e informações do documento
+\title{Capítulo 5 - Compilação Completa\\
+\large Intervalos de Confiança}
+\author{Curso de Inferência Estatística - PPGEST/UFPE}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introdução ao Capítulo 5: Intervalos de Confiança}
+
+O Capítulo 5 introduz uma das ferramentas mais práticas e amplamente utilizadas da inferência estatística: os \textbf{Intervalos de Confiança} (IC). Enquanto a estimação pontual fornece um único valor como estimativa para um parâmetro desconhecido, os intervalos de confiança quantificam a incerteza inerente a essa estimativa, fornecendo um intervalo plausível de valores para o parâmetro.
+
+\subsection*{Contexto e Motivação}
+
+A teoria de intervalos de confiança responde à seguinte questão fundamental: \emph{``Dado um parâmetro populacional desconhecido $\theta$ e uma amostra aleatória, como podemos construir um intervalo que contenha o verdadeiro valor de $\theta$ com uma probabilidade pré-especificada?''}
+
+Esta questão é central em praticamente todas as aplicações estatísticas: desde estudos científicos que precisam reportar margens de erro, passando por controle de qualidade que estabelece limites de especificação, até pesquisas de opinião pública que apresentam intervalos de confiança para proporções populacionais.
+
+\subsection*{Estrutura do Capítulo}
+
+O capítulo está organizado de forma a construir progressivamente os conceitos fundamentais e métodos de construção:
+
+\paragraph{5.1 Conceitos Fundamentais}
+Apresenta a formulação básica dos intervalos de confiança, incluindo:
+\begin{itemize}
+    \item Definição de intervalo aleatório e intervalo de confiança
+    \item Probabilidade de cobertura e coeficiente de confiança
+    \item Interpretação frequentista correta de intervalos de confiança
+    \item Distinção entre intervalos bilaterais e unilaterais
+\end{itemize}
+
+\paragraph{5.2 Métodos de Construção}
+Desenvolve duas abordagens principais para construir intervalos de confiança:
+\begin{itemize}
+    \item \textbf{Inversão de Testes de Hipóteses:} Conexão entre testes e intervalos
+    \item \textbf{Método Pivotal:} Uso de quantidades com distribuição conhecida
+    \item Comparação entre os métodos e suas vantagens
+\end{itemize}
+
+\paragraph{5.3 Intervalos para Parâmetros Específicos}
+Aplica os métodos para construir intervalos para:
+\begin{itemize}
+    \item Média de população Normal (variância conhecida e desconhecida)
+    \item Variância de população Normal
+    \item Parâmetros de distribuições Exponencial, Uniforme e outras
+    \item Diferenças entre médias e razões de variâncias
+\end{itemize}
+
+\paragraph{5.4 Propriedades e Otimalidade}
+Discute critérios para avaliar e comparar intervalos:
+\begin{itemize}
+    \item Intervalos de confiança de comprimento mínimo
+    \item Intervalos não viesados
+    \item Relação com estatísticas suficientes
+\end{itemize}
+
+\subsection*{Objetivos de Aprendizagem}
+
+Ao final deste capítulo, espera-se que o estudante seja capaz de:
+
+\begin{enumerate}
+    \item Compreender o conceito de intervalo de confiança e interpretar corretamente seu significado
+    \item Construir intervalos de confiança usando o método de inversão de testes
+    \item Aplicar o método pivotal para obter intervalos de confiança
+    \item Derivar intervalos de confiança para parâmetros de distribuições comuns
+    \item Determinar o tamanho amostral necessário para atingir uma margem de erro desejada
+    \item Interpretar e comunicar resultados de intervalos de confiança apropriadamente
+\end{enumerate}
+
+\subsection*{Conexão com Capítulos Anteriores}
+
+Este capítulo está intimamente relacionado com conceitos desenvolvidos anteriormente:
+
+\begin{itemize}
+    \item \textbf{Capítulo 3 (Estimação):} Intervalos de confiança complementam estimadores pontuais, fornecendo medidas de precisão
+    \item \textbf{Capítulo 4 (Testes de Hipóteses):} Existe uma dualidade profunda entre testes e intervalos de confiança
+    \item \textbf{Estatísticas Suficientes:} Intervalos ótimos geralmente dependem de estatísticas suficientes
+    \item \textbf{Distribuições Amostrais:} Fundamental conhecer as distribuições das estatísticas usadas
+\end{itemize}
+
+\subsection*{Filosofia dos Intervalos de Confiança}
+
+É importante compreender a filosofia subjacente aos intervalos de confiança:
+
+\begin{itemize}
+    \item \textbf{Interpretação Frequentista:} Em repetidas amostragens, $(1-\alpha)\times 100\%$ dos intervalos construídos conterão o verdadeiro valor de $\theta$
+    \item \textbf{Não é Probabilidade sobre $\theta$:} O parâmetro $\theta$ é fixo (embora desconhecido); o intervalo é aleatório
+    \item \textbf{Nível de Confiança vs Probabilidade:} $(1-\alpha)$ é o coeficiente de confiança, não a probabilidade de que um intervalo específico contenha $\theta$
+    \item \textbf{Trade-off:} Maior confiança $(1-\alpha)$ resulta em intervalos mais amplos
+\end{itemize}
+
+\subsection*{Aplicações Práticas}
+
+Os intervalos de confiança são amplamente utilizados em:
+
+\begin{itemize}
+    \item \textbf{Medicina:} Intervalos para eficácia de tratamentos, taxas de sobrevivência
+    \item \textbf{Engenharia:} Limites de tolerância para características de produtos
+    \item \textbf{Economia:} Intervalos para indicadores econômicos (PIB, inflação, desemprego)
+    \item \textbf{Ciências Sociais:} Margens de erro em pesquisas de opinião
+    \item \textbf{Controle de Qualidade:} Intervalos de especificação para processos industriais
+\end{itemize}
+
+\vspace{0.5cm}
+
+\noindent Este capítulo fornece não apenas as técnicas para construir intervalos de confiança, mas também desenvolve a compreensão conceitual necessária para interpretar e comunicar corretamente a incerteza estatística em contextos aplicados.
+
+\newpage
+
+% ===============================================================
+% CONTEÚDO DO CAPÍTULO 5
+% Importando todas as páginas da pasta cap5
+% ===============================================================
+
+\import{../../cap5/}{n83.tex}
+\newpage
+
+\import{../../cap5/}{n84.tex}
+\newpage
+
+\import{../../cap5/}{n85.tex}
+\newpage
+
+\import{../../cap5/}{n86.tex}
+\newpage
+
+\import{../../cap5/}{n87.tex}
+\newpage
+
+\import{../../cap5/}{n88.tex}
+\newpage
+
+\import{../../cap5/}{n89.tex}
+\newpage
+
+\import{../../cap5/}{n90.tex}
+\newpage
+
+\import{../../cap5/}{n91.tex}
+\newpage
+
+\import{../../cap5/}{n92.tex}
+\newpage
+
+\import{../../cap5/}{n93.tex}
+\newpage
+
+\import{../../cap5/}{n94.tex}
+\newpage
+
+\import{../../cap5/}{n95.tex}
+\newpage
+
+\import{../../cap5/}{n96.tex}
+\newpage
+
+\import{../../cap5/}{n97.tex}
+\newpage
+
+\import{../../cap5/}{n98.tex}
+\newpage
+
+\import{../../cap5/}{n99.tex}
+\newpage
+
+\import{../../cap5/}{n100.tex}
+\newpage
+
+\import{../../cap5/}{n101.tex}
+
+% ===============================================================
+% RESUMO E CONSOLIDAÇÃO DO CAPÍTULO 5
+% ===============================================================
+
+\newpage
+\section*{Resumo e Consolidação: Capítulo 5 - Intervalos de Confiança}
+
+\subsection*{Visão Geral}
+
+Este capítulo apresentou a teoria e prática de intervalos de confiança, uma ferramenta essencial para quantificar a incerteza em estimativas estatísticas. A seguir, consolidamos os principais conceitos, métodos e suas aplicações.
+
+\subsection*{1. Conceitos Fundamentais e Terminologia}
+
+\begin{table}[h!]
+\centering
+\caption{Terminologia Básica em Intervalos de Confiança}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Conceito} & \textbf{Definição/Interpretação} \\ \midrule
+Intervalo aleatório & $[T_L(X), T_U(X)]$ - função dos dados (aleatório antes da amostra) \\
+Intervalo de confiança & Realização específica do intervalo aleatório \\
+Coeficiente de confiança & $\inf_{\theta \in \Theta} P_\theta[\theta \in IC] = 1-\alpha$ \\
+Probabilidade de cobertura & $P_\theta[\theta \in IC]$ para um valor específico de $\theta$ \\
+Nível de confiança & $(1-\alpha) \times 100\%$ (ex: 95\%, 99\%) \\
+Margem de erro & Metade do comprimento do IC bilateral \\
+IC unilateral inferior & $[T_L(X), +\infty)$ \\
+IC unilateral superior & $(-\infty, T_U(X)]$ \\
+IC bilateral & $[T_L(X), T_U(X)]$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{2. Métodos de Construção de Intervalos de Confiança}
+
+\begin{table}[h!]
+\centering
+\caption{Métodos para Construir Intervalos de Confiança}
+\begin{tabular}{@{}p{4cm}p{5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Método} & \textbf{Princípio} & \textbf{Quando Usar} \\ \midrule
+Inversão de Testes de Hipóteses & 
+$IC_{1-\alpha} = \{\theta_0 : \text{não rejeita } H_0: \theta = \theta_0$ ao nível $\alpha\}$ & 
+Quando teste UMP/UMPNV está disponível \\ \midrule
+
+Método Pivotal & 
+Encontrar $U(X, \theta)$ com distribuição conhecida independente de $\theta$ & 
+Para famílias de locação, escala ou locação-escala \\ \midrule
+
+Aproximação Assintótica & 
+Usar Teorema Central do Limite: $\frac{\hat{\theta} - \theta}{SE(\hat{\theta})} \approx N(0,1)$ & 
+Para amostras grandes quando distribuição exata é desconhecida \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{3. Intervalos de Confiança para Distribuições Comuns}
+
+\begin{table}[h!]
+\centering
+\caption{IC para Parâmetros de Distribuições Conhecidas}
+\begin{tabular}{@{}p{3cm}p{3.5cm}p{5cm}p{2cm}@{}}
+\toprule
+\textbf{Distribuição} & \textbf{Parâmetro} & \textbf{IC Bilateral $(1-\alpha)$} & \textbf{Pivô} \\ \midrule
+$N(\mu, \sigma^2)$ & 
+$\mu$ ($\sigma^2$ conhecida) & 
+$\bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$ & 
+$Z = \frac{\bar{X}-\mu}{\sigma/\sqrt{n}}$ \\ \midrule
+
+$N(\mu, \sigma^2)$ & 
+$\mu$ ($\sigma^2$ desconhecida) & 
+$\bar{X} \pm t_{n-1,\alpha/2} \frac{S}{\sqrt{n}}$ & 
+$T = \frac{\bar{X}-\mu}{S/\sqrt{n}}$ \\ \midrule
+
+$N(\mu, \sigma^2)$ & 
+$\sigma^2$ ($\mu$ desconhecida) & 
+$\left[\frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}}, \frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}}\right]$ & 
+$\chi^2 = \frac{(n-1)S^2}{\sigma^2}$ \\ \midrule
+
+$\text{Exp}(\theta)$ & 
+$\theta$ & 
+$\left[\frac{X}{-\log(\alpha/2)}, \frac{X}{-\log(1-\alpha/2)}\right]$ (1 obs.) & 
+$U = X/\theta$ \\ \midrule
+
+$U(0, \theta)$ & 
+$\theta$ & 
+$\left[\frac{X_{(n)}}{(1-\alpha/2)^{1/n}}, \frac{X_{(n)}}{(\alpha/2)^{1/n}}\right]$ & 
+$U = X_{(n)}/\theta$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{4. Relação entre Testes de Hipóteses e Intervalos de Confiança}
+
+\paragraph{Dualidade Fundamental:}
+Existe uma correspondência exata entre testes de hipóteses e intervalos de confiança:
+
+\begin{itemize}
+    \item Se $IC_{1-\alpha}$ é um IC para $\theta$ com coeficiente $1-\alpha$
+    \item Então rejeitamos $H_0: \theta = \theta_0$ ao nível $\alpha$ se e somente se $\theta_0 \notin IC_{1-\alpha}$
+    \item Teste bilateral $\Leftrightarrow$ IC bilateral
+    \item Teste unilateral $\Leftrightarrow$ IC unilateral
+\end{itemize}
+
+\begin{table}[h!]
+\centering
+\caption{Correspondência entre Testes e Intervalos}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Teste} & \textbf{Tipo de IC} & \textbf{Forma do IC} \\ \midrule
+$H_0: \theta = \theta_0$ vs $H_1: \theta > \theta_0$ & Unilateral inferior & $[\theta_L, +\infty)$ \\
+$H_0: \theta = \theta_0$ vs $H_1: \theta < \theta_0$ & Unilateral superior & $(-\infty, \theta_U]$ \\
+$H_0: \theta = \theta_0$ vs $H_1: \theta \neq \theta_0$ & Bilateral & $[\theta_L, \theta_U]$ \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{5. Propriedades Desejáveis de Intervalos de Confiança}
+
+\paragraph{Critérios de Otimalidade:}
+
+\begin{enumerate}
+    \item \textbf{Comprimento Mínimo:} Entre todos os IC de nível $1-\alpha$, preferimos o de menor comprimento esperado
+    \item \textbf{Não Viesado:} $P_\theta[\theta \in IC] \geq 1-\alpha$ para todo $\theta \in \Theta$
+    \item \textbf{Baseado em Estatística Suficiente:} IC ótimos geralmente dependem apenas de estatísticas suficientes
+    \item \textbf{Invariância:} Sob transformações dos dados, o IC se transforma apropriadamente
+\end{enumerate}
+
+\subsection*{6. Estratégias para Construção de Intervalos}
+
+\paragraph{Roteiro Passo a Passo:}
+
+\begin{enumerate}
+    \item \textbf{Identificar:}
+    \begin{itemize}
+        \item Parâmetro de interesse $\theta$
+        \item Distribuição populacional (se conhecida)
+        \item Nível de confiança desejado $1-\alpha$
+        \item Tipo de IC (bilateral ou unilateral)
+    \end{itemize}
+    
+    \item \textbf{Escolher Método:}
+    \begin{itemize}
+        \item Se existe teste UMP $\rightarrow$ use inversão de testes
+        \item Se é família locação/escala $\rightarrow$ use método pivotal
+        \item Se $n$ é grande $\rightarrow$ use aproximação assintótica
+    \end{itemize}
+    
+    \item \textbf{Encontrar Pivô ou Estatística:}
+    \begin{itemize}
+        \item Identifique uma estatística suficiente $T(X)$
+        \item Construa quantidade com distribuição conhecida
+        \item Determine valores críticos/quantis
+    \end{itemize}
+    
+    \item \textbf{Inverter para Obter Limites:}
+    \begin{itemize}
+        \item Isole $\theta$ na desigualdade probabilística
+        \item Obtenha expressões para $T_L(X)$ e $T_U(X)$
+        \item Verifique que $P_\theta[\theta \in IC] = 1-\alpha$
+    \end{itemize}
+    
+    \item \textbf{Calcular e Interpretar:}
+    \begin{itemize}
+        \item Substitua os valores observados
+        \item Calcule o IC numérico
+        \item Interprete no contexto do problema
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{7. Determinação do Tamanho Amostral}
+
+Para obter uma margem de erro $E$ desejada com confiança $1-\alpha$:
+
+\begin{table}[h!]
+\centering
+\caption{Fórmulas para Tamanho Amostral}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{Margem de Erro} & \textbf{Tamanho Amostral} \\ \midrule
+Média ($\sigma^2$ conhecida) & $E = z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$ & $n = \left(\frac{z_{\alpha/2} \sigma}{E}\right)^2$ \\
+Proporção $p$ & $E = z_{\alpha/2} \sqrt{\frac{p(1-p)}{n}}$ & $n = \frac{z_{\alpha/2}^2 p(1-p)}{E^2}$ \\
+ & (usar $p=0.5$ se desconhecido) & (máximo quando $p=0.5$) \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{8. Interpretação Correta vs Incorreta}
+
+\paragraph{Interpretação CORRETA:}
+\begin{itemize}
+    \item ``Estamos 95\% confiantes de que o verdadeiro valor de $\mu$ está entre 10 e 15''
+    \item ``Se repetíssemos este procedimento muitas vezes, cerca de 95\% dos intervalos conteriam o verdadeiro $\mu$''
+    \item ``O intervalo $[10, 15]$ foi construído por um método que captura o verdadeiro parâmetro em 95\% das aplicações''
+\end{itemize}
+
+\paragraph{Interpretação INCORRETA:}
+\begin{itemize}
+    \item [\color{red}$\times$] ``A probabilidade de $\mu$ estar entre 10 e 15 é 95\%'' (parâmetro não é aleatório!)
+    \item [\color{red}$\times$] ``95\% dos valores da população estão entre 10 e 15'' (confunde IC com intervalo de predição)
+    \item [\color{red}$\times$] ``Há 95\% de chance de a amostra estar neste intervalo'' (intervalo não prevê futuras amostras)
+\end{itemize}
+
+\subsection*{9. Checklist de Verificação}
+
+Ao construir e reportar um intervalo de confiança, verifique:
+
+\begin{enumerate}
+    \item[$\square$] O nível de confiança $1-\alpha$ foi especificado claramente?
+    \item[$\square$] As suposições do modelo foram verificadas (normalidade, independência, etc.)?
+    \item[$\square$] O tipo de intervalo (bilateral, unilateral) é apropriado para o problema?
+    \item[$\square$] A estatística pivotal tem realmente distribuição independente de $\theta$?
+    \item[$\square$] Os cálculos dos limites inferior e superior estão corretos?
+    \item[$\square$] O intervalo faz sentido no contexto (valores plausíveis)?
+    \item[$\square$] A interpretação está expressa corretamente (evitando erros comuns)?
+    \item[$\square$] O tamanho amostral é adequado para a margem de erro desejada?
+\end{enumerate}
+
+\subsection*{10. Conexões e Extensões}
+
+\paragraph{Tópicos Avançados (não cobertos em detalhe):}
+\begin{itemize}
+    \item \textbf{Intervalos de Predição:} Para valores futuros (não para parâmetros)
+    \item \textbf{Intervalos de Tolerância:} Contêm uma proporção específica da população
+    \item \textbf{Intervalos Bootstrap:} Métodos computacionais para distribuições complexas
+    \item \textbf{Intervalos Bayesianos:} Interpretação probabilística sobre $\theta$ (requer priori)
+    \item \textbf{Regiões de Confiança:} Generalização para múltiplos parâmetros
+\end{itemize}
+
+\paragraph{Relação com Outras Técnicas:}
+\begin{itemize}
+    \item \textbf{Estimação Pontual $\rightarrow$ IC:} IC complementa estimadores pontuais com medida de precisão
+    \item \textbf{Testes $\leftrightarrow$ IC:} Dualidade permite converter entre métodos
+    \item \textbf{Análise de Regressão:} IC para coeficientes, predições
+    \item \textbf{Análise de Variância:} IC para médias de grupos, contrastes
+\end{itemize}
+
+\subsection*{11. Tabela de Referência Rápida: Quantis Importantes}
+
+\begin{table}[h!]
+\centering
+\caption{Valores Críticos Comuns}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Nível de Confiança} & \textbf{$\alpha$} & \textbf{$\alpha/2$} & \textbf{$z_{\alpha/2}$} & \textbf{$t_{n-1,\alpha/2}$ ($n=10$)} \\ \midrule
+90\% & 0.10 & 0.05 & 1.645 & 1.833 \\
+95\% & 0.05 & 0.025 & 1.960 & 2.262 \\
+99\% & 0.01 & 0.005 & 2.576 & 3.250 \\
+99.9\% & 0.001 & 0.0005 & 3.291 & 4.781 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{12. Conclusão}
+
+O Capítulo 5 apresentou uma teoria completa e prática para construção e interpretação de intervalos de confiança. Os principais aprendizados são:
+
+\begin{itemize}
+    \item Intervalos de confiança quantificam a incerteza em estimativas estatísticas
+    \item Existem métodos sistemáticos (inversão de testes, pivotal) para construir IC
+    \item A interpretação frequentista é fundamental: o intervalo é aleatório, não o parâmetro
+    \item IC ótimos geralmente dependem de estatísticas suficientes
+    \item Existe dualidade profunda entre testes e intervalos de confiança
+    \item A comunicação correta de resultados requer compreensão conceitual sólida
+\end{itemize}
+
+\vspace{1cm}
+
+\noindent \textbf{Recomendação de Estudo:} Para dominar este capítulo, é essencial:
+\begin{enumerate}
+    \item Praticar a derivação de IC para diferentes distribuições
+    \item Compreender a interpretação frequentista e evitar interpretações incorretas
+    \item Explorar a conexão entre testes e IC através de exemplos
+    \item Calcular IC para dados reais e interpretar no contexto
+    \item Usar simulações para visualizar o conceito de coeficiente de confiança
+\end{enumerate}
+
+\end{document}
+

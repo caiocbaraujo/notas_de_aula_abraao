@@ -1,0 +1,1027 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{array}
+\usepackage{booktabs}
+
+% Título e informações do documento
+\title{Material Auxiliar - Unidade 5\\
+\large Intervalos de Confiança e Testes de Hipóteses}
+\author{Curso de Inferência Estatística}
+\date{2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================
+% PARTE I: INTERVALOS DE CONFIANÇA
+% ============================================
+
+\part{Intervalos de Confiança}
+
+\section{Conceitos Fundamentais}
+
+Vamos começar com o importante conceito de \textit{probabilidade de cobertura}.
+
+\subsection{Definição de Probabilidade de Cobertura}
+
+Sejam $T_L(\hat{X})$ e $T_U(\hat{X})$ duas estatísticas baseadas numa a.a. $\hat{X} = (X_1, \ldots, X_n)$, a probabilidade de cobertura do intervalo aleatório
+\begin{equation}
+J = \left[ T_L(\hat{X}), T_U(\hat{X}) \right]
+\end{equation}
+para o parâmetro desconhecido $\theta \in \Theta \subset \mathbb{R}$ é dada por:
+\begin{equation}
+P_{\theta} \left( \theta \in \left[ T_L(\hat{X}), T_U(\hat{X}) \right] \right)
+\end{equation}
+
+Na verdade, o \textit{coeficiente de confiança} de $J$ é dado por:
+\begin{equation}
+\inf_{\theta \in \Theta} \left\{ P_{\theta} \left( \theta \in \left[ T_L(\hat{X}), T_U(\hat{X}) \right] \right) \right\}
+\end{equation}
+
+Na maioria das aplicações, a probabilidade de cobertura não depende do parâmetro e será equivalente ao coeficiente de confiança.
+
+\textbf{Interpretação:} A probabilidade de cobertura representa a probabilidade de que o intervalo aleatório contenha o verdadeiro valor do parâmetro $\theta$. O coeficiente de confiança é o menor valor dessa probabilidade sobre todo o espaço paramétrico, garantindo um nível mínimo de confiança.
+
+\subsection{Exemplo 1: Cálculo de Probabilidades de Cobertura}
+
+\textbf{Exemplo 1:} Sejam 
+\[
+J_1 = (x_1 - 1,96; \; x_1 + 1,96) \quad \text{e} \quad J_2 = \left( \bar{x} - \frac{1,96}{\sqrt{2}}, \; \bar{x} + \frac{1,96}{\sqrt{2}} \right)
+\]
+dois intervalos aleatórios tais que \( x_1, x_2 \sim N(\mu, 1) \) e 
+\[
+\bar{x} = \frac{x_1 + x_2}{2}.
+\]
+Encontre as probabilidades de cobertura de \( J_1 \) e \( J_2 \).
+
+\textbf{Solução:} Temos que
+\begin{align*}
+P_\mu(\mu \in J_1) &= P_\mu\left( \mu \in (x_1 - 1,96; \; x_1 + 1,96) \right) \\
+&= P_\mu\left( x_1 - 1,96 < \mu < x_1 + 1,96 \right) \\
+&= P_\mu\left( [ \; (x_1 - \mu) < 1,96 \; ] \; \cap \; [ \; (x_1 - \mu) > -1,96 \; ] \right) \\
+&= P_\mu\left( |x_1 - \mu| < 1,96 \right) \\
+&= P_\mu\left( |Z| < 1,96 \right), \quad Z = x_1 - \mu \sim N(0,1) \\
+&= 95\%.
+\end{align*}
+
+\textbf{Explicação:} Note que $x_1 - \mu \sim N(0,1)$ porque $x_1 \sim N(\mu, 1)$. A probabilidade $P(|Z| < 1,96)$ corresponde à área central da distribuição normal padrão, que é exatamente 95\%.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-4,0) -- (4,0) node[right] {};
+\draw[domain=-3.5:3.5,smooth,variable=\x,black] plot ({\x},{2.5*exp(-\x*\x/2)});
+\draw[dashed] (-1.96,0) -- (-1.96,0.6);
+\draw[dashed] (1.96,0) -- (1.96,0.6);
+\draw[fill=gray!30] (-3.5,0) -- plot[domain=-3.5:-1.96] ({\x},{2.5*exp(-\x*\x/2)}) -- (-1.96,0) -- cycle;
+\draw[fill=gray!30] (1.96,0) -- plot[domain=1.96:3.5] ({\x},{2.5*exp(-\x*\x/2)}) -- (3.5,0) -- cycle;
+\node at (0,1.5) {95\%};
+\node at (-2.8,0.3) {$\alpha/2 = 2,5\%$};
+\node at (2.8,0.3) {$\alpha/2 = 2,5\%$};
+\node at (-1.96,-0.2) {$-1,96 = z_{\alpha/2}$};
+\node at (1.96,-0.2) {$1,96 = z_{\alpha/2}$};
+\end{tikzpicture}
+\end{center}
+
+Da mesma forma, para $J_2$:
+\[
+P_\mu(\mu \in J_2) = P_\mu\left( \mu \in \left( \bar{x} - \frac{1,96}{\sqrt{2}}, \; \bar{x} + \frac{1,96}{\sqrt{2}} \right) \right)
+\]
+
+Note que $\bar{x} = \frac{x_1 + x_2}{2} \sim N\left(\mu, \frac{1}{2}\right)$, pois a variância da média de duas observações independentes é $\frac{\sigma^2}{n} = \frac{1}{2}$. Portanto,
+\[
+\frac{\bar{x} - \mu}{\sqrt{1/2}} = \sqrt{2}(\bar{x} - \mu) \sim N(0,1)
+\]
+
+Assim,
+\[
+P_\mu(\mu \in J_2) = P_\mu\left( |\sqrt{2}(\bar{x} - \mu)| < 1,96 \right) = P(|Z| < 1,96) = 95\%
+\]
+
+\textbf{Observação importante:} Ambos os intervalos têm a mesma probabilidade de cobertura (95\%), mas $J_2$ é mais eficiente pois utiliza informação de ambas as observações, resultando em um intervalo mais estreito quando comparado a $J_1$ que usa apenas $x_1$.
+
+\section{Abordagem por Inversão de Teste de Hipótese}
+
+Para construção de intervalos de confiança, podem-se utilizar duas abordagens: (i) inversão do procedimento de teste de hipótese e (ii) usando quantidade pivotal.
+
+\subsection{Inversão de um Procedimento de Teste}
+
+Em teste de hipótese, a região de não rejeição de $H_0$ foi denotada como
+
+\begin{equation}
+R_C^C = 
+\begin{cases}
+\{ x \in \mathcal{X}^n; \ T(x|\theta) \leq k \}^C & \text{para } H_1: \theta > \theta_0, \\
+\{ x \in \mathcal{X}^n; \ T(x|\theta) \geq k \}^C & \text{para } H_1: \theta < \theta_0, \\
+\text{(como uma solução plausível)} \\
+\{ x \in \mathcal{X}^n; \ |T(x|\theta)| \leq k \}^C & \text{para } H_1: \theta \neq \theta_0.
+\end{cases}
+\end{equation}
+
+O intervalo de confiança é bastante relacionado com $R_C$. A ideia central é que, se um valor $\theta_0$ não é rejeitado pelo teste, então $\theta_0$ pertence ao intervalo de confiança. Formalmente, o intervalo de confiança é o conjunto de todos os valores de $\theta$ que não seriam rejeitados pelo teste.
+
+\subsection{Exemplo 2: Intervalo Unilateral para Média Normal}
+
+\textbf{Exemplo 2:} Seja $X_1, \ldots, X_n$ uma a.a. de $X_i \sim N(\mu, \sigma^2)$ para média desconhecida e $\sigma > 0$ conhecida. Considere que $X$ obedece tanto $H_0: \mu = \mu_0$ quanto $H_1: \mu > \mu_0$. Encontre o estimador intervalar para $\mu$ de confiança $1 - \alpha$ para $\alpha \in (0,1)$ pré-fixado.
+
+\textbf{Solução:} Já foi discutido que o teste UMP para $H_0 < H_1$ de nível $\alpha$ tem função crítica:
+\begin{equation}
+\Psi(x) = 
+\begin{cases}
+1, & \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} > z_\alpha, \\
+0, & \text{c.c.}
+\end{cases}
+\end{equation}
+em que $\bar{X}_n = n^{-1} \sum_{i=1}^n x_i$ e $x = (x_1, \ldots, x_n)$ é uma a.a. A região de não rejeição é dada por:
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \leq z_\alpha \right\}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-3,0) -- (3,0);
+\draw[->] (0,0) -- (0,1.5);
+\draw[domain=-2.5:2.5,smooth,variable=\x] plot ({\x},{1.2*exp(-\x*\x/2)});
+\fill[pattern=north east lines] (1.2,0) -- (1.2,0.4) -- (2.5,0.4) -- (2.5,0) -- cycle;
+\node at (2.2,0.5) {$\alpha$};
+\node at (1.2,-0.2) {$z_\alpha$};
+\end{tikzpicture}
+\end{center}
+
+Note que:
+\begin{equation}
+P_{\mu_0} \left( \sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \leq z_\alpha \right) = 1 - \alpha
+\end{equation}
+
+Isolando $\mu_0$ na desigualdade, obtemos:
+\begin{equation}
+\sqrt{n} \frac{\bar{X}_n - \mu_0}{\sigma} \leq z_\alpha \quad \Leftrightarrow \quad \bar{X}_n - \mu_0 \leq z_\alpha \frac{\sigma}{\sqrt{n}} \quad \Leftrightarrow \quad \mu_0 \geq \bar{X}_n - z_\alpha \frac{\sigma}{\sqrt{n}}
+\end{equation}
+
+Portanto,
+\begin{equation}
+P_{\mu_0} \left( \bar{X}_n - z_\alpha \frac{\sigma}{\sqrt{n}} \leq \mu_0 \right) = 1 - \alpha
+\end{equation}
+
+Daí,
+\begin{equation}
+P_{\mu} \left( \mu \geq \bar{X}_n - z_\alpha \frac{\sigma}{\sqrt{n}} \right) = 1 - \alpha, \quad \forall \mu \in \mathbb{R}.
+\end{equation}
+
+Isto é,
+\begin{equation}
+\text{i.c.}_{1-\alpha}(\mu) = \left( \bar{X}_n - z_\alpha \frac{\sigma}{\sqrt{n}}, \infty \right).
+\end{equation}
+
+\textbf{Interpretação:} Este é um intervalo de confiança unilateral inferior. Com probabilidade $1-\alpha$, o verdadeiro valor de $\mu$ é maior ou igual ao limite inferior do intervalo. Note que o limite superior é $+\infty$, o que é característico de intervalos unilaterais.
+
+\subsection{Exemplo 3: Intervalo para Parâmetro de Distribuição Exponencial}
+
+\textbf{Exemplo 3:} Sejam $X_1, \ldots, X_n$ uma a.c. de $X \sim \text{Exp}(\theta)$, para $\theta > 0$ desconhecido. Considere que se deseja testar $H_0: \theta = \theta_0$ vs $H_1: \theta > \theta_0$. Encontrar o estimador relacionado para o intervalo de confiança de $1 - \alpha$.
+
+\textbf{Solução:} Já foi discutido que o teste UMP para $H_0$ e $H_1$ de nível $\alpha$ tem função crítica
+
+\begin{equation}
+\psi(x) = 
+\begin{cases}
+1, & \frac{2}{\theta_0} \sum_{i=1}^n x_i > \chi^2_{2n,\alpha} \\
+0, & \frac{2}{\theta_0} \sum_{i=1}^n x_i < \chi^2_{2n,\alpha}
+\end{cases}
+\end{equation}
+
+A região de não rejeição é dada por: para $\alpha \in \mathbb{R}^n$,
+
+\begin{equation}
+R_c = \left\{ x \in \mathbb{R}^n : \frac{2}{\theta_0} \sum_{i=1}^n x_i < \chi^2_{2n,\alpha} \right\}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[->] (0,0) -- (6,0);
+    \draw[->] (0,0) -- (0,3);
+    \draw[thick,domain=0:5,smooth] plot(\x,{2.5*exp(-(\x-2.5)^2/2)});
+    \draw[dashed] (4.5,0) -- (4.5,2.0);
+    \fill[pattern=north east lines] (4.5,0) -- (4.5,1.2) -- (5,0) -- cycle;
+    \node at (4.5,-0.3) {$\chi^2_{2n,\alpha}$};
+    \node at (5.3,1.2) {$\alpha$};
+\end{tikzpicture}
+\end{center}
+
+Note que:
+\begin{equation}
+    P_{\theta} \left( \frac{2}{\theta} \sum_{i=1}^n X_i < \chi^2_{2n,\alpha} \right) = 1 - \alpha
+\end{equation}
+
+\textbf{Justificativa:} A estatística $\frac{2}{\theta} \sum_{i=1}^n X_i$ segue distribuição qui-quadrado com $2n$ graus de liberdade quando $X_i \sim \text{Exp}(\theta)$. Isso decorre do fato de que $2X_i/\theta \sim \chi^2_2$ e a soma de $n$ variáveis qui-quadrado independentes com 2 graus de liberdade cada resulta em $\chi^2_{2n}$.
+
+Manipulando a desigualdade:
+\begin{equation}
+    \frac{2}{\theta} \sum_{i=1}^n X_i < \chi^2_{2n,\alpha} \quad \Leftrightarrow \quad \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n,\alpha}} < \theta
+\end{equation}
+
+Portanto,
+\begin{equation}
+    P_{\theta} \left( \theta > \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n,\alpha}} \right) = 1 - \alpha, \quad \forall \theta \in \mathbb{R}^+.
+\end{equation}
+
+Isto é:
+\begin{equation}
+    IC_{1-\alpha}(\theta) = \left( \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n,\alpha}}, \infty \right).
+\end{equation}
+
+\textbf{Observação:} Se o contraste fosse $H_0: \theta = \theta_0$ e $H_1: \theta < \theta_0$, teríamos como região de não rejeição:
+\begin{equation}
+    \mathcal{R} = \left\{ x \in \mathbb{R}^n : \frac{2}{\theta_0} \sum_{i=1}^n x_i > \chi^2_{2n,1-\alpha} \right\}
+\end{equation}
+
+E o intervalo de confiança seria:
+\begin{equation}
+    P_{\theta} \left( \theta < \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n,1-\alpha}} \right) = 1 - \alpha
+\end{equation}
+
+\begin{equation}
+    IC_{1-\alpha}(\theta) = \left( 0, \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n,1-\alpha}} \right).
+\end{equation}
+
+\section{Abordagem por Quantidade Pivotal}
+
+\subsection{Definição de Pivô}
+
+\textbf{Definição 1: (Pivô)} Seja $T(X)$ uma estatística suficiente (mínimal) para $\theta$. Um pivô é uma v.a. $U$ que dependa de $T$ e $\theta$ cuja distribuição não dependa de $\theta$.
+
+\textbf{Observação:} No caso da família de locação em $a(\theta)$, a distribuição $\{T - a(\theta)\}$ não depende de $\theta$. No caso de família de escala em $b(\theta)$, a distribuição $\left\{\frac{T}{b(\theta)}\right\}$ não depende de $\theta$. No caso de família de locação e escala em $[a(\theta), b(\theta)]$, a distribuição de $\left\{\frac{T - a(\theta)}{b(\theta)}\right\}$ não depende de $\theta$.
+
+\textbf{Interpretação:} A ideia de um pivô é encontrar uma transformação da estatística e do parâmetro que tenha uma distribuição conhecida e que não dependa do parâmetro desconhecido. Isso permite construir intervalos de confiança de forma direta.
+
+\subsection{Exemplo 4: Intervalo para Parâmetro de Distribuição Exponencial (Método Pivotal)}
+
+\textbf{Exemplo 4:} Seja $X \sim \text{Exp}(\theta)$ com densidade
+\begin{equation}
+    f(x \mid \theta) = \frac{1}{\theta} e^{-x/\theta} I_{(0,\infty)}(x).
+\end{equation}
+
+Encontrar um intervalo de confiança $1 - \alpha$ bilateral para $\theta$.
+
+\textbf{Solução:} Note que $U := \frac{X}{\theta}$ tem densidade
+\begin{equation}
+    f_U(u) = \frac{d F_U(u)}{du} = \frac{d \mathbb{P}(X \leq u\theta)}{du} = \theta \cdot \frac{1}{\theta} e^{-u} I_{(0,\infty)}(u).
+\end{equation}
+
+Logo:
+\begin{equation}
+    f_U(u) = e^{-u} I_{(0,\infty)}(u).
+\end{equation}
+
+Portanto $U$ pode ser entendido como um pivô, pois sua distribuição (exponencial padrão com parâmetro 1) não depende de $\theta$.
+
+Note que é possível definir $a,b \in \mathbb{R}$ com $a < b$ tais que
+\begin{equation}
+    \mathbb{P}(U < a) = \mathbb{P}(U > b) = \frac{\alpha}{2}.
+\end{equation}
+
+E, portanto:
+\begin{equation}
+    \mathbb{P}(a < U < b) = 1 - \alpha.
+\end{equation}
+
+Com $\alpha \in (0,1)$ fixado:
+
+\begin{equation}
+    \int_{0}^{a} e^{-u} \, du = 1 - e^{-a} = \frac{\alpha}{2} \quad \Rightarrow \quad e^{-a} = 1 - \frac{\alpha}{2} \quad \Rightarrow \quad a = -\log\left(1 - \frac{\alpha}{2}\right).
+\end{equation}
+
+\begin{equation}
+    \int_{b}^{\infty} e^{-u} \, du = e^{-b} = \frac{\alpha}{2} \quad \Rightarrow \quad b = -\log\left(\frac{\alpha}{2}\right).
+\end{equation}
+
+Dado:
+\begin{equation}
+    P_{\theta}(a < U < b) = P_{\theta}\left(a < \frac{X}{\theta} < b\right) = P_{\theta}\left(\frac{1}{b} < \frac{\theta}{X} < \frac{1}{a}\right) = P_{\theta}\left(\frac{X}{b} < \theta < \frac{X}{a}\right) = 1 - \alpha
+\end{equation}
+
+Isto é:
+\begin{equation}
+    ic_{1-\alpha}(\theta) = \left( \frac{X}{b}, \frac{X}{a} \right) = \left( \frac{X}{-\log(\alpha/2)}, \frac{X}{-\log(1-\alpha/2)} \right)
+\end{equation}
+
+\textbf{Observação:} Note que $a < b$ implica $\frac{1}{b} < \frac{1}{a}$, garantindo que o intervalo está bem definido.
+
+\subsection{Exemplo 5: Intervalo para Parâmetro de Distribuição Uniforme}
+
+\textbf{Exemplo 5:} Sejam $X_1, \ldots, X_n$ uma a.g. de $X \sim U(0, \theta)$ para $\theta$ desconhecido. Encontre o estimador intervalo bilateral para $\theta$ com confiança de $1 - \alpha$.
+
+\textbf{Solução:} A estatística $T(X) = X_{\max}$ é suficiente mínima para $\theta$ com densidade
+\begin{equation}
+    f_T(t) = \frac{dF_T(t)}{dt} = \frac{d\left(F_X(t)\right)^n}{dt} = n \left( \frac{t}{\theta} \right)^{n-1} \frac{1}{\theta}
+\end{equation}
+
+Logo:
+\begin{equation}
+    f_T(t) = \frac{n}{\theta^n} t^{n-1} \quad , \quad t \in (0, \theta)
+\end{equation}
+
+Note que $U = \frac{T}{\theta}$ tem densidade
+\begin{equation}
+    f_U(u) = \frac{dF_U(u)}{du} = \frac{dP\left( \frac{T}{\theta} \leq u \right)}{du} = \theta \cdot f_T(u\theta) = n u^{n-1}
+\end{equation}
+
+\[
+f_U(u) = n u^{n-1} \mathbb{I}_{(0,1)}(u)
+\]
+
+que independe de $\theta$, portanto $U$ é um pivô. Pode-se determinar $a$ e $b$ com $0 < a < b < 1$ tais que
+
+\[
+P(U < a) = P(U > b) = \frac{\alpha}{2}
+\]
+
+e, portanto,
+
+\[
+P(a < U < b) = 1 - \alpha
+\]
+
+Temos que:
+
+\[
+P(U < a) = \int_{0}^{a} n u^{n-1} \, du = u^n \bigg|_{0}^{a} = a^n = \frac{\alpha}{2} \quad \Rightarrow \quad a = \left( \frac{\alpha}{2} \right)^{1/n}
+\]
+
+e
+
+\[
+P(U > b) = \int_{b}^{1} n u^{n-1} \, du = u^n \bigg|_{b}^{1} = 1 - b^n = \frac{\alpha}{2} \quad \Rightarrow \quad b = \left( 1 - \frac{\alpha}{2} \right)^{1/n}
+\]
+
+Note que
+
+\[
+P(a < U < b) = 1 - \alpha \quad \Rightarrow \quad P\left( a < \frac{T}{\theta} < b \right) = 1 - \alpha
+\]
+
+\[
+\Rightarrow \quad P\left( \frac{1}{b} < \frac{\theta}{T} < \frac{1}{a} \right) = 1 - \alpha
+\]
+
+\[
+\Rightarrow \quad P\left( \frac{T}{b} < \theta < \frac{T}{a} \right) = 1 - \alpha
+\]
+
+e, portanto,
+
+\[
+IC_{1-\alpha}(\theta) = \left( \frac{T}{b}, \frac{T}{a} \right) = \left( \frac{X_{\max}}{\left(1-\alpha/2\right)^{1/n}}, \frac{X_{\max}}{\left(\alpha/2\right)^{1/n}} \right)
+\]
+
+\textbf{Observação:} Note que como $a < b$, temos $\frac{1}{b} < \frac{1}{a}$, garantindo que o limite inferior é menor que o limite superior.
+
+\section{Intervalos de Confiança para Distribuição Normal - Uma Amostra}
+
+Nesta seção, apresentamos os intervalos de confiança mais comuns para parâmetros de uma população normal, considerando diferentes cenários sobre o conhecimento dos parâmetros.
+
+\subsection{Exemplo 6: Média com Variância Conhecida}
+
+\textbf{Exemplo 6:} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com média desconhecida e $\sigma^2$ conhecido. Encontrar o intervalo de confiança $1-\alpha$ bilateral para $\mu$.
+
+\textbf{Solução:} De discussão anterior $T = \overline{X}$ é uma estatística suficiente mínima para $\mu$ e
+\begin{equation}
+T \sim N\left(\mu, \frac{\sigma^2}{n}\right).
+\end{equation}
+
+Aqui, $X$'s pertencem à família de locação. Note que
+\begin{equation}
+U = \sqrt{n} \frac{T - \mu}{\sigma} \sim N(0,1)
+\end{equation}
+é um pivô. Para $z_{\alpha/2} > 0$ tal que $P(U > z_{\alpha/2}) = \frac{\alpha}{2}$, temos que:
+\begin{equation}
+P(-z_{\alpha/2} < U < z_{\alpha/2}) = 1 - \alpha \quad \Rightarrow \quad P\left(-z_{\alpha/2} < \sqrt{n} \frac{\overline{X} - \mu}{\sigma} < z_{\alpha/2}\right) = 1 - \alpha
+\end{equation}
+ou seja,
+\begin{equation}
+P\left(\overline{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} < \mu < \overline{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha.
+\end{equation}
+
+Portanto,
+\begin{equation}
+IC_{1-\alpha}(\mu) = \left( \overline{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \ \overline{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right).
+\end{equation}
+
+\textbf{Interpretação:} Este é o intervalo de confiança clássico para a média de uma população normal quando a variância é conhecida. O pivô utilizado é a padronização da média amostral, que segue distribuição normal padrão.
+
+\subsection{Exemplo 7: Média com Variância Desconhecida}
+
+\textbf{Exemplo 7:} Sejam $x_1, \ldots, x_n$ uma a.a. de X $\sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma \in \mathbb{R}^+$ desconhecido. Encontre o intervalo bilateral de confiança $1 - \alpha$ para $\mu$. 
+
+\textbf{Solução:} De discussão anterior, $(\overline{X}_n, S_n)$ é uma estatística conjuntamente suficiente mínima para $(\mu, \sigma)$. Aqui, $X$'s pertencem à família de locação e escala.
+
+Considere
+\begin{equation}
+U = \sqrt{n} \left( \frac{\overline{X}_n - \mu}{S_n} \right) = \frac{\frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}}}{\sqrt{\frac{n-1}{n-1} \cdot \frac{S_n^2}{\sigma^2}}} \sim t_{n-1},
+\end{equation}
+que é um pivô. 
+
+\textbf{Justificativa:} O numerador $\frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim N(0,1)$ e o denominador $\sqrt{\frac{S_n^2}{\sigma^2}} = \sqrt{\frac{(n-1)S_n^2/\sigma^2}{n-1}}$, onde $(n-1)S_n^2/\sigma^2 \sim \chi^2_{n-1}$. A razão entre uma normal padrão e a raiz quadrada de uma qui-quadrado dividida por seus graus de liberdade segue distribuição $t$ de Student.
+
+Para $t_{n-1, \alpha/2} > 0$ tal que
+\begin{equation}
+P\left( U > t_{n-1, \alpha/2} \right) = \frac{\alpha}{2},
+\end{equation}
+temos que
+\begin{equation}
+P\left( -t_{n-1, \alpha/2} < U < t_{n-1, \alpha/2} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+\begin{equation}
+P\left( -t_{n-1, \alpha/2} < \sqrt{n} \frac{\overline{X}_n - \mu}{S_n} < t_{n-1, \alpha/2} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+\begin{equation}
+P\left( \overline{X}_n - t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} < \mu < \overline{X}_n + t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} \right) = 1 - \alpha
+\end{equation}
+
+\[
+\therefore IC_{1-\alpha}(\mu) = \left\{ \overline{X}_n \pm t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} \right\}
+\]
+
+\textbf{Observação:} Quando a variância é desconhecida, precisamos usar a distribuição $t$ de Student em vez da normal, pois a estimativa $S_n$ introduz incerteza adicional. A distribuição $t$ tem caudas mais pesadas que a normal, resultando em intervalos ligeiramente mais largos.
+
+\subsection{Exemplo 8: Variância e Desvio Padrão}
+
+\textbf{Exemplo 8:} Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ e $\sigma \in \mathbb{R}_+$ desconhecidos. Encontre o intervalo de confiança $1 - \alpha$ para $\sigma$.
+
+\textbf{Solução:} Note que
+\begin{equation}
+    U = \frac{(n-1) S_n^2}{\sigma^2} \sim \chi^2_{n-1}.
+\end{equation}
+
+\textbf{Justificativa:} A estatística $(n-1)S_n^2/\sigma^2 = \sum_{i=1}^n (X_i - \overline{X})^2/\sigma^2$ segue distribuição qui-quadrado com $n-1$ graus de liberdade. Isso decorre do fato de que, embora tenhamos $n$ desvios $(X_i - \overline{X})$, eles satisfazem a restrição $\sum_{i=1}^n (X_i - \overline{X}) = 0$, resultando em $n-1$ graus de liberdade.
+
+Sejam $\chi^2_{n-1, \alpha/2}$ e $\chi^2_{n-1, 1 - \alpha/2}$ tais que
+\begin{equation}
+    P\left( U < \chi^2_{n-1, \alpha/2} \right) = \frac{\alpha}{2}
+    \quad \text{e} \quad
+    P\left( U > \chi^2_{n-1, 1 - \alpha/2} \right) = \frac{\alpha}{2}.
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[->] (-0.5,0) -- (6.5,0) node[right] {};
+    \draw[domain=0.5:6, smooth, variable=\x] plot ({\x}, {2*exp(-(\x-3.25)^2/2)});
+    \draw[dashed] (1.2,0) -- (1.2,1.2);
+    \draw[dashed] (5.3,0) -- (5.3,1.2);
+    \node at (1.2,-0.3) {$\chi^2_{n-1, \alpha/2}$};
+    \node at (5.3,-0.3) {$\chi^2_{n-1, 1-\alpha/2}$};
+    \node at (3.25,1.8) {$1 - \alpha$};
+    \node at (0.8,0.8) {$\alpha/2$};
+    \node at (5.9,0.8) {$\alpha/2$};
+\end{tikzpicture}
+\end{center}
+
+Então,
+\begin{equation}
+    P\left( \chi^2_{n-1, \alpha/2} < U < \chi^2_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
+\end{equation}
+\begin{equation}
+    P\left( \chi^2_{n-1, \alpha/2} < \frac{(n-1) S_n^2}{\sigma^2} < \chi^2_{n-1, 1 - \alpha/2} \right) = 1 - \alpha
+\end{equation}
+
+Invertendo as desigualdades (lembre-se que ao inverter, as desigualdades se invertem):
+\begin{equation}
+    P\left( \frac{(n-1) S_n^2}{\chi^2_{n-1, 1 - \alpha/2}} < \sigma^2 < \frac{(n-1) S_n^2}{\chi^2_{n-1, \alpha/2}} \right) = 1 - \alpha
+\end{equation}
+
+Aplicando a raiz quadrada (função crescente, preserva desigualdades):
+\begin{equation}
+    IC_{1-\alpha}(\sigma) = \left[ \sqrt{\frac{(n-1) S_n^2}{\chi^2_{n-1, 1 - \alpha/2}}}, \sqrt{\frac{(n-1) S_n^2}{\chi^2_{n-1, \alpha/2}}} \right].
+\end{equation}
+
+\textbf{Observação:} Note que a distribuição qui-quadrado não é simétrica, então os quantis $\chi^2_{n-1, \alpha/2}$ e $\chi^2_{n-1, 1-\alpha/2}$ não são simétricos em torno da média. Além disso, o intervalo para $\sigma^2$ pode ser obtido diretamente sem aplicar a raiz quadrada.
+
+\subsection{Tabela Comparativa: Intervalos para População Normal - Uma Amostra}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+Parâmetro & Condições & Intervalo de Confiança $(1-\alpha)$ \\
+\midrule
+$\mu$ & $\sigma^2$ conhecido & $\left( \overline{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right)$ \\
+$\mu$ & $\sigma^2$ desconhecido & $\left( \overline{X} \pm t_{n-1, \alpha/2} \frac{S_n}{\sqrt{n}} \right)$ \\
+$\sigma^2$ & $\mu$ desconhecido & $\left( \frac{(n-1)S_n^2}{\chi^2_{n-1, 1-\alpha/2}}, \frac{(n-1)S_n^2}{\chi^2_{n-1, \alpha/2}} \right)$ \\
+$\sigma$ & $\mu$ desconhecido & $\left[ \sqrt{\frac{(n-1)S_n^2}{\chi^2_{n-1, 1-\alpha/2}}}, \sqrt{\frac{(n-1)S_n^2}{\chi^2_{n-1, \alpha/2}}} \right]$ \\
+\bottomrule
+\end{tabular}
+\caption{Resumo dos intervalos de confiança para uma amostra de população normal}
+\end{table}
+
+\section{Intervalos de Confiança para Duas Amostras}
+
+Nesta seção, consideramos problemas de inferência comparando parâmetros de duas populações normais independentes.
+
+\subsection{Abordagem Geral para Duas Amostras}
+
+Focaremos na abordagem da quantidade pivotal. Para uma função paramétrica diferenciável $K(\theta)$ para $\theta \in \Theta \subset \mathbb{R}^p$, assuma que temos um estimador $\hat{K}(\hat{\theta})$ que é função de uma estatística suficiente (mínima) para $\theta$. 
+
+Frequentemente, a distribuição de
+\begin{equation}
+    U = \frac{\hat{K}(\theta) - K(\theta)}{\hat{\gamma}}
+\end{equation}
+não dependerá de $\theta$, $\forall \theta \in \Theta$, para algum $\gamma > 0$.
+
+Se $\sigma$ é conhecido, podemos obter $a, b$ tais que
+\begin{equation}
+P_{\theta} \left( a < \frac{\hat{\kappa}(\theta) - \kappa(\theta)}{\sigma} < b \right) = 1 - \alpha
+\end{equation}
+
+Desta última identidade, obtém-se o intervalo de confiança $1 - \alpha$ para $\kappa(\theta)$.
+
+Para $\sigma$ desconhecido:
+\begin{equation}
+P_{\theta} \left( a < \frac{\hat{\kappa}(\theta) - \kappa(\theta)}{\hat{\sigma}} < b \right) = 1 - \alpha
+\end{equation}
+
+Desta identidade, obtém-se o intervalo de confiança.
+
+Os resultados anteriores são locação. Quando a inferência é sobre o parâmetro de escala, costuma-se utilizar o pivô
+\begin{equation}
+U = \frac{\hat{\kappa}(\theta)}{\kappa(\theta)}
+\end{equation}
+cuja distribuição geralmente independe de $\theta$. Para este caso, usa-se
+\begin{equation}
+P_{\theta} \left( a < \frac{\hat{\kappa}(\theta)}{\kappa(\theta)} < b \right) = 1 - \alpha
+\end{equation}
+
+\subsection{Exemplo 9: Diferença de Médias (Variâncias Iguais)}
+
+\textbf{Exemplo 9:} Suponha $x_{i1}, \ldots, x_{in_i}$ para $i=1,2$ duas amostras aleatórias de $X_i \sim N(\mu_i, \sigma^2)$ e independentes entre elas $X_1 \perp X_2$. Vamos assumir que $\theta = (\mu_1, \mu_2, \sigma) \in \mathbb{R}^2 \times \mathbb{R}^+$ é desconhecido, encontrar o intervalo bilateral com confiança $1-\alpha$ para $u(\theta) = \mu_1 - \mu_2$.
+
+\textbf{Solução:} Pelo teorema da suficiência,
+\begin{equation}
+T_2 = \left\{ \frac{1}{n_1} \sum_{i=1}^{n_1} x_{1i}, \frac{1}{n_2} \sum_{i=1}^{n_2} x_{2i}, \frac{\sum_{i=1}^{n_1} (x_{1i} - \bar{x}_1)^2 + \sum_{i=1}^{n_2} (x_{2i} - \bar{x}_2)^2}{n_1 + n_2 - 2} \right\}
+\end{equation}
+
+é conjuntamente suficiente para $\theta = (\mu_1, \mu_2, \sigma^2)$.
+
+O termo $S_p^2$ é chamado de variância amostral conjunta (pooled variance) e pode ser reescrito como:
+\begin{equation}
+S_1^2 = (n_1 - 1)^{-1} \sum_{i=1}^{n_1} (x_{1i} - \bar{x}_1)^2, \quad S_2^2 = (n_2 - 1)^{-1} \sum_{i=1}^{n_2} (x_{2i} - \bar{x}_2)^2
+\end{equation}
+
+\begin{equation}
+S_p^2 = (n_1 + n_2 - 2)^{-1} \left[ (n_1 - 1) S_1^2 + (n_2 - 1) S_2^2 \right]
+\end{equation}
+
+\textbf{Justificativa da variância conjunta:} Como assumimos que $\sigma_1^2 = \sigma_2^2 = \sigma^2$, combinamos as informações de ambas as amostras para estimar a variância comum. A variância conjunta é uma média ponderada das variâncias amostrais, onde os pesos são os graus de liberdade de cada amostra.
+
+Note que como $(n_1 - 1) S_1^2 / \sigma^2 \sim \chi^2_{n_1 - 1}$ e $(n_2 - 1) S_2^2 / \sigma^2 \sim \chi^2_{n_2 - 1}$ são independentes, então
+\begin{equation}
+(n_1 + n_2 - 2) S_p^2 / \sigma^2 \sim \chi^2_{n_1 + n_2 - 2}
+\end{equation}
+
+Daí, vale-se:
+\begin{equation}
+U = \frac{\bar{x}_1 - \bar{x}_2 - (\mu_1 - \mu_2)}{\sigma \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \cdot \sqrt{\frac{n_1 + n_2 - 2}{S_p^2 / \sigma^2}} = \frac{\bar{x}_1 - \bar{x}_2 - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
+\end{equation}
+
+\textbf{Justificativa:} O numerador $\frac{\bar{x}_1 - \bar{x}_2 - (\mu_1 - \mu_2)}{\sigma \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim N(0,1)$ porque $\bar{x}_1 - \bar{x}_2 \sim N(\mu_1 - \mu_2, \sigma^2(\frac{1}{n_1} + \frac{1}{n_2}))$. O denominador é a raiz quadrada de uma qui-quadrado dividida por seus graus de liberdade, resultando em uma distribuição $t$.
+
+Para $\nu = n_1 + n_2 - 2$ e $t_{\nu, \alpha/2} > 0$ tal que
+\begin{equation}
+    P(U > t_{\nu, \alpha/2}) = \frac{\alpha}{2},
+\end{equation}
+então
+\begin{equation}
+    P(-t_{\nu, \alpha/2} < U < t_{\nu, \alpha/2}) = 1 - \alpha \Rightarrow
+\end{equation}
+\begin{equation}
+    P\left( -t_{\nu, \alpha/2} < \frac{\bar{X}_1 - \bar{X}_2 - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} < t_{\nu, \alpha/2} \right) = 1 - \alpha \Rightarrow
+\end{equation}
+\begin{equation}
+    P\left( \bar{X}_1 - \bar{X}_2 - t_{\nu, \alpha/2} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \leq \mu_1 - \mu_2 \leq \bar{X}_1 - \bar{X}_2 + t_{\nu, \alpha/2} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \right) = 1 - \alpha
+\end{equation}
+
+Dai,
+\begin{equation}
+    IC_{1-\alpha}(\mu_1 - \mu_2) = \left\{ \bar{X}_1 - \bar{X}_2 \pm t_{\nu, \alpha/2} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \right\}.
+\end{equation}
+
+\subsection{Exemplo 10: Razão de Variâncias}
+
+\textbf{Exemplo 10:} Bilateral com confiança $1 - \alpha$ para $\mu(\theta) = \sigma_1^2 / \sigma_2^2$
+
+\textbf{Idéia:} Pode-se mostrar (fica como exercício) que
+\begin{equation}
+\bar{X}_1 = \frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}, \quad \bar{X}_2 = \frac{1}{n_2} \sum_{i=1}^{n_2} X_{2i}, \quad S_1^2 = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2, \quad S_2^2 = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2
+\end{equation}
+
+são estatísticas suficientes para $\mu_1, \mu_2, \sigma_1^2$ e $\sigma_2^2$ respectivamente. Note que (por definição da distribuição $F$)
+\begin{equation}
+U = \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F_{n_1 - 1, \, n_2 - 1}
+\end{equation}
+
+uma vez que $(n_1 - 1) S_1^2 / \sigma_1^2 \sim \chi^2_{n_1 - 1}$ e $(n_2 - 1) S_2^2 / \sigma_2^2 \sim \chi^2_{n_2 - 1}$ são independentes. Logo, $U$ é uma quantidade pivotal.
+
+\textbf{Justificativa:} A razão entre duas variáveis qui-quadrado independentes, cada uma dividida por seus graus de liberdade, segue distribuição $F$. Como as variâncias amostrais são independentes (amostras independentes) e cada uma segue uma qui-quadrado quando padronizada, sua razão segue $F$.
+
+Sejam $h_1 = F_{n_1 - 1, \, n_2 - 1; \, \alpha/2}$ e $h_2 = F_{n_1 - 1, \, n_2 - 1; \, 1 - \alpha/2}$ quantidades tais que
+\[
+P(U < h_1) = \frac{\alpha}{2} \quad \text{e} \quad P(U > h_2) = \frac{\alpha}{2}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\draw[->] (-0.5,0) -- (6,0) node[right] {};
+\draw[->] (0,-0.5) -- (0,3) node[above] {};
+\draw[domain=0.5:5.5,smooth,variable=\x] plot ({\x},{-0.2*(\x-3)^2+2.5});
+\draw[dashed] (1,0) -- (1,1.5);
+\draw[dashed] (5,0) -- (5,1.5);
+\draw (1,-0.2) node[below] {$h_1$};
+\draw (5,-0.2) node[below] {$h_2$};
+\draw (3,2.7) node {$\alpha$};
+\draw[pattern=north east lines] (0.5,0) -- (1,0) -- (1,1.5) -- (0.5,1.5) -- cycle;
+\draw[pattern=north east lines] (5,0) -- (5.5,0) -- (5.5,1.5) -- (5,1.5) -- cycle;
+\end{tikzpicture}
+\end{center}
+
+Daí,
+\begin{equation}
+P_\theta(h_1 < U < h_2) = 1 - \alpha \quad \Rightarrow \quad P_\theta\left(h_1 < \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} < h_2\right) = 1 - \alpha
+\end{equation}
+
+Reescrevendo:
+\begin{equation}
+P_\theta\left(h_1 < \frac{\sigma_2^2}{\sigma_1^2} \cdot \frac{S_1^2}{S_2^2} < h_2\right) = 1 - \alpha
+\end{equation}
+
+Multiplicando por $\frac{S_2^2}{S_1^2}$ (positivo):
+\begin{equation}
+P_\theta\left(h_1 \frac{S_2^2}{S_1^2} < \frac{\sigma_2^2}{\sigma_1^2} < h_2 \frac{S_2^2}{S_1^2}\right) = 1 - \alpha
+\end{equation}
+
+Invertendo para obter $\frac{\sigma_1^2}{\sigma_2^2}$:
+\begin{equation}
+P_\theta\left(\frac{1}{h_2} \frac{S_1^2}{S_2^2} < \frac{\sigma_1^2}{\sigma_2^2} < \frac{1}{h_1} \frac{S_1^2}{S_2^2}\right) = 1 - \alpha
+\end{equation}
+
+Usando a propriedade $F_{1-\alpha/2, \nu_1, \nu_2} = \frac{1}{F_{\alpha/2, \nu_2, \nu_1}}$:
+\begin{equation}
+P_{\theta} \left( F_{1 - \frac{\alpha}{2}, n_2-1, n_1-1}^{-1} \frac{S_1^2}{S_2^2} < \frac{\sigma_1^2}{\sigma_2^2} < F_{1 - \frac{\alpha}{2}, n_1-1, n_2-1}^{-1} \frac{S_1^2}{S_2^2} \right) = 1 - \alpha
+\end{equation}
+
+isto é,
+
+\begin{equation}
+IC_{1 - \alpha} \left( \frac{\sigma_1^2}{\sigma_2^2} \right) = \left( F_{1 - \frac{\alpha}{2}, n_2-1, n_1-1}^{-1} \frac{S_1^2}{S_2^2}, \; F_{1 - \frac{\alpha}{2}, n_1-1, n_2-1}^{-1} \frac{S_1^2}{S_2^2} \right)
+\end{equation}
+
+\textbf{Observação:} A distribuição $F$ não é simétrica, e há uma relação importante entre os quantis: $F_{1-\alpha/2, \nu_1, \nu_2} = \frac{1}{F_{\alpha/2, \nu_2, \nu_1}}$. Isso é usado na construção do intervalo.
+
+% ============================================
+% PARTE II: TESTE DE RAZÃO DE VEROSSIMILHANÇAS
+% ============================================
+
+\part{Teste de Razão de Verossimilhanças (TRV)}
+
+\section{Fundamentos do TRV}
+
+Discutimos que pode não existir teste UMP para o caso simples bilateral. O teste da razão entre verossimilhanças proposto por Neyman e Pearson (1928, 1933) é um método útil para lidar com este caso.
+
+\subsection{Construção}
+
+Sejam $x_1, \ldots, x_n$ uma amostra de $X$ com fdp (ou fmpt) dada por $f(x_i; \theta)$, em que $\theta = (\theta_1, \ldots, \theta_p)^T \in \Theta \subset \mathbb{R}^p$ é o vetor de parâmetros desconhecidos. 
+
+Desejamos testar 
+\[
+H_0: \theta \in \Theta_0 \quad \text{e} \quad H_1: \theta \in \Theta_1
+\]
+tal que $\Theta = \Theta_0 \cup \Theta_1$ e $\Theta_0 \cap \Theta_1 = \varnothing$ com nível de significância $\alpha$. 
+
+A função de verossimilhança associada é dada por:
+
+\begin{equation}
+L(\theta) = \prod_{i=1}^{n} f(x_i, \theta), \quad \theta \in \Theta
+\end{equation}
+
+Fixamos nossa atenção em
+\[
+\sup_{\theta \in \Theta_0} \{ L(\theta) \}
+\]
+interpretada como a melhor evidência em favor de $H_0$. Adicionalmente,
+\[
+\sup_{\theta \in \Theta} \{ L(\theta) \}
+\]
+representa a melhor evidência em favor de $\Theta$, sem considerar restrição.
+
+A estatística da razão entre verossimilhanças (RV) é dada por:
+\begin{equation}
+\Lambda = \frac{\sup_{\theta \in \Theta_0} \{ L(\theta) \}}{\sup_{\theta \in \Theta} \{ L(\theta) \}}
+\end{equation}
+
+A regra de decisão do teste RV (TRV) é dada por:
+\[
+\text{"Rejeitamos $H_0$ se, e só se, $\Lambda$ é pequena ($< k$)."}
+\]
+
+\textbf{Interpretação:} A razão de verossimilhanças compara a máxima verossimilhança sob $H_0$ com a máxima verossimilhança sem restrições. Se $\Lambda$ é pequeno, significa que os dados são muito mais prováveis sob $H_1$ do que sob $H_0$, levando à rejeição de $H_0$.
+
+Valores pequenos de $\Lambda$ implicam valores pequenos de $\sup_{\theta \in \Theta_0} L(\theta)$ em comparação com valores de $\sup_{\theta \in \Theta} L(\theta)$.
+
+Note que o $c_{1\alpha}$ e $c$ deve ser definido em $(0,1)$ tal que o TRV tenha nível $\alpha$.
+
+\subsection{Notas Importantes}
+
+(1) No entanto, com frequência se objetiva testar parte dos parâmetros de $\theta$, digamos $\theta_{0} = (\theta_{1}, \ldots, \theta_{q})^{T}$ tal que $q < p$, conhecidos como parâmetros de interesse:
+
+\[
+H_{0} : (\theta_{1}, \ldots, \theta_{q}) = (\theta_{1,0}, \ldots, \theta_{q,0})
+\]
+
+Os demais parâmetros $(\theta_{q+1}, \ldots, \theta_{p})$ são chamados de parâmetros de perturbação ou incógnitos.
+
+(2) Sobre a derivação de $\Lambda$:
+
+\begin{equation}
+\sup_{\theta \in \Theta_{0}} \{ L(\theta) \} = L(\hat{\theta}),
+\end{equation}
+
+em que $\hat{\theta}$ representa o estimador de máxima verossimilhança (EMV) restrito (assumindo o parâmetro de interesse conhecido):
+
+\[
+\hat{\theta} = (\theta_{1,0}, \ldots, \theta_{q,0}, \hat{\theta}_{q+1}, \ldots, \hat{\theta}_{p})
+\]
+
+Se $(\hat{\theta}_{\text{restr}}, \hat{\theta}_{\text{livre}})$ é o EMV sob $H_0$,
+\begin{equation}
+    \sup_{\theta \in \Theta_0} L(\theta) = L(\hat{\theta}_{\text{restr}}),
+\end{equation}
+em que $\hat{\theta}_{\text{restr}}$ é o EMV restrito (considerando apenas $\Theta_0$).
+
+Por outro lado,
+\begin{equation}
+    \sup_{\theta \in \Theta} L(\theta) = L(\hat{\theta}),
+\end{equation}
+em que $\hat{\theta}$ é o EMV irrestrito (considerando todo o espaço paramétrico).
+
+\section{TRV para Uma Amostra - População Normal}
+
+Focaremos nossa atenção sobre a população normal em alguns TRV's. Seguem os casos:
+
+\subsection{Caso 1: Média com Variância Conhecida (Teste Z)}
+
+\textbf{Caso 1:}
+\begin{equation}
+\begin{cases}
+H_0: \mu = \mu_0 & \text{para } \sigma^2 \text{ conhecido} \\
+H_1: \mu \neq \mu_0
+\end{cases}
+\end{equation}
+(Teste $Z$)
+
+Sejam $X_1, \ldots, X_n$ uma a.a. de $X_i \sim N(\mu, \sigma^2)$ com $\mu$ desconhecido e $\sigma_0$ conhecido. Aqui, temos
+\[
+\Theta = \mathbb{R} \quad \text{e} \quad \Theta_0 = \{\mu_0\}.
+\]
+
+A função de verossimilhança é
+\begin{equation}
+L(\mu) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu}{\sigma} \right)^2 \right\}.
+\end{equation}
+
+Desta última identidade, tem-se
+\begin{equation}
+\sup_{\mu \in \Theta_0} \{ L(\mu) \} = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu_0}{\sigma} \right)^2 \right\}
+\end{equation}
+
+\begin{equation}
+\sup_{\mu \in \Theta} \{ L(\mu) \} = (2\pi\sigma^2)^{-n/2} \sup_{\mu \in \Theta} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu}{\sigma} \right)^2 \right\}
+\end{equation}
+
+O máximo ocorre quando $\mu = \bar{x}$, pois $\bar{x}$ é o EMV para $\mu$. Portanto:
+\begin{equation}
+\sup_{\mu \in \Theta} \{ L(\mu) \} = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \bar{x}}{\sigma} \right)^2 \right\}
+\end{equation}
+
+em que $\bar{x} = \hat{\mu}$ é a estimativa de MV para $\mu$. 
+
+Usando a identidade:
+\begin{equation}
+\sum_{i=1}^n (x_i - c)^2 = \sum_{i=1}^n (x_i - \bar{x} + \bar{x} - c)^2
+\end{equation}
+
+\begin{equation}
+= \sum_{i=1}^n \left\{ (x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - c) + (\bar{x} - c)^2 \right\}
+\end{equation}
+
+\begin{equation}
+= \sum_{i=1}^n (x_i - \bar{x})^2 + n (\bar{x} - c)^2
+\end{equation}
+
+Assim,
+
+\begin{equation}
+\Lambda = \exp \left\{ -\frac{1}{2\sigma^2} \left[ n (\bar{x} - \mu_0)^2 \right] \right\}
+\end{equation}
+
+O TRV fica definido por
+
+\textit{"Rejeitar $H_0$ se, e só se, $\Lambda < k'$"}
+
+\begin{equation}
+\Leftrightarrow \left\{ n \left( \frac{\bar{x} - \mu_0}{\sigma} \right)^2 > -2 \log k' \right\}
+\end{equation}
+
+\begin{equation}
+\Leftrightarrow \left\{ \sqrt{n} \left| \frac{\bar{x} - \mu_0}{\sigma} \right| > \sqrt{-2 \log k'} \right\}
+\end{equation}
+
+\begin{equation}
+\Leftrightarrow \left\{ |Z(x_1)| > k'' \right\}
+\end{equation}
+
+em que 
+\begin{equation}
+Z(x_1) = \sqrt{n} \left( \frac{\bar{x} - \mu_0}{\sigma} \right)
+\end{equation}
+
+Note como $k'' = z_{\alpha/2}$ e satisfaz 
+
+\begin{equation}
+P_{H_0} \left( |Z| > z_{\alpha/2} \right) = \alpha
+\end{equation}
+
+\textbf{Interpretação:} O teste rejeita $H_0$ quando a estatística $Z$ está muito distante de zero, indicando que a média amostral está significativamente diferente de $\mu_0$.
+
+\subsection{Caso 2: Média com Variância Desconhecida (Teste t)}
+
+\textbf{Caso 2:}
+\begin{equation}
+\begin{cases}
+H_0: \mu = \mu_0 & \text{para } \sigma^2 \text{ desconhecido} \\
+H_1: \mu \neq \mu_0
+\end{cases}
+\end{equation}
+(Teste $t$)
+
+Considere testar $H_0: \mu = \mu_0$ e $H_1: \mu \neq \mu_0$ baseado em $x_1, \ldots, x_n$ como uma a.a. de $X \sim N(\mu, \sigma^2)$. Neste caso
+\[
+\Theta_0 = \{ (\mu_0, \sigma^2); \ \mu_0 \ \text{é fixado e} \ \sigma \in \mathbb{R}_+ \}.
+\]
+
+Aqui a função de verossimilhança é
+\begin{equation}
+L(\mu, \sigma^2) = (2\pi\sigma^2)^{-n/2} \cdot \exp\left\{ -\frac{1}{2} \sum_{i=1}^n \left( \frac{x_i - \mu}{\sigma} \right)^2 \right\}.
+\end{equation}
+
+Desta expressão,
+\begin{equation}
+\sup_{(\mu_0, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = L(\mu_0, \hat{\sigma}^2) 
+= (2\pi \hat{\sigma}^2)^{-n/2} \cdot \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu_0)^2 \right\},
+\end{equation}
+em que 
+\[
+\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \mu_0)^2
+\]
+é a estimativa de MV para $\sigma^2$ sob $H_0$. Simplificando a última expressão temos:
+\begin{equation}
+\sup_{(\mu_0, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = (2\pi \hat{\sigma}^2)^{-n/2} e^{-n/2}.
+\end{equation}
+
+Por outro lado, tem-se:
+\begin{equation}
+\sup_{(\mu, \sigma^2) \in \Theta} L(\mu, \sigma^2) = L(\bar{x}, \hat{\sigma}^2) 
+= (2\pi \hat{\sigma}^2)^{-n/2} \cdot \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}.
+\end{equation}
+
+em que $\hat{\mu} = \bar{x}$ e $\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \bar{x})^2$ são os estimadores de MV irrestritos para $\mu$ e $\sigma$. Simplificando,
+
+\begin{equation}
+\sup_{(\mu, \sigma) \in \Theta} L(\mu, \sigma) = (2 \pi \hat{\sigma}^2)^{-n/2}.
+\end{equation}
+
+Finalmente,
+
+\begin{equation}
+\Lambda = \frac{\sup_{(\mu, \sigma) \in \Theta_0} L(\mu, \sigma)}{\sup_{(\mu, \sigma) \in \Theta} L(\mu, \sigma)}
+\end{equation}
+
+\begin{equation}
+= \left\{ \frac{\sum_{i=1}^n (x_i - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right\}^{-n/2}
+\end{equation}
+
+Usando a identidade $\sum_{i=1}^n (x_i - \mu_0)^2 = \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \mu_0)^2$:
+
+\begin{equation}
+= \left\{ \frac{\sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right\}^{-n/2}
+\end{equation}
+
+\begin{equation}
+= \left\{ 1 + \frac{n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right\}^{-n/2}
+\end{equation}
+
+O TRV fica definido por: dado um nível $\alpha$, rejeitamos $H_0 \Longleftrightarrow \Lambda < k \quad (0 < k < 1)$.
+
+Logo, como $f(x) = x^{-n/2}$ é estritamente decrescente,
+
+\begin{equation}
+R_c = \left\{ 1 + \frac{n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} > k^{-2/n} \right\} 
+= \left\{ \frac{n(\bar{x} - \mu_0)^2}{\sum_{i=1}^n (x_i - \bar{x})^2} > k^{-2/n} - 1 \right\}
+\end{equation}
+
+Definindo $s^2 = (n-1)^{-1} \sum_{i=1}^n (x_i - \bar{x})^2$ e manipulando:
+
+\begin{equation}
+R_c = \left\{ \frac{\sqrt{n} \, \left| \bar{x} - \mu_0 \right|}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}} > \sqrt{k'} \right\}
+\end{equation}
+
+Note que:
+\begin{equation}
+A = \frac{\frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}}{\sqrt{\sum_{i=1}^n \left( \frac{x_i - \bar{x}}{\sigma} \right)^2}} 
+= \frac{\frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}}{\sqrt{\frac{(n-1)s^2}{\sigma^2}}} 
+= \frac{\frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}}{\frac{s}{\sigma}}
+\end{equation}
+
+Para $\delta_c = (n-1)^{-1} \sum_{i=1}^n (x_i - \bar{x})^2 = s^2$,
+
+\begin{equation}
+R_c = \left\{ (n-1)^{-1/2} \, \left| T(x) \right| > \sqrt{k'} \right\}
+\end{equation}
+
+para $T(x) = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$ e $x = (x_1, \ldots, x_n)^T$. Logo:
+
+\begin{equation}
+R_c = \left\{ \left| T(x) \right| > k'' \right\}
+\end{equation}
+
+Note que:
+\begin{equation}
+T(X) \ \text{sob} \ H_0 \ \sim \ t_{n-1}.
+\end{equation}
+
+Seja $t_{n-1, \alpha/2}$ tal que:
+
+\begin{equation}
+P_{H_0} \left( T > t_{n-1, \alpha/2} \right) = \frac{\alpha}{2}.
+\end{equation}
+
+Então o TRV tem fronteira crítica:
+
+\[
+\psi(X^1) = 
+\begin{cases} 
+1, & |T(X^1)| > t_{n-1, \alpha/2} \\
+0, & \text{c.c.}
+\end{cases}
+\]
+
+\textbf{Interpretação:} Quando a variância é desconhecida, usamos a distribuição $t$ de Student em vez da normal. A estatística $T$ padroniza a diferença entre a média amostral e $\mu_0$ usando o desvio padrão amostral.
+
+\subsection{Caso 3: Variância com Média Conhecida}
+
+\section*{TRV para $\sigma^2$ com $\mu$ conhecido}
+
+Sejam $X_1, \ldots, X_n$ v.a. de $X \sim N(\mu, \sigma^2)$ com média conhecida e $\sigma^2 \in \mathbb{R}^+$ desconhecido. Dado um nível $\alpha \in (0,1)$, considere a derivação do TRV para
+
+\[
+H_0: \sigma^2 = \sigma_0^2 \quad \text{vs} \quad H_1: \sigma^2 \neq \sigma_0^2.
+\]
+
+A função de verossimilhança é dada por:
+\begin{equation}
+l(\sigma^2) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\end{equation}
+
+Daí, temos:
+\begin{equation}
+\sup_{(\mu, \sigma^2) \in \Theta} l(\sigma^2) = (2\pi \hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\end{equation}
+em que
+\[
+\Theta_0 = \{ (\mu, \sigma^2) \;|\; \mu \text{ é fixado e } \sigma^2 = \sigma_0^2 \text{ é fixado} \}
+\]
+
+e $\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \mu)^2$ é o EMV irrestrito.
+
+\begin{equation}
+\sup_{(\mu, \sigma^2) \in \Theta_0} l(\sigma^2) = (2\pi \sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\end{equation}
+
+em que
+\[
+\Theta = \{\mu, \sigma\} : \mu \text{ fixado e } \sigma \in \mathbb{R}_+
+\]
+e
+\[
+\hat{\sigma}^2 = n^{-1} \sum_{i=1}^n (x_i - \mu)^2.
+\]
+Finalmente,
+\begin{equation}
+\Lambda = \left\{ \frac{\hat{\sigma}^2}{\sigma_0^2} \right\}^{n/2} \exp \left\{ -\frac{1}{2} \sum_{i=1}^n \frac{(x_i - \mu)^2}{\sigma_0^2} + \frac

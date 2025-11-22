@@ -1,0 +1,48 @@
+
+
+\textbf{Note que $U = T/\theta$ tem densidade}
+
+\begin{equation}
+F_U^{(u)} = \frac{dF_U(u)}{du} = \frac{dF_T(u\theta)}{du}
+\end{equation}
+
+\begin{equation}
+= \theta F_T(u\theta; \theta) = \theta \cdot \frac{n}{\theta^n} (u \cdot \theta)^{n-1}
+\end{equation}
+
+\begin{equation}
+= n u^{n-1}, \quad P/u \in (0,1)
+\end{equation}
+
+Portanto $U$ é um pivô.
+
+Considere $a,b \in (0,1)$ tal que $0 < a < b < 1$ e
+
+\begin{equation}
+P(U < a) = P(U > b) = \frac{\alpha}{2} \quad \text{ou, equivalentemente}
+\end{equation}
+
+\begin{equation}
+P(a < U < b) = 1 - \alpha
+\end{equation}
+
+\textbf{Desenvolvendo os limites}
+
+\begin{equation}
+P(U < a) = \int_{0}^{a} n \cdot u^{n-1} \, du = \left[ u^n \right]_{0}^{a}
+\end{equation}
+
+\begin{equation}
+= a^n = \frac{\alpha}{2} \quad \Rightarrow \quad a = \left( \frac{\alpha}{2} \right)^{1/n}
+\end{equation}
+
+e
+
+\begin{equation}
+P(U > b) = \int_{b}^{1} n \cdot u^{n-1} \, du = \left[ u^n \right]_{b}^{1}
+\end{equation}
+
+\begin{equation}
+= 1 - b^n = \frac{\alpha}{2} \quad \Rightarrow \quad b = \left( 1 - \frac{\alpha}{2} \right)^{1/n}
+\end{equation}
+

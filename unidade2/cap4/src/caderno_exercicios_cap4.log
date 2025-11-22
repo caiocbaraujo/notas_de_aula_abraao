@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  8 NOV 2025 19:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  12 NOV 2025 15:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -964,9 +964,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [6]
 
 [7]
-Overfull \vbox (160.05846pt too high) has occurred while \output is active []
-
-
 
 [8]
 Overfull \vbox (12.79568pt too high) has occurred while \output is active []
@@ -1006,17 +1003,17 @@ Overfull \vbox (466.8706pt too high) has occurred while \output is active []
 
 
 [16]
-Underfull \hbox (badness 3179) in paragraph at lines 1072--1072
+Underfull \hbox (badness 3179) in paragraph at lines 1077--1077
 []\T1/cmr/m/n/12 Normal, $\OML/cmm/m/it/12 ^^[$ \T1/cmr/m/n/12 co-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1074--1074
+Underfull \hbox (badness 10000) in paragraph at lines 1079--1079
 []\T1/cmr/m/n/12 Normal, teste
  []
 
 
-Underfull \hbox (badness 8056) in paragraph at lines 1075--1075
+Underfull \hbox (badness 8056) in paragraph at lines 1080--1080
 []\T1/cmr/m/n/12 Normais, com-
  []
 
@@ -1034,13 +1031,13 @@ Package rerunfilecheck Info: File `caderno_exercicios_cap4.out' has not changed
 (rerunfilecheck)             Checksum: CF8FD7E13E7F0842DE6CCDD79181BCC9;1740.
  ) 
 Here is how much of TeX's memory you used:
- 35406 strings out of 468130
- 834418 string characters out of 5431116
+ 35407 strings out of 468130
+ 834434 string characters out of 5431116
  1398877 words of memory out of 5000000
- 63417 multiletter control sequences out of 15000+600000
+ 63418 multiletter control sequences out of 15000+600000
  641336 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,19n,107p,746b,2519s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,19n,107p,746b,2511s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1
 200.pk> <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
 ecbx1440.pk> <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dp
@@ -1059,7 +1056,7 @@ sers/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb
 r8.pfb><C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb><C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmsy8.pfb>
-Output written on caderno_exercicios_cap4.pdf (18 pages, 310043 bytes).
+Output written on caderno_exercicios_cap4.pdf (18 pages, 310566 bytes).
 PDF statistics:
  613 PDF objects out of 1000 (max. 8388607)
  95 named destinations out of 1000 (max. 500000)

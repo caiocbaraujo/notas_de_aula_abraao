@@ -1,0 +1,40 @@
+
+
+\noindent \textbf{Data:} 12/11/25
+
+\vspace{0.5cm}
+
+Vamos considerar exemplos para abordar esse conceito em IC.
+
+\medskip
+
+\noindent \textbf{Q(5.4)} Seja $X \sim \exp(\theta)$ com densidade
+\begin{equation}
+    f(x; \theta) = \frac{1}{\theta} e^{-x/\theta} I_{(0,\infty)}(x)
+\end{equation}
+
+Note que $U = X / \theta$ tem densidade
+\begin{equation}
+    f_U(u) = \frac{dF_X(u\theta)}{du} = \theta f_X(u\theta; \theta)
+\end{equation}
+\begin{equation}
+    f_U(u) = e^{-u} I_{(0,\infty)}(u)
+\end{equation}
+
+Então $U$ é um pivô pela Definição (5.3.1).
+
+\medskip
+
+Note que é possível determinar dois pontos $a, b > 0$ tais que $a < b$ e
+\begin{equation}
+    P(U \leq a) = P(U > b) = \frac{\alpha}{2} \quad \text{ou equivalentemente}
+\end{equation}
+\begin{equation}
+    P(a < U < b) = 1 - \alpha
+\end{equation}
+
+Com $\alpha \in (0,1)$ fixado, detalhando:
+\begin{equation}
+    \int_{0}^{a} e^{-x} \, dx = 1 - e^{-a} = \frac{\alpha}{2} \quad \Rightarrow \quad a = -\log\left(1 - \frac{\alpha}{2}\right)
+\end{equation}
+

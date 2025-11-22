@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+Por definição,
+\[
+\beta_{\text{max}} = \arg\min_{\beta \in \mathbb{R}^{p+1}} \left[ S(\beta) \right]
+\]
+em que
+\begin{equation}
+S(\beta) = \sum_{i=1}^n \varepsilon_i^2 = \varepsilon^T \varepsilon = (y - \tilde{X} \beta)^T (y - \tilde{X} \beta)
+\end{equation}
+
+\begin{equation}
+= \left( y^T - \beta^T \tilde{X}^T \right) \left( y - \tilde{X} \beta \right) 
+= y^T y - y^T \tilde{X} \beta - \beta^T \tilde{X}^T y + \beta^T \tilde{X}^T \tilde{X} \beta
+\end{equation}
+
+\begin{equation}
+= y^T y - 2 \beta^T \tilde{X}^T y + \beta^T \tilde{X}^T \tilde{X} \beta
+\end{equation}
+
+A derivada de primeira ordem \( S(\beta) \) é:
+\begin{equation}
+\frac{\partial S(\beta)}{\partial \beta} 
+= -2 \frac{\partial \left[ \beta^T \tilde{X}^T y \right]}{\partial \beta} 
++ \frac{\partial \left[ \beta^T \tilde{X}^T \tilde{X} \beta \right]}{\partial \beta}
+\end{equation}
+
+\begin{equation}
+= -2 \tilde{X}^T y + 2 \tilde{X}^T \tilde{X} \beta
+\end{equation}
+
+Uma vez que:
+
+(i) Para \( z = \tilde{X}^T y \in \mathbb{R}^{p+1} \)
+\begin{equation}
+\frac{\partial \left[ \beta^T \tilde{X}^T y \right]}{\partial \beta_i} 
+= \frac{\partial \left[ \beta^T z \right]}{\partial \beta_i} 
+= \frac{\partial \left[ \sum_{k=1}^{p+1} z_k \beta_k \right]}{\partial \beta_i}
+\end{equation}
+
+e, portanto, \( = z_i \)
+
+\begin{equation}
+\frac{\partial \left[ \beta^T \tilde{X}^T y \right]}{\partial \beta} = z = \tilde{X}^T y
+\end{equation}
+
+\end{document}

@@ -1,0 +1,487 @@
+Inferência: Métodos Bayesianos
+Abraão D. C. Nascimento
+Universidade Federal de Pernambuco, Brasil
+
+Pós-graduação em Estatística
+03 de Julho de 2025
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+1 / 20
+
+Índice
+
+1 Introdução aos Métodos Bayesianos
+
+2 Distribuições a Priori e a Posteriori
+
+3 Priori Conjugada
+
+4 Estimadores Bayesianos
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+2 / 20
+
+Introdução
+
+Índice
+
+1 Introdução aos Métodos Bayesianos
+
+2 Distribuições a Priori e a Posteriori
+
+3 Priori Conjugada
+
+4 Estimadores Bayesianos
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+3 / 20
+
+Introdução
+
+Introdução aos Métodos Bayesianos
+@.1 Até então, em Inferência Clássica, tinhamos o seguinte padrão:
+“ Métodos (estimação pontual/intervalar e teste de hipóteses)
+Qn dependentes da função de pverossimilhança L(θ; x) =
+i=1 f (xi ; θ), em que θ ∈ Θ ⊂ R é desconhecido (mas fixado) e x = (x1 , . . . , xn )⊤ é uma realização de uma amostra
+aleatória n-dimensional de X com fdp1 (ou de fmp2 ) dada por
+f (x; θ). ”
+@.2 Na Inferência Bayesiana, o parâmetro desconhecido é uma
+variável aleatória–diga-se v com distribuição (denominada de
+distribuição a priori de v ) sobre o suporte Θ e fdp (ou fmp) h(v ).
+Nos capítulos anteriores f (x; θ) foi denotada como fdp (ou
+fmp) de X , mas agora f (x; θ) será denotada como a fdp
+(fmp) de {X | v = θ}.
+1
+2
+
+1: fdp: função densidade de probabilidade
+2: fdp: função de massa de probabilidade
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+4 / 20
+
+Introdução
+
+@.3 A distribuição a priori h(v ) frequentemente reflete a crença
+subjetiva do experimentador, considerando quais valores de v
+são mais ou menos prováveis.
+@.4 O paradigma dos Métodos Bayesianos é:
+“ combinar a evidência sobre v da distribuição a priori com
+a função de verossimilhança por meio do Teorema de Bayes,
+n
+resultando
+na distribuição a posteriori o
+”
+[v = θ] , [X | v = θ] , [T (X ) | v = θ] ⇒ [v = θ | T (X ) = t]
+
+Teorema de Bayes
+Assuma que os eventos A1 , A2 , . . . , Ak formam uma partição do
+espaço amostral Ω e B é um outro evento tal que Pr(B) > 0. Então
+Pr(Aj ) Pr(B | Aj )
+Pr(Aj | B) = Pk
+,
+Pr(A
+)
+Pr(B
+|
+A
+)
+i
+i
+i=1
+para j = 1, 2, . . . , k fixado.
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+5 / 20
+
+Distribuições a Priori e a Posteriori
+
+Índice
+
+1 Introdução aos Métodos Bayesianos
+
+2 Distribuições a Priori e a Posteriori
+
+3 Priori Conjugada
+
+4 Estimadores Bayesianos
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+6 / 20
+
+Distribuições a Priori e a Posteriori
+
+Distribuições a priori e a posteriori
+@.5 Na abordagem Bayesiana, v substitue o parâmetro e sua
+distribuição é a distribuição a priori. Neste curso, adotaremos que
+v (ao invés de v) assume um modelo contínuo de valor real com
+fdp h(v ), em que v ∈ Θ ⊂ R.
+Elementos da Inferência Bayesiana:
+(1) Distribuição a priori: h(θ) para θ ∈ Θ.
+(2) x = (X1 , . . . , Xn )⊤ como uma amostra aleatória de [ X | V = θ ].
+(3) T ≜ T (x) como uma estatística suficiente (mínima) que assume
+frequentemente valor real. A fdp ou fmp de [ T | V = θ ] será
+denotada por
+g(t ; θ) ≜ fT |V =θ (t|θ),
+para t ∈ T ⊂ R e θ fixado.
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+7 / 20
+
+Distribuições a Priori e a Posteriori
+
+Elementos da Inferência Bayesiana:
+
+(4) A fdp (ou fmp) do par aleatório (T , V ) é dada por
+fT ,V (t, θ) = fT |V =θ (t | θ) h(θ) = g(t ; θ) h(θ),
+para t ∈ T e θ ∈ Θ.
+(5) A fdp (ou fmp) marginal de T é obtida integrando fT ,V (t, θ) em
+termos de θ:
+Z
+Z
+m(t) ≜ fT (t) =
+fT ,V (t, θ) dθ =
+g(t; θ) h(θ) dθ,
+θ∈Θ
+
+θ∈Θ
+
+para todo t ∈ T.
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+8 / 20
+
+Distribuições a Priori e a Posteriori
+
+Elementos da Inferência Bayesiana:
+
+(6) Finalmente, a fdp (ou fmp) de [ V | T = t ] é dada por
+k (θ; t) ≜ fV |T =t (θ | t) =
+
+g(t; θ) h(θ)
+,
+m(t)
+
+para todo t ∈ T fixado e θ ∈ Θ tal que m(t) > 0. Esta fdp (ou fmp)
+é chamada de distribuição a posteriori.
+Nota: A tratabilidade analítica de k (θ; t) depende da obtenção de m(t).
+Em alguns casos, as distribuições marginal e a posteriori podem
+ser obtidas numericamente.
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+9 / 20
+
+Distribuições a Priori e a Posteriori
+
+Exercício-1.a
+Sejam X1 , . . . , Xn uma amostra aleatória de [X | V = θ] ∼ Bernoulli(θ)
+tal que θ ∈ (0, 1), em que V é uma probabilidade de sucesso tal que
+0 < V < 1. Assumindo a distribuição a priori como V ∼ U(0, 1),
+encontre:
+(a) A densidade marginal da estatística suficiente para θ (diga-se
+T ≜ T (x)), em que x = (X1 , . . . , Xn )⊤ ;
+(b) A densidade da distribuição a posteriori de [V | T = t].
+
+Exercício-1.b
+Sejam X1 , . . . , Xn uma amostra aleatória de [X | V = θ] ∼ Poisson(θ)
+tal que θ > 0, em que V é o número esperado de ocorrências em um
+dado intervalo de tempo. Assumindo a distribuição a priori como
+V ∼ Γ(α, β), encontre:
+(a) A densidade marginal da estatística suficiente para θ (diga-se
+T ≜ T (x)), em que x = (X1 , . . . , Xn )⊤ ;
+(b) A densidade da distribuição a posteriori de [V | T = t].
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+10 / 20
+
+Priori Conjugada
+
+Índice
+
+1 Introdução aos Métodos Bayesianos
+
+2 Distribuições a Priori e a Posteriori
+
+3 Priori Conjugada
+
+4 Estimadores Bayesianos
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+11 / 20
+
+Priori Conjugada
+
+Priori Conjugada
+@.6 Se a priori hV (θ) ≜ h(θ) de V (variável que descreve o parâmetro)
+é tal que a marginal m(t) = fT (t) de T no par aleatório (T , V )–em
+que T é a estatística suficiente minimal para θ–é analiticamente
+intratável, então não será possível derivar a posteriori
+k (θ; t) = fV |T =t (θ | t).
+@.7 Para muitas verossimilhanças, podemos formular um tipo especial
+de priori h(θ) tal que se tenha simplicidade analítica, chamada
+priori conjugada.
+
+Priori conjugada
+Suponha que a fdp à priori de V dada por h(θ) pertence a uma família
+de fdp’s P. Então h(θ) é chamada de priori conjugada para V se só se
+a posteriori k(θ; t) também pertence a família P.
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+12 / 20
+
+Priori Conjugada
+
+Exercício-2.a
+Sejam X1 , X2 , . . . , Xn uma amostra aleatória de
+[X | V = θ] ∼ Bernoulli(θ) tal que θ ∈ (0, 1). Encontre distribuição a
+priori conjugada.
+
+Exercício-2.b
+Sejam X1 , X2 , . . . , Xn uma amostra aleatória de
+[X | V = θ] ∼ Poisson(θ) tal que θ > 0, em que a variável V descreve
+a média populacional. Encontre distribuição a priori conjugada.
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+13 / 20
+
+Estimadores Bayesianos
+
+Índice
+
+1 Introdução aos Métodos Bayesianos
+
+2 Distribuições a Priori e a Posteriori
+
+3 Priori Conjugada
+
+4 Estimadores Bayesianos
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+14 / 20
+
+Estimadores Bayesianos
+
+Motivação a Estimação Bayesiana
+@.8 Neste ponto, exploramos como
+“estimar θ sob uma função perda particular.”
+@.9 Relembrando o contexto: Temos X1 , . . . , Xn como uma amostra
+aleatória de [X | V = θ] e T como uma estatística suficiente
+(minimal) para θ. Seja ainda T domínio de t.
+@.10 Como antes, ao invés de considerar a função de verossimilhança,
+consideremos a fdp (ou fmp) g(t; θ) da estatística suficiente T no
+ponto T = t dado V = θ, i.e., [T | V = θ]. Adicionalmente, seja V
+a distribuição a priori como fdp (fmp) h(θ) para θ ∈ Θ.
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+15 / 20
+
+Estimadores Bayesianos
+
+@.11 Seja δ ≡ δ(T ) um estimador arbitrário para V = θ, que assume
+valor δ(t) quando se observa T = t, t ∈ T.
+@.12 Assumamos que a *perda* em se estimar V = θ por δ(T ) é dada
+por
+L∗ (θ, δ) ≡ [δ(T ) − θ]2 ,
+que se chama de perda erro quadrado.
+@.13 Com base nesta medida é possível definir o erro quadrático
+médio que corresponde à média ponderada com respeito à fdp
+(ou fmp) de [T | V = θ], g(t; θ). A função risco é dada por
+Z
+∗
+∗
+R (θ, δ) ≡ E[T |V =θ] [L (θ, δ)] =
+L∗ (θ, δ(t)) g(t; θ) dt.
+T
+
+Esta medida é chamada de risco frequentista.
+@.14 Na prática, dados dois estimadores δ1 ≡ δ1 (T ) e δ2 ≡ δ2 (T ), se
+R ∗ (θ, δ1 ) < R ∗ (θ, δ2 ) para θ ∈ Θ∗ ⊂ Θ então δ1 é melhor do que δ2
+neste
+sub espaço paramétrico.
+A. D. C. Nascimento
+Teste de Hipótese
+PPGE-UFPE
+16 / 20
+
+Estimadores Bayesianos
+
+@.15 Como alternativa ao risco frequentista, tem-se o risco bayesiano:
+Z
+∗
+∗
+r (θ, δ) ≡ EV [R (V , δ)] =
+R ∗ (θ, δ) h(θ) dθ.
+Θ
+
+@.16 Suponha que D seja uma classe de todos os estimadores de θ
+cujos riscos bayesianos são finitos. Assim o melhor estimador sob
+o paradigma Bayesiano será δ ∗ em D tal que
+r ∗ (θ, δ ∗ ) = inf r ∗ (θ, δ).
+δ∈D
+
+@.17 Este estimador é chamado de estimador Bayesiano.
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+17 / 20
+
+Estimadores Bayesianos
+
+Teorema
+O estimador de Bayes δ ∗ ≡ δ ∗ (T ) é determinado tal que o risco a
+posteriori de δ ∗ (T ) é o menor possível:
+Z
+Z
+∗
+∗
+L (θ, δ (t)) k(θ; t) dθ = inf
+L∗ (θ, δ(t)) k (θ; t) dθ,
+δ∈D
+
+Θ
+
+θ
+
+para todo t ∈ T.
+
+Teorema
+No caso da função de perda erro quadrado, a estimativa de Bayes
+δ ∗ ≡ δ ∗ (t) é a média da distribuição a posteriori com fdp (ou fmp)
+k (θ; t); isto é,
+Z
+∗
+δ (t) =
+θ k (θ; t) dθ ≡ EV |T =t [V ],
+Θ
+
+para todo t ∈ T.
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+18 / 20
+
+Estimadores Bayesianos
+
+Definição: Estimador Bayesiano
+Estimador Bayesiano
+Sejam X1 , X2 , . . . , Xn uma amostra aleatória de [X | V = θ] tendo fdp
+(ou fmp) fX |V =θ . Seja ainda V uma variável aleatória representando a
+distribuição a priori com fdp (ou fmp) h(θ). O estimador bayesiano
+para τ (θ) é definido por
+Z
+τbBayes (θ) = EV |T =t [ τ (V ) | T (x) = t ] =
+τ (θ) k (θ | t) dθ
+Θ
+Z
+=
+τ (θ) g(t | θ) h(θ) dθ,
+Θ
+
+em que T (x) ≡ T (X1 , . . . , Xn ) é uma estatística suficiente (minimal)
+para θ.
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+19 / 20
+
+Estimadores Bayesianos
+
+Exercício-3
+Sejam X1 , X2 , . . . , Xn uma amostra aleatória de
+[X | V = θ] ∼ Bernoulli(θ) tal que θ ∈ (0, 1) e V ∼ U(0, 1). Encontre o
+estimador Bayesiano para θ e para θ(1 − θ).
+
+Exercício-4
+Sejam X1 , X2 , . . . , Xn uma amostra aleatória de
+[X | V = θ] ∼ Bernoulli(θ) tal que θ ∈ (0, 1) e V ∼ Beta(α, β).
+Encontre o estimador Bayesiano para θ.
+
+A. D. C. Nascimento
+
+Teste de Hipótese
+
+PPGE-UFPE
+
+20 / 20
+
+

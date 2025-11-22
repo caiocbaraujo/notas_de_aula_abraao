@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+(ii) Para 
+\[
+A = \tilde{X}^\top \tilde{X} = \{a_{ij}\}_{i,j=1}^{p+1}
+\]
+\[
+\frac{\partial \left[ \tilde{\beta}^\top \tilde{X}^\top \tilde{X} \tilde{\beta} \right]}{\partial \beta_i} = \frac{\partial \left[ \tilde{\beta}^\top A \tilde{\beta} \right]}{\partial \beta_i}
+\]
+\[
+= \frac{\partial \left[ \sum_{l=1}^{p+1} \sum_{m=1}^{p+1} \beta_l \, a_{lm} \, \beta_m \right]}{\partial \beta_i}
+\]
+\[
+= 2\beta_1 a_{1i} + 2\beta_2 a_{2i} + \dots + 2\beta_i a_{ii} + \dots + 2\beta_{p+1} a_{p+1,i}
+\]
+\[
+= 2 \, a_i^\top \beta
+\]
+en donde \( a_i \) es la \( i \)-ésima columna de \( A \).
+
+Por tanto,
+\[
+\frac{\partial \left[ \tilde{\beta}^\top \tilde{X}^\top \tilde{X} \tilde{\beta} \right]}{\partial \tilde{\beta}} = 2 A \tilde{\beta} = 2 \tilde{X}^\top \tilde{X} \tilde{\beta}
+\]
+
+De ahí, de
+\[
+\frac{\partial S(\beta)}{\partial \tilde{\beta}} = 0_{(p+1)\times 1}
+\]
+tenemos que
+\[
+\tilde{\beta} = \hat{\beta}_{\text{MR}}
+\]
+\[
+\tilde{X}^\top \tilde{y} = \tilde{X}^\top \tilde{X} \hat{\beta}_{\text{MR}}
+\]
+(ecuaciones normales)
+
+\[
+\therefore \quad \hat{\beta}_{\text{MR}} = (\tilde{X}^\top \tilde{X})^{-1} \tilde{X}^\top \tilde{y}
+\]
+
+\end{document}

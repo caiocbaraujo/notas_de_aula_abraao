@@ -1,0 +1,31 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Introdução aos Métodos Bayesianos}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Comparação: Inferência Clássica vs. Inferência Bayesiana}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}O Paradigma Bayesiano}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Teorema de Bayes}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Distribuições a Priori e a Posteriori}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Elementos da Inferência Bayesiana}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Elemento 1: Distribuição a Priori}{4}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Elemento 2: Amostra Aleatória}{4}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Elemento 3: Estatística Suficiente}{4}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Elemento 4: Distribuição Conjunta}{4}{subsubsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.5}Elemento 5: Distribuição Marginal}{4}{subsubsection.2.1.5}%
+\contentsline {subsubsection}{\numberline {2.1.6}Elemento 6: Distribuição a Posteriori}{5}{subsubsection.2.1.6}%
+\contentsline {subsection}{\numberline {2.2}Exercícios Resolvidos}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Priori Conjugada}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Motivação}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Definição de Priori Conjugada}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Exercícios Resolvidos}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Tabela de Prioris Conjugadas Comuns}{13}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Estimadores Bayesianos}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Motivação à Estimação Bayesiana}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Contexto e Notação}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Função de Perda e Risco}{14}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Risco Bayesiano}{14}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Teoremas Fundamentais}{15}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Definição Geral de Estimador Bayesiano}{15}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Exercícios Resolvidos}{15}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Resumo de Fórmulas Importantes}{19}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Fórmulas Fundamentais}{19}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Propriedades da Função Gama e Beta}{19}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Observações Finais}{20}{section.6}%

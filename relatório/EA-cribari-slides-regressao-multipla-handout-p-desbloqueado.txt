@@ -1,0 +1,3091 @@
+RI
+
+F.
+CR
+IB
+A
+
+Estatı́stica Aplicada
+Regressão linear múltipla
+
+Francisco Cribari-Neto
+
+Departamento de Estatı́stica, Universidade Federal de Pernambuco
+
+2025
+
+1
+
+RI
+
+O modelo de regressão múltipla
+MOTIVAÇÃO: Mensurar o impacto sobre a média de y de mais de uma
+covariável.
+
+F.
+CR
+IB
+A
+
+O modelo linear de regressão múltipla é dado por
+yt = β1 + β2 xt2 + · · · + βK xtK + et ,
+
+t = 1, . . . , T
+
+Note que o modelo de regressão simples é obtido como um caso
+particular quando tomamos K = 2.
+β1 : média de yt quando xt2 = · · · = xtK = 0.
+
+Para j = 2, . . . , K, ∂µt /∂xtj = βj . Ou seja, βj mede o impacto sobre a
+média da resposta quando o j-ésimo regressor aumenta em uma
+unidade e todos os demais regressores permanecem inalterados.
+
+2
+
+Exemplo motivador 1
+
+RI
+
+Sejam:
+▶ yt : Nota em um exame, cuja escala varia entre 0 e 100;
+
+F.
+CR
+IB
+A
+
+▶ xt2 : Número médio de horas de estudo semanal (aulas + estudos
+individuais) nos 12 meses anteriores ao exame;
+▶ xt3 : Renda familiar;
+▶ xt4 : Idade;
+
+▶ xx5 : Sexo (masculino / feminino).
+Nosso modelo:
+
+yt = β1 + β2 xt2 + β3 xt3 + β4 xt4 + β5 xt5 + et .
+
+Aqui, β2 é a pontuação adicional esperada decorrente de um aumento
+de uma hora semanal de estudo com os demais regressores mantidos
+constantes.
+3
+
+F.
+CR
+IB
+A
+
+RI
+
+Exemplo motivador 2: Queda no PIB (%) na primeira metade
+de 2020 vs mortes cumulativas por Covid-19
+
+4
+
+F.
+CR
+IB
+A
+
+RI
+
+Exemplo motivador 2: Queda no PIB (%) na primeira metade
+de 2020 vs mortes cumulativas por Covid-19
+
+Regressores adicionais:
+
+▶ Montante relativo e extensão de auxı́lios individuais;
+▶ Peso relativo do setor de serviços na economia;
+
+▶ Grau de abertura da economia para o comércio internacional.
+
+5
+
+RI
+
+O modelo de regressão múltipla (cont.)
+
+F.
+CR
+IB
+A
+
+Podemos escrever o modelo, em forma matricial, como
+y = Xβ + e
+
+Aqui, y = (y1 , . . . , yT )′ é um vetor T × 1 de respostas,
+β = (β1 , . . . , βK )′ é o vetor de parâmetros (de dimensão K × 1),
+e = (e1 , . . . , eT )′ é um vetor T × 1 contendo os erros e X é uma matriz
+T × K (K < T) com observações sobre os regressores.
+Quando o modelo contém um intercepto, a primeira coluna de X é um
+vetor de uns.
+
+6
+
+
+1 x12 x13 . . .
+1 x22 x23 . . .
+
+X = .
+..
+..
+..
+ ..
+.
+.
+.
+1 xT2 xT3 . . .
+
+
+x1K
+x2K 
+
+..  .
+. 
+
+F.
+CR
+IB
+A
+
+Ou seja,
+
+RI
+
+O modelo de regressão múltipla (cont.)
+
+xTK
+
+Podemos também escrever o modelo como
+yt = xt′ β + et ,
+
+t = 1, . . . , T
+
+em que xt é a t-ésima linha de X (como vetor coluna).
+
+7
+
+Suposições
+
+RI
+
+Para o processo inferencial seja viabilizado, precisamos fazer algumas
+suposições.
+SUPOSIÇÕES
+
+F.
+CR
+IB
+A
+
+[S0] O modelo em uso está correto, ou seja, ele fornece uma boa
+representação para a população / fenômeno de interesse.
+[S1] O erro possui média zero, ou seja, IE(et ) = 0 ∀t.
+[S2] A variância do erro é constante, i.e.,
+
+var(et ) = σ 2 ∀t
+
+(0 < σ 2 < ∞).
+
+[S3] Os erros são não correlacionados, i.e.,
+
+cov(et , es ) = 0 ∀t ̸= s.
+
+8
+
+RI
+
+Suposições (cont.)
+[S4] As colunas de X são linearmente independentes.
+
+F.
+CR
+IB
+A
+
+Em outras palavras, posto(X) = K.
+
+Lembre que o posto de uma matriz é a dimensão da maior submatriz
+quadrada com determinante diferente de zero.
+Em outras palavras, ∄ c = (c1 , . . . , cK )′ ̸= 0 tal que
+
+c1 + c2 xt2 + · · · + cK xtK = 0 ∀ t.
+
+Para estimação intervalar e testes de hipóteses, adicionamos a
+seguinte suposição (que não é necessária para estimação pontual):
+[S5] Os erros são normalmente distribuı́dos.
+
+9
+
+RI
+
+Revisão
+
+DEF. Uma forma quadrática é uma função escalar deﬁnida como
+
+F.
+CR
+IB
+A
+
+Q(z) = z′ Az,
+
+em que z é um vetor de dimensão K × 1 e A é uma matriz de dimensão
+K × K.
+Note que Q(z) é um escalar.
+
+A seguir, abordaremos a derivada de uma função escalar em relação a
+um vetor. Esse conceito representa um vetor de derivadas parciais,
+onde cada elemento corresponde à derivada da função em relação a
+uma das variáveis do vetor.
+
+10
+
+RI
+
+Revisão
+
+F.
+CR
+IB
+A
+
+Seja A uma matriz simétrica de dimensão K × K e sejam z e w vetores
+K × 1. Então,
+∂(z1 × w1 + · · · + zK × wK )
+∂z′ w
+=
+= w.
+∂z
+∂z
+(Ou seja, derivamos o escalar z′ w em relação a cada elemento de z.)
+Adicionalmente,
+
+∂z′ Az
+= 2Az.
+∂z
+
+Se A não for simétrica, então ∂z′ Az/∂z = (A + A′ )z.
+
+11
+
+RI
+
+Estimação pontual
+OBJETIVO: Estimar β, o vetor de parâmetros do modelo y = Xβ + e.
+
+F.
+CR
+IB
+A
+
+MÉTODO DE ESTIMAÇÃO: Mı́nimos
+P quadrados ordinários, ou seja,
+minimizaremos S ≡ S(β) = Tt=1 e2t = e′ e.
+Note que
+
+S = e′ e = (y − Xβ)′ (y − Xβ)
+
+= y′ y−β ′ X ′ y − y′ Xβ + β ′ X ′ Xβ
+= y′ y − 2β ′ X ′ y + β ′ X ′ Xβ.
+
+FATO: X ′ X é simétrica.
+
+FATO: Sob [S4], X ′ X é não singular.
+
+12
+
+F.
+CR
+IB
+A
+
+RI
+
+Pausa para revisão
+
+RESULTADO 1 Seja A uma matriz simétrica de ordem T × T e seja B
+uma matriz T × K. Então, B′ AB é simétrica. Tomando A = IT , temos
+que B′ B é simétrica.
+RESULTADO 2 Seja B uma matriz de dimensão T × K com posto K.
+Então, B′ B é não singular.
+
+13
+
+Pausa para revisão (cont.)
+
+RI
+
+Seja A uma matriz simétrica de dimensão K × K e seja z um vetor
+K × 1.
+
+F.
+CR
+IB
+A
+
+▶ A é positiva deﬁnida se z′ Az > 0 ∀z ̸= 0.
+
+▶ A é positiva semi-deﬁnida se z′ Az ≥ 0 ∀z.
+▶ A é negativa deﬁnida se z′ Az < 0 ∀z ̸= 0.
+
+▶ A é negativa semi-deﬁnida se z′ Az ≤ 0 ∀z.
+Se A é positiva-deﬁnida (p.d.), então |A| > 0.
+Se A é p.d., então A−1 é p.d.
+
+Se A é p.d. e c é um escalar positivo, então c A é p.d.
+
+Se A e B são p.d. (e de mesma dimensão), então A + B é p.d.
+Se A é p.d., então aii > 0 para i = 1, . . . , K.
+
+14
+
+A condição de primeira ordem é
+
+RI
+
+Estimação pontual (cont.)
+
+F.
+CR
+IB
+A
+
+∂S
+= −2X ′ y + 2(X ′ X)β = 0.
+∂β
+
+Segue que
+
+X ′ X b = X ′ y,
+
+em que b = (b1 , . . . , bK )′ é o estimador de mı́nimos quadrados
+ordinários de β.
+Assim,
+
+b = (X ′ X)−1 X ′ y
+
+Mas e a condição de segunda ordem? Note que ∂ 2 S/∂β∂β ′ = 2 X ′ X,
+que é positiva deﬁnida. Ou seja, trata-se de ponto de mı́nimo.
+15
+
+Pausa para revisão
+
+RI
+
+RESULTADO Seja B uma matriz de dimensão T × K com posto K.
+Então, posto(B′ B) = K e B′ B é positiva deﬁnida. Adicionalmente,
+c B′ B é positiva deﬁnida ∀c > 0.
+
+F.
+CR
+IB
+A
+
+CONSEQUÊNCIA 2 X’X é positiva deﬁnida. Assim, a condição de
+segunda ordem é satisfeita.
+
+RESULTADO ADICIONAL 1 Seja C uma matriz de dimensão K × T.
+Então, CC′ é positiva semi-deﬁnida. Se posto(C) = K, então CC′ é
+positiva deﬁnida.
+RESULTADO ADICIONAL 2 (Decomposição de Choleski) Seja A uma
+matriz positiva deﬁnida de dimensão K × K. Então, A = LL′ , em que L
+é uma matriz triangular inferior de ordem K × K com elementos
+diagonais positivos.
+OBS.: Alguns autores escrevem A = L′ L. Nesse caso, L é triangular
+superior.
+16
+
+Pausa para revisão (cont.)
+
+RI
+
+EXEMPLO SIMPLES DE DECOMPOSIÇÃO DE CHOLESKI Considere a
+matriz
+
+
+1 2
+A=
+.
+2 13
+
+F.
+CR
+IB
+A
+
+Temos que A = LL′ , em que
+
+
+
+
+1 0
+L=
+.
+2 3
+
+Note que
+
+
+ 
+
+1 0 1 2
+1 2
+LL =
+=
+= A.
+2 3 0 3
+2 13
+′
+
+
+
+OBS.: Se a decomposição for deﬁnida como L′ L, então L é triangular
+superior, ou seja,
+
+
+1 2
+L=
+.
+0 3
+17
+
+O R utiliza a segunda notação, ou seja, L′ L.
+
+RI
+
+Pausa para revisão (cont.)
+
+F.
+CR
+IB
+A
+
+> A = matrix(c(1, 2, 2, 13), nrow = 2, ncol = 2)
+> A
+[,1] [,2]
+[1,]
+1
+2
+[2,]
+2
+13
+> A.chol = chol(A)
+> A.chol
+[,1] [,2]
+[1,]
+1
+2
+[2,]
+0
+3
+
+18
+
+RI
+
+Estimação pontual no R
+
+F.
+CR
+IB
+A
+
+Para estimar regressões lineares usando o software R, use a função lm
+(‘linear model’). Por exemplo,
+> ajuste = lm(y ~ x2 + x3 + x4)
+> summary(ajuste)
+
+Para remover o intercepto do modelo, adicione -1:
+lm(y ~ -1 + x2 + x3 + x4).
+Para mais detalhes,
+> help(lm)
+
+19
+
+Estimação pontual no R I
+
+RI
+
+Façamos um exemplo.
+
+F.
+CR
+IB
+A
+
+> # Carregar o conjunto de dados
+> data(mtcars)
+> # Detalhes sobre os dados
+> help(mtcars)
+> # Ver as primeiras linhas
+> head(mtcars)
+mpg cyl disp hp drat
+wt qsec vs am gear carb
+Mazda RX4
+21.0
+6 160 110 3.90 2.620 16.46 0 1
+4
+4
+Mazda RX4 Wag
+21.0
+6 160 110 3.90 2.875 17.02 0 1
+4
+4
+Datsun 710
+22.8
+4 108 93 3.85 2.320 18.61 1 1
+4
+1
+Hornet 4 Drive
+21.4
+6 258 110 3.08 3.215 19.44 1 0
+3
+1
+Hornet Sportabout 18.7
+8 360 175 3.15 3.440 17.02 0 0
+3
+2
+Valiant
+18.1
+6 225 105 2.76 3.460 20.22 1 0
+3
+1
+> # sumário dos dados
+> with(mtcars, summary(mpg)) |> round(2)
+Min. 1st Qu. Median
+Mean 3rd Qu.
+Max.
+10.40
+15.43
+19.20
+20.09
+22.80
+33.90
+> with(mtcars, summary(wt)) |> round(2)
+Min. 1st Qu. Median
+Mean 3rd Qu.
+Max.
+20
+
+Estimação pontual no R II
+
+F.
+CR
+IB
+A
+
+RI
+
+1.51
+2.58
+3.33
+3.22
+3.61
+5.42
+> with(mtcars, summary(hp)) |> round(2)
+Min. 1st Qu. Median
+Mean 3rd Qu.
+Max.
+52.00
+96.50 123.00 146.69 180.00 335.00
+> # correlaç~
+oes
+> with(mtcars, cor(mpg, wt)) |> round(2)
+[1] -0.87
+> with(mtcars, cor(mpg, hp)) |> round(2)
+[1] -0.78
+> with(mtcars, cor(wt, hp)) |> round(2)
+[1] 0.66
+> # Ajustar o modelo de regress~
+ao linear
+> modelo = lm(mpg ~ wt + hp, data = mtcars)
+> summary(modelo)
+Call:
+lm(formula = mpg ~ wt + hp, data = mtcars)
+Residuals:
+Min
+1Q
+Median
+-3.940979469 -1.600221937 -0.182013641
+
+3Q
+1.049855518
+
+Max
+5.853790850
+21
+
+F.
+CR
+IB
+A
+
+Coefficients:
+
+RI
+
+Estimação pontual no R III
+
+Estimate
+(Intercept) 37.22727011645
+wt
+-3.87783074240
+hp
+-0.03177294698
+
+Std. Error t value
+Pr(>|t|)
+1.59878753800 23.28469
+< 2.22e-16
+0.63273349438 -6.12870 0.0000011196
+0.00902970968 -3.51871
+0.0014512
+
+Residual standard error: 2.59341178 on 29 degrees of freedom
+Multiple R-squared: 0.826785452,
+Adjusted R-squared:
+0.814839621
+F-statistic: 69.2112134 on 2 and 29 DF, p-value: 9.10905439e-12
+
+22
+
+RI
+
+Estimação pontual no R
+
+F.
+CR
+IB
+A
+
+A estimativa de β2 obtida usando o modelo de regressão simples foi
+−5.344. Aqui, ela passa a ser −3.8778. Concluı́mos que para cada
+aumento de 1000 libras no peso do carro a eﬁciência (medida em MPG)
+diminui em 3.8778 quando a potência do motor é mantida constante.
+A estimativa de β3 é −0.0318. Assim, um aumento de uma hp
+(“horsepower”) de potência do motor conduz a uma redução de
+eﬁciência de 0.0318 (medida em MPG) quando o peso do carro é
+mantido constante. Ou seja, para um dado peso do carro, um aumento
+de 10 hp na potência conduz a uma redução de eﬁciência de
+aproximadamente 0.3 MPG.
+
+23
+
+RI
+
+Resı́duos
+Os erros representam discrepâncias entre as respostas (y1 , . . . , yT ) e a
+reta de regressão populacional (xt′ β):
+
+F.
+CR
+IB
+A
+
+et = yt − xt′ β = β1 − β2 xt2 − · · · − βK xtK .
+
+Podemos ‘estimar’ tais erros tomando as discrepâncias entre as
+respostas (y1 , . . . , yT ) e a reta de regressão amostral (xt′ b). Essas
+medidas são chamadas de resı́duos:
+êt = yt − xt′ b = yt − b1 − b2 xt2 − · · · − bK xtK .
+
+Denotaremos por ê o vetor de resı́duos de mı́nimos quadrados
+ordinários, ou seja, ê = (ê1 , . . . , êT )′ .
+
+24
+
+Estimação de σ 2
+
+RI
+
+OBJETIVO: Obter um estimador para σ 2 .
+
+Lembre que σ 2 = var(et ) = IE(e2t ) (dado que et possui media zero).
+
+F.
+CR
+IB
+A
+
+IDEIA: Podemos usar a variância amostral dos resı́duos como um
+estimador para a variância populacional dos erros.
+
+MELHORAMENTO: Ao fazer isso, incorporaremos uma ‘correção de
+graus de liberdade’.
+Temos, assim, o seguinte estimador da variância dos erros:
+T
+
+σ̂ 2 =
+
+1 X 2
+êt
+T−K
+t=1
+
+Ou seja, σ̂ 2 = ê′ ê/(T − K).
+
+25
+
+Pausa para revisão
+
+F.
+CR
+IB
+A
+
+A matrix de covariância de Z é
+
+RI
+
+Seja Z = (Z1 , . . . , Zm )′ um vetor aleatório de dimensão m × 1 com
+média ξ = (ξ1 , . . . , ξm )′ .
+
+
+
+cov(Z) = IE (Z − ξ)(Z − ξ)′ .
+
+Os elementos diagonais são as variâncias: var(Z1 ), . . . , var(Zm ).
+Os demais elementos são covariâncias: cov(Z1 , Z2 ), cov(Z1 , Z3 ), . . ..
+Uma vez que cov(Zi , Zj ) = cov(Zj , Zi ) para todo i ̸= j, cov(Z) é
+simétrica.
+ALHOS E BUGALHOS: Nas derivações a seguir, não confundir cov(b)
+com cov(e). Note também que as dimensões são distintas: K × K e
+T × T (respec.).
+OBS.: Dado que IE(e) = 0 (por [S1]), segue que cov(e) = IE(ee′ ).
+26
+
+Propriedades de b
+
+RI
+
+OBJETIVO: Estudar as propriedades de b, o EMQO de β. Assumiremos
+que [S4] vale. Note que [S0] garante que Xβ + e fornece uma boa
+representação para y.
+
+F.
+CR
+IB
+A
+
+PROPRIEDADE 1 Sob [S0] e [S1], b é não viesado.
+Note que
+
+[S0]
+
+b = (X ′ X)−1 X ′ y = (X ′ X)−1 X ′ (Xβ + e)
+= β + (X ′ X)−1 X ′ e.
+
+Segue que
+
+IE(b) = IE(β) + IE[(X ′ X)−1 X ′ e]
+= β + (X ′ X)−1 X ′ IE(e)
+[S1]
+
+= β+0
+
+= β.
+
+Ou seja, IE(b) = β ∀β ∈ IRK . Note que só precisamos de [S0] e [S1].
+
+27
+
+Propriedades de b (cont.)
+Note que
+
+[S0] e [S1]
+
+=
+
+IE[(b − β)(b − β)′ ].
+
+F.
+CR
+IB
+A
+
+cov(b) = IE{[b − IE(b)][b − IE(b)]′ }
+
+RI
+
+PROPRIEDADE 2 Sob [S0], [S1], [S2] e [S3], cov(b) = σ 2 (X ′ X)−1 .
+
+Mas b − β = (X ′ X)−1 X ′ e. Segue que
+
+cov(b) = IE[(X ′ X)−1 X ′ ee′ X(X ′ X)−1 ]
+
+= (X ′ X)−1 X ′ IE(ee′ )X(X ′ X)−1
+[S1] a [S3]
+
+=
+
+(X ′ X)−1 X ′ σ 2 IT X(X ′ X)−1
+
+= σ 2 (X ′ X)−1 X ′ X(X ′ X)−1
+= σ 2 (X ′ X)−1 ,
+
+em que IT é a matriz identidade de ordem T.
+Note que cov(e) = σ 2 IT .
+
+28
+
+Propriedades de b (cont.)
+
+RI
+
+Como notamos,
+IE(e21 )
+IE(e2 e1 )
+
+cov(e) = IE(ee′ ) = 
+..
+
+.
+
+
+F.
+CR
+IB
+A
+
+IE(e1 e2 ) · · ·
+IE(e22 ) · · ·
+..
+..
+.
+.
+IE(eT e1 ) IE(eT e2 ) · · ·
+
+
+IE(e1 eT )
+IE(e2 eT )
+
+.
+..
+
+.
+IE(e2T )
+
+Segue que
+
+ 2
+σ
+0 ···
+ 0 σ2 · · ·
+
+cov(e) =  .
+..
+..
+ ..
+.
+.
+0 0 ···
+
+
+0
+0
+
+2
+..  = σ IT .
+.
+
+σ2
+
+Para esse resultado, usamos [S1], [S2] e [S3].
+
+29
+
+Propriedades de b (cont.)
+
+RI
+
+Note que podemos facilmente estimar essa matriz de variâncias e
+covariâncias:
+c
+cov(b)
+= σ̂ 2 (X ′ X)−1 .
+
+F.
+CR
+IB
+A
+
+Os erros-padrão de b1 , . . . , bK são obtidos tomando as raı́zes
+c
+quadradas dos elementos diagonais de cov(b).
+
+PROPRIEDADE 3 O estimador de máxima verossimilhança de β obtido
+sob a suposição de normalidade coincide com b.
+A função de verossimilhança construı́da assumindo que y1 , . . . , yT são
+variáveis aleatórias independentes tais que yt ∼ N (xt′ β, σ 2 ),
+t = 1, . . . , T, é dada por
+
+
+1
+2
+2 −T/2
+′
+L ≡ L(β, σ | y, X) = (2πσ )
+exp − 2 (y − Xβ) (y − Xβ) .
+2σ
+A função de log-verossimilhança é
+ℓ ≡ ℓ(β, σ 2 | y, X) = −
+
+T
+T
+1
+log(2π)− log(σ 2 )− 2 (y−Xβ)′ (y−Xβ).
+2
+2
+2σ
+30
+
+Propriedades de b (cont.)
+As condições de primeira ordem são
+
+F.
+CR
+IB
+A
+
+RI
+
+∂ℓ
+1
+= − 2 (−2X ′ y + 2X ′ Xβ) = 0,
+∂β
+2σ
+1
+∂ℓ
+T
+1 ′
+=− × 2 +
+e e = 0.
+2 σ
+∂σ 2
+2σ 4
+
+Da primeira equação, obtemos
+
+β̂MV = (X ′ X)−1 X ′ y
+
+que é igual a b.
+
+Da segunda equação, obtemos ê′ ê/σ̂ 4 = T/σ̂ 2 . Ou seja,
+2
+σ̂MV
+=
+
+que é diferente de σ̂ 2 .
+
+ê′ ê
+T
+
+31
+
+Propriedades de b (cont.)
+
+PROPRIEDADE 5 Se y ∼ N , então b ∼ N .
+
+RI
+
+PROPRIEDADE 4 b é um estimador linear, pois pode ser escrito como
+um múltiplo de y: b = Ay, em que A = (X ′ X)−1 X ′ .
+
+F.
+CR
+IB
+A
+
+PROPRIEDADE 6 (Teorema de Gauss-Markov) Sob [S0], [S1], [S2] e [S3],
+b é o melhor estimador linear não viesado de β.
+Ou seja, ∀a ∈ IRK e para qualquer estimador b∗ de β que seja linear e
+não viesado, segue que
+var(a′ b∗ ) ≥ var(a′ b) ⇒ var(a′ b∗ ) − var(a′ b) ≥ 0.
+
+Ou seja,
+
+a′ [cov(b∗ )]a − a′ [cov(b)]a ≥ 0 ⇒ a′ [cov(b∗ ) − cov(b)]a ≥ 0.
+Ou seja, a diferença entre cov(b∗ ) e cov(b) deve ser positiva
+semi-deﬁnida.
+32
+
+Propriedades de b (cont.)
+
+RI
+
+PROVA. Deﬁna a classe de estimadores lineares de β como
+b∗ = [(X ′ X)−1 X ′ + C]y,
+
+F.
+CR
+IB
+A
+
+em que C é uma matriz (não-aleatória) de dimensão K × T.
+
+Note que o estimador de MQO b é um membro desta classe quando C é
+uma matriz de zeros.
+Note ainda que
+
+b∗ = [(X ′ X)−1 X ′ + C]y
+[S0]
+
+= [(X ′ X)−1 X ′ + C](Xβ + e)
+
+= β + Ce + CXβ + (X ′ X)−1 X ′ e.
+
+Dado que IE(e) = 0 (por [S1]), então IE(b∗ ) = β + CXβ.
+Assim, para que b∗ seja não viesado, requeremos CX = 0.
+33
+
+Propriedades de b (cont.)
+Temos então
+
+RI
+
+b∗ − β = Ce + (X ′ X)−1 X ′ e = [C + (X ′ X)−1 X ′ ]e.
+
+F.
+CR
+IB
+A
+
+Portanto,
+
+(b∗ − β)(b∗ − β)′ = [C + (X ′ X)−1 X ′ ]ee′ [C′ + X(X ′ X)−1 ].
+A matriz de covariância de b∗ é
+
+cov(b∗ ) = IE[(b∗ − β)(b∗ − β)′ ]
+
+= [C + (X ′ X)−1 X ′ ]IE(ee′ )[C′ + X(X ′ X)−1 ]
+[S1] a [S3]
+
+=
+
+[C + (X ′ X)−1 X ′ ]σ 2 IT [C′ + X(X ′ X)−1 ]
+
+= σ 2 [CC′ + (X ′ X)−1 X ′ C′ + CX(X ′ X)−1 + (X ′ X)−1 X ′ X(X ′ X)−1 ]
+= σ 2 [CC′ + (X ′ X)−1 ].
+
+(Note que usamos acima a propriedade de não viés, i.e., CX = 0 e
+X ′ C′ = 0, e também [S0], [S1], [S2] e [S3].)
+
+34
+
+Propriedades de b (cont.)
+
+RI
+
+Assim,
+
+F.
+CR
+IB
+A
+
+cov(b∗ ) = σ 2 (X ′ X)−1 + σ 2 CC′ = cov(b) + σ 2 CC′ .
+Ou seja,
+
+cov(b∗ ) − cov(b) = σ 2 CC′ ,
+
+uma matriz positiva semi-deﬁnida.
+
+OBS. Se C = 0, então b∗ = b e, claro, cov(b∗ ) − cov(b) = 0.
+OBS. Se posto(C) = K (que implica b∗ ̸= b), então σ 2 CC′ é positiva
+deﬁnida.
+OBS. Lembre desse resultado que revisamos: Seja C uma matriz de
+dimensão K × T. Então, CC′ é positiva semi-deﬁnida. Se posto(C) = K,
+então CC′ é positiva deﬁnida.
+35
+
+Duas propriedades de uma matriz importante
+Considere a seguinte matriz (de ordem T × T):
+
+F.
+CR
+IB
+A
+
+[PROP. 1] A matriz M é simétrica:
+
+RI
+
+M = IT − X(X ′ X)−1 X ′ .
+
+M′ = (IT − X(X ′ X)−1 X ′ )′ = IT − X(X ′ X)−1 X ′ = M.
+
+[PROP. 2] A matriz M é idempotente:
+
+MM = (IT − X(X ′ X)−1 X ′ )(IT − X(X ′ X)−1 X ′ )
+
+= IT − X(X ′ X)−1 X ′ − X(X ′ X)−1 X ′ + X(X ′ X)−1 X ′ X(X ′ X)−1 X ′
+= IT − X(X ′ X)−1 X ′ − X(X ′ X)−1 X ′ + X(X ′ X)−1 X ′
+= IT − X(X ′ X)−1 X ′ = M.
+
+Mais adiante, denotaremos a matriz X(X ′ X)−1 X ′ por H e a
+chamaremos de matriz chapéu.
+
+36
+
+F.
+CR
+IB
+A
+
+RI
+
+Revisão
+
+indep
+
+Vimos que se Z1 , Z2 , . . . , Zk ∼ N (0, 1), então
+
+Pk
+
+2
+2
+i=1 Zi ∼ χk .
+
+Agora, sejam Z1 , Z2 , . . . , Zk variáveis aleatórias
+independentes tal que
+Pk
+2
+Zi ∼ N (µi , 1), para i = 1, . . . , k. Então i=1 Zi ∼ χ2k , λ, em que
+P
+λ = ki=1 µ2i . Essa é a distribuição qui-quadrado não central.
+
+37
+
+Dois resultados importantes
+
+F.
+CR
+IB
+A
+
+s′ As ∼ χ2a,λ ,
+
+RI
+
+LEMA 1. Seja s ∼ N (ψ, IT ) e seja A uma matriz não estocástica de
+dimensão T × T simétrica e idempotente. Então,
+
+em que a = posto(A) e λ = ψ ′ Aψ/2.
+
+LEMA 2. Seja s ∼ N (ψ, IT ), seja A uma matriz não estocástica
+simétrica de dimensão T × T e seja B uma matriz não estocástica de
+dimensão K × T. Se
+BA = 0,
+então
+
+s′ As e
+
+Bs
+
+são independentes.
+
+38
+
+Propriedades de b (cont.)
+
+RI
+
+PROPRIEDADE 7 Sob normalidade (e [S0] a [S3]), b e σ̂ 2 são
+independentes.
+
+F.
+CR
+IB
+A
+
+PROVA. Dado que e ∼ N (0, σ 2 IT ), segue que y ∼ N (µ, σ 2 IT ) e
+b = (X ′ X)−1 X ′ y ∼ N (β, σ 2 (X ′ X)−1 ).
+
+Seja z = y/σ. Segue que
+
+z ∼ N (σ −1 Xβ, IT ).
+
+Seja M = IT − X(X ′ X)−1 X ′ . Temos que
+
+T−K 2
+σ̂ = z′ Mz.
+σ2
+
+Mostremos que isso é verdade.
+
+39
+
+Propriedades de b (cont.)
+σ̂ 2
+
+RI
+
+Temos
+
+F.
+CR
+IB
+A
+
+z }| {
+ê′ ê
+T−K 2 T−K
+1
+σ̂
+=
+×
+= 2 (y − Xb)′ (y − Xb)
+2
+2
+T−K
+σ
+σ
+σ
+1
+= 2 [y − X(X ′ X)−1 X ′ y]′ [y − X(X ′ X)−1 X ′ y]
+σ
+1
+= 2 y′ [IT − X(X ′ X)−1 X ′ ]′ [IT − X(X ′ X)−1 X ′ ]y
+σ
+1
+= 2 y′ M′ My.
+σ
+
+Lembre que M é simétrica (i.e., M = M′ ) e idempotente (i.e.,
+MM = M). Isso implica que M′ M = M e, assim,
+ y ′  y 
+T−K 2
+1 ′
+σ̂
+=
+y
+MMy
+=
+M
+= z′ Mz.
+σ
+σ
+σ2
+σ2
+Sigamos em frente...
+
+40
+
+Pelo Lema 1,
+
+z′ Mz ∼ χ2a,λ .
+
+RI
+
+Propriedades de b (cont.)
+
+F.
+CR
+IB
+A
+
+Aqui, a = posto(M). Note que, dado que M é idempotente, segue que
+posto(M) = tr(M) e
+tr(M) = tr(IT − X(X ′ X)−1 X ′ )
+
+= tr(IT ) − tr(X(X ′ X)−1 X ′ )
+= T − tr(X ′ X(X ′ X)−1 )
+= T − tr(IK )
+= T − K.
+
+Ou seja, a = T − K. Agora precisamos determinar o valor de λ.
+
+41
+
+Dado que z ∼ N (σ −1 Xβ, IT ), segue que
+β ′ X ′ MXβ
+.
+2σ 2
+
+F.
+CR
+IB
+A
+
+λ=
+
+RI
+
+Propriedades de b (cont.)
+
+Note que
+
+X ′ MX = X ′ [IT − X(X ′ X)−1 X ′ ]X
+
+= X ′ X − X ′ X(X ′ X)−1 X ′ X
+= X′ X − X′ X
+= 0.
+
+Assim, λ = 0.
+
+Temos, assim, que z′ Mz ∼ χ2T−K . Ou seja, (T − K)/σ 2 × σ̂ 2 ∼ χ2T−K .
+42
+
+Propriedades de b (cont.)
+
+RI
+
+O passo ﬁnal de nossa prova será aplicar o Lema 2 com A = M e
+B = (X ′ X)−1 X ′ . Note que
+
+F.
+CR
+IB
+A
+
+BA = (X ′ X)−1 X ′ [IT − X(X ′ X)−1 X ′ ]
+
+= (X ′ X)−1 X ′ − (X ′ X)−1 X ′ X(X ′ X)−1 X ′
+= (X ′ X)−1 X ′ − (X ′ X)−1 X ′
+= 0.
+
+Portanto, z′ Mz e (X ′ X)−1 X ′ z são independentes. Temos, assim, que
+σ̂ 2
+
+e
+
+b
+
+são independentes.
+
+PROPRIEDADE 8 b e σ̂ 2 são consistentes. (Provaremos mais adiante.)
+43
+
+Propriedades de σ̂ 2
+
+F.
+CR
+IB
+A
+
+T−K 2
+σ̂ ∼ χ2T−K
+σ2
+
+RI
+
+PROPRIEDADE 1 Sob normalidade (e [S0] a [S3]),
+
+Note que esse resultado foi provado ao longo da prova de que σ̂ 2 e b
+são independentes. Ele segue do nosso Lema 1.
+PROPRIEDADE 2 Sob normalidade (e [S0] a [S3]), σ̂ 2 é não viesado.
+Note que
+
+
+
+IE
+
+Assim,
+
+T−K 2
+σ̂
+σ2
+
+
+
+= T − K (média da dist. χ2T−K )
+
+IE(σ̂ 2 ) = σ 2 .
+
+44
+
+RI
+
+Propriedades de σ̂ 2 (cont.)
+
+F.
+CR
+IB
+A
+
+Note ainda que
+
+
+T−K 2
+σ̂
+var
+= 2(T − K) (variância da dist. χ2T−K )
+σ2
+Ou seja,
+
+(T − K)2
+var(σ̂ 2 ) = 2(T − K).
+σ4
+
+Ou seja,
+
+var(σ̂ 2 ) =
+
+2σ 4
+→0
+T−K
+
+quando T → ∞.
+
+45
+
+Propriedades de σ̂ 2 (cont.)
+PROVA. Note, de inı́cio, que
+
+F.
+CR
+IB
+A
+
+ê = y − Xb
+
+RI
+
+PROPRIEDADE 3 Mesmo sem normalidade (mas sob [S0] a [S3]), σ̂ 2 é
+não viesado.
+
+= y − X(X ′ X)−1 X ′ y
+
+= [IT − X(X ′ X)−1 X ′ ]y
+= My.
+
+Sob [S0],
+
+ê = [IT − X(X ′ X)−1 X ′ ](Xβ + e)
+= Xβ − X(X ′ X)−1 X ′ Xβ + Me
+= Me.
+
+Precisamos obter IE(σ̂ 2 ) = IE[ê′ ê/(T − K)].
+
+46
+
+Propriedades de σ̂ 2 (cont.)
+Note que
+ê′ ê
+T−K
+
+M
+
+
+
+RI
+
+IE(σ̂ 2 ) = IE
+
+
+
+z}|{
+1
+=
+IE[e′ M′ M e]
+T−K
+
+F.
+CR
+IB
+A
+
+1
+IE[tr(e′ Me)]
+T−K
+1
+=
+IE[tr(Mee′ )]
+T−K
+
+=
+
+σ 2 IT
+
+z }| {
+1
+tr(M IE(ee′ ))
+=
+T−K
+M
+
+}|
+{
+z
+σ2
+′ −1 ′
+=
+tr(IT − X(X X) X )
+T−K
+σ2
+=
+× (T − K)
+T−K
+= σ2.
+
+47
+
+Revisão
+
+RI
+
+O quantil p ∈ (0, 1) da variável aleatória W é
+
+F.
+CR
+IB
+A
+
+wp = inf {w ∈ IR | Pr(W ≤ w) ≥ p} .
+
+O quantil 0.5 é a mediana e os quantis 0.25 e 0.75 são conhecidos
+como primeiro e terceiro quartis, respectivamente.
+Por exemplo, os quantis de nı́vel 0.90, 0.95, 0.975, 0.99, 0.995 da
+distribuição normal padrão são
+> qnorm(c(0.90, 0.95, 0.975, 0.99, 0.995)) |> round(4)
+[1] 1.2816 1.6449 1.9600 2.3263 2.5758
+
+Para a distribuição t5 , obtemos
+
+> qt(c(0.90, 0.95, 0.975, 0.99, 0.995), df = 5) |> round(4)
+[1] 1.4759 2.0150 2.5706 3.3649 4.0321
+48
+
+Estimação intervalar
+
+RI
+
+OBJETO DE DESEJO: Realizar inferência intervalar sobre os parâmetros
+do modelo de regressão linear.
+
+F.
+CR
+IB
+A
+
+Em particular, para um α ∈ (0, 1) selecionado, desejamos encontrar
+um intervalo aleatório cujos limites sejam estatı́sticas e cuja
+probabilidade de conter o valor verdadeiro do parâmetro seja 1 − α. No
+que segue, para δ ∈ (0, 1), zδ denota o quantil δ da distribuição normal
+padrão.
+SUPOSIÇÃO IMPORTANTE: Assumiremos normalidade, i.e., nossa
+suposição [S5].
+CASO IRREALISTA Suponha que σ 2 é conhecido. Para j = 1, . . . , K,
+bj ∼ N (βj , var(bj )),
+
+em que var(bj ) é o elemento (j, j) da matriz σ 2 (X ′ X)−1 .
+Note que
+
+bj − βj
+p
+∼ N (0, 1).
+var(bj )
+
+49
+
+Estimação intervalar (cont.)
+
+RI
+
+Assim,
+
+!
+
+= 1 − α.
+
+F.
+CR
+IB
+A
+
+bj − βj
+Pr zα/2 ≤ p
+≤ z1−α/2
+var(bj )
+
+Dada a simetria da distribuição normal, zα/2 = −z1−α/2 . Segue que
+q
+q
+
+
+Pr bj − z1−α/2 var(bj ) ≤ βj ≤ bj + z1−α/2 var(bj ) = 1 − α.
+Chegamos ao seguinte intervalo de conﬁança de nı́vel (1 − α) × 100%
+para βj :
+h
+
+bj − z1−α/2
+
+q
+
+var(bj ), bj + z1−α/2
+
+q
+i
+var(bj )
+
+50
+
+Estimação intervalar (cont.)
+
+RI
+
+CASO REALISTA Suponha que σ 2 é desconhecido.
+
+F.
+CR
+IB
+A
+
+Seja cjj o j-ésimo elemento diagonal de (X ′ X)−1 , j = 1, . . . , K.
+Trabalharemos com os seguintes resultados:
+q
+RESULTADO 1: (bj − βj )/ σ 2 cjj ∼ N (0, 1).
+RESULTADO 2: (T − K)σ̂ 2 /σ 2 ∼ χ2T−K .
+
+RESULTADO 3: bj e σ̂ 2 são independentes.
+
+Segue desses três resultados combinados que
+
+bj − βj
+bj − βj
+p
+=q
+∼ tT−K .
+c j)
+var(b
+σ̂ 2 c
+jj
+
+51
+
+EXPLICAÇÃO: Temos
+bj −βj
+√
+2
+
+bj − βj
+=q
+.
+σ̂ 2 cjj
+
+F.
+CR
+IB
+A
+
+σ cjj
+
+RI
+
+Estimação intervalar (cont.)
+
+q
+
+(T−K)σ̂ 2 /σ 2
+T−K
+
+Note que: (i) O numerador (lado esquerdo da igualdade) possui
+distribuição N (0, 1), (ii) O denominador (lado esquerdo da igualdade)
+é a raiz quadrada de uma variável aleatória χ2T−K dividida por T − K
+(número de graus de liberdade), (iii) O numerador e o denominador são
+independentes.
+OBS. A independência entre o numerador e o denominador segue da
+independência entre b e σ̂ 2 .
+
+52
+
+Estimação intervalar (cont.)
+
+q
+
+q
+i
+c j)
+var(b
+
+F.
+CR
+IB
+A
+
+h
+
+RI
+
+Fazendo desenvolvimento análogo ao anterior, chegamos ao seguinte
+intervalo de conﬁança de nı́vel (1 − α) × 100% para βj :
+bj − tT−K;1−α/2
+
+c j ), bj + tT−K;1−α/2
+var(b
+
+em que tm;δ denota o quantil δ da distribuição tm .
+Ou seja,
+
+h
+
+bj − tT−K;1−α/2
+
+q
+q
+i
+σ̂ 2 cjj , bj + tT−K;1−α/2 σ̂ 2 cjj
+
+PERGUNTA PARA REFLEXÃO: Qual dos dois intervalos (caso irrealista e
+caso realista) tende a ser mais amplo e por quê?
+
+53
+
+F.
+CR
+IB
+A
+
+RI
+
+Estimação intervalar (cont.)
+
+EXERCÍCIO: Seguindo os desenvolvimentos anteriores, mas fazendo as
+devidas modiﬁcações, construa um intervalo de conﬁança de nı́vel
+(1 − α) × 100% para σ 2 .
+
+54
+
+Estimação intervalar (cont.)
+
+RI
+
+No R, use a função confint. Por exemplo,
+
+F.
+CR
+IB
+A
+
+> data(cars)
+> help(cars)
+> ajuste = lm(dist ~ speed, data = cars)
+> intervalos de confiança de 95%
+> confint(ajuste)
+2.5 %
+97.5 %
+(Intercept) -31.16784960239 -3.99034017863
+speed
+3.09696432814 4.76785319011
+> # intervalos de confiança de 90%
+> confint(ajuste, level = 0.90)
+5 %
+95 %
+(Intercept) -28.91451427065 -6.24367551037
+speed
+3.23550067632 4.62931684193
+> # estimativas pontuais (b_1 e b_2)
+> coef(ajuste)
+(Intercept)
+speed
+-17.57909489051
+3.93240875912
+
+55
+
+Testes de hipóteses
+
+RI
+
+OBJETO DE DESEJO: Realizar inferência por testes de hipóteses sobre
+os parâmetros do modelo de regressão linear.
+SUPOSIÇÃO IMPORTANTE: Assumiremos normalidade, i.e., nossa
+suposição [S5].
+
+F.
+CR
+IB
+A
+
+(0)
+
+TESTE 1 Suponha que desejamos testar H0 : βj = βj
+
+vs.
+
+(0)
+H1 : βj ̸= βj , para algum j ∈ {1, . . . , K}.
+
+Seja ep(bj ) o erro-padrão de bj , i.e., ep(bj ) =
+
+p
+c j ).
+var(b
+
+Lembre que (bj − βj )/ ep(bj ) ∼ tT−K . Note que
+(0)
+
+t=
+
+bj − βj
+
+ep(bj )
+
+é uma estatı́stica de teste que podemos usar. Ela mede a evidência
+amostral contra H0 .
+(0)
+
+Note que, sob H0 , βj = βj
+
+e, assim, sob a hipótese nula
+t ∼ tT−K .
+
+56
+
+Testes de hipóteses (cont.)
+|t| > tT−K;1−α/2 .
+
+F.
+CR
+IB
+A
+
+Esse é teste é chamado de teste t.
+
+RI
+
+Desta forma, rejeitamos H0 ao nı́vel de signiﬁcância α ∈ (0, 1) se
+
+O teste apresentado é um teste bilateral ou bicaudal. Podemos realizar
+testes unilaterais ou unicaudais.
+(0)
+
+CASO 1. Suponha que desejamos testar H0 : βj = βj
+
+vs.
+
+(0)
+H1 : βj > βj .
+
+(0)
+
+Rigorosamente, testamos H0 : βj ≤ βj
+
+(0)
+
+vs. H1 : βj > βj . Ao
+
+(0)
+
+escrever H0 : βj = βj , desconsideramos a possibilidade que βj seja
+(0)
+
+menor que βj .
+
+Usamos a mesma estatı́stica de teste e rejeitamos a hipótese nula se
+t > tT−K;1−α .
+
+57
+
+Testes de hipóteses (cont.)
+
+RI
+
+EXEMPLO:
+consumot = β1 + β2 rendat + β3 riquezat + et ,
+
+F.
+CR
+IB
+A
+
+H0 : β3 = 0 vs H1 : β3 > 0 (i.e., riqueza não tem impacto ou tem
+impacto positivo).
+(0)
+
+CASO 2. Suponha que desejamos testar H0 : βj = βj
+
+vs.
+
+(0)
+H1 : βj < βj .
+
+(0)
+
+Rigorosamente, testamos H0 : βj ≥ βj
+
+(0)
+
+vs. H1 : βj < βj . Ao
+
+(0)
+
+escrever H0 : βj = βj , desconsideramos a possibilidade que βj seja
+(0)
+
+maior que βj .
+
+Usamos a mesma estatı́stica de teste e rejeitamos a hipótese nula se
+t < −tT−K;1−α .
+
+58
+
+Testes de hipóteses (cont.)
+
+RI
+
+EXEMPLO:
+
+inﬂaçãot = β1 + β2 taxa de jurost + et ,
+
+F.
+CR
+IB
+A
+
+H0 : β2 = 0 vs H1 : β2 < 0 (i.e., taxa de juros não tem impacto ou
+tem impacto negativo).
+(0)
+
+TERMINOLOGIA. Quando βj
+razão t.
+
+= 0, a estatı́stica t é chamada de
+
+Note que podemos lidar com casos mais complexos. Por exemplo,
+suponha que desejamos testar H0 : β2 = β3 vs. H1 : β2 ̸= β3 .
+Equivalentemente, H0 : β2 − β3 = 0 vs. H1 : β2 − β3 ̸= 0.
+EXEMPLO:
+
+consumot = β1 +β2 renda do trabalhot +β3 renda de outras fontest +et .
+
+59
+
+RI
+
+Testes hipóteses (cont.)
+
+Nossa estatı́stica de teste:
+
+F.
+CR
+IB
+A
+
+b2 − b3
+b − b3
+.
+=p
+t= p 2
+c 2 ) + var(b
+c 3 ) − 2cov(b
+c 2 , b3 )
+c 2 − b3 )
+var(b
+var(b
+c 2 ), var(b
+c 3 ) e cov(b
+c 2 , b3 ) são os elementos (2, 2),
+Note que var(b
+(3, 3) e (2, 3) de σ̂ 2 (X ′ X)−1 .
+Rejeitamos H0 ao nı́vel de signiﬁcância α se
+|t| > tT−K;1−α/2 .
+
+60
+
+Testes de hipóteses (cont.)
+
+(0)
+
+(1)
+
+é falsa. Seja βj
+
+o valor verdadeiro do
+
+F.
+CR
+IB
+A
+
+Suponha que H0 : βj = βj
+parâmetro.
+
+RI
+
+PERGUNTA: Possuı́mos alguma informação, relevante ou não, sobre a
+distribuição (da estatı́stica de teste) sob a hipótese alternativa?
+
+Lembre que se Z1 ∼ N (0, 1) e Z2 ∼ χ2ν são variáveis aleatórias
+independentes, então
+Z
+p 1
+∼ tν .
+Z2 /ν
+FATO: Se Z1 ∼ N (φ, 1), então
+
+Z
+p 1
+∼ tν,φ
+Z2 /ν
+
+(t de Student não central, i.e., t de Student com ν graus de liberdade e
+parâmetro de não centralidade φ; para detalhes, ver, e.g.,
+https://en.wikipedia.org/wiki/Noncentral_t-distribution).
+61
+
+Testes de hipóteses (cont.)
+r
+
+ν Γ((ν − 1)/2)
+2 Γ(ν/2)
+
+ν > 1.
+
+para
+
+F.
+CR
+IB
+A
+
+IE(W) = φ
+
+RI
+
+Se W ∼ tν,φ , então
+
+Também,
+
+ν(1 + φ2 )
+var(W) =
+− φ2
+ν−2
+
+r
+
+ν Γ((ν − 1)/2)
+2 Γ(ν/2)
+
+2
+
+para ν > 2.
+
+FATO: A seguinte aproximação é válida:
+r
+ν Γ((ν − 1)/2)
+1
+≈
+.
+3
+2 Γ(ν/2)
+1 − 4ν−1
+
+FATO: Se φ ̸= 0, a distribuição é assimétrica. A assimetria da
+distribuição tν,φ diminui à medida que ν aumenta.
+62
+
+Testes de hipóteses (cont.)
+(1)
+
+(0)
+
+(1)
+
+∼ N (βj
+
+(0)
+
+− βj , σ 2 cjj ).
+
+F.
+CR
+IB
+A
+
+bj − βj
+
+RI
+
+Temos que bj ∼ N (βj , σ 2 cjj ). Assim,
+
+Ou seja,
+
+
+
+(0)
+(1)
+(0)
+bj − βj
+βj − βj
+q
+∼N q
+, 1 .
+2
+2
+σ cjj
+σ cjj
+
+Segue que, sob H1 ,
+
+t ∼ tT−K,φ ,
+
+em que
+
+(1)
+
+φ=
+
+βj
+
+(0)
+
+− βj
+q
+.
+σ 2 cjj
+
+63
+
+Testes de hipóteses (cont.)
+
+F.
+CR
+IB
+A
+
+N (φ, 1)
+q
+,
+χ2T−K /(T − K)
+
+RI
+
+Ou seja, a estatı́stica t pode ser expressa como
+
+as variáveis aleatórias no numerador e denominador sendo
+independentes.
+Quando H0 é verdadeira, φ = 0 e t ∼ tT−K (central). Quando H0 é
+falsa, φ ̸= 0 e t ∼ tT−K;φ (não central).
+Note que quanto maior |φ|, mais distintas serão as distribuições nula e
+não nula de t.
+Assim, quanto maior |φ|, maior deverá ser o poder do teste.
+(1)
+
+(0)
+
+Note que |φ| aumenta quando: (i) |βj − βj | aumenta, ou (ii) T
+aumenta (o que causa redução no erro-padrão de bj ).
+OBS. A consistência do teste segue de (ii).
+
+64
+
+Testes de hipóteses (cont.)
+
+RI
+
+PRÓXIMO OBJETIVO: Testar várias restrições simultaneamente.
+
+F.
+CR
+IB
+A
+
+TESTE 2 Suponha que desejamos testar a hipótese nula de que não há
+relação de regressão (linear) entre a resposta e os regressores. Ou
+seja, queremos testar H0 : β2 = β3 = · · · = βK = 0 vs. H1 : não H0
+(i.e., pelo menos uma das inclinações é diferente de zero).
+Note que, sob a hipótese nula, yt = β1 + et .
+
+c s ) a matriz de
+Sejam βs = (β2 , . . . , βK )′ , bs = (b2 , . . . , bK )′ e cov(b
+covariância estimada de bs .
+Note que queremos testar H0 : βs = 0 vs. H1 : βs ̸= 0.
+Temos que
+
+c s )]−1 (bs − βs )
+(bs − βs )′ [cov(b
+∼ FK−1,T−K .
+K−1
+65
+
+RI
+
+Testes de hipóteses (cont.)
+
+F.
+CR
+IB
+A
+
+Note que, sob a hipótese nula, βs = 0. Desta forma, podemos usar a
+seguinte estatı́stica de teste:
+F=
+
+c s )]−1 bs
+b′s [cov(b
+K−1
+
+Sob H0 , F ∼ FK−1,T−K . Assim, rejeitamos H0 ao nı́vel de signiﬁcância
+α se
+F > FK−1,T−K;1−α .
+Esse teste é conhecido como teste F.
+
+66
+
+Estimação pontual no R I
+
+RI
+
+Revisitemos uma regressão que já estimamos.
+
+F.
+CR
+IB
+A
+
+> # Carregar o conjunto de dados
+> data(mtcars)
+> # Detalhes sobre os dados
+> help(mtcars)
+> # Ajustar o modelo de regress~
+ao linear
+> modelo = lm(mpg ~ wt + hp, data = mtcars)
+> summary(modelo)
+Call:
+lm(formula = mpg ~ wt + hp, data = mtcars)
+Residuals:
+Min
+1Q
+Median
+-3.940979469 -1.600221937 -0.182013641
+
+3Q
+1.049855518
+
+Max
+5.853790850
+
+Coefficients:
+
+Estimate
+(Intercept) 37.22727011645
+wt
+-3.87783074240
+
+Std. Error t value
+Pr(>|t|)
+1.59878753800 23.28469
+< 2.22e-16
+0.63273349438 -6.12870 0.0000011196
+67
+
+-0.03177294698
+
+0.00902970968 -3.51871
+
+F.
+CR
+IB
+A
+
+hp
+
+RI
+
+Estimação pontual no R II
+
+0.0014512
+
+Residual standard error: 2.59341178 on 29 degrees of freedom
+Multiple R-squared: 0.826785452,
+Adjusted R-squared:
+0.814839621
+F-statistic: 69.2112134 on 2 and 29 DF, p-value: 9.10905439e-12
+
+O valor da estatı́stica F para o teste de H0 : β2 = β3 = 0 é 69.2112 e
+o p-valor do teste é muito pequeno.
+
+68
+
+Testes de hipóteses (cont.)
+
+Note que, nesse caso,
+
+F.
+CR
+IB
+A
+
+b22
+= t2 .
+c 2)
+var(b
+
+RI
+
+Há uma relação entre os testes F e t no modelo de regressão simples
+(K = 2). Testamos aqui H0 : β2 = 0 vs. H1 : β2 ̸= 0.
+
+F=
+
+Lembre que se Z ∼ tT−K , então Z2 ∼ F1,T−K .
+
+Nesse caso, o teste t possui uma vantagem. PERGUNTA: Qual?
+RESPOSTA: É possı́vel fazer testes unilaterais com o teste t.
+REFLEXÃO: Considere o modelo yt = β1 + β2 xt2 + β3 xt3 + et . Testar
+H0 : β2 = 0 e H0 : β3 = 0 usando dois testes t é equivalente a testar
+H0 : β2 = β3 = 0 usando um teste F? Por quê?
+RESPOSTA: Não. Os testes t e F usam informações distintas. A
+c 2 , b3 ).
+estatı́stica F inclui cov(b
+69
+
+RI
+
+Pausa para revisão
+
+F.
+CR
+IB
+A
+
+Suponha que Z é um vetor aleatório de dimensão J × 1 e que
+Z ∼ N (µ, Σ),
+
+em que µ é um vetor de médias de dimensão J × 1 e Σ é uma matriz de
+covariância positiva deﬁnida de dimensão J × J. Então,
+(Z − µ)′ Σ−1 (Z − µ)
+
+tem distribuição χ2J .
+
+70
+
+Testes de hipóteses (cont.)
+
+RI
+
+TESTE 3 Ambicionamos generalidade e agora desejamos testar
+
+F.
+CR
+IB
+A
+
+H0 : Rβ = r vs. H1 : Rβ ̸= r
+
+R: matriz J × K de posto J que impõe J restrições sobre β
+r: vetor J × 1 dado
+
+OBJETO DE DESEJO: Uma estatı́stica de teste.
+Comecemos notando que
+
+b ∼ N (β, σ 2 (X ′ X)−1 ) ⇒ Rb − r ∼ N (Rβ − r, Rσ 2 (X ′ X)−1 R′ ).
+
+Note que, sob a hipótese nula, a média da distribuição é zero
+(Rβ − r = 0).
+71
+
+Sabemos que
+
+T−K 2
+σ̂ ∼ χ2T−K .
+σ2
+
+F.
+CR
+IB
+A
+
+Sabemos também que, sob H0 ,
+
+RI
+
+Testes de hipóteses (cont.)
+
+(Rb − r)′ [σ 2 R(X ′ X)−1 R′ ]−1 (Rb − r) ∼ χ2J .
+
+Por ﬁm, sabemos que b e σ̂ 2 são independentes.
+
+Dividindo a segunda variável aleatória χ2 padronizada pela primeira
+variável aleatória χ2 padronizada chegamos à estatı́stica de teste
+F=
+
+(Rb − r)′ [R(X ′ X)−1 R′ ]−1 (Rb − r)
+Jσ̂ 2
+
+Sob H0 , F ∼ FJ,T−K . Assim, rejeitamos H0 ao nı́vel de signiﬁcância α
+se
+F > FJ,T−K;1−α .
+72
+
+EXEMPLO: Considere o seguinte modelo
+
+RI
+
+Testes de hipóteses (cont.)
+
+F.
+CR
+IB
+A
+
+yt = β1 + β2 xt2 + β3 xt3 + β4 xt4 + et ,
+em que
+▶ yt : gasto familiar com alimentação;
+▶ xt2 : renda familiar do trabalho;
+
+▶ xt3 : renda familiar de outras fontes;
+▶ xt4 : riqueza.
+
+Suponha que desejamos testar H0 : β2 = β3 e β4 = 0. Ou seja,
+H0 : β2 − β3 = 0 e β4 = 0
+
+e J = 2 (duas restrições).
+
+73
+
+RI
+
+Testes de hipóteses (cont.)
+
+Aqui,
+
+F.
+CR
+IB
+A
+
+Ou seja, desejamos testar a igualdade entre as duas propensões
+marginais a consumir e, simultaneamente, que a riqueza não impacta o
+gasto familiar com alimentação médio.
+ 
+0
+r=
+.
+0
+
+A matriz R, de dimensão 2 × 4, é
+
+
+0 1 −1 0
+R=
+.
+0 0 0 1
+
+Podemos testar nossa hipótese nula usando o teste F.
+
+74
+
+Estimação intervalar
+
+RI
+
+Voltemos a estimação intervalar. Nosso interesse agora residirá na
+construção de regiões de conﬁança para dois ou mais coeﬁcientes de
+regressão.
+
+F.
+CR
+IB
+A
+
+CASO 1 Nosso interesse reside em construir uma região de conﬁança
+de nı́vel (1 − α) × 100% para β. Sob normalidade (suposição [S5]),
+b ∼ N (β, σ 2 (X ′ X)−1 ).
+
+Assim,
+
+(b − β)′ σ −2 (X ′ X)(b − β) ∼ χ2K .
+
+Lembre que, sob [S5], [(T − K)/σ 2 ]σ̂ 2 ∼ χ2T−K . Assim,
+(b − β)′ σ −2 (X ′ X)(b − β)/K
+[(T − K)/σ 2 ]σ̂ 2 /(T − K)
+(b − β)′ (X ′ X)(b − β)
+=
+∼ FK,T−K .
+σ̂ 2 K
+
+Fβ =
+
+75
+
+RI
+
+Estimação intervalar (cont.)
+
+F.
+CR
+IB
+A
+
+A região de conﬁança de nı́vel (1 − α) × 100% para β é dada pelo
+conjunto de valores de β tais que
+Pr(Fβ ≤ FK,T−K;1−α ) = 1 − α.
+
+CASO 2 Particionemos β como β = (β1′ , β2′ )′ , em que β1 é um vetor
+q × 1 e β2 é um vetor (K − q) × 1. Suponha que desejamos obter uma
+região de conﬁança de nı́vel (1 − α) × 100% para β1 . Nosso modelo é
+y = X1 β1 + X2 β2 + e,
+
+em que X = [X1 X2 ], X1 sendo de dimensão T × q e X2 tendo
+dimensão T × (K − q).
+
+76
+
+F.
+CR
+IB
+A
+
+Sejam b = (b′1 , b′2 )′ e
+
+RI
+
+Estimação intervalar (cont.)
+
+Fβ1 =
+
+(b1 − β1 )′ (X1′ X1 )(b1 − β1 )
+∼ Fq,T−K .
+σ̂ 2 q
+
+A região de conﬁança de nı́vel (1 − α) × 100% para β1 é dada pelo
+conjunto de valores de β1 tais que
+Pr(Fβ1 ≤ Fq,T−K;1−α ) = 1 − α.
+
+77
+
+Estimação intervalar (cont.) I
+
+F.
+CR
+IB
+A
+
+Nosso código:
+
+RI
+
+EXEMPLO: Considere a regressão yt = β1 + β2 xt2 + β3 xt3 + et e
+suponha que desejamos obter uma região de conﬁança de nı́vel 95%
+para (β2 , β3 ). Usemos o conjunto de dados mtcars.
+
+# 1. Carregar o pacote car
+library(car)
+
+# 2. Carregar o conjunto de dados
+data(mtcars)
+
+# 3. Ajustar o modelo de regress~
+ao linear
+modelo = lm(mpg ~ wt + hp, data = mtcars)
+
+# 4. Gerar o gráfico da regi~
+ao de confiança de 95%
+# Use confidenceEllipse() para coeficientes de regress~
+ao
+confidenceEllipse(modelo, which.coef = c(2, 3), levels = 0.95,
+xlab = "Coeficiente de ’wt’ (peso)",
+78
+
+RI
+
+Estimação intervalar (cont.) II
+
+F.
+CR
+IB
+A
+
+ylab = "Coeficiente de ’hp’ (pot^
+encia)",
+main = "Regi~
+ao de confiança de 95% para os coeficientes
+dos regressores wt e hp")
+
+# Adicionar ponto correspondente aos coeficientes estimados
+points(coef(modelo)[2], coef(modelo)[3], pch = 19,
+col = "red", cex = 1.5)
+
+79
+
+Estimação intervalar (cont.)
+
+−0.02
+−0.03
+−0.04
+−0.05
+
+Coeficiente de 'hp' (potência)
+
+F.
+CR
+IB
+A
+
+−0.01
+
+RI
+
+Região de confiança de 95% para os coeficientes
+dos regressores wt e hp
+
+−5.5
+
+−5.0
+
+−4.5
+
+−4.0
+
+−3.5
+
+−3.0
+
+−2.5
+
+Coeficiente de 'wt' (peso)
+
+80
+
+F.
+CR
+IB
+A
+
+RI
+
+Uma pergunta relevante sobre testes de hipóteses
+
+PERGUNTA: Como realizar estimação intervalar e testes de hipóteses
+sem assumir normalidade?
+Note que sem normalidade as estatı́sticas t e F não possuem, sob a
+hipótese nula distribuições t de Student e F de Snedecor,
+respectivamente. De onde, então, obterı́amos valores crı́ticos para
+esses testes?
+
+81
+
+Teste z
+
+A estatı́stica de teste é
+
+(0)
+
+sem
+
+F.
+CR
+IB
+A
+
+bj − βj
+
+(0)
+
+vs H1 : βj ̸= βj
+
+RI
+
+(0)
+
+Suponha que desejamos testar H0 : βj = βj
+assumir normalidade.
+
+t=
+
+ep(bj )
+
+.
+
+Sem normalidade, a distribuição nula de t não é tT−K . Assim, não
+podemos usar valores crı́ticos obtidos da distribuição t de Student.
+d
+
+RESULTADO: Sob H0 , t → N (0, 1).
+
+Assim, um teste (aproximado) é: Rejeite H0 ao nı́vel de signiﬁcância α
+se |t| > z1−α/2 . Esse teste é conhecido como teste z.
+Não temos mais Pr(rejeitar H0 | H0 é verdadeira) = α. Sabemos
+apenas que Pr(rejeitar H0 | H0 é verdadeira) → α quando T → ∞.
+82
+
+RI
+
+Revisão
+
+p
+
+F.
+CR
+IB
+A
+
+RESULTADO: Sejam {ZT ; T ∈ IN} e {VT ; T ∈ IN} sequências de
+variáveis aleatórias, Z variável aleatória e c ∈ IR (constante real). Se
+d
+
+d
+
+VT → c e ZT → Z, então VT × ZT → cZ.
+
+d
+
+CASO PARTICULAR (ZT = Z ∀T): VT × Z → cZ.
+
+d
+
+CASO AINDA MAIS PARTICULAR (ZT = Z ∀T e c = 1): VT × Z → Z.
+EXEMPLO: Seja VT = 1 com probabilidade 1 − 1/T e VT = 0 com
+p
+probabilidade 1/T e seja Z ∼ N (0, 1). Dado que VT → 1, segue que
+d
+
+VT × Z → N (0, 1).
+
+83
+
+Teste Wald
+
+F.
+CR
+IB
+A
+
+Sob H0 e com normalidade,
+
+RI
+
+Suponha que desejamos testar H0 : Rβ = r vs H1 : Rβ ̸= r (sem
+[S5]).
+
+(Rb − r)′ [σ 2 R(X ′ X)−1 R′ ]−1 (Rb − r) ∼ χ2J .
+
+Sob H0 e sem normalidade,
+
+σ2
+d
+× (Rb − r)′ [σ 2 R(X ′ X)−1 R′ ]−1 (Rb − r) → χ2J .
+σ̂ 2
+p
+
+Dado que σ̂ 2 é consistente para σ 2 , temos que σ 2 /σ̂ 2 → 1. Segue que,
+sob H0 ,
+d
+
+W = (Rb − r)′ [σ̂ 2 R(X ′ X)−1 R′ ]−1 (Rb − r) → χ2J .
+84
+
+F.
+CR
+IB
+A
+
+RI
+
+Teste Wald (cont.)
+
+Use valores crı́ticos da distribuição nula assintótica (aproximação).
+Rejeite H0 se W > χ2J;1−α .
+Não temos mais Pr(rejeitar H0 | H0 é verdadeira) = α. Sabemos
+apenas que Pr(rejeitar H0 | H0 é verdadeira) → α quando T → ∞.
+
+85
+
+RI
+
+Estimação intervalar sem normalidade
+
+F.
+CR
+IB
+A
+
+Suponha que desejamos obter um intervalo de conﬁança de nı́vel
+(1 − α) × 100% para βj , j = 1, . . . , K, para algum α ∈ (0, 1).
+Com normalidade, nosso intervalo é
+
+IC1−α (βj ) = bj ± tT−K;1−α/2 ep(bj )
+
+e Pr(IC1−α (βj ) contém βj ) = 1 − α.
+Sem normalidade, nosso intervalo é
+
+IC1−α (βj ) = bj ± z1−α/2 ep(bj )
+
+e Pr(IC1−α (βj ) contém βj ) → 1 − α.
+
+86
+
+Consequências de especiﬁcação incorreta
+Considere os seguintes modelos:
+[M2] y = X1 β1 + e2 .
+
+RI
+
+[M1] y = X1 β1 + X2 β2 + e1 = Xβ + e1 ,
+
+F.
+CR
+IB
+A
+
+Ou seja, o modelo M1 usa os regressores utilizados em M2 e mais
+algum(ns) regressor(es) adicional(is). O modelo M2 pode ser obtido do
+modelo M1 impondo β2 = 0.
+CASO 1 O modelo M1 é o correto, mas estimamos M2.
+
+O efeito da(s) variável(is) omitida(s) é absorvido pelo erro, que deixa de
+ter média zero:
+b1 = (X1′ X1 )−1 X1′ y
+
+= (X1′ X1 )−1 X1′ (X1 β1 + X2 β2 + e1 )
+
+= β1 + (X1′ X1 )−1 X1′ X2 β2 + (X1′ X1 )−1 X1′ e1 .
+
+Assim,
+
+IE(b1 ) = β1 + (X1′ X1 )−1 X1′ X2 β2 ̸= β1 .
+87
+
+Consequências de especiﬁcação incorreta (cont.)
+
+RI
+
+Ou seja, o EMQO se torna viesado.
+MENSAGEM: A omissão de regressores importantes resulta em
+estimadores viesados.
+
+F.
+CR
+IB
+A
+
+CASO 2 O modelo M2 é o verdadeiro, mas estimamos M1.
+
+Ou seja, incluı́mos na regressão variáveis explicativas que não são
+relevantes.
+Aqui, não violamos a suposição de que os erros têm média zero ([S1])
+e, assim, as consequências não são tão severas.
+O EMQO b = (X ′ X)−1 X ′ y permanece não viesado:
+ 
+β
+IE(b) = β = 1 .
+0
+
+A consequência indesejável é que o EMQO se torna ineﬁciente.
+88
+
+Exemplo empı́rico I
+package:datasets
+
+Speed and Stopping Distances of Cars
+
+F.
+CR
+IB
+A
+
+Description:
+
+R Documentation
+
+RI
+
+cars
+
+The data give the speed of cars and the distances taken to stop.
+Note that the data were recorded in the 1920s.
+Usage:
+
+cars
+Format:
+
+A data frame with 50 observations on 2 variables.
+[,1]
+[,2]
+
+speed
+dist
+
+numeric
+numeric
+
+Speed (mph)
+Stopping distance (ft)
+89
+
+F.
+CR
+IB
+A
+
+> # dados
+> data(cars); attach(cars)
+> # informaç~
+ao sobre os dados
+> help(cars)
+> # número de observaç~
+oes
+> nobs = length(dist)
+> # sumário dos dados
+> summary(cars)
+speed
+dist
+Min.
+: 4.0
+Min.
+: 2.00
+1st Qu.:12.0
+1st Qu.: 26.00
+Median :15.0
+Median : 36.00
+Mean
+:15.4
+Mean
+: 42.98
+3rd Qu.:19.0
+3rd Qu.: 56.00
+Max.
+:25.0
+Max.
+:120.00
+> # desvios-padr~
+ao
+> round(sd(speed), 4); round(sd(dist), 4)
+[1] 5.2876
+[1] 25.7694
+> # ajuste de regress~
+ao
+> ajuste = lm(dist~speed)
+> # sumário do ajuste
+> summary(ajuste)
+
+RI
+
+Exemplo empı́rico I
+
+Call:
+lm(formula = dist ~ speed)
+Residuals:
+Min
+-29.06908029
+
+1Q
+-9.52532117
+
+Median
+-2.27185401
+
+3Q
+9.21471533
+
+Max
+43.20128467
+
+Coefficients:
+
+90
+
+Estimate
+(Intercept) -17.579094891
+speed
+3.932408759
+
+Std. Error t value
+Pr(>|t|)
+6.758440169 -2.60106
+0.012319
+0.415512777 9.46399 1.4898e-12
+
+RI
+
+Exemplo empı́rico II
+
+F.
+CR
+IB
+A
+
+Residual standard error: 15.3795867 on 48 degrees of freedom
+Multiple R-squared: 0.651079381, Adjusted R-squared: 0.643810201
+F-statistic: 89.5671065 on 1 and 48 DF, p-value: 1.4898365e-12
+> # calculemos as principais quantidades do ajuste de regress~
+ao
+> # usando as fórmulas apresentadas em aula
+> # matriz X
+> X = cbind(1, speed)
+> # vetor b
+> b = solve(t(X) %*% X) %*% t(X) %*% dist
+> # resı́duos
+> echapeu = dist - X %*% b
+> # estimativa de sigma^2
+> sigma2chapeu = crossprod(echapeu)/(nobs-ncol(X))
+> # desvio padr~
+ao
+> sqrt(sigma2chapeu)
+[,1]
+[1,] 15.3795867488
+> sqrt(sigma2chapeu) |> as.double()
+[1] 15.3795867488
+> # erros-padr~
+ao de b_1 e b_2
+> ep = sqrt(as.double(sigma2chapeu)*diag(solve(t(X) %*% X)))
+> ep
+speed
+6.758440169379 0.415512776657
+> # estimativas de MQO
+> b
+[,1]
+
+91
+
+RI
+
+Exemplo empı́rico III
+
+F.
+CR
+IB
+A
+
+-17.57909489051
+speed
+3.93240875912
+> # vejamos as estimativas obtidas via funç~
+ao lm
+> coef(ajuste)
+(Intercept)
+speed
+-17.57909489051
+3.93240875912
+> # raz~
+oes t
+> t = b / ep
+> t
+[,1]
+-2.60105800302
+speed 9.46398999030
+> # p-valor do teste de H_0: \beta_1 = 0 vs H_1: \beta_1 \not= 0
+> pv1 = 2*(1-pt(abs(t[1]), df=nobs-ncol(X)))
+> pv1
+[1] 0.0123188161538
+> # p-valor do teste de H_0: \beta_2 = 0 vs H_1: \beta_2 \not= 0
+> pv2 = 2*(1-pt(abs(t[2]), df=nobs-ncol(X)))
+> pv2
+[1] 1.48991929905e-12
+
+92
+
+F.
+CR
+IB
+A
+
+RI
+
+Nosso próximo tópico
+
+Na saı́da do R do ajuste da nossa regressão, falta entendermos essas
+informações:
+Multiple R-squared:
+
+0.651079381, Adjusted R-squared:
+
+0.643810201
+
+Esse é nosso próximo tópico.
+
+93
+
+

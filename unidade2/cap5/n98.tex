@@ -1,0 +1,37 @@
+Pelo teorema (2.2)
+
+\begin{equation}
+T_1 = \left[ \sum_{i=1}^{n_1} X_{1i}, \ \sum_{i=1}^{n_2} X_{2i}, \ \sum_{i=1}^{n_1} X_{1i}^2 + \sum_{i=1}^{n_2} X_{2i}^2 \right]
+\end{equation}
+
+\[
+\sum_{i=1}^{n_1} R_{11}(X_{1i}), \quad \sum_{i=1}^{n_2} R_{12}(X_{2i}), \quad \sum_{i=1}^{n_1} R_{31}(X_{1i}) + \sum_{i=1}^{n_2} R_{32}(X_{2i})
+\]
+
+é conjuntamente suficiente para $\theta = (\mu_1, \mu_2, \sigma)^T$.
+
+Pelo Teorema (2.4),
+
+\begin{equation}
+T_3 = \left[ \frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}, \ \frac{1}{n_2} \sum_{i=1}^{n_2} X_{2i}, \ \frac{1}{n_1 + n_2 - 2} \left[ \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2 + \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2 \right] \right]
+\end{equation}
+
+\[
+\hat{S}_p^2
+\]
+
+é também suficiente para $\theta$. O termo $\hat{S}_p^2$ é chamado de variância amostral conjunta e pode ser descrito como:
+
+Para 
+\[
+S_1^2 = (n_1 - 1)^{-1} \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2
+\]
+e 
+\[
+S_2^2 = (n_2 - 1)^{-1} \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2
+\]
+
+\begin{equation}
+S_p^2 = (n_1 + n_2 - 2)^{-1} \left[ (n_1 - 1) S_1^2 + (n_2 - 1) S_2^2 \right]
+\end{equation}
+

@@ -1,0 +1,339 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+% Definições de teoremas
+\theoremstyle{definition}
+\newtheorem{definicao}{Definição}[section]
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposicao}{Proposição}[section]
+\newtheorem{lema}{Lema}[section]
+
+\title{Detalhamento Completo da Seção 5\\
+\large Distribuições das Somas de Quadrados\\
+\large Fundamentação Teórica via Teorema de Cochran}
+\author{Documento Complementar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+Este documento complementar apresenta o desenvolvimento teórico completo e detalhado da Seção 5 sobre Distribuições das Somas de Quadrados. O objetivo é fornecer uma fundamentação rigorosa e aprofundada do Teorema de Cochran e sua aplicação ao modelo de Delineamento Inteiramente Casualizado (DIC), incluindo todas as demonstrações e justificativas matemáticas necessárias para nível de doutorado.
+
+\section{Fundamentos: Teorema de Cochran}
+
+\subsection{Enunciado Formal}
+
+\begin{teorema}[Teorema de Cochran]
+Seja $\mathbf{y} \sim N(\boldsymbol{\mu}, \sigma^2\mathbf{I})$ um vetor aleatório $n$-dimensional com distribuição normal multivariada, onde $\boldsymbol{\mu} \in \mathbb{R}^n$ e $\sigma^2 > 0$. Sejam $\mathbf{Q}_1, \mathbf{Q}_2, \ldots, \mathbf{Q}_k$ matrizes simétricas idempotentes ($\mathbf{Q}_i = \mathbf{Q}_i^T$ e $\mathbf{Q}_i^2 = \mathbf{Q}_i$) de dimensão $n \times n$ tais que:
+\begin{enumerate}
+    \item $\mathbf{Q}_1 + \mathbf{Q}_2 + \cdots + \mathbf{Q}_k = \mathbf{I}_n$ (decomposição da identidade)
+    \item $\text{rank}(\mathbf{Q}_i) = r_i$ para $i = 1, \ldots, k$
+    \item $r_1 + r_2 + \cdots + r_k = n$
+\end{enumerate}
+
+Então:
+\begin{enumerate}
+    \item $\frac{\mathbf{y}^T\mathbf{Q}_i\mathbf{y}}{\sigma^2} \sim \chi^2_{r_i}(\delta_i)$ são variáveis aleatórias \textbf{independentes}, onde $\delta_i = \frac{\boldsymbol{\mu}^T\mathbf{Q}_i\boldsymbol{\mu}}{\sigma^2}$ são os parâmetros de não-centralidade.
+    \item Se $\mathbf{Q}_i\boldsymbol{\mu} = \mathbf{0}$ para algum $i$, então $\delta_i = 0$ e temos distribuição qui-quadrado central: $\frac{\mathbf{y}^T\mathbf{Q}_i\mathbf{y}}{\sigma^2} \sim \chi^2_{r_i}$.
+    \item As matrizes $\mathbf{Q}_i\mathbf{Q}_j = \mathbf{0}$ para $i \neq j$ (condição de ortogonalidade das projeções).
+\end{enumerate}
+\end{teorema}
+
+\subsection{Interpretação e Importância}
+
+O Teorema de Cochran estabelece condições sob as quais somas de quadrados de variáveis aleatórias normais seguem distribuições qui-quadrado independentes. A intuição é:
+
+\begin{itemize}
+    \item \textbf{Decomposição ortogonal:} Quando decompomos o espaço em subespaços ortogonais via matrizes de projeção idempotentes que somam a identidade, cada componente gera uma soma de quadrados independente.
+    \item \textbf{Rank = graus de liberdade:} O rank de cada matriz de projeção corresponde aos graus de liberdade da distribuição qui-quadrado correspondente.
+    \item \textbf{Não-centralidade:} O parâmetro de não-centralidade $\delta_i$ captura o deslocamento da média em relação à origem no subespaço correspondente.
+\end{itemize}
+
+Este teorema é fundamental para a validade exata do teste F, pois garante que as somas de quadrados $SQ_A$ e $SQ_E$ seguem distribuições qui-quadrado independentes sob normalidade.
+
+\subsection{Demonstração Conceitual (Esboço)}
+
+A demonstração completa do Teorema de Cochran requer conhecimento de álgebra linear avançada e teoria de distribuições quadráticas. Os passos principais são:
+
+\begin{enumerate}
+    \item \textbf{Ortogonalidade das projeções:} Mostrar que se $\mathbf{Q}_i + \mathbf{Q}_j = \mathbf{I}$ e ambas são idempotentes, então $\mathbf{Q}_i\mathbf{Q}_j = \mathbf{0}$.
+    \item \textbf{Formas quadráticas:} Usar o fato de que formas quadráticas de vetores normais seguem distribuições qui-quadrado quando a matriz é idempotente.
+    \item \textbf{Independência:} Demonstrar que a ortogonalidade das matrizes implica independência das formas quadráticas correspondentes.
+    \item \textbf{Graus de liberdade:} O rank de uma matriz idempotente é igual ao seu traço, que corresponde aos graus de liberdade.
+\end{enumerate}
+
+Para referências completas, consultar Hocking (2003) ou Searle (1997).
+
+\section{Aplicação ao Modelo DIC}
+
+\subsection{Notação e Estrutura do Modelo}
+
+No modelo DIC, temos:
+\begin{itemize}
+    \item $t$ tratamentos
+    \item $r$ repetições por tratamento
+    \item Total de observações: $n = tr$
+    \item Modelo: $y_{ij} = \mu + \tau_i + \epsilon_{ij}$, onde $\epsilon_{ij} \sim N(0, \sigma^2)$ independentes
+\end{itemize}
+
+Em notação matricial: $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}$, onde:
+\begin{itemize}
+    \item $\mathbf{y}$ é o vetor $tr \times 1$ de observações
+    \item $\mathbf{X}$ é a matriz de delineamento $tr \times (t+1)$ com estrutura de blocos
+    \item $\boldsymbol{\beta} = (\mu, \tau_1, \ldots, \tau_t)^T$
+    \item $\boldsymbol{\epsilon} \sim N(\mathbf{0}, \sigma^2\mathbf{I}_{tr})$
+\end{itemize}
+
+\subsection{Matrizes de Projeção no Modelo DIC}
+
+Para aplicar o Teorema de Cochran, precisamos identificar as matrizes de projeção correspondentes às somas de quadrados. Definimos:
+
+\subsubsection{Projeção na Média Geral}
+
+A projeção no espaço gerado pelo vetor de uns $\mathbf{1}_{tr}$ (subespaço da média geral) é:
+\[
+\mathbf{P}_0 = \frac{1}{tr}\mathbf{1}_{tr}\mathbf{1}_{tr}^T = \frac{1}{tr}\mathbf{J}_{tr},
+\]
+onde $\mathbf{J}_{tr}$ é a matriz $tr \times tr$ de uns. Esta matriz projeta cada observação na média geral $\bar{y}$.
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item $\mathbf{P}_0$ é simétrica e idempotente: $\mathbf{P}_0^2 = \mathbf{P}_0$
+    \item $\text{rank}(\mathbf{P}_0) = 1$ (projeta em espaço unidimensional)
+    \item $\mathbf{P}_0\mathbf{y} = \bar{y}\mathbf{1}_{tr}$ (projeta todas observações na média)
+\end{itemize}
+
+\subsubsection{Projeção no Espaço do Modelo}
+
+A projeção no espaço coluna da matriz de delineamento $\mathbf{X}$ é:
+\[
+\mathbf{P}_A = \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-}\mathbf{X}^T,
+\]
+onde $(\mathbf{X}^T\mathbf{X})^{-}$ é uma inversa generalizada (necessária devido à parametrização não-identificável).
+
+Para o modelo DIC com restrição $\sum_{i=1}^t \tau_i = 0$, esta projeção pode ser escrita explicitamente como:
+\[
+\mathbf{P}_A = \mathbf{P}_0 + \mathbf{P}_{\tau},
+\]
+onde $\mathbf{P}_{\tau}$ é a projeção no espaço dos efeitos dos tratamentos.
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item $\mathbf{P}_A$ é simétrica e idempotente
+    \item $\text{rank}(\mathbf{P}_A) = t$ (projeta em espaço $t$-dimensional)
+    \item $\mathbf{P}_A\mathbf{y}$ é o vetor de valores ajustados $\hat{\mathbf{y}}$
+\end{itemize}
+
+\subsubsection{Projeção no Espaço dos Efeitos}
+
+A projeção no espaço dos efeitos dos tratamentos (diferenças em relação à média geral) é:
+\[
+\mathbf{P} = \mathbf{P}_A - \mathbf{P}_0.
+\]
+
+Esta projeção captura as diferenças entre médias dos tratamentos e a média geral.
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item $\mathbf{P}$ é simétrica e idempotente
+    \item $\text{rank}(\mathbf{P}) = t-1$ (projeta em espaço $(t-1)$-dimensional)
+    \item $\mathbf{P}\mathbf{y}$ representa os desvios das médias dos tratamentos em relação à média geral
+\end{itemize}
+
+\subsubsection{Projeção no Espaço Residual}
+
+A projeção no espaço residual (complemento ortogonal do espaço do modelo) é:
+\[
+\mathbf{Q}_2 = \mathbf{I}_{tr} - \mathbf{P}_A.
+\]
+
+Esta projeção captura a variação residual (diferenças entre observações e valores ajustados).
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item $\mathbf{Q}_2$ é simétrica e idempotente
+    \item $\text{rank}(\mathbf{Q}_2) = tr - t = t(r-1)$ (projeta em espaço residual)
+    \item $\mathbf{Q}_2\mathbf{y}$ são os resíduos do modelo
+\end{itemize}
+
+\subsubsection{Projeção no Espaço dos Efeitos (Notação Alternativa)}
+
+Para facilitar a aplicação do Teorema de Cochran, definimos:
+\[
+\mathbf{Q}_1 = \mathbf{P} = \mathbf{P}_A - \mathbf{P}_0.
+\]
+
+\subsection{Verificação das Condições do Teorema de Cochran}
+
+Para aplicar o Teorema de Cochran, precisamos verificar que:
+\[
+\mathbf{Q}_1 + \mathbf{Q}_2 + \mathbf{P}_0 = \mathbf{I}_{tr}.
+\]
+
+\textbf{Demonstração:}
+\begin{align*}
+\mathbf{Q}_1 + \mathbf{Q}_2 + \mathbf{P}_0 &= (\mathbf{P}_A - \mathbf{P}_0) + (\mathbf{I}_{tr} - \mathbf{P}_A) + \mathbf{P}_0 \\
+&= \mathbf{P}_A - \mathbf{P}_0 + \mathbf{I}_{tr} - \mathbf{P}_A + \mathbf{P}_0 \\
+&= \mathbf{I}_{tr}
+\end{align*}
+
+Além disso, verificamos que:
+\begin{itemize}
+    \item $\text{rank}(\mathbf{P}_0) = 1$
+    \item $\text{rank}(\mathbf{Q}_1) = \text{rank}(\mathbf{P}) = t-1$
+    \item $\text{rank}(\mathbf{Q}_2) = t(r-1)$
+    \item $1 + (t-1) + t(r-1) = tr = n$ ✓
+\end{itemize}
+
+\subsection{Ortogonalidade das Projeções}
+
+Para garantir independência das somas de quadrados, precisamos verificar ortogonalidade:
+
+\begin{proposicao}
+As matrizes $\mathbf{Q}_1$ e $\mathbf{Q}_2$ são ortogonais: $\mathbf{Q}_1\mathbf{Q}_2 = \mathbf{0}$.
+\end{proposicao}
+
+\textbf{Demonstração:}
+\begin{align*}
+\mathbf{Q}_1\mathbf{Q}_2 &= (\mathbf{P}_A - \mathbf{P}_0)(\mathbf{I}_{tr} - \mathbf{P}_A) \\
+&= \mathbf{P}_A(\mathbf{I}_{tr} - \mathbf{P}_A) - \mathbf{P}_0(\mathbf{I}_{tr} - \mathbf{P}_A) \\
+&= \mathbf{P}_A - \mathbf{P}_A^2 - \mathbf{P}_0 + \mathbf{P}_0\mathbf{P}_A \\
+&= \mathbf{P}_A - \mathbf{P}_A - \mathbf{P}_0 + \mathbf{P}_0 \quad \text{(pois } \mathbf{P}_A^2 = \mathbf{P}_A \text{ e } \mathbf{P}_0\mathbf{P}_A = \mathbf{P}_0 \text{)} \\
+&= \mathbf{0}
+\end{align*}
+
+A última igualdade ($\mathbf{P}_0\mathbf{P}_A = \mathbf{P}_0$) decorre do fato de que $\mathbf{P}_0$ projeta no espaço unidimensional contido no espaço do modelo $\mathbf{P}_A$.
+
+\section{Distribuições das Somas de Quadrados}
+
+\subsection{Soma de Quadrados Residual}
+
+A soma de quadrados residual pode ser escrita como:
+\[
+SQ_E = \sum_{i=1}^t \sum_{j=1}^r (y_{ij} - \bar{y}_i)^2 = \mathbf{y}^T\mathbf{Q}_2\mathbf{y}.
+\]
+
+\textbf{Justificativa:} Os resíduos são $\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}} = (\mathbf{I}_{tr} - \mathbf{P}_A)\mathbf{y} = \mathbf{Q}_2\mathbf{y}$, e $SQ_E = \mathbf{e}^T\mathbf{e} = \mathbf{y}^T\mathbf{Q}_2^T\mathbf{Q}_2\mathbf{y} = \mathbf{y}^T\mathbf{Q}_2\mathbf{y}$ (pois $\mathbf{Q}_2$ é idempotente).
+
+\textbf{Aplicando Teorema de Cochran:}
+Como $\mathbf{Q}_2$ projeta no espaço residual onde a média é zero (o modelo ajusta perfeitamente a média dentro de cada tratamento), temos $\mathbf{Q}_2\boldsymbol{\mu} = \mathbf{0}$. Portanto:
+\[
+\frac{SQ_E}{\sigma^2} = \frac{\mathbf{y}^T\mathbf{Q}_2\mathbf{y}}{\sigma^2} \sim \chi^2_{t(r-1)},
+\]
+onde $t(r-1)$ são os graus de liberdade residuais.
+
+\subsection{Soma de Quadrados entre Tratamentos}
+
+A soma de quadrados entre tratamentos pode ser escrita como:
+\[
+SQ_A = r\sum_{i=1}^t (\bar{y}_i - \bar{y})^2 = \mathbf{y}^T\mathbf{Q}_1\mathbf{y}.
+\]
+
+\textbf{Justificativa:} Os desvios das médias dos tratamentos em relação à média geral são capturados por $\mathbf{P}\mathbf{y} = \mathbf{Q}_1\mathbf{y}$, e $SQ_A = (\mathbf{Q}_1\mathbf{y})^T(\mathbf{Q}_1\mathbf{y}) = \mathbf{y}^T\mathbf{Q}_1^T\mathbf{Q}_1\mathbf{y} = \mathbf{y}^T\mathbf{Q}_1\mathbf{y}$.
+
+\textbf{Aplicando Teorema de Cochran:}
+Sob $H_0$ ($\tau_1 = \cdots = \tau_t = 0$), temos $\boldsymbol{\mu} = \mu\mathbf{1}_{tr}$. Neste caso:
+\[
+\mathbf{Q}_1\boldsymbol{\mu} = (\mathbf{P}_A - \mathbf{P}_0)\mu\mathbf{1}_{tr} = \mu(\mathbf{P}_A\mathbf{1}_{tr} - \mathbf{P}_0\mathbf{1}_{tr}) = \mu(\mathbf{1}_{tr} - \mathbf{1}_{tr}) = \mathbf{0}.
+\]
+
+Portanto, sob $H_0$:
+\[
+\frac{SQ_A}{\sigma^2} = \frac{\mathbf{y}^T\mathbf{Q}_1\mathbf{y}}{\sigma^2} \sim \chi^2_{t-1},
+\]
+onde $t-1$ são os graus de liberdade associados aos efeitos dos tratamentos.
+
+\subsection{Soma de Quadrados Total}
+
+A soma de quadrados total é:
+\[
+SQ_T = \sum_{i=1}^t \sum_{j=1}^r (y_{ij} - \bar{y})^2 = \mathbf{y}^T(\mathbf{I}_{tr} - \mathbf{P}_0)\mathbf{y}.
+\]
+
+Note que $\mathbf{I}_{tr} - \mathbf{P}_0 = \mathbf{Q}_1 + \mathbf{Q}_2$, confirmando a decomposição ortogonal:
+\[
+SQ_T = SQ_A + SQ_E.
+\]
+
+\subsection{Independência entre $SQ_A$ e $SQ_E$}
+
+A independência entre $SQ_A$ e $SQ_E$ decorre diretamente da ortogonalidade entre $\mathbf{Q}_1$ e $\mathbf{Q}_2$, conforme estabelecido pelo Teorema de Cochran. Como $\mathbf{Q}_1\mathbf{Q}_2 = \mathbf{0}$ e as condições do teorema são satisfeitas, temos que $\mathbf{y}^T\mathbf{Q}_1\mathbf{y}$ e $\mathbf{y}^T\mathbf{Q}_2\mathbf{y}$ são independentes.
+
+Esta independência é essencial para que a estatística $F$ tenha distribuição exata, pois:
+\[
+F = \frac{MS_A}{MS_E} = \frac{SQ_A/(t-1)}{SQ_E/[t(r-1)]} = \frac{(SQ_A/\sigma^2)/(t-1)}{(SQ_E/\sigma^2)/[t(r-1)]}
+\]
+é a razão entre duas variáveis qui-quadrado independentes divididas por seus respectivos graus de liberdade, que segue distribuição $F_{t-1, t(r-1)}$ sob $H_0$.
+
+\section{Forma Explicita das Matrizes para o DIC}
+
+Para o modelo DIC com $t$ tratamentos e $r$ repetições, as matrizes de projeção podem ser escritas explicitamente em termos de blocos.
+
+\subsection{Estrutura em Blocos}
+
+Organizando o vetor $\mathbf{y}$ por tratamento:
+\[
+\mathbf{y} = \begin{pmatrix} \mathbf{y}_1 \\ \mathbf{y}_2 \\ \vdots \\ \mathbf{y}_t \end{pmatrix},
+\]
+onde $\mathbf{y}_i = (y_{i1}, y_{i2}, \ldots, y_{ir})^T$ são as $r$ observações do tratamento $i$.
+
+\subsection{Matriz $\mathbf{P}_0$}
+
+\[
+\mathbf{P}_0 = \frac{1}{tr}\mathbf{J}_{tr} = \frac{1}{tr}\begin{pmatrix} \mathbf{J}_r & \mathbf{J}_r & \cdots & \mathbf{J}_r \\ \mathbf{J}_r & \mathbf{J}_r & \cdots & \mathbf{J}_r \\ \vdots & \vdots & \ddots & \vdots \\ \mathbf{J}_r & \mathbf{J}_r & \cdots & \mathbf{J}_r \end{pmatrix},
+\]
+onde $\mathbf{J}_r$ é a matriz $r \times r$ de uns.
+
+\subsection{Matriz $\mathbf{P}_A$}
+
+\[
+\mathbf{P}_A = \begin{pmatrix} \frac{1}{r}\mathbf{J}_r & \mathbf{0} & \cdots & \mathbf{0} \\ \mathbf{0} & \frac{1}{r}\mathbf{J}_r & \cdots & \mathbf{0} \\ \vdots & \vdots & \ddots & \vdots \\ \mathbf{0} & \mathbf{0} & \cdots & \frac{1}{r}\mathbf{J}_r \end{pmatrix}.
+\]
+
+Esta matriz projeta cada grupo de $r$ observações em sua média: $\mathbf{P}_A\mathbf{y} = (\bar{y}_1\mathbf{1}_r, \bar{y}_2\mathbf{1}_r, \ldots, \bar{y}_t\mathbf{1}_r)^T$.
+
+\subsection{Matriz $\mathbf{Q}_1 = \mathbf{P}_A - \mathbf{P}_0$}
+
+A matriz $\mathbf{Q}_1$ captura as diferenças entre médias dos tratamentos e a média geral. Pode ser escrita como blocos diagonais com estrutura específica que representa essas diferenças.
+
+\subsection{Matriz $\mathbf{Q}_2 = \mathbf{I}_{tr} - \mathbf{P}_A$}
+
+\[
+\mathbf{Q}_2 = \begin{pmatrix} \mathbf{I}_r - \frac{1}{r}\mathbf{J}_r & \mathbf{0} & \cdots & \mathbf{0} \\ \mathbf{0} & \mathbf{I}_r - \frac{1}{r}\mathbf{J}_r & \cdots & \mathbf{0} \\ \vdots & \vdots & \ddots & \vdots \\ \mathbf{0} & \mathbf{0} & \cdots & \mathbf{I}_r - \frac{1}{r}\mathbf{J}_r \end{pmatrix}.
+\]
+
+Esta matriz projeta cada grupo em seu complemento ortogonal ao espaço gerado por $\mathbf{1}_r$, capturando a variação dentro de cada tratamento.
+
+\section{Conclusão}
+
+Este documento apresentou o desenvolvimento teórico completo e rigoroso das distribuições das somas de quadrados no modelo DIC via Teorema de Cochran. Os pontos principais são:
+
+\begin{enumerate}
+    \item O Teorema de Cochran fornece condições sob as quais somas de quadrados de vetores normais seguem distribuições qui-quadrado independentes.
+    \item As matrizes de projeção ortogonais no modelo DIC permitem decompor o espaço em subespaços correspondentes a efeitos de tratamentos e resíduos.
+    \item A ortogonalidade das projeções garante independência das somas de quadrados $SQ_A$ e $SQ_E$.
+    \item Sob $H_0$, ambas as somas de quadrados seguem distribuições qui-quadrado centrais com graus de liberdade apropriados.
+    \item Esta fundamentação teórica é essencial para a validade exata do teste F.
+\end{enumerate}
+
+Para referências detalhadas sobre o Teorema de Cochran e sua aplicação em modelos lineares, consultar:
+\begin{itemize}
+    \item Hocking, R. R. (2003). \textit{Methods and Applications of Linear Models: Regression and the Analysis of Variance}. Wiley.
+    \item Searle, S. R. (1997). \textit{Linear Models}. Wiley.
+    \item Christensen, R. (2011). \textit{Plane Answers to Complex Questions: The Theory of Linear Models}. Springer.
+\end{itemize}
+
+\end{document}
+

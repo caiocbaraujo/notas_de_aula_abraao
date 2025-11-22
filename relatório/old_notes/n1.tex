@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Exercício 239}
+
+Sejam $X_1, \ldots, X_n$ uma a.a. c.i. $X_i \sim U(0, \theta)$.  
+Encontre o E.M.V para $(\theta - 1) \sqrt{\theta + 1}$.
+
+\textbf{Solução:} Como já foi mostrado, $\hat{\theta}_{\text{EMV}} = X_{n:n}$, pela invariância:
+\begin{equation}
+(\theta - 1) \sqrt{\theta + 1} \ \hat{=} \ (X_{n:n} - 1) \sqrt{X_{n:n} + 1}.
+\end{equation}
+
+\section*{\#3.2 (b) Estimador de mínimos quadrados na regressão linear normal}
+
+Sejam $Y_1, \ldots, Y_n$ uma amostra independente tal que:
+\begin{equation}
+Y_i \mid X_i \sim N(\mu_i, \sigma^2)
+\end{equation}
+para 
+\begin{equation}
+\mu_i \triangleq \mu_i(\beta) = E(Y_i \mid X_i = x_i),
+\end{equation}
+\begin{equation}
+x_i^T \beta = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip},
+\end{equation}
+\begin{equation}
+x_i^T = [1, x_{i1}, \ldots, x_{ip}], \quad x_i^T \beta = [\beta_0, \beta_1, \ldots, \beta_p],
+\end{equation}
+\begin{equation}
+\mathrm{Var}(Y_i \mid x_i) = \mathrm{Var}(Y_i \mid X_i = x_i) = \sigma^2.
+\end{equation}
+
+Assuma que o supino contexto vem do modelo:
+\begin{equation}
+Y_i = \mu_i + \varepsilon_i
+\end{equation}
+tal que $\varepsilon_i \sim N(0, \sigma^2)$ e $\mathrm{Cov}(\varepsilon_i, \varepsilon_j) = \sigma^2 I_0(i-j)$, $\forall i,j = 1, \ldots, n$.
+
+A equação (3.2(b).1) pode ser escrita em forma matricial como:
+\begin{equation}
+\mathbf{y} = \mu + \varepsilon = \mathbf{X} \beta
+\end{equation}
+onde:
+\begin{equation}
+\mathbf{X} = 
+\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}_{n \times (p+1)}
+\end{equation}
+é a matriz modelo,
+\begin{equation}
+\mathbf{y}^T = (y_1, \ldots, y_n)
+\end{equation}
+é o vetor de variáveis resposta,
+\begin{equation}
+\varepsilon^T = (\varepsilon_1, \ldots, \varepsilon_n)
+\end{equation}
+é o vetor de erros.
+
+\end{document}

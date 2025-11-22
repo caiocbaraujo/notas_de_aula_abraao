@@ -1,0 +1,23 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Casella and Berger(2002)]{casella2002}
+George Casella and Roger~L. Berger.
+\newblock \emph{Statistical Inference}.
+\newblock Duxbury Press, Pacific Grove, CA, 2nd edition, 2002.
+
+\bibitem[Montgomery et~al.(2012)Montgomery, Peck, and Vining]{montgomery2012}
+Douglas~C. Montgomery, Elizabeth~A. Peck, and G.~Geoffrey Vining.
+\newblock \emph{Introduction to Linear Regression Analysis}.
+\newblock Wiley, Hoboken, NJ, 5th edition, 2012.
+
+\bibitem[Seber and Lee(2012)]{seber2012}
+George A.~F. Seber and Alan~J. Lee.
+\newblock \emph{Linear Regression Analysis}.
+\newblock Wiley, Hoboken, NJ, 2nd edition, 2012.
+
+\end{thebibliography}

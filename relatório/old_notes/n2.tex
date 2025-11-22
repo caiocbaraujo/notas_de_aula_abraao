@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+As equações (3.2(b).1) e (3.2(b).2) são conhecidas como modelo de regressão linear normal (MRLN).
+
+De forma geral, para $Y_i = \mu_i(\beta) + \varepsilon$, tem-se que
+\begin{equation}
+\mu_i(\beta) = f(x_i; \beta) = \mathbb{E} \{ Y_i \,|\, X_i = x_i \}
+\end{equation}
+com $i = 1, \dots, n$. O estimador de mínimos quadrados (E.M.Q.) para $\beta$ é dado por
+\begin{equation}
+\hat{\beta} = \arg\min_{\beta \in \mathbb{R}^{p+1}} \left\{ \sum_{i=1}^n \varepsilon_i^2 \right\}
+\end{equation}
+\begin{equation}
+= \arg\min_{\beta \in \mathbb{R}^{p+1}} \left\{ \sum_{i=1}^n \left[ Y_i - f(x_i^\top; \beta) \right]^2 \right\}
+\end{equation}
+
+Em que a função $f(x_i, \beta)$ pode assumir várias formas:
+
+Linear:
+\begin{equation}
+f(x_i; \beta_0, \beta_1, \beta_2) = \beta_0 + \beta_1 x + \beta_2 x^2
+\end{equation}
+\begin{equation}
+f(x_1, x_2; \beta_0, \beta_1, \beta_2) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 (1 + x_1) + \dots
+\end{equation}
+
+Não-linear:
+\begin{equation}
+f(x; \beta_1, \beta_2) = \frac{\beta_1}{1 - e^{-\beta_2 x}}
+\end{equation}
+\begin{equation}
+f(x_1, x_2; \beta_1, \beta_2) = (1 - x_2)^{\beta_2} e^{-\beta_2 x_1}
+\end{equation}
+
+\# Consideramos agora a obtenção do E.M.Q. para $\beta$ no MRLN:
+\begin{equation}
+Y = X \beta + \varepsilon
+\end{equation}
+
+Para tal, vamos assumir que $X^\top X$ é inversível.
+
+\end{document}

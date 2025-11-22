@@ -1,0 +1,1338 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns,arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\newtcolorbox{conceitobox}[1]{
+    enhanced,
+    breakable,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=blue!75!black}
+}
+
+\newtcolorbox{exemplobox}[1]{
+    enhanced,
+    breakable,
+    colback=green!5!white,
+    colframe=green!60!black,
+    fonttitle=\bfseries,
+    title=#1,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=green!60!black}
+}
+
+\newtcolorbox{passoapassobox}{
+    enhanced,
+    breakable,
+    colback=orange!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Passo a Passo Detalhado
+}
+
+\newtcolorbox{intuicaobox}{
+    enhanced,
+    breakable,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    fonttitle=\bfseries,
+    title=Intuição e Interpretação
+}
+
+\newtcolorbox{atencaobox}{
+    enhanced,
+    breakable,
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=ATENÇÃO - Ponto Crucial
+}
+
+\newtcolorbox{comparacaobox}{
+    enhanced,
+    breakable,
+    colback=yellow!5!white,
+    colframe=yellow!75!black,
+    fonttitle=\bfseries,
+    title=Comparação e Contexto
+}
+
+\title{Material Auxiliar - Final do Capítulo 4\\
+\Large Testes UMP para Hipóteses Bilaterais\\
+\large Seção 4.5: Exemplos de Existência e Não-Existência}
+\author{Curso de Inferência Estatística -- PPGEST/UFPE\\
+\small Material Didático Complementar}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{
+\textbf{OBJETIVO DESTE MATERIAL:} Explicar detalhadamente os passos finais do Capítulo 4, especialmente a construção de testes UMP para hipóteses bilaterais, contrastando dois casos fundamentais: (1) quando NÃO existe teste UMP (Normal) e (2) quando EXISTE teste UMP (Uniforme). Este material cobre as notas n76--n83.
+}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+% ================================================================
+\section{Contexto: O Problema de Hipóteses Bilaterais}
+% ================================================================
+
+\begin{conceitobox}{Seção 4.5: Teste para $H_1$ Composta Bilateral}
+Até agora estudamos testes para hipóteses \textbf{unilaterais}:
+\begin{itemize}
+    \item $H_0: \theta \leq \theta_0$ vs $H_1: \theta > \theta_0$ (unilateral à direita)
+    \item $H_0: \theta \geq \theta_0$ vs $H_1: \theta < \theta_0$ (unilateral à esquerda)
+\end{itemize}
+
+Agora consideramos o caso \textbf{bilateral}:
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \neq \theta_0
+\]
+
+\textbf{Pergunta Fundamental:} Existe teste UMP (Uniformemente Mais Poderoso) para este problema bilateral?
+\end{conceitobox}
+
+\begin{intuicaobox}
+\subsection*{Por que a Questão é Importante?}
+
+No caso unilateral, o Teorema de Karlin-Rubin (TKR) nos deu uma resposta clara: se a família tem RVM (Razão de Verossimilhança Monótona), então existe teste UMP e sabemos como construí-lo.
+
+Para o caso bilateral, a situação é mais delicada:
+\begin{itemize}
+    \item \textbf{Problema:} Queremos um teste que seja simultaneamente bom para detectar $\theta > \theta_0$ E para detectar $\theta < \theta_0$
+    \item \textbf{Conflito:} O teste UMP para $H_1: \theta > \theta_0$ rejeita valores grandes, mas o teste UMP para $H_1: \theta < \theta_0$ rejeita valores pequenos
+    \item \textbf{Resultado:} Em alguns casos é impossível conciliar essas duas direções (ex: Normal). Em outros casos especiais, existe uma solução (ex: Uniforme)
+\end{itemize}
+\end{intuicaobox}
+
+\begin{comparacaobox}
+\subsection*{Os Dois Exemplos que Veremos}
+
+\begin{center}
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\textbf{Distribuição} & \textbf{Normal $N(\mu, \sigma^2)$} & \textbf{Uniforme $U(0, \theta)$} \\
+\hline
+\textbf{Parâmetro} & $\mu \in \mathbb{R}$ & $\theta > 0$ \\
+\hline
+\textbf{Estatística Suficiente} & $T(X) = \sum X_i$ ou $\bar{X}_n$ & $T(X) = X_{(n)} = \max\{X_1,\ldots,X_n\}$ \\
+\hline
+\textbf{Possui RVM?} & Sim (RVM crescente em $T$) & Sim (mas com particularidade) \\
+\hline
+\textbf{Existe UMP bilateral?} & \textcolor{red}{\textbf{NÃO}} & \textcolor{green}{\textbf{SIM}} \\
+\hline
+\textbf{Razão} & Testes para $\mu>\mu_0$ e $\mu<\mu_0$ são incompatíveis & Geometria especial permite conciliar \\
+\hline
+\end{tabular}
+\end{center}
+\end{comparacaobox}
+
+\newpage
+
+% ================================================================
+\section{Exemplo 4.5.1: NÃO Existência de Teste UMP (Normal)}
+% ================================================================
+
+\begin{exemplobox}{Exemplo 4.5.1 -- Normal: Notas n76--n78}
+\textbf{Modelo:} $X_1, \ldots, X_n$ i.i.d. com $X_i \sim N(\mu, \sigma^2)$, onde $\mu \in \mathbb{R}$ desconhecido e $\sigma^2 > 0$ conhecido.
+
+\textbf{Hipóteses:}
+\[
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0
+\]
+\end{exemplobox}
+
+\subsection{Passo 1: Recordar os Testes UMP Unilaterais}
+
+\begin{passoapassobox}
+\textbf{Para $H_1: \mu > \mu_0$ (unilateral à direita):}
+
+A estatística suficiente é $T(X) = \sum X_i$ (ou equivalentemente $\bar{X}_n$).
+
+Vimos que a razão de verossimilhança para $\mu^* > \mu$ é:
+\[
+\frac{f(t; \mu^*)}{f(t; \mu)} = \exp\left\{ \frac{1}{2n\sigma^2} [2nt(\mu^* - \mu) + n^2(\mu^{*2} - \mu^2)] \right\}
+\]
+
+Como $\mu^* > \mu$, temos $\mu^* - \mu > 0$, logo a razão é \textbf{crescente em $t$} (RVM crescente).
+
+Pelo TKR, o teste UMP de nível $\alpha$ tem região crítica:
+\[
+\psi_+(x) = \begin{cases}
+1, & \text{se } T(x) > k_+ \\
+0, & \text{se } T(x) < k_+
+\end{cases}
+\quad \text{ou equivalentemente} \quad
+\psi_+(x) = \begin{cases}
+1, & \text{se } \frac{\sqrt{n}(\bar{X}_n - \mu_0)}{\sigma} > z_\alpha \\
+0, & \text{o.c.}
+\end{cases}
+\]
+
+\textbf{Interpretação:} Rejeitamos $H_0$ quando a média amostral está \textcolor{red}{\textbf{muito acima}} de $\mu_0$.
+\end{passoapassobox}
+
+\begin{passoapassobox}
+\textbf{Para $H_1: \mu < \mu_0$ (unilateral à esquerda):}
+
+Agora consideramos $\mu^* < \mu$. A razão de verossimilhança:
+\[
+\frac{f(t; \mu^*)}{f(t; \mu)} = \exp\left\{ \frac{1}{2n\sigma^2} [2nt(\mu^* - \mu) + n^2(\mu^{*2} - \mu^2)] \right\}
+\]
+
+Como $\mu^* < \mu$, temos $\mu^* - \mu < 0$, logo a razão é \textbf{decrescente em $t$} (RVM decrescente).
+
+Pelo TKR, o teste UMP de nível $\alpha$ tem região crítica:
+\[
+\psi_-(x) = \begin{cases}
+1, & \text{se } T(x) < k_- \\
+0, & \text{se } T(x) > k_-
+\end{cases}
+\quad \text{ou equivalentemente} \quad
+\psi_-(x) = \begin{cases}
+1, & \text{se } \frac{\sqrt{n}(\bar{X}_n - \mu_0)}{\sigma} < -z_\alpha \\
+0, & \text{o.c.}
+\end{cases}
+\]
+
+\textbf{Interpretação:} Rejeitamos $H_0$ quando a média amostral está \textcolor{red}{\textbf{muito abaixo}} de $\mu_0$.
+\end{passoapassobox}
+
+\newpage
+
+\subsection{Passo 2: O Conflito Fundamental}
+
+\begin{atencaobox}
+\textbf{O Problema da Incompatibilidade:}
+
+Suponha que observamos uma amostra tal que a estatística calculada satisfaz:
+\[
+-z_\alpha < \frac{\sqrt{n}(\bar{X}_n - \mu_0)}{\sigma} < z_\alpha
+\]
+
+Isto é, a estatística está na região "intermediária".
+
+\textbf{Segundo $\psi_+$ (teste para $\mu > \mu_0$):}
+Como $\frac{\sqrt{n}(\bar{X}_n - \mu_0)}{\sigma} < z_\alpha$, temos $\psi_+(x) = 0$ (não rejeita).
+
+\textbf{Segundo $\psi_-$ (teste para $\mu < \mu_0$):}
+Como $\frac{\sqrt{n}(\bar{X}_n - \mu_0)}{\sigma} > -z_\alpha$, temos $\psi_-(x) = 0$ (não rejeita).
+
+\textbf{Para o teste bilateral:}
+Queremos rejeitar quando $\mu \neq \mu_0$ (tanto para $\mu > \mu_0$ quanto para $\mu < \mu_0$).
+
+\textcolor{red}{\textbf{Conclusão:}} Não conseguimos construir um teste UMP bilateral porque:
+\begin{itemize}
+    \item Se usássemos $\psi_+$, seríamos ótimos apenas para detectar $\mu > \mu_0$
+    \item Se usássemos $\psi_-$, seríamos ótimos apenas para detectar $\mu < \mu_0$
+    \item Qualquer teste bilateral teria que comprometer em ambas as direções
+\end{itemize}
+\end{atencaobox}
+
+\begin{intuicaobox}
+\subsection*{Visualização do Problema}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.3]
+% Eixo
+\draw[->] (-4,0) -- (4,0) node[right] {$Z = \frac{\sqrt{n}(\bar{X}_n - \mu_0)}{\sigma}$};
+
+% Densidade N(0,1)
+\draw[thick, blue, domain=-3.5:3.5, samples=100] plot (\x, {exp(-\x*\x/2)/sqrt(2*pi)});
+
+% Região crítica para mu > mu_0 (direita)
+\fill[red!30, opacity=0.5] (1.645,0) -- plot[domain=1.645:3.5] ({\x},{exp(-\x*\x/2)/sqrt(2*pi)}) -- (3.5,0) -- cycle;
+\draw[thick, red] (1.645,0) -- (1.645,0.5);
+\node at (1.645,-0.3) [red] {$z_\alpha$};
+\node at (2.5,0.15) [red] {\small $\psi_+$ rejeita};
+
+% Região crítica para mu < mu_0 (esquerda)
+\fill[green!30, opacity=0.5] (-3.5,0) -- plot[domain=-3.5:-1.645] ({\x},{exp(-\x*\x/2)/sqrt(2*pi)}) -- (-1.645,0) -- cycle;
+\draw[thick, green!60!black] (-1.645,0) -- (-1.645,0.5);
+\node at (-1.645,-0.3) [green!60!black] {$-z_\alpha$};
+\node at (-2.5,0.15) [green!60!black] {\small $\psi_-$ rejeita};
+
+% Região intermediária
+\draw[<->, thick, purple] (-1.645,0.7) -- (1.645,0.7);
+\node at (0,0.9) [purple] {\small Região de conflito};
+\node at (0,0.5) [purple] {\small Nenhum teste UMP unilateral rejeita aqui};
+
+% Titulo
+\node at (0,1.5) {\textbf{Por que NÃO existe UMP para Normal bilateral?}};
+
+\end{tikzpicture}
+\end{center}
+
+\textbf{Explicação:}
+\begin{itemize}
+    \item Para ser UMP bilateral, o teste deveria ser simultaneamente ótimo contra $\mu > \mu_0$ E contra $\mu < \mu_0$
+    \item Mas o teste ótimo para $\mu > \mu_0$ rejeita apenas à direita
+    \item E o teste ótimo para $\mu < \mu_0$ rejeita apenas à esquerda
+    \item Qualquer teste bilateral precisa comprometer, rejeitando em ambas as caudas
+    \item Esse compromisso impede que ele seja uniformemente mais poderoso
+\end{itemize}
+\end{intuicaobox}
+
+\newpage
+
+% ================================================================
+\section{Exemplo 4.5.2: EXISTÊNCIA de Teste UMP (Uniforme)}
+% ================================================================
+
+\begin{exemplobox}{Exemplo 4.5.2 -- Uniforme: Notas n79--n83}
+\textbf{Modelo:} $X_1, \ldots, X_n$ i.i.d. com $X_i \sim U(0, \theta)$, onde $\theta > 0$ desconhecido.
+
+\textbf{Hipóteses:}
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \neq \theta_0
+\]
+
+\textbf{Resultado Surpreendente:} EXISTE teste UMP para este problema bilateral!
+\end{exemplobox}
+
+\subsection{Por que a Uniforme é Diferente?}
+
+\begin{intuicaobox}
+\textbf{Diferença Crucial da Uniforme:}
+
+Para a Uniforme, a estatística suficiente é $T(X) = X_{(n)} = \max\{X_1, \ldots, X_n\}$.
+
+\textbf{Propriedade Geométrica Especial:}
+\begin{itemize}
+    \item $X_{(n)}$ está sempre entre 0 e $\theta$ (nunca excede $\theta$!)
+    \item Se $\theta$ é pequeno, $X_{(n)}$ tende a ser pequeno (limitado por $\theta$)
+    \item Se $\theta$ é grande, $X_{(n)}$ pode ser grande (mas ainda $\leq \theta$)
+\end{itemize}
+
+\textbf{Consequência:}
+\begin{itemize}
+    \item Para detectar $\theta > \theta_0$: procuramos $X_{(n)} > k$ (valores grandes)
+    \item Para detectar $\theta < \theta_0$: procuramos $X_{(n)} < k'$ (valores pequenos)
+    \item \textcolor{green}{\textbf{MAS}} ambos os testes podem ser \textit{consistentes} porque $X_{(n)} \leq \theta$!
+\end{itemize}
+\end{intuicaobox}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+% Caso theta grande
+\draw[thick] (0,3) -- (4,3) node[right] {$\theta_{\text{grande}}$};
+\fill[blue!20] (0,2.7) rectangle (4,3.3);
+\draw[red, very thick, ->] (3.5,2.5) -- (3.5,2) node[below] {$X_{(n)}$ tende a estar aqui};
+
+% Caso theta = theta_0
+\draw[thick] (0,1.5) -- (2.5,1.5) node[right] {$\theta_0$};
+\fill[green!20] (0,1.2) rectangle (2.5,1.8);
+\draw[purple, very thick, ->] (2.2,1.0) -- (2.2,0.5) node[below] {$X_{(n)}$ tende a estar aqui};
+
+% Caso theta pequeno
+\draw[thick] (0,0) -- (1.5,0) node[right] {$\theta_{\text{pequeno}}$};
+\fill[orange!20] (0,-0.3) rectangle (1.5,0.3);
+\draw[brown, very thick, ->] (1.2,-0.5) -- (1.2,-1) node[below] {$X_{(n)}$ tende a estar aqui};
+
+\node at (-1,3) {Grande:};
+\node at (-1,1.5) {$\theta_0$:};
+\node at (-1,0) {Pequeno:};
+
+\node at (6,1.5) {\parbox{4cm}{\small \textbf{Observe:} $X_{(n)}$ "acompanha" o valor de $\theta$!\\Se $\theta$ é pequeno, $X_{(n)}$ também será.}};
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+\subsection{Passo 1: Distribuição de $T(X) = X_{(n)}$ (Revisão)}
+
+\begin{passoapassobox}
+\textbf{Distribuição da Estatística Suficiente:}
+
+Para o máximo de $n$ uniformes $U(0, \theta)$:
+
+\paragraph{Função de Distribuição:}
+\[
+F_{X_{(n)}}(t) = P(X_{(n)} \leq t) = P(\max\{X_1,\ldots,X_n\} \leq t) = [F_X(t)]^n = \left(\frac{t}{\theta}\right)^n \mathbf{1}_{(0,\theta)}(t)
+\]
+
+\paragraph{Densidade:}
+\[
+f_{X_{(n)}}(t; \theta) = \frac{d}{dt}F_{X_{(n)}}(t) = n \cdot t^{n-1} \cdot \theta^{-n} \cdot \mathbf{1}_{(0,\theta)}(t)
+\]
+
+Usando a notação $I_{(0,\theta)}(t)$ (função indicadora):
+\[
+f(t; \theta) = n \, t^{n-1} \, \theta^{-n} \, I_{(0, \theta)}(t)
+\]
+\end{passoapassobox}
+
+\subsection{Passo 2: Verificar a Razão de Verossimilhança Monótona}
+
+\begin{passoapassobox}
+\textbf{Para $\theta^* > \theta$ (valores maiores do parâmetro):}
+
+Calculemos a razão de verossimilhanças:
+\begin{align*}
+\frac{f(t; \theta^*)}{f(t; \theta)} &= \frac{n \, t^{n-1} \, (\theta^*)^{-n} \, I_{(0, \theta^*)}(t)}{n \, t^{n-1} \, \theta^{-n} \, I_{(0, \theta)}(t)} \\
+&= \left(\frac{\theta}{\theta^*}\right)^n \cdot \frac{I_{(0, \theta^*)}(t)}{I_{(0, \theta)}(t)}
+\end{align*}
+
+\textbf{Análise da Função Indicadora:}
+
+O termo $\frac{I_{(0, \theta^*)}(t)}{I_{(0, \theta)}(t)}$ precisa de cuidado:
+
+\begin{itemize}
+    \item Se $0 < t < \theta$: ambos indicadores são 1, logo $\frac{I_{(0, \theta^*)}(t)}{I_{(0, \theta)}(t)} = 1$
+    \item Se $\theta \leq t < \theta^*$: $I_{(0,\theta)}(t) = 0$ mas $I_{(0,\theta^*)}(t) = 1$, logo a razão não está bem definida (ou é $\infty$)
+    \item Se $t \geq \theta^*$: ambos são 0
+\end{itemize}
+
+\textbf{Interpretação da RVM:}
+\[
+\frac{f(t; \theta^*)}{f(t; \theta)} = \begin{cases}
+\left(\frac{\theta}{\theta^*}\right)^n, & 0 < t < \theta \\
+\text{não definida}, & \theta \leq t < \theta^* \\
+0/0, & t \geq \theta^*
+\end{cases}
+\]
+
+\textbf{Ponto Crucial:} Como $\theta^* > \theta$, temos $\frac{\theta}{\theta^*} < 1$, logo $\left(\frac{\theta}{\theta^*}\right)^n$ é constante (não depende de $t$) na região onde está definida.
+
+Isso significa que a razão é \textit{constante} (não crescente nem decrescente) em $t$ para $t \in (0,\theta)$, mas a estrutura especial das funções indicadoras cria um comportamento especial.
+\end{passoapassobox}
+
+\newpage
+
+\subsection{Passo 3: Teste UMP para $H_1: \theta > \theta_0$ (Unilateral)}
+
+\begin{passoapassobox}
+\textbf{Aplicando o TKR:}
+
+Mesmo com a peculiaridade da RVM, podemos aplicar o Teorema de Karlin-Rubin.
+
+Para $H_0: \theta = \theta_0$ vs $H_1: \theta > \theta_0$, o teste UMP de nível $\alpha$ tem região crítica:
+\[
+\psi_{\text{UMP}}(x) = \begin{cases}
+1, & T(x) > k \\
+0, & T(x) \leq k
+\end{cases}
+\]
+
+\textbf{Determinação de $k$:}
+
+Precisamos que $E_{\theta_0}[\psi(x)] = \alpha$, isto é:
+\begin{align*}
+\alpha &= P_{\theta_0}(T(x) > k) \\
+&= P_{\theta_0}(X_{(n)} > k) \\
+&= \int_k^{\theta_0} n \, t^{n-1} \, \theta_0^{-n} \, dt \\
+&= \frac{n}{\theta_0^n} \left[\frac{t^n}{n}\right]_k^{\theta_0} \\
+&= \frac{1}{\theta_0^n}[\theta_0^n - k^n] \\
+&= 1 - \frac{k^n}{\theta_0^n}
+\end{align*}
+
+Resolvendo para $k$:
+\[
+\frac{k^n}{\theta_0^n} = 1 - \alpha \quad \Rightarrow \quad \frac{k}{\theta_0} = (1-\alpha)^{1/n} \quad \Rightarrow \quad \boxed{k = \theta_0(1-\alpha)^{1/n}}
+\]
+
+\textbf{Interpretação:}
+\begin{itemize}
+    \item Rejeitamos $H_0$ se $X_{(n)} > \theta_0(1-\alpha)^{1/n}$
+    \item Como $(1-\alpha)^{1/n} < 1$ (por exemplo, para $\alpha=0.05$ e $n=10$: $(0.95)^{0.1} \approx 0.9949$)
+    \item Então rejeitamos se $X_{(n)}$ está "próximo" de $\theta_0$ pelo lado inferior
+\end{itemize}
+\end{passoapassobox}
+
+\begin{intuicaobox}
+\textbf{Por que isso faz sentido?}
+
+Se o verdadeiro $\theta$ fosse maior que $\theta_0$, esperaríamos observar valores de $X_{(n)}$ maiores, possivelmente excedendo $\theta_0(1-\alpha)^{1/n}$.
+
+\textbf{Exemplo Numérico:}
+\begin{itemize}
+    \item $\theta_0 = 10$, $n = 20$, $\alpha = 0.05$
+    \item $k = 10 \cdot (0.95)^{1/20} = 10 \cdot 0.9974 = 9.974$
+    \item Rejeitamos se $X_{(20)} > 9.974$
+\end{itemize}
+
+Se observarmos $X_{(20)} = 9.98$, isto sugere que $\theta > 10$ porque o máximo ultrapassou quase todo o intervalo $(0, 10)$.
+\end{intuicaobox}
+
+\newpage
+
+\subsection{Passo 4: A Ideia Chave para o Teste Bilateral}
+
+\begin{atencaobox}
+\textbf{Insight Fundamental (Notas n80--n81):}
+
+Para a Uniforme, existe uma \textcolor{red}{\textbf{simetria especial}} que permite construir teste UMP bilateral:
+
+\begin{enumerate}
+    \item \textbf{Detectar $\theta > \theta_0$:} Rejeitamos se $X_{(n)} > \theta_0(1-\alpha/2)^{1/n}$ (valores grandes de $X_{(n)}$)
+    
+    \item \textbf{Detectar $\theta < \theta_0$:} Rejeitamos se $X_{(n)} < \theta_0(\alpha/2)^{1/n}$ (valores pequenos de $X_{(n)}$)
+    
+    \item \textbf{Combinação:} Como $X_{(n)} \leq \theta$ sempre, as duas condições NÃO entram em conflito!
+\end{enumerate}
+
+\textbf{Por que isso funciona para Uniforme mas não para Normal?}
+
+\begin{itemize}
+    \item \textbf{Normal:} $\bar{X}_n$ pode assumir \textit{qualquer valor real}, então valores intermediários criam ambiguidade
+    \item \textbf{Uniforme:} $X_{(n)} \in (0, \theta)$ sempre, então valores pequenos indicam inequivocamente $\theta$ pequeno, e valores próximos de $\theta_0$ (ou maiores que $\theta_0$) indicam $\theta$ grande
+\end{itemize}
+\end{atencaobox}
+
+\subsection{Passo 5: Construção da Função Poder (Notas n80--n81)}
+
+\begin{passoapassobox}
+\textbf{Objetivo:} Mostrar que a função poder do teste UMP para $H_0: \theta = \theta_0$ vs $H_1: \theta > \theta_0$ pode ser escrita como:
+
+\[
+\beta_{\psi^*}(\theta) = 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n \quad \text{para } \theta > \theta_0
+\]
+
+\textbf{Passo 5.1 - Definir $g(t)$:}
+
+Definimos:
+\[
+g(t) = E[\psi^*(x) \mid T(x) = t]
+\]
+
+Esta é a \textit{esperança condicional} da função de teste dado o valor da estatística suficiente.
+
+\textbf{Propriedade Importante:} Como $T(x)$ é suficiente para $\theta$, $g(t)$ \textcolor{red}{\textbf{não depende de $\theta$}}!
+
+\textbf{Passo 5.2 - Relacionar com $\alpha$:}
+
+Por definição do nível do teste:
+\begin{align*}
+\alpha &= E_{\theta_0}[\psi^*(x)] \\
+&= E_{\theta_0}[E[\psi^*(x) \mid T]] \quad \text{(lei da esperança total)} \\
+&= E_{\theta_0}[g(T)]
+\end{align*}
+
+\textbf{Passo 5.3 - Usar a propriedade $\psi^*(x) = 1$ para $t > \theta_0$:}
+
+Se o teste tem $\psi^*(x) = 1$ sempre que $T(x) > \theta_0$, então:
+\[
+g(t) = 1 \quad \text{para todo } t > \theta_0
+\]
+\end{passoapassobox}
+
+\newpage
+
+\begin{passoapassobox}
+\textbf{Passo 5.4 - Calcular $E_\theta[\psi^*(x)]$ para $\theta > \theta_0$:}
+
+Dividimos a integral em duas partes:
+\begin{align*}
+E_\theta[\psi^*(x)] &= \int_0^\infty g(t) \cdot f(t;\theta) \, dt \\
+&= \int_0^{\theta_0} g(t) \cdot n t^{n-1} \theta^{-n} \, dt + \int_{\theta_0}^\theta g(t) \cdot n t^{n-1} \theta^{-n} \, dt
+\end{align*}
+
+\textbf{Truque Algébrico:} Multiplicar e dividir o primeiro termo por $\theta_0^n$:
+\begin{align*}
+&= \left(\frac{\theta_0}{\theta}\right)^n \int_0^{\theta_0} g(t) \cdot n t^{n-1} \theta_0^{-n} \, dt + \int_{\theta_0}^\theta g(t) \cdot n t^{n-1} \theta^{-n} \, dt
+\end{align*}
+
+\textbf{Reconhecer a primeira integral:}
+A primeira integral é $E_{\theta_0}[g(T)] = \alpha$ (do Passo 5.2)!
+
+\textbf{Simplificar a segunda integral:}
+Como $g(t) = 1$ para $t \geq \theta_0$:
+\begin{align*}
+\int_{\theta_0}^\theta 1 \cdot n t^{n-1} \theta^{-n} \, dt &= \frac{n}{\theta^n}\left[\frac{t^n}{n}\right]_{\theta_0}^\theta \\
+&= \frac{1}{\theta^n}[\theta^n - \theta_0^n] \\
+&= 1 - \left(\frac{\theta_0}{\theta}\right)^n
+\end{align*}
+
+\textbf{Passo 5.5 - Combinar:}
+\begin{align*}
+\beta_{\psi^*}(\theta) &= \left(\frac{\theta_0}{\theta}\right)^n \cdot \alpha + \left[1 - \left(\frac{\theta_0}{\theta}\right)^n\right] \\
+&= \left(\frac{\theta_0}{\theta}\right)^n \alpha + 1 - \left(\frac{\theta_0}{\theta}\right)^n \\
+&= 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n \quad \checkmark
+\end{align*}
+
+Esta é exatamente a expressão (4.5.2.1) das notas!
+\end{passoapassobox}
+
+\begin{intuicaobox}
+\subsection*{Interpretação da Função Poder}
+
+A função poder $\beta(\theta) = 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n$ tem propriedades interessantes:
+
+\begin{itemize}
+    \item \textbf{Para $\theta = \theta_0$:} $\beta(\theta_0) = 1 - (1-\alpha) \cdot 1 = \alpha$ \checkmark (tamanho correto)
+    
+    \item \textbf{Para $\theta \to \infty$:} $\left(\frac{\theta_0}{\theta}\right)^n \to 0$, logo $\beta(\theta) \to 1$ (poder perfeito)
+    
+    \item \textbf{Para $\theta > \theta_0$:} $\beta(\theta) > \alpha$ (poder maior que o nível)
+    
+    \item \textbf{Crescente:} Como $\theta$ aumenta, $\left(\frac{\theta_0}{\theta}\right)^n$ diminui, logo $\beta(\theta)$ aumenta
+\end{itemize}
+
+\textbf{Gráfico Conceitual:}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+% Eixos
+\draw[->] (0,0) -- (12,0) node[right] {$\theta$};
+\draw[->] (0,0) -- (0,6) node[above] {$\beta(\theta)$};
+
+% Curva da funcao poder (aproximacao)
+\draw[blue, very thick, smooth] plot coordinates {
+    (5,0.05) (6,0.08) (7,0.15) (8,0.28) (9,0.47) (10,0.7) 
+    (11,0.87) (12,0.95) (13,0.98) (14,0.99) (15,1.0)
+};
+
+% Linha horizontal em alpha
+\draw[dashed, red] (0,0.3) -- (12,0.3);
+\node at (11,0.6) [red] {$\alpha=0.05$};
+
+% Linha vertical em theta_0
+\draw[dashed, green!60!black] (6,0) -- (6,6);
+\node at (6,5.7) [green!60!black] {$\theta_0$};
+
+% Ponto em theta_0
+\fill[red] (6,0.3) circle (2pt);
+\node at (6,0) [below] {$10$};
+
+% Labels dos eixos
+\node at (0,0) [below left] {$0$};
+\node at (0,3) [left] {$0.5$};
+\node at (0,6) [left] {$1$};
+
+% Anotacao
+\node at (9,4.5) [blue] {$\beta(\theta) = 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n$};
+
+\end{tikzpicture}
+\end{center}
+\end{intuicaobox}
+
+\newpage
+
+% ================================================================
+\section{Teorema 4.5.1: Teste UMP Bilateral para Uniforme}
+% ================================================================
+
+\begin{exemplobox}{Teorema 4.5.1 (Nota n82)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim U(0, \theta)$. 
+
+Considere testar:
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta \neq \theta_0
+\]
+
+onde $\theta_0 > 0$ é fixado.
+
+O teste $\varphi$ com função crítica:
+\[
+\varphi_n(x) = \begin{cases}
+1, & \text{se } T(x) > \theta_0 \text{ ou } T(x) \leq \theta_0 \alpha^{1/n} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+é UMP de nível $\alpha$.
+\end{exemplobox}
+
+\subsection{Entendendo a Região Crítica}
+
+\begin{intuicaobox}
+\textbf{A região crítica tem DUAS partes:}
+
+\paragraph{Parte 1: $T(x) > \theta_0$}
+Rejeitamos se o máximo da amostra \textbf{excede} $\theta_0$.
+
+\textbf{Interpretação:} Se observamos algum $X_i > \theta_0$, então CERTAMENTE $\theta > \theta_0$ (pois todos os dados devem estar em $(0,\theta)$).
+
+\textbf{Exemplo:} Se $\theta_0 = 10$ e observamos $X_{(n)} = 10.5$, sabemos que $\theta \geq 10.5 > 10$.
+
+\paragraph{Parte 2: $T(x) \leq \theta_0 \alpha^{1/n}$}
+Rejeitamos se o máximo da amostra está \textbf{muito pequeno}.
+
+\textbf{Interpretação:} Se $X_{(n)}$ é muito menor que $\theta_0$, isto sugere que o verdadeiro $\theta$ é menor que $\theta_0$.
+
+\textbf{Exemplo:} Se $\theta_0 = 10$, $\alpha = 0.05$, $n = 10$, então:
+\[
+\theta_0 \alpha^{1/n} = 10 \cdot (0.05)^{0.1} = 10 \cdot 0.7408 \approx 7.41
+\]
+
+Se observamos $X_{(10)} = 7.0 < 7.41$, rejeitamos $H_0$, sugerindo que $\theta < 10$.
+\end{intuicaobox}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.3]
+% Eixo
+\draw[->] (0,0) -- (12,0) node[right] {$t = X_{(n)}$};
+
+% Regiao 0 a theta_0
+\fill[blue!10] (0,0) rectangle (10,1);
+\node at (5,0.5) {Valores possíveis sob $H_0$};
+
+% Linha em theta_0
+\draw[very thick, blue] (10,0) -- (10,1.5);
+\node at (10,1.7) [blue] {$\theta_0 = 10$};
+
+% Regiao critica esquerda
+\fill[red!30] (0,0) rectangle (0.741,1);
+\draw[very thick, red] (0.741,0) -- (0.741,1.5);
+\node at (0.741,1.7) [red] {\small $\theta_0\alpha^{1/n}$};
+\node at (0.741,-0.5) [red] {\small $\approx 7.41$};
+\node at (0.4,0.5) [red] {\small Rejeita};
+\node at (0.4,0.2) [red] {\small ($\theta < \theta_0$)};
+
+% Regiao de nao rejeicao
+\fill[green!20] (0.741,0) rectangle (10,1);
+\node at (5.5,0.5) [green!60!black] {\small Não Rejeita};
+
+% Regiao critica direita  
+\fill[red!30] (10,0) rectangle (12,1);
+\node at (11,0.5) [red] {\small Rejeita};
+\node at (11,0.2) [red] {\small ($\theta > \theta_0$)};
+
+% Anotações
+\draw[<->, thick] (0.741,-1) -- (10,-1);
+\node at (5.4,-1.5) {\small Região de não rejeição: $[\theta_0\alpha^{1/n}, \theta_0]$};
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+\subsection{Passo 6: Prova do Teorema 4.5.1 (Nota n82)}
+
+\begin{passoapassobox}
+\textbf{Precisamos mostrar que o teste tem nível $\alpha$:}
+
+Calculamos:
+\[
+E_{\theta_0}[\varphi_n(x)] = P_{\theta_0}[T(x) > \theta_0] + P_{\theta_0}[T(x) \leq \theta_0\alpha^{1/n}]
+\]
+
+\textbf{Primeiro termo:}
+\begin{align*}
+P_{\theta_0}[T(x) > \theta_0] &= P_{\theta_0}[X_{(n)} > \theta_0] \\
+&= 0
+\end{align*}
+
+Por quê? Porque sob $H_0$, todos os $X_i \sim U(0, \theta_0)$, logo $X_i \leq \theta_0$ sempre, portanto $X_{(n)} \leq \theta_0$.
+
+\textbf{Segundo termo:}
+\begin{align*}
+P_{\theta_0}[T(x) \leq \theta_0\alpha^{1/n}] &= P_{\theta_0}[X_{(n)} \leq \theta_0\alpha^{1/n}] \\
+&= F_{X_{(n)}}(\theta_0\alpha^{1/n}; \theta_0) \\
+&= \left(\frac{\theta_0\alpha^{1/n}}{\theta_0}\right)^n \\
+&= (\alpha^{1/n})^n \\
+&= \alpha
+\end{align*}
+
+\textbf{Conclusão:}
+\[
+E_{\theta_0}[\varphi_n(x)] = 0 + \alpha = \alpha \quad \checkmark
+\]
+
+O teste tem tamanho exatamente $\alpha$! \checkmark
+\end{passoapassobox}
+
+\begin{atencaobox}
+\textbf{Ponto Crucial:}
+
+Note que $P_{\theta_0}[X_{(n)} > \theta_0] = 0$ é específico da Uniforme!
+
+Para a Normal, $\bar{X}_n$ pode assumir qualquer valor (incluindo valores muito maiores que $\mu_0$), então não existe essa restrição natural.
+
+Esta é a \textcolor{red}{\textbf{diferença fundamental}} que permite a construção do teste UMP bilateral para Uniforme mas não para Normal.
+\end{atencaobox}
+
+\newpage
+
+\subsection{Passo 7: Teste para $H_1: \theta < \theta_0$ (Nota n83)}
+
+\begin{passoapassobox}
+\textbf{Aplicando TKR para a outra direção:}
+
+Para testar $H_0: \theta = \theta_0$ vs $H_1: \theta < \theta_0$, precisamos de RVM decrescente.
+
+\textbf{Análise da RVM:}
+Para $\theta^* < \theta$:
+\[
+\frac{f(t; \theta^*)}{f(t; \theta)} = \left(\frac{\theta}{\theta^*}\right)^n \cdot \frac{I_{(0,\theta^*)}(t)}{I_{(0,\theta)}(t)}
+\]
+
+Como $\theta^* < \theta$, temos $\frac{\theta}{\theta^*} > 1$.
+
+Para $t \in (0, \theta^*)$, a razão é constante (não depende de $t$), mas a estrutura dos suportes implica que valores pequenos de $t$ são mais prováveis sob $\theta^*$ (menor).
+
+\textbf{Pelo TKR, o teste UMP tem região crítica:}
+\[
+\psi_{\gamma^{**}}(x) = \begin{cases}
+1, & T(x) < \theta_0 \alpha^{1/n} \\
+0, & T(x) > \theta_0 \alpha^{1/n}
+\end{cases}
+\]
+
+\textbf{Observação Fundamental (Nota n83):}
+Os testes $\varphi$ (bilateral) e $\psi_{\gamma^{**}}$ (unilateral esquerdo) \textcolor{red}{\textbf{coincidem}} na parte inferior da região crítica!
+
+Ambos rejeitam quando $T(x) \leq \theta_0\alpha^{1/n}$.
+
+\textbf{Consequência:} Isso ajuda a provar que $\varphi$ é UMP para o problema bilateral, pois ele incorpora corretamente ambas as direções.
+\end{passoapassobox}
+
+\newpage
+
+% ================================================================
+\section{Síntese e Comparação Final}
+% ================================================================
+
+\begin{comparacaobox}
+\subsection*{Quadro Comparativo: Normal vs Uniforme}
+
+\begin{center}
+\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Aspecto} & \textbf{Normal $N(\mu, \sigma^2)$} & \textbf{Uniforme $U(0,\theta)$} \\
+\hline
+\textbf{Estatística Suficiente} & $T = \sum X_i$ ou $\bar{X}_n$ & $T = X_{(n)} = \max\{X_i\}$ \\
+\hline
+\textbf{Suporte de $T$} & $T \in \mathbb{R}$ (ilimitado) & $T \in (0,\theta)$ (limitado por $\theta$) \\
+\hline
+\textbf{UMP para $H_1:\theta>\theta_0$} & Sim: rejeita se $T > k_+$ & Sim: rejeita se $T > k_+$ \\
+\hline
+\textbf{UMP para $H_1:\theta<\theta_0$} & Sim: rejeita se $T < k_-$ & Sim: rejeita se $T < k_-$ \\
+\hline
+\textbf{UMP para $H_1:\theta\neq\theta_0$} & \textcolor{red}{\textbf{NÃO}} & \textcolor{green}{\textbf{SIM}} \\
+\hline
+\textbf{Região Crítica Bilateral} & $|T - \mu_0| > k$ (duas caudas independentes) & $T > \theta_0$ OU $T < \theta_0\alpha^{1/n}$ \\
+\hline
+\textbf{Por que funciona/não funciona?} & Valores intermediários criam ambiguidade & $T \leq \theta$ sempre elimina ambiguidade \\
+\hline
+\textbf{Teste Prático Usado} & Teste bilateral clássico (não UMP) & Teste UMP do Teorema 4.5.1 \\
+\hline
+\end{tabular}
+\end{center}
+\end{comparacaobox}
+
+\begin{atencaobox}
+\subsection*{A Grande Lição}
+
+\textbf{Para hipóteses bilaterais:}
+
+\begin{enumerate}
+    \item \textbf{Regra Geral:} Na maioria dos casos (Normal, Exponencial, Poisson, etc.) NÃO existe teste UMP bilateral
+    
+    \item \textbf{Exceção Especial:} Para distribuições com suporte limitado pelo parâmetro (como Uniforme), pode existir teste UMP bilateral
+    
+    \item \textbf{Alternativas quando não existe UMP:}
+    \begin{itemize}
+        \item Teste da Razão de Verossimilhança (TRV)
+        \item Testes UMPNV (Uniformemente Mais Poderosos Não Viesados)
+        \item Testes baseados em outros critérios de otimalidade
+    \end{itemize}
+\end{enumerate}
+\end{atencaobox}
+
+\newpage
+
+% ================================================================
+\section{Resumo Passo a Passo dos Cálculos Principais}
+% ================================================================
+
+\begin{passoapassobox}
+\subsection*{Resumo do Exemplo 4.5.2 (Uniforme)}
+
+\paragraph{Passo 1: Identificar estatística suficiente}
+$T(X) = X_{(n)}$ com densidade $f(t;\theta) = n t^{n-1} \theta^{-n} I_{(0,\theta)}(t)$
+
+\paragraph{Passo 2: Calcular razão de verossimilhança}
+Para $\theta^* > \theta$:
+\[
+\frac{f(t;\theta^*)}{f(t;\theta)} = \left(\frac{\theta}{\theta^*}\right)^n \frac{I_{(0,\theta^*)}(t)}{I_{(0,\theta)}(t)}
+\]
+
+\paragraph{Passo 3: Verificar RVM}
+A razão tem comportamento monótono (com cuidado nas funções indicadoras)
+
+\paragraph{Passo 4: Aplicar TKR para $H_1: \theta > \theta_0$}
+Teste UMP rejeita se $T(x) > k$ onde $k = \theta_0(1-\alpha)^{1/n}$
+
+\paragraph{Passo 5: Calcular função poder}
+Usando esperança condicional e suficiência:
+\[
+\beta(\theta) = 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n
+\]
+
+\paragraph{Passo 6: Construir teste bilateral}
+Região crítica: $T(x) > \theta_0$ OU $T(x) \leq \theta_0\alpha^{1/n}$
+
+\paragraph{Passo 7: Verificar nível}
+\begin{align*}
+E_{\theta_0}[\varphi_n(x)] &= P_{\theta_0}[T > \theta_0] + P_{\theta_0}[T \leq \theta_0\alpha^{1/n}] \\
+&= 0 + \alpha = \alpha \quad \checkmark
+\end{align*}
+
+\paragraph{Passo 8: Concluir que é UMP}
+Usando argumentos das notas n80--n83, mostra-se que este teste bilateral é de fato UMP.
+\end{passoapassobox}
+
+\newpage
+
+% ================================================================
+\section{Exemplo Numérico Completo}
+% ================================================================
+
+\begin{exemplobox}{Aplicação Prática do Teorema 4.5.1}
+\textbf{Problema:} Um pesquisador quer testar se o diâmetro máximo de partículas em suspensão é igual a 10 micrômetros. Ele coleta $n=15$ partículas e mede seus diâmetros, assumindo que seguem $U(0,\theta)$.
+
+\textbf{Dados:} $n = 15$, $\theta_0 = 10$, $\alpha = 0.05$
+
+\textbf{Hipóteses:}
+\[
+H_0: \theta = 10 \quad \text{vs} \quad H_1: \theta \neq 10
+\]
+\end{exemplobox}
+
+\begin{passoapassobox}
+\subsection*{Solução Passo a Passo}
+
+\paragraph{Passo 1: Calcular os limites da região de não rejeição}
+
+\textbf{Limite inferior:}
+\[
+k_{\text{inf}} = \theta_0 \alpha^{1/n} = 10 \cdot (0.05)^{1/15} = 10 \cdot (0.05)^{0.0667} \approx 10 \cdot 0.8025 = 8.025
+\]
+
+\textbf{Limite superior:}
+\[
+k_{\text{sup}} = \theta_0 = 10
+\]
+
+\paragraph{Passo 2: Determinar a regra de decisão}
+
+\textbf{Região crítica:}
+\[
+R_c = \{x: X_{(15)} > 10 \text{ ou } X_{(15)} \leq 8.025\}
+\]
+
+\textbf{Região de não rejeição:}
+\[
+R_{nc} = \{x: 8.025 < X_{(15)} \leq 10\}
+\]
+
+\paragraph{Passo 3: Aplicar aos dados}
+
+\textbf{Cenário A:} Observamos $X_{(15)} = 9.5$
+\begin{itemize}
+    \item Como $8.025 < 9.5 < 10$, está na região de não rejeição
+    \item \textbf{Decisão:} Não rejeitamos $H_0$
+    \item \textbf{Interpretação:} Não há evidência suficiente contra $\theta = 10$
+\end{itemize}
+
+\textbf{Cenário B:} Observamos $X_{(15)} = 10.3$
+\begin{itemize}
+    \item Como $10.3 > 10 = \theta_0$, está na região crítica
+    \item \textbf{Decisão:} Rejeitamos $H_0$
+    \item \textbf{Interpretação:} Há evidência forte de que $\theta > 10$ (certeza, pois observamos valor $> \theta_0$!)
+\end{itemize}
+
+\textbf{Cenário C:} Observamos $X_{(15)} = 7.8$
+\begin{itemize}
+    \item Como $7.8 < 8.025 = \theta_0\alpha^{1/n}$, está na região crítica
+    \item \textbf{Decisão:} Rejeitamos $H_0$
+    \item \textbf{Interpretação:} Há evidência de que $\theta < 10$ (máximo muito pequeno)
+\end{itemize}
+
+\paragraph{Passo 4: Calcular a função poder}
+
+Para $\theta = 12$ (alternativa):
+\begin{align*}
+\beta(12) &= P_{12}[\text{Rejeitar } H_0] \\
+&= P_{12}[X_{(15)} > 10] + P_{12}[X_{(15)} \leq 8.025]
+\end{align*}
+
+\textbf{Primeiro termo:}
+\begin{align*}
+P_{12}[X_{(15)} > 10] &= 1 - F_{X_{(15)}}(10; \theta=12) \\
+&= 1 - \left(\frac{10}{12}\right)^{15} \\
+&= 1 - (0.833)^{15} \\
+&\approx 1 - 0.0649 = 0.9351
+\end{align*}
+
+\textbf{Segundo termo:}
+\begin{align*}
+P_{12}[X_{(15)} \leq 8.025] &= \left(\frac{8.025}{12}\right)^{15} \\
+&= (0.669)^{15} \\
+&\approx 0.0003
+\end{align*}
+
+\textbf{Poder total:}
+\[
+\beta(12) \approx 0.9351 + 0.0003 = 0.9354
+\]
+
+O teste tem poder de aproximadamente 93.5% para detectar $\theta = 12$! ✓
+\end{passoapassobox}
+
+\newpage
+
+% ================================================================
+\section{Interpretação Geométrica e Visual}
+% ================================================================
+
+\begin{intuicaobox}
+\subsection*{Visualização da Densidade de $X_{(n)}$ sob Diferentes $\theta$}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.4]
+\draw[->] (-0.5,0) -- (12,0) node[right] {$t$};
+\draw[->] (0,-0.2) -- (0,3) node[above] {$f_{X_{(n)}}(t;\theta)$};
+
+% Densidade para theta = 8 (menor que theta_0)
+\draw[thick, brown, domain=0.1:8, samples=100] plot (\x, {15*(\x/8)^14/(8)});
+\node at (6,0.5) [brown] {$\theta=8$};
+\fill[brown!20, opacity=0.3] (0,0) -- plot[domain=0.1:8] ({\x},{15*(\x/8)^14/(8)}) -- (8,0) -- cycle;
+
+% Densidade para theta = 10 (theta_0)
+\draw[thick, blue, domain=0.1:10, samples=100] plot (\x, {15*(\x/10)^14/(10)});
+\node at (8,1.5) [blue] {$\theta=\theta_0=10$};
+
+% Densidade para theta = 12 (maior que theta_0)
+\draw[thick, red, domain=0.1:12, samples=100] plot (\x, {15*(\x/12)^14/(12)});
+\node at (10,2.5) [red] {$\theta=12$};
+
+% Linhas verticais da regiao critica
+\draw[dashed, purple, very thick] (8.025,0) -- (8.025,3);
+\node at (8.025,-0.4) [purple] {\small $k_{inf}=8.025$};
+
+\draw[dashed, green!60!black, very thick] (10,0) -- (10,3);
+\node at (10,-0.4) [green!60!black] {\small $\theta_0=10$};
+
+% Regioes
+\node at (4,2.7) [purple] {\small Rejeita (esq)};
+\draw[<-, thick, purple] (4,2.5) -- (6,2.5);
+
+\node at (11,2.7) [purple] {\small Rejeita (dir)};
+\draw[->, thick, purple] (10.2,2.5) -- (11,2.5);
+
+\node at (9,2.2) [green!60!black] {\small Não Rejeita};
+
+\end{tikzpicture}
+\end{center}
+
+\textbf{Observações Importantes:}
+\begin{enumerate}
+    \item Quando $\theta < \theta_0$ (curva marrom), a densidade se concentra em valores pequenos, com alta probabilidade de $X_{(n)} < 8.025$ (região crítica esquerda)
+    
+    \item Quando $\theta = \theta_0$ (curva azul), há apenas $\alpha = 0.05$ de probabilidade de cair nas regiões críticas
+    
+    \item Quando $\theta > \theta_0$ (curva vermelha), há alta probabilidade de $X_{(n)} > 10$ (região crítica direita), e também possibilidade de valores entre 10 e 12
+\end{enumerate}
+\end{intuicaobox}
+
+\newpage
+
+\begin{conceitobox}{Estrutura Lógica da Demonstração (Notas n79--n83)}
+\subsection*{Fluxo da Argumentação}
+
+\textbf{n79:} Apresenta o Exemplo 4.5.2 da Uniforme
+\begin{itemize}
+    \item Define o modelo e estatística suficiente
+    \item Calcula a densidade de $T = X_{(n)}$
+    \item Mostra a razão de verossimilhança
+    \item Aplica TKR para obter teste UMP unilateral ($H_1: \theta > \theta_0$)
+    \item Calcula $k = \theta_0(1-\alpha)^{1/n}$
+\end{itemize}
+
+\textbf{n80:} Introduz o problema bilateral
+\begin{itemize}
+    \item Quer teste UMP para $H_0: \theta = \theta_0$ vs $H_1: \theta \neq \theta_0$
+    \item Define função $g(t) = E[\psi^*(x) \mid T=t]$ (esperança condicional)
+    \item Mostra que $g(t)$ não depende de $\theta$ (por suficiência)
+    \item Inicia cálculo da função poder
+\end{itemize}
+
+\textbf{n81:} Completa o cálculo da função poder
+\begin{itemize}
+    \item Usa $g(t) = 1$ para $t > \theta_0$ (propriedade do teste)
+    \item Divide integral em duas partes: $(0,\theta_0)$ e $(\theta_0,\theta)$
+    \item Usa truque de multiplicar por $\left(\frac{\theta_0}{\theta}\right)^n$ no primeiro termo
+    \item Obtém $\beta(\theta) = 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n$
+\end{itemize}
+
+\textbf{n82:} Enuncia e inicia prova do Teorema 4.5.1
+\begin{itemize}
+    \item Apresenta a função crítica do teste bilateral
+    \item Mostra que $P_{\theta_0}[T > \theta_0] = 0$ (crucial!)
+    \item Calcula $P_{\theta_0}[T \leq \theta_0\alpha^{1/n}] = \alpha$
+    \item Conclui que o teste tem nível $\alpha$
+\end{itemize}
+
+\textbf{n83:} Finaliza a argumentação
+\begin{itemize}
+    \item Mostra teste UMP para $H_1: \theta < \theta_0$
+    \item Observa que ambos os testes coincidem na parte inferior
+    \item Conclui que $\varphi$ é UMP para o problema bilateral
+\end{itemize}
+\end{conceitobox}
+
+\newpage
+
+% ================================================================
+\section{Exercícios para Fixação}
+% ================================================================
+
+\begin{exemplobox}{Exercício 1: Cálculo de Região Crítica}
+Para $X_i \sim U(0,\theta)$, $n=20$, $\theta_0 = 5$, $\alpha = 0.10$:
+
+\textbf{(a)} Calcule os limites da região crítica para o teste bilateral UMP.
+
+\textbf{(b)} Se observarmos $X_{(20)} = 4.8$, qual a decisão?
+
+\textbf{(c)} Se observarmos $X_{(20)} = 4.2$, qual a decisão?
+
+\textbf{(d)} Calcule o poder do teste para $\theta = 6$.
+\end{exemplobox}
+
+\begin{passoapassobox}
+\subsection*{Solução do Exercício 1}
+
+\textbf{(a) Limites da região crítica:}
+
+Limite inferior:
+\[
+k_{\text{inf}} = \theta_0 \alpha^{1/n} = 5 \cdot (0.10)^{1/20} = 5 \cdot 0.8913 = 4.456
+\]
+
+Limite superior:
+\[
+k_{\text{sup}} = \theta_0 = 5
+\]
+
+\textbf{Região crítica:} $X_{(20)} > 5$ OU $X_{(20)} \leq 4.456$
+
+\textbf{(b) Decisão para $X_{(20)} = 4.8$:}
+
+Como $4.456 < 4.8 < 5$, o valor está na região de não rejeição.
+
+\textbf{Decisão:} Não rejeitamos $H_0$ ao nível 10\%.
+
+\textbf{(c) Decisão para $X_{(20)} = 4.2$:}
+
+Como $4.2 < 4.456$, o valor está na região crítica (esquerda).
+
+\textbf{Decisão:} Rejeitamos $H_0$ ao nível 10\%, com evidência de que $\theta < 5$.
+
+\textbf{(d) Poder para $\theta = 6$:}
+
+\begin{align*}
+\beta(6) &= P_6[X_{(20)} > 5] + P_6[X_{(20)} \leq 4.456] \\
+&= \left[1 - \left(\frac{5}{6}\right)^{20}\right] + \left(\frac{4.456}{6}\right)^{20} \\
+&= [1 - (0.833)^{20}] + (0.743)^{20} \\
+&\approx [1 - 0.0261] + 0.00004 \\
+&\approx 0.974
+\end{align*}
+
+O teste tem poder de aproximadamente 97.4% para detectar $\theta = 6$!
+\end{passoapassobox}
+
+\newpage
+
+% ================================================================
+\section{Perguntas e Respostas Frequentes}
+% ================================================================
+
+\begin{conceitobox}{FAQ sobre o Material Final do Cap 4}
+
+\paragraph{Q1: Por que $P_{\theta_0}[X_{(n)} > \theta_0] = 0$ para a Uniforme?}
+
+\textbf{R:} Porque sob $H_0$, todos os $X_i \sim U(0,\theta_0)$, então $X_i \in (0,\theta_0)$ com probabilidade 1. Logo, o máximo também satisfaz $X_{(n)} \in (0,\theta_0)$, e $P[X_{(n)} > \theta_0] = 0$.
+
+Para a Normal, $X_i$ pode assumir qualquer valor real, então $\bar{X}_n > \mu_0$ tem probabilidade positiva.
+
+\paragraph{Q2: Por que usamos $\alpha^{1/n}$ e não simplesmente $\alpha$?}
+
+\textbf{R:} Queremos que $P_{\theta_0}[X_{(n)} \leq k] = \alpha$. Como:
+\[
+P_{\theta_0}[X_{(n)} \leq k] = \left(\frac{k}{\theta_0}\right)^n
+\]
+
+Precisamos resolver $\left(\frac{k}{\theta_0}\right)^n = \alpha$, que dá $k = \theta_0 \alpha^{1/n}$.
+
+\paragraph{Q3: O que significa "os testes coincidem" (nota n83)?}
+
+\textbf{R:} Significa que o teste bilateral $\varphi$ e o teste unilateral esquerdo $\psi_{\gamma^{**}}$ têm exatamente a mesma região crítica na parte inferior: ambos rejeitam quando $T(x) \leq \theta_0\alpha^{1/n}$.
+
+Isso é importante para a prova de que $\varphi$ é UMP bilateral.
+
+\paragraph{Q4: Por que a função poder para Uniforme tem essa forma específica?}
+
+\textbf{R:} A forma $\beta(\theta) = 1 - (1-\alpha)\left(\frac{\theta_0}{\theta}\right)^n$ vem da distribuição de $X_{(n)}$. O termo $\left(\frac{\theta_0}{\theta}\right)^n$ representa a probabilidade de que TODOS os $X_i$ estejam abaixo de $\theta_0$ quando o verdadeiro parâmetro é $\theta$.
+
+\paragraph{Q5: Este teste UMP bilateral existe para outras distribuições com suporte limitado?}
+
+\textbf{R:} Sim, em alguns casos. Por exemplo:
+\begin{itemize}
+    \item $U(a,b)$ com ambos parâmetros desconhecidos (mais complexo)
+    \item Algumas distribuições Beta com parâmetros especiais
+\end{itemize}
+
+Mas é uma propriedade rara! A maioria das distribuições (Normal, Exponencial, Poisson, etc.) NÃO tem teste UMP bilateral.
+\end{conceitobox}
+
+\newpage
+
+% ================================================================
+\section{Conexões com o Resto do Capítulo 4}
+% ================================================================
+
+\begin{comparacaobox}
+\subsection*{Como as Notas n79--n83 se Conectam com o Capítulo}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    every node/.style={rectangle, draw, align=center, minimum width=3cm},
+    concept/.style={fill=blue!10},
+    example/.style={fill=green!10},
+    theorem/.style={fill=red!10},
+    arrow/.style={->, thick, >=Stealth}
+]
+
+\node[concept] (lnp) {Lema de\\Neyman-Pearson\\(Seção 4.3)};
+\node[concept, below of=lnp] (rkr) {Teorema de\\Karlin-Rubin\\(Seção 4.4)};
+\node[example, right of=rkr, xshift=1cm] (n76) {Exemplo 4.5.1\\Normal\\(n76--n78)};
+\node[example, below of=n76] (n79) {Exemplo 4.5.2\\Uniforme\\(n79--n83)};
+\node[theorem, below of=rkr, yshift=-1cm] (teo451) {Teorema 4.5.1\\UMP Bilateral\\Uniforme};
+
+\draw[arrow] (lnp) -- (rkr) node[midway, right] {\small generaliza};
+\draw[arrow] (rkr) -- (n76) node[midway, above] {\small aplica};
+\draw[arrow] (rkr) -- (n79) node[midway, above] {\small aplica};
+\draw[arrow] (n76) -- (teo451) node[midway, left] {\small motiva};
+\draw[arrow] (n79) -- (teo451) node[midway, right] {\small prova};
+
+\end{tikzpicture}
+\end{center}
+
+\textbf{Progressão Lógica:}
+\begin{enumerate}
+    \item \textbf{LNP (4.3):} Testes MP para hipóteses simples ($H_0: \theta = \theta_0$ vs $H_1: \theta = \theta_1$)
+    
+    \item \textbf{Karlin-Rubin (4.4):} Testes UMP para hipóteses compostas \textit{unilaterais} ($H_0: \theta \leq \theta_0$ vs $H_1: \theta > \theta_0$)
+    
+    \item \textbf{Seção 4.5:} Testes para hipóteses compostas \textit{bilaterais} ($H_0: \theta = \theta_0$ vs $H_1: \theta \neq \theta_0$)
+    \begin{itemize}
+        \item Normal (4.5.1): Mostra que NEM SEMPRE existe UMP bilateral
+        \item Uniforme (4.5.2): Mostra um caso especial onde EXISTE UMP bilateral
+    \end{itemize}
+\end{enumerate}
+\end{comparacaobox}
+
+\newpage
+
+% ================================================================
+\section{Checklist de Estudo}
+% ================================================================
+
+\begin{atencaobox}
+\subsection*{Para Dominar o Final do Capítulo 4}
+
+\textbf{Conceitos a Dominar:}
+\begin{enumerate}
+    \item[$\square$] Entender por que hipóteses bilaterais são mais difíceis que unilaterais
+    \item[$\square$] Saber explicar por que NÃO existe UMP bilateral para Normal
+    \item[$\square$] Compreender a propriedade especial da Uniforme ($X_{(n)} \leq \theta$)
+    \item[$\square$] Saber calcular $k = \theta_0(1-\alpha)^{1/n}$ e $k = \theta_0\alpha^{1/n}$
+    \item[$\square$] Entender o papel da esperança condicional $g(t) = E[\psi(x)|T=t]$
+    \item[$\square$] Saber derivar a função poder para a Uniforme
+\end{enumerate}
+
+\textbf{Cálculos a Praticar:}
+\begin{enumerate}
+    \item[$\square$] Calcular densidade de estatísticas de ordem
+    \item[$\square$] Determinar região crítica bilateral para Uniforme
+    \item[$\square$] Calcular $P[X_{(n)} > k]$ e $P[X_{(n)} \leq k]$ para Uniforme
+    \item[$\square$] Calcular função poder $\beta(\theta)$ para valores específicos
+    \item[$\square$] Aplicar o Teorema 4.5.1 em exemplos numéricos
+\end{enumerate}
+
+\textbf{Conexões a Fazer:}
+\begin{enumerate}
+    \item[$\square$] Relacionar com consistência de $X_{(n)}$ (Capítulo 3)
+    \item[$\square$] Comparar com teste bilateral clássico para Normal
+    \item[$\square$] Entender trade-off entre poder nas duas direções
+    \item[$\square$] Reconhecer quando usar teste UMP vs outros critérios
+\end{enumerate}
+\end{atencaobox}
+
+% ================================================================
+\section{Conclusão}
+% ================================================================
+
+\begin{center}
+\fbox{\parbox{0.95\textwidth}{
+\subsection*{Mensagens Principais}
+
+\begin{enumerate}
+    \item \textbf{Hipóteses bilaterais são fundamentalmente diferentes:} O teste ótimo para uma direção pode não ser ótimo para a outra.
+    
+    \item \textbf{A Normal NÃO tem teste UMP bilateral:} Os testes ótimos para $\mu > \mu_0$ e $\mu < \mu_0$ são incompatíveis. Usamos testes UMPNV ou outros critérios.
+    
+    \item \textbf{A Uniforme tem teste UMP bilateral:} A propriedade $X_{(n)} \leq \theta$ cria uma estrutura especial que permite conciliar ambas as direções.
+    
+    \item \textbf{Região crítica bilateral para Uniforme:} Rejeita se $X_{(n)} > \theta_0$ (certeza de $\theta > \theta_0$) OU se $X_{(n)} \leq \theta_0\alpha^{1/n}$ (evidência de $\theta < \theta_0$).
+    
+    \item \textbf{A técnica de esperança condicional:} Usar $g(t) = E[\psi(x)|T=t]$ é fundamental para provas envolvendo estatísticas suficientes.
+    
+    \item \textbf{Importância prática:} Embora seja um caso especial, o exemplo da Uniforme ilustra princípios importantes sobre quando e como testes ótimos podem existir.
+\end{enumerate}
+}}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{Material de Apoio Complementar}
+
+Para revisão completa do Capítulo 4:
+\begin{itemize}
+    \item \texttt{teoria\_cap4\_completo.tex} -- Todos os teoremas e demonstrações
+    \item \texttt{questoes\_cap4\_completo.tex} -- Questões resolvidas em sala
+    \item \texttt{caderno\_exercicios\_cap4.tex} -- Exercícios para prática
+    \item \texttt{cap4\_completo.tex} -- Material original completo (agora com n79--n83)
+\end{itemize}
+\end{center}
+
+\vfill
+
+\begin{center}
+\textit{``O conhecimento profundo vem não apenas de memorizar resultados,\\
+mas de compreender por que certos teoremas funcionam em alguns casos\\
+e falham em outros.''}
+
+\vspace{0.5cm}
+
+\textbf{Bom estudo!}
+\end{center}
+
+\end{document}
+

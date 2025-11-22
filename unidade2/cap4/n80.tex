@@ -1,0 +1,37 @@
+
+
+Considere o problema de derivar o teste UMP de nível $\alpha$ para $H_0: \theta = \theta_0$ e $H_1: \theta \neq \theta_0$.
+
+Primeiramente, mostremos que algum teste $\psi^*$ com $\psi^*(x)$ tal que
+
+\begin{itemize}
+    \item[i)] $E_{\theta_0} \{ \psi^*(x) \} = \alpha$
+    \item[ii)] $E_{\theta} \{ \psi^*(x) \} \leq \alpha \quad \text{para} \quad \theta \leq \theta_0$
+    \item[iii)] $\psi^*(x) = 1 \quad \text{se} \quad T(x) > \theta \quad \text{são satisfeitas}$
+\end{itemize}
+
+é um teste UMP de nível $\alpha$ para $H_0: \theta \leq \theta_0$ e $H_1: \theta \geq \theta_0$.
+
+Pelo teorema K-R, $\psi^*$ para $H_0$ e $H_1$ tem função crítica
+
+\begin{equation}
+\psi^*(x) =
+\begin{cases}
+1, & T(x) > \theta_0 (1 - \alpha)^{1/n} \\
+0, & T(x) < \theta_0 (1 - \alpha)^{1/n}
+\end{cases}
+\end{equation}
+
+Daí, a função poder associada é
+
+\begin{equation}
+\beta_{\psi^*}(\theta) = E_{\theta} \{ \psi^*(x) \} = P_{\theta} \left( T(x) > \theta_0 (1 - \alpha)^{1/n} \right)
+\end{equation}
+
+\begin{equation}
+= \int_{\theta_0 (1 - \alpha)^{1/n}}^{\theta} n \cdot t^{n-1} \theta^{-n} \, dt
+\end{equation}
+
+\begin{equation}
+= \frac{n}{\theta^n} \left[ \frac{t^n}{n} \right]_{\theta_0 (1 - \alpha)^{1/n}}^{\theta}
+\end{equation}

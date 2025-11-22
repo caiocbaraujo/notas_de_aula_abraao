@@ -1,0 +1,70 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {part}{I\hspace {1em}Intervalos de Confiança}{3}{part.1}%
+\contentsline {section}{\numberline {1}Conceitos Fundamentais}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Definição de Probabilidade de Cobertura}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Exemplo 1: Cálculo de Probabilidades de Cobertura}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Abordagem por Inversão de Teste de Hipótese}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Inversão de um Procedimento de Teste}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Exemplo 2: Intervalo Unilateral para Média Normal}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Exemplo 3: Intervalo para Parâmetro de Distribuição Exponencial}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Abordagem por Quantidade Pivotal}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Definição de Pivô}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Exemplo 4: Intervalo para Parâmetro de Distribuição Exponencial (Método Pivotal)}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Exemplo 5: Intervalo para Parâmetro de Distribuição Uniforme}{8}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Intervalos de Confiança para Distribuição Normal - Uma Amostra}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Exemplo 6: Média com Variância Conhecida}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Exemplo 7: Média com Variância Desconhecida}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Exemplo 8: Variância e Desvio Padrão}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Tabela Comparativa: Intervalos para População Normal - Uma Amostra}{11}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Intervalos de Confiança para Duas Amostras}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Abordagem Geral para Duas Amostras}{12}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Exemplo 9: Diferença de Médias (Variâncias Iguais)}{12}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Exemplo 10: Razão de Variâncias}{13}{subsection.5.3}%
+\contentsline {part}{II\hspace {1em}Teste de Razão de Verossimilhanças (TRV)}{14}{part.2}%
+\contentsline {section}{\numberline {6}Fundamentos do TRV}{15}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Construção}{15}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Notas Importantes}{16}{subsection.6.2}%
+\contentsline {section}{\numberline {7}TRV para Uma Amostra - População Normal}{16}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Caso 1: Média com Variância Conhecida (Teste Z)}{16}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Caso 2: Média com Variância Desconhecida (Teste t)}{18}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Caso 3: Variância com Média Conhecida}{19}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Caso 4: Variância com Média Desconhecida}{21}{subsection.7.4}%
+\contentsline {section}{\numberline {8}TRV para Duas Amostras}{22}{section.8}%
+\contentsline {subsection}{\numberline {8.1}TRV para Comparar Médias}{22}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}TRV para Comparar Variâncias}{25}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}TRV para $H_0: \sigma _x^2 = \sigma _y^2$}{25}{subsubsection.8.2.1}%
+\contentsline {section}{\numberline {9}Testes Assintóticos: Wald e Escore}{27}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Preliminares: Propriedades Assintóticas do EMV}{27}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Teste de Wald}{28}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}Construção do Teste de Wald}{28}{subsubsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.2}Distribuição Assintótica da Estatística de Wald}{28}{subsubsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.3}Regra de Decisão}{29}{subsubsection.9.2.3}%
+\contentsline {subsubsection}{\numberline {9.2.4}Exemplo: Teste de Wald para Média de População Normal}{29}{subsubsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.3}Teste de Escore (Rao)}{29}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}Função Escore}{29}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}Construção do Teste de Escore}{29}{subsubsection.9.3.2}%
+\contentsline {subsubsection}{\numberline {9.3.3}Distribuição Assintótica da Estatística de Escore}{30}{subsubsection.9.3.3}%
+\contentsline {subsubsection}{\numberline {9.3.4}Regra de Decisão}{30}{subsubsection.9.3.4}%
+\contentsline {subsubsection}{\numberline {9.3.5}Exemplo: Teste de Escore para Média de População Normal}{30}{subsubsection.9.3.5}%
+\contentsline {subsection}{\numberline {9.4}Relação entre TRV, Wald e Escore}{31}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Teste de Wald para Hipóteses Parciais}{31}{subsection.9.5}%
+\contentsline {section}{\numberline {10}Teste de Wilcoxon}{31}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Teste de Wilcoxon para Uma Amostra (Postos Sinalizados)}{31}{subsection.10.1}%
+\contentsline {subsubsection}{\numberline {10.1.1}Hipóteses e Suposições}{32}{subsubsection.10.1.1}%
+\contentsline {subsubsection}{\numberline {10.1.2}Construção da Estatística}{32}{subsubsection.10.1.2}%
+\contentsline {subsubsection}{\numberline {10.1.3}Distribuição da Estatística sob $H_0$}{32}{subsubsection.10.1.3}%
+\contentsline {subsubsection}{\numberline {10.1.4}Distribuição Assintótica}{33}{subsubsection.10.1.4}%
+\contentsline {subsubsection}{\numberline {10.1.5}Regra de Decisão}{33}{subsubsection.10.1.5}%
+\contentsline {subsubsection}{\numberline {10.1.6}Exemplo Ilustrativo}{33}{subsubsection.10.1.6}%
+\contentsline {subsection}{\numberline {10.2}Teste de Wilcoxon para Duas Amostras (Mann-Whitney-Wilcoxon)}{34}{subsection.10.2}%
+\contentsline {subsubsection}{\numberline {10.2.1}Hipóteses}{34}{subsubsection.10.2.1}%
+\contentsline {subsubsection}{\numberline {10.2.2}Construção da Estatística}{34}{subsubsection.10.2.2}%
+\contentsline {subsubsection}{\numberline {10.2.3}Distribuição da Estatística sob $H_0$}{34}{subsubsection.10.2.3}%
+\contentsline {subsubsection}{\numberline {10.2.4}Distribuição Assintótica}{35}{subsubsection.10.2.4}%
+\contentsline {subsubsection}{\numberline {10.2.5}Regra de Decisão}{35}{subsubsection.10.2.5}%
+\contentsline {subsubsection}{\numberline {10.2.6}Tratamento de Empates}{35}{subsubsection.10.2.6}%
+\contentsline {subsubsection}{\numberline {10.2.7}Exemplo Ilustrativo}{36}{subsubsection.10.2.7}%
+\contentsline {subsection}{\numberline {10.3}Vantagens e Desvantagens dos Testes Não-Paramétricos}{36}{subsection.10.3}%
+\contentsline {section}{\numberline {11}Resumo e Observações Finais}{36}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Principais Conceitos Abordados}{37}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Observações Importantes}{37}{subsection.11.2}%

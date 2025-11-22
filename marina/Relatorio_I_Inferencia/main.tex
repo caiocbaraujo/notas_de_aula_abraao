@@ -1,0 +1,167 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage{natbib}
+
+
+% Estilo bonito de títulos
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.4em}{}  
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.4em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection.}{0.4em}{}
+
+\title{
+\textbf{Teste de Tukey para Comparações de Médias no Delineamento 
+Inteiramente Casualizado (DIC)}\\[6pt]
+}
+
+\author{Martha Liliana Huertas Madrid}
+\date{18/11/2025}
+
+\begin{document}
+\maketitle
+
+\section{Introdução}
+
+Na pesquisa experimental, um dos desafios fundamentais consiste em determinar se existem diferenças significativas entre as médias populacionais de diversos tratamentos avaliados. Para isso, empregam-se desenhos experimentais que permitem realizar comparações válidas e confiáveis. Entre estes, o Delineamento Inteiramente Casualizado (DIC) destaca-se como um dos mais utilizados na prática estatística, caracterizando-se pela atribuição aleatória dos tratamentos a unidades experimentais homogêneas.
+
+A análise inicial do DIC é realizada por meio de uma ANOVA de um único fator, cujo propósito é contrastar a hipótese global:
+
+\[
+H_0 : \mu_1 = \mu_2 = \cdots = \mu_k
+\qquad \text{vs} \qquad
+H_1 : \text{pelo menos duas médias } \mu_i \text{ diferem}.
+\]
+
+Embora a ANOVA nos indique que existem diferenças entre os grupos, ela não especifica exatamente quais são os que realmente diferem entre si. Para realizar essas comparações específicas entre pares de tratamentos, precisamos utilizar métodos que mantenham sob controle o erro acumulado. Sem um procedimento adequado de comparações múltiplas, o erro Tipo I aumenta o risco de concluir que existem diferenças quando, na realidade, não as há. Esse erro acumulado é conhecido como taxa de erro familiar (FWER). Segundo \citep{montgomery2017design}, o Teste de Tukey é um dos mais utilizados e confiáveis para esse propósito, pois se baseia na distribuição do alcance studentizado, o qual controla explicitamente o erro familiar mantendo o nível de significância $\alpha$ global.
+
+
+\section{Modelo Estatístico do DIC}
+
+Considera-se um Delineamento Inteiramente Casualizado (DIC) com $k$ tratamentos, onde cada tratamento é observado $r$ vezes, conformando assim um delineamento balanceado. O modelo linear pode ser expresso da seguinte forma:
+
+\[
+Y_{ij} = \mu + \tau_i + \varepsilon_{ij},\qquad i=1,\dots,k,\; j=1,\dots,r,
+\]
+
+com as seguintes condições clássicas:
+\begin{enumerate}
+  \item \( \sum\limits_{i=1}^{k} \tau_i = 0\) 
+  \item \(\varepsilon_{ij}\stackrel{\text{i.i.d.}}{\sim} N(0,\sigma^2)\).
+\end{enumerate}
+
+O modelo é válido tanto em delineamentos balanceados quanto não balanceados, mas a estrutura equilibrada ocorre apenas quando todos os tratamentos possuem o mesmo número de repetições. A partir deste modelo, podemos derivar a decomposição da variância total, que constitui a base para a análise de variância e, posteriormente, para o teste de Tukey. 
+
+
+\section{Análise de Variância}
+
+O procedimento de Análise de Variância (ANOVA) parte da ideia fundamental de decompor a variabilidade total observada nos dados em duas componentes: uma associada às diferenças entre tratamentos e outra associada ao erro aleatório. Esta decomposição é essencial para o teste de Tukey, pois fornece a estimativa do erro padrão comum necessário para as comparações múltiplas. Como projeções ortogonais de vetores normais são independentes \citep{casella2002statistical}, segue-se que SSTr e SSE são independentes e conduzem à estatística F exata. 
+
+
+A soma de quadrados total é definida como:
+\[
+\mathrm{SST}=\sum_{i=1}^k\sum_{j=1}^r (Y_{ij}-\bar{Y}_{\cdot\cdot})^2
+\]
+se decompõe em
+\[
+\mathrm{SST}=\mathrm{SSTr}+\mathrm{SSE},
+\]
+onde
+\[
+\mathrm{SSTr}=r\sum_{i=1}^k(\bar{Y}_{i\cdot}-\bar{Y}_{\cdot\cdot})^2,\qquad
+\mathrm{SSE}=\sum_{i=1}^k\sum_{j=1}^r (Y_{ij}-\bar{Y}_{i\cdot})^2.
+\]
+Sob \(H_0:\tau_1=\cdots=\tau_k=0\),
+\[
+\frac{\mathrm{SSTr}/(k-1)}{\mathrm{SSE}/(k(r-1))}\sim F_{k-1,\;k(r-1)}.
+\]
+A estimativa não viesada de \(\sigma^2\) é
+\[
+\widehat{\sigma}^2=\mathrm{MSE}=\frac{\mathrm{SSE}}{k(r-1)}.
+\]
+
+
+
+\section{Construção do teste de Tukey}
+
+Quando a ANOVA indica diferenças significativas entre tratamentos, surge naturalmente a necessidade de identificar quais pares de médias diferem entre si. O problema das comparações múltiplas requer métodos que controlem a taxa de erro familiar (FWER), evitando que o acúmulo de testes aumente indevidamente a probabilidade de erro Tipo I.
+
+Tukey propõe construir intervalos simultâneos para todas as diferenças \(\mu_i-\mu_j\) de modo que a probabilidade de que todas as diferenças verdadeiras estejam contidas seja \(1-\alpha\). A estatística base é a amplitude studentizada (studentized range), denotada por \(q\) \citep{kuehl2001diseño}.
+
+
+\subsection{Estatística do Alcance Studentizado e Intervalos Simultâneos}
+
+Define-se a estatística do alcance studentizado como:
+\[
+Q=\frac{\bar{Y}_{max}-\bar{Y}_{min}}{\sqrt{\mathrm{MSE}/r}},
+\]
+onde $\bar{Y}_{max}$ e $\bar{Y}_{min}$ são, respectivamente, a maior e a menor média amostral.
+
+A distribuição de \(Q\) sob normalidade depende de \(k\) (número de médias) e de \(\nu\) (graus de liberdade do erro). O quantil crítico $q_{\alpha;k,\nu}$ satisfaz:
+\[
+P(Q\le q_{\alpha;k,\nu}) = 1-\alpha,
+\]
+garantindo controle simultâneo do erro tipo I. Denota-se por $q_{\alpha;k,\nu}$ o quantil $(1-\alpha)$ da distribuição do alcance studentizado com parâmetros $k$ e $\nu$. 
+
+O procedimento de Tukey testa simultaneamente todas as hipóteses $H_0: \mu_i = \mu_j$ versus $H_1: \mu_i \neq \mu_j$ para $i \neq j$. A diferença mínima significativa (DMS) de Tukey é:
+
+\begin{equation}
+\text{DMS} = q_{\alpha;k,\nu} \cdot \sqrt{\mathrm{MSE}/r}
+\end{equation}
+
+O procedimento de Tukey rejeita $H_0: \mu_i = \mu_j$ se e somente se:
+\begin{equation}
+|\bar{Y}_{i\cdot} - \bar{Y}_{j\cdot}| > \text{DMS}
+\end{equation}
+
+Este procedimento controla a FWER ao nível $\alpha$, ou seja, $P(\text{pelo menos um erro tipo I}) \leq \alpha$.
+
+Os intervalos de confiança simultâneos para todas as diferenças $\mu_i - \mu_j$ são:
+\begin{equation}
+\bar{Y}_{i\cdot} - \bar{Y}_{j\cdot} \pm \text{DMS}, \quad \forall i \neq j
+\end{equation}
+
+com nível de confiança simultâneo $1-\alpha$, significando que a probabilidade de todos os intervalos conterem as respectivas diferenças verdadeiras é pelo menos $1-\alpha$.
+
+
+
+
+\subsection{Extensão para Delineamentos Não Balanceados: Tukey--Kramer}
+
+Quando os tamanhos por tratamento são desiguais ($n_i \neq n_j$ para alguns pares), a fórmula anterior requer ajuste. A extensão proposta por Kramer, conhecida como \emph{Tukey--Kramer}, adapta o procedimento para o caso não balanceado:
+
+\[
+\text{DMS}_{ij}^{\text{TK}} \;=\; q_{\alpha;k,\nu}\;\sqrt{\tfrac{1}{2}\mathrm{MSE}\left(\frac{1}{n_i}+\frac{1}{n_j}\right)},
+\qquad \nu=\text{gl do erro}.
+\]
+
+A condição de significância torna-se:
+\[
+|\bar{Y}_{i\cdot}-\bar{Y}_{j\cdot}| > \mathrm{DMS}_{ij}^{\text{TK}}.
+\]
+
+Esta extensão mantém o controle da FWER mesmo quando os tamanhos amostrais diferem entre tratamentos.
+
+\section{Conclusão}
+
+O Teste de Tukey constitui um método teoricamente sólido que permite realizar inferências simultâneas sobre todas as comparações entre médias em um Delineamento Inteiramente Casualizado. Este teste não apenas indica se existem diferenças significativas, mas também fornece informações valiosas sobre a magnitude e a direção dessas diferenças, por meio de intervalos de confiança simultâneos.
+
+A principal vantagem do método reside no controle explícito da taxa de erro familiar (FWER) ao nível $\alpha$, garantindo que a probabilidade de cometer pelo menos um erro Tipo I não exceda o nível de significância especificado. Quando trabalhamos com grupos de tamanhos diferentes, a extensão de Tukey--Kramer mantém essas propriedades, adaptando o procedimento para delineamentos não balanceados.
+
+É importante destacar que a validade desses resultados depende fundamentalmente do cumprimento dos pressupostos do modelo (normalidade, independência e homocedasticidade) e de que estes sejam devidamente verificados antes da aplicação do teste. O Teste de Tukey representa, portanto, uma ferramenta essencial na análise de experimentos com múltiplos tratamentos, oferecendo uma abordagem rigorosa e confiável para comparações múltiplas.
+
+
+
+\bibliographystyle{apalike}
+\bibliography{bibliografias}
+
+\end{document}
+

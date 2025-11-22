@@ -1,0 +1,36 @@
+
+
+Note que
+\begin{equation}
+P_{\theta_0} \left\{ 2 \sum_{i=1}^n x_i / \theta_0 < \chi^2_{2n, \alpha} \right\}
+\end{equation}
+
+\begin{equation}
+= 1 - P_{\theta_0} \left\{ 2 \sum_{i=1}^n x_i / \theta_0 \geq \chi^2_{2n, \alpha} \right\}
+\end{equation}
+
+\begin{equation}
+= 1 - \alpha \quad \therefore \quad P_{\theta_0} \left\{ \theta_0 > 2 \sum_{i=1}^n x_i / \chi^2_{2n, \alpha} \right\} = 1 - \alpha
+\end{equation}
+
+Dai,
+\begin{equation}
+P_{\theta} \left\{ \theta \geq 2 \sum_{i=1}^n x_i / \chi^2_{2n, \alpha} \right\} = 1 - \alpha, \quad \forall \theta \in \mathbb{R}_+, \text{isto é}
+\end{equation}
+
+\begin{equation}
+IC(\theta) = \left( \frac{2 \sum_{i=1}^n x_i}{\chi^2_{2n, \alpha}}, \alpha, \infty \right)_{1 - \alpha}
+\end{equation}
+
+\section*{5.3 Abordagem pela estatística Pivotal}
+
+\textbf{Definição (5.3.1) (Pivô)} Seja $T(x)$ (para $x = (x_1, \ldots, x_n)^T$ como uma só).  
+Uma estatística suficiente (mínima) para $\theta$. Um pivô é uma v.a. $U$ que depende de $T$ e $\theta$ cuja distribuição não depende de $\theta$.
+
+\subsection*{Obs:}
+1) No caso de família locação em $a(\theta)$, a distribuição $\{T - a(\theta)\}$ não depende de $\theta$.  
+
+2) No caso de família escala em $b(\theta)$, a distribuição $T / b(\theta)$ não depende de $\theta$.  
+
+3) No caso de família locação escala em $a(\theta); b(\theta)$, a distribuição de $\{T - a(\theta)\} / b(\theta)$ não depende de $\theta$.  
+

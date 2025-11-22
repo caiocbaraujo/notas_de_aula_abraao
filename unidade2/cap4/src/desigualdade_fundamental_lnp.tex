@@ -1,0 +1,767 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns,arrows.meta,shapes.geometric,positioning,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+% Caixas coloridas
+\newtcolorbox{conceitobox}[1]{
+    enhanced,
+    breakable,
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=blue!75!black}
+}
+
+\newtcolorbox{exemplobox}[1]{
+    enhanced,
+    breakable,
+    colback=green!5!white,
+    colframe=green!60!black,
+    fonttitle=\bfseries,
+    title=#1,
+    attach boxed title to top left={yshift=-2mm, xshift=5mm},
+    boxed title style={colback=green!60!black}
+}
+
+\newtcolorbox{intuicaobox}{
+    enhanced,
+    breakable,
+    colback=orange!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Intuição Visual
+}
+
+\newtcolorbox{alertabox}{
+    enhanced,
+    breakable,
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Ponto Crucial para Entender
+}
+
+\newtcolorbox{respostabox}{
+    enhanced,
+    breakable,
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    fonttitle=\bfseries,
+    title=Resposta à Sua Dúvida
+}
+
+\title{Entendendo a Desigualdade Fundamental do LNP\\
+\large Por Que Multiplicamos pela Função Crítica?}
+\author{Material Explicativo Detalhado}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ================================================================
+\section{Introdução: A Dúvida Principal}
+% ================================================================
+
+\begin{alertabox}
+\subsection*{Sua Pergunta}
+
+Você entendeu a razão de verossimilhanças:
+\[
+\frac{L(\theta_1; x)}{L(\theta_0; x)} \quad \text{ou} \quad L(\theta_1; x) - k \cdot L(\theta_0; x)
+\]
+
+Mas não entendeu por que precisamos multiplicar isso pela diferença das funções críticas:
+\[
+[\psi_{\Upsilon}(x) - \psi_{\Upsilon^*}(x)]
+\]
+
+\textbf{Por que essa multiplicação é necessária para provar a otimalidade?}
+\end{alertabox}
+
+\begin{conceitobox}{O Que Vamos Explicar}
+Este documento vai responder essa dúvida em 4 etapas:
+
+\begin{enumerate}
+    \item \textbf{O que é a função crítica $\psi(x)$?} (e por que ela é importante)
+    \item \textbf{Por que comparar dois testes?} ($\psi_{\Upsilon}$ vs $\psi_{\Upsilon^*}$)
+    \item \textbf{A mágica da multiplicação:} Como ela conecta "decisão" com "evidência"
+    \item \textbf{Visualização completa:} Exemplos gráficos passo a passo
+\end{enumerate}
+\end{conceitobox}
+
+\newpage
+
+% ================================================================
+\section{Parte 1: O Que É a Função Crítica $\psi(x)$?}
+% ================================================================
+
+\subsection{Definição Intuitiva}
+
+\begin{conceitobox}{Definição: Função Crítica}
+A \textbf{função crítica} (ou função do teste) $\psi(x)$ é simplesmente:
+
+\[
+\psi(x) = P[\text{Rejeitar } H_0 \mid \text{Observamos } X = x]
+\]
+
+\textbf{Interpretação:}
+\begin{itemize}
+    \item $\psi(x) = 1$: Se observarmos $x$, rejeitamos $H_0$ com certeza (100\%)
+    \item $\psi(x) = 0$: Se observarmos $x$, NÃO rejeitamos $H_0$ (0\%)
+    \item $0 < \psi(x) < 1$: Rejeitamos com probabilidade $\psi(x)$ (teste aleatorizado)
+\end{itemize}
+\end{conceitobox}
+
+\subsection{Visualização: Função Crítica no Espaço Amostral}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.3]
+% Eixo horizontal representando o espaço amostral
+\draw[->] (0,0) -- (12,0) node[right] {$x$ (espaço amostral)};
+\draw[->] (0,0) -- (0,3) node[above] {$\psi(x)$};
+
+% Divisão do espaço em regiões
+\fill[red!20] (0,0) rectangle (4,2.5);
+\fill[green!20] (4,0) rectangle (8,2.5);
+\fill[blue!20] (8,0) rectangle (12,2.5);
+
+% Função crítica
+\draw[very thick, red] (0,0) -- (4,0);
+\draw[very thick, orange, dashed] (4,0) -- (4,1.5);
+\draw[very thick, orange] (4,1.5) -- (8,1.5);
+\draw[very thick, blue, dashed] (8,1.5) -- (8,2.5);
+\draw[very thick, blue] (8,2.5) -- (12,2.5);
+
+% Linhas de referência
+\draw[dashed] (0,1.5) node[left] {$\gamma$} -- (8,1.5);
+\draw[dashed] (0,2.5) node[left] {$1$} -- (12,2.5);
+
+% Rótulos das regiões
+\node at (2,1.2) [red] {\textbf{Não Rejeita}};
+\node at (2,0.8) [red] {$\psi(x) = 0$};
+
+\node at (6,1.8) [orange!80!black] {\textbf{Aleatoriza}};
+\node at (6,1.2) [orange!80!black] {$\psi(x) = \gamma$};
+
+\node at (10,2) [blue] {\textbf{Rejeita}};
+\node at (10,1.6) [blue] {$\psi(x) = 1$};
+
+% Marcações no eixo
+\node at (4,-0.3) {$c_1$};
+\node at (8,-0.3) {$c_2$};
+
+\end{tikzpicture}
+\end{center}
+
+\begin{intuicaobox}
+\textbf{O que esse gráfico mostra:}
+
+A função crítica $\psi(x)$ é como um "sinal de trânsito" para cada valor possível de $x$:
+\begin{itemize}
+    \item \textcolor{red}{\textbf{Zona Vermelha}} ($x < c_1$): Pare! Não rejeite $H_0$
+    \item \textcolor{orange}{\textbf{Zona Amarela}} ($c_1 \leq x < c_2$): Atenção! Aleatorize
+    \item \textcolor{blue}{\textbf{Zona Azul}} ($x \geq c_2$): Prossiga! Rejeite $H_0$
+\end{itemize}
+
+\textbf{Analogia:} Se o espaço amostral fosse uma estrada, $\psi(x)$ indica "quão fortemente devemos rejeitar $H_0$" em cada ponto da estrada.
+\end{intuicaobox}
+
+\newpage
+
+% ================================================================
+\section{Parte 2: Por Que Comparar Dois Testes?}
+% ================================================================
+
+\subsection{O Objetivo do LNP}
+
+\begin{conceitobox}{O Que o LNP Quer Provar}
+O Lema de Neyman-Pearson quer provar que:
+
+\[
+\boxed{\text{O teste } \Upsilon \text{ tem MAIS PODER que qualquer outro teste } \Upsilon^* \text{ de mesmo nível}}
+\]
+
+Matematicamente:
+\[
+Q_{\Upsilon}(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)
+\]
+
+onde $Q(\theta)$ é a função poder (probabilidade de rejeitar $H_0$ quando o verdadeiro parâmetro é $\theta$).
+\end{conceitobox}
+
+\subsection{Por Que Precisamos de Dois Testes?}
+
+\begin{respostabox}
+\textbf{Resposta Curta:} Para provar que algo é "o melhor", precisamos compará-lo com todos os outros!
+
+\textbf{Analogia:}
+\begin{itemize}
+    \item Para provar que Usain Bolt é o mais rápido, não basta dizer "ele é rápido"
+    \item Precisamos compará-lo com TODOS os outros corredores
+    \item Se ele for mais rápido que qualquer outro corredor, então é o campeão
+\end{itemize}
+
+\textbf{No LNP:}
+\begin{itemize}
+    \item $\Upsilon$ é nosso "candidato a campeão" (teste proposto pelo LNP)
+    \item $\Upsilon^*$ é \textit{qualquer outro} teste de nível $\alpha$
+    \item Se $\Upsilon$ tiver mais poder que qualquer $\Upsilon^*$, então é o Teste Mais Poderoso!
+\end{itemize}
+\end{respostabox}
+
+\subsection{Visualizando Dois Testes Diferentes}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+% Eixo
+\draw[->] (0,0) -- (12,0) node[right] {$x$ (espaço amostral)};
+\draw[->] (0,0) -- (0,3.5) node[above] {$\psi(x)$};
+
+% Teste Υ (proposto pelo LNP)
+\draw[very thick, blue] (0,0) -- (7,0);
+\draw[very thick, blue] (7,2.5) -- (12,2.5);
+\draw[very thick, blue, dashed] (7,0) -- (7,2.5);
+
+% Teste Υ* (algum outro teste)
+\draw[very thick, red, dotted] (0,0) -- (5,0);
+\draw[very thick, red, dotted] (5,2.5) -- (10,2.5);
+\draw[very thick, red, dotted] (10,1.5) -- (12,1.5);
+\draw[very thick, red, dashed, dotted] (5,0) -- (5,2.5);
+\draw[very thick, red, dashed, dotted] (10,1.5) -- (10,2.5);
+
+% Linhas de referência
+\draw[dashed, gray] (0,2.5) -- (12,2.5);
+\node at (-0.5,2.5) {1};
+
+% Rótulos
+\node at (7,-0.5) [blue] {$c$ (corte do LNP)};
+\node at (5,-0.8) [red] {$c^*_1$};
+\node at (10,-0.8) [red] {$c^*_2$};
+
+% Legenda
+\node at (3,3.2) [blue] {— $\psi_{\Upsilon}(x)$ (Teste LNP)};
+\node at (9,3.2) [red] {··· $\psi_{\Upsilon^*}(x)$ (Outro teste)};
+
+% Áreas de diferença
+\fill[purple!20, opacity=0.5] (5,0) rectangle (7,2.5);
+\node at (6,1.2) [purple] {\small Aqui $\psi_{\Upsilon} > \psi_{\Upsilon^*}$};
+
+\fill[orange!20, opacity=0.5] (10,1.5) rectangle (12,2.5);
+\node at (11,2) [orange!80!black] {\small Aqui $\psi_{\Upsilon} < \psi_{\Upsilon^*}$};
+
+\end{tikzpicture}
+\end{center}
+
+\begin{intuicaobox}
+\textbf{O que vemos:}
+
+\begin{itemize}
+    \item Na \textcolor{purple}{região roxa}: $\psi_{\Upsilon}(x) > \psi_{\Upsilon^*}(x)$ 
+    
+    O teste LNP rejeita mais que o teste rival
+    
+    \item Na \textcolor{orange}{região laranja}: $\psi_{\Upsilon}(x) < \psi_{\Upsilon^*}(x)$
+    
+    O teste LNP rejeita menos que o teste rival
+\end{itemize}
+
+\textbf{Pergunta natural:} Se os dois testes rejeitam em lugares diferentes, como sabemos qual é melhor?
+
+\textbf{Resposta:} É aí que entra a \textit{razão de verossimilhanças}! Ela nos diz \textit{onde} cada teste deveria estar rejeitando!
+\end{intuicaobox}
+
+\newpage
+
+% ================================================================
+\section{Parte 3: A Mágica da Multiplicação}
+% ================================================================
+
+\subsection{Por Que Multiplicar?}
+
+\begin{alertabox}
+\textbf{A Questão Central (Sua Dúvida):}
+
+Por que a desigualdade fundamental é:
+\[
+[\psi_{\Upsilon}(x) - \psi_{\Upsilon^*}(x)] \cdot [L(\theta_1; x) - k \cdot L(\theta_0; x)] \geq 0
+\]
+
+Por que não basta analisar apenas $L(\theta_1; x) - k \cdot L(\theta_0; x)$?
+\end{alertabox}
+
+\begin{respostabox}
+\subsection*{A Resposta em Três Níveis}
+
+\paragraph{Nível 1: O Que Cada Fator Representa}
+
+\begin{itemize}
+    \item \textbf{Fator 1:} $[\psi_{\Upsilon}(x) - \psi_{\Upsilon^*}(x)]$ 
+    
+    = "DECISÃO: onde o teste LNP difere do teste rival"
+    
+    \item \textbf{Fator 2:} $[L(\theta_1; x) - k \cdot L(\theta_0; x)]$ 
+    
+    = "EVIDÊNCIA: quão forte é a evidência a favor de $H_1$ neste ponto"
+\end{itemize}
+
+\paragraph{Nível 2: Por Que Multiplicar Conecta Decisão com Evidência}
+
+A multiplicação cria uma "compatibilidade":
+\begin{align*}
+&\text{Se há EVIDÊNCIA FORTE para } H_1 \quad &[L_1 - kL_0 > 0] \\
+&\text{então o teste LNP REJEITA MAIS} \quad &[\psi_{\Upsilon} > \psi_{\Upsilon^*}] \\
+&\Rightarrow \text{Produto POSITIVO} \quad &[\text{ambos} > 0]
+\end{align*}
+
+\begin{align*}
+&\text{Se há EVIDÊNCIA FORTE para } H_0 \quad &[L_1 - kL_0 < 0] \\
+&\text{então o teste LNP REJEITA MENOS} \quad &[\psi_{\Upsilon} < \psi_{\Upsilon^*}] \\
+&\Rightarrow \text{Produto POSITIVO} \quad &[\text{ambos} < 0]
+\end{align*}
+
+\paragraph{Nível 3: O Truque Matemático}
+
+Ao multiplicar e integrar, transformamos a comparação "ponto a ponto" em uma comparação "global" (o poder total):
+
+\[
+\int [\psi_{\Upsilon} - \psi_{\Upsilon^*}] \cdot [L_1 - kL_0] dx \geq 0
+\]
+
+Essa integral, quando expandida, se torna:
+\[
+\underbrace{\int \psi_{\Upsilon} L_1 dx}_{Q_{\Upsilon}(\theta_1)} - \underbrace{\int \psi_{\Upsilon^*} L_1 dx}_{Q_{\Upsilon^*}(\theta_1)} \geq \text{(termos com } L_0)
+\]
+
+Ou seja, a multiplicação é o "truque algébrico" que transforma a comparação pontual em comparação de poderes!
+\end{respostabox}
+
+\newpage
+
+\subsection{Exemplo Visual Detalhado}
+
+Vamos visualizar ponto por ponto como a multiplicação funciona.
+
+\begin{exemplobox}{Exemplo: Três Pontos Amostrais}
+Considere três pontos no espaço amostral: $x_1$, $x_2$, $x_3$.
+\end{exemplobox}
+
+\subsubsection{Configuração do Exemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.4]
+% Eixo
+\draw[->] (0,0) -- (12,0) node[right] {$x$};
+
+% Três pontos
+\foreach \x/\lab in {2/x_1, 6/x_2, 10/x_3} {
+    \fill[black] (\x,0) circle (2pt);
+    \node at (\x,-0.4) {$\lab$};
+}
+
+% Linha de corte k
+\draw[very thick, blue] (7,0) -- (7,0.5) node[above] {$k$ (corte LNP)};
+
+% Razão de verossimilhanças
+\draw[->] (0,-1.5) -- (12,-1.5) node[right] {$L_1 - kL_0$};
+\draw[thick, red] (0,-1.5) -- (7,-1.5);
+\draw[thick, green!60!black] (7,-1.5) -- (12,-1.5);
+
+\node at (3.5,-2) [red] {$< 0$ (favorece $H_0$)};
+\node at (9,-2) [green!60!black] {$> 0$ (favorece $H_1$)};
+
+% Valores específicos
+\node at (2,-1) [red] {$-3$};
+\node at (6,-1) [red] {$-1$};
+\node at (10,-1) [green!60!black] {$+5$};
+
+\end{tikzpicture}
+\end{center}
+
+\subsubsection{Decisão dos Testes}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Ponto} & $\psi_{\Upsilon}(x)$ (LNP) & $\psi_{\Upsilon^*}(x)$ (Rival) & $\psi_{\Upsilon} - \psi_{\Upsilon^*}$ \\
+\hline
+$x_1 = 2$ & 0 (não rejeita) & 0.3 (rejeita um pouco) & $-0.3$ \\
+\hline
+$x_2 = 6$ & 0 (não rejeita) & 0.8 (rejeita bastante) & $-0.8$ \\
+\hline
+$x_3 = 10$ & 1 (rejeita totalmente) & 0.5 (rejeita parcial) & $+0.5$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{A Multiplicação em Ação}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Ponto} & $\psi_{\Upsilon} - \psi_{\Upsilon^*}$ & $L_1 - kL_0$ & \textbf{Produto} \\
+\hline
+\hline
+$x_1$ & $-0.3$ \textcolor{red}{(negativo)} & $-3$ \textcolor{red}{(negativo)} & $(-0.3) \times (-3) = +0.9$ \checkmark \\
+\hline
+$x_2$ & $-0.8$ \textcolor{red}{(negativo)} & $-1$ \textcolor{red}{(negativo)} & $(-0.8) \times (-1) = +0.8$ \checkmark \\
+\hline
+$x_3$ & $+0.5$ \textcolor{green!60!black}{(positivo)} & $+5$ \textcolor{green!60!black}{(positivo)} & $(+0.5) \times (+5) = +2.5$ \checkmark \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{intuicaobox}
+\subsection*{O Que Está Acontecendo?}
+
+\paragraph{Em $x_1$ e $x_2$:} (pontos onde evidência favorece $H_0$)
+\begin{itemize}
+    \item Evidência: $L_1 - kL_0 < 0$ (dados favorecem $H_0$)
+    \item Teste LNP: $\psi_{\Upsilon} = 0$ (NÃO rejeita — correto!)
+    \item Teste rival: $\psi_{\Upsilon^*} > 0$ (rejeita um pouco — errado!)
+    \item Diferença: $\psi_{\Upsilon} - \psi_{\Upsilon^*} < 0$ (LNP rejeita MENOS)
+    \item \textcolor{blue}{\textbf{Produto:}} (negativo) $\cdot$ (negativo) = \textcolor{green!60!black}{\textbf{POSITIVO}} \checkmark
+\end{itemize}
+
+\textbf{Interpretação:} O teste LNP está sendo "recompensado" por NÃO rejeitar quando a evidência favorece $H_0$.
+
+\paragraph{Em $x_3$:} (ponto onde evidência favorece $H_1$)
+\begin{itemize}
+    \item Evidência: $L_1 - kL_0 > 0$ (dados favorecem $H_1$)
+    \item Teste LNP: $\psi_{\Upsilon} = 1$ (REJEITA totalmente — correto!)
+    \item Teste rival: $\psi_{\Upsilon^*} = 0.5$ (rejeita parcialmente — subótimo!)
+    \item Diferença: $\psi_{\Upsilon} - \psi_{\Upsilon^*} > 0$ (LNP rejeita MAIS)
+    \item \textcolor{blue}{\textbf{Produto:}} (positivo) $\cdot$ (positivo) = \textcolor{green!60!black}{\textbf{POSITIVO}} \checkmark
+\end{itemize}
+
+\textbf{Interpretação:} O teste LNP está sendo "recompensado" por REJEITAR mais quando a evidência favorece $H_1$.
+\end{intuicaobox}
+
+\newpage
+
+\subsection{Visualização Completa do Produto}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+% Painel Superior: Diferença de Funções Críticas
+\begin{scope}[yshift=6cm]
+\draw[->] (0,0) -- (12,0) node[right] {$x$};
+\draw[->] (0,-1.5) -- (0,1.5) node[above] {$\psi_{\Upsilon} - \psi_{\Upsilon^*}$};
+
+% Função diferença
+\draw[very thick, purple] (0,-0.8) -- (7,-0.8);
+\draw[very thick, purple] (7,0.6) -- (12,0.6);
+\draw[very thick, purple, dashed] (7,-0.8) -- (7,0.6);
+
+% Linha zero
+\draw[dashed, gray] (0,0) -- (12,0);
+
+% Áreas coloridas
+\fill[red!20, opacity=0.5] (0,0) rectangle (7,-0.8);
+\fill[blue!20, opacity=0.5] (7,0) rectangle (12,0.6);
+
+% Rótulos
+\node at (3.5,-0.4) [red] {\small $< 0$};
+\node at (9.5,0.3) [blue] {\small $> 0$};
+\node at (6,1.3) {\textbf{Fator 1: Diferença de Decisões}};
+\end{scope}
+
+% Painel do Meio: Razão de Verossimilhanças
+\begin{scope}[yshift=3cm]
+\draw[->] (0,0) -- (12,0) node[right] {$x$};
+\draw[->] (0,-1.5) -- (0,1.5) node[above] {$L_1 - kL_0$};
+
+% Razão
+\draw[very thick, orange] (0,-1) -- (7,-1);
+\draw[very thick, orange] (7,0.8) -- (12,0.8);
+\draw[very thick, orange, dashed] (7,-1) -- (7,0.8);
+
+% Linha zero
+\draw[dashed, gray] (0,0) -- (12,0);
+
+% Áreas coloridas
+\fill[red!20, opacity=0.5] (0,0) rectangle (7,-1);
+\fill[green!20, opacity=0.5] (7,0) rectangle (12,0.8);
+
+% Rótulos
+\node at (3.5,-0.5) [red] {\small $< 0$};
+\node at (9.5,0.4) [green!60!black] {\small $> 0$};
+\node at (6,1.3) {\textbf{Fator 2: Evidência dos Dados}};
+\end{scope}
+
+% Painel Inferior: Produto
+\begin{scope}
+\draw[->] (0,0) -- (12,0) node[right] {$x$};
+\draw[->] (0,-0.5) -- (0,2) node[above] {Produto};
+
+% Produto (sempre positivo)
+\draw[very thick, green!60!black] (0,0.8) -- (7,0.8);
+\draw[very thick, green!60!black] (7,0.5) -- (12,0.5);
+\draw[very thick, green!60!black, dashed] (7,0.5) -- (7,0.8);
+
+% Linha zero
+\draw[dashed, gray] (0,0) -- (12,0);
+
+% Área colorida (tudo positivo!)
+\fill[green!20, opacity=0.5] (0,0) rectangle (7,0.8);
+\fill[green!20, opacity=0.5] (7,0) rectangle (12,0.5);
+
+% Rótulos
+\node at (3.5,0.4) [green!60!black] {\small $(-){\cdot}(-) = (+)$};
+\node at (9.5,0.25) [green!60!black] {\small $(+){\cdot}(+) = (+)$};
+\node at (6,1.6) {\textbf{Produto: SEMPRE $\geq 0$ !}};
+\end{scope}
+
+% Linha vertical de referência
+\draw[very thick, blue, dashed] (7,-2) -- (7,8);
+\node at (7,-2.5) [blue] {Ponto crítico $k$};
+
+\end{tikzpicture}
+\end{center}
+
+\begin{respostabox}
+\subsection*{A Resposta Final à Sua Dúvida}
+
+\textbf{Por que multiplicamos pela função crítica?}
+
+\begin{enumerate}
+    \item \textbf{Conexão Lógica:} A multiplicação garante que o teste LNP está tomando as decisões certas nos lugares certos:
+    \begin{itemize}
+        \item Onde a evidência favorece $H_0$ ($L_1 - kL_0 < 0$), o LNP rejeita MENOS ($\psi_{\Upsilon} - \psi_{\Upsilon^*} < 0$)
+        \item Onde a evidência favorece $H_1$ ($L_1 - kL_0 > 0$), o LNP rejeita MAIS ($\psi_{\Upsilon} - \psi_{\Upsilon^*} > 0$)
+    \end{itemize}
+    
+    \item \textbf{Truque Matemático:} Quando integramos o produto sobre todo o espaço amostral:
+    \[
+    \int [\psi_{\Upsilon} - \psi_{\Upsilon^*}] [L_1 - kL_0] dx \geq 0
+    \]
+    
+    essa desigualdade "ponto a ponto" se transforma na desigualdade de poderes:
+    \[
+    Q_{\Upsilon}(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)
+    \]
+    
+    \item \textbf{Prova de Otimalidade:} Sem a função crítica, teríamos apenas a evidência $L_1 - kL_0$, mas não conseguiríamos \textit{comparar} o desempenho do teste LNP com outros testes!
+\end{enumerate}
+
+\textbf{Resumo em uma frase:} A multiplicação é a ponte matemática que conecta "onde os testes decidem diferente" com "onde a evidência dos dados está" para provar que o LNP é ótimo.
+\end{respostabox}
+
+\newpage
+
+% ================================================================
+\section{Parte 4: Da Desigualdade Pontual ao Poder Global}
+% ================================================================
+
+\subsection{O Passo da Integração}
+
+\begin{conceitobox}{Por Que Integrar?}
+Até agora, provamos que a desigualdade vale para cada ponto $x$:
+\[
+[\psi_{\Upsilon}(x) - \psi_{\Upsilon^*}(x)] \cdot [L(\theta_1; x) - k \cdot L(\theta_0; x)] \geq 0 \quad \forall x
+\]
+
+Mas queremos comparar os \textit{poderes totais} dos testes, não apenas pontos individuais!
+
+\textbf{Solução:} Integrar sobre todo o espaço amostral.
+\end{conceitobox}
+
+\subsection{Expandindo a Integral}
+
+\begin{align*}
+&\int_{\mathcal{X}^n} [\psi_{\Upsilon}(x) - \psi_{\Upsilon^*}(x)] [L(\theta_1; x) - k L(\theta_0; x)] dx \\
+&= \int \psi_{\Upsilon}(x) L(\theta_1; x) dx - \int \psi_{\Upsilon^*}(x) L(\theta_1; x) dx \\
+&\quad - k \int \psi_{\Upsilon}(x) L(\theta_0; x) dx + k \int \psi_{\Upsilon^*}(x) L(\theta_0; x) dx
+\end{align*}
+
+\subsection{Reconhecendo as Funções Poder}
+
+\begin{alertabox}
+\textbf{O Insight Crucial:}
+
+A integral $\int \psi(x) L(\theta; x) dx$ é exatamente a \textbf{função poder}!
+
+\textbf{Por quê?} Porque $L(\theta; x)$ é a densidade conjunta sob $\theta$, então:
+\[
+\int \psi(x) L(\theta; x) dx = E_{\theta}[\psi(X)] = P_{\theta}[\text{Rejeitar } H_0] = Q(\theta)
+\]
+\end{alertabox}
+
+Portanto:
+\begin{align*}
+&\int \psi_{\Upsilon}(x) L(\theta_1; x) dx = Q_{\Upsilon}(\theta_1) \\
+&\int \psi_{\Upsilon^*}(x) L(\theta_1; x) dx = Q_{\Upsilon^*}(\theta_1) \\
+&\int \psi_{\Upsilon}(x) L(\theta_0; x) dx = Q_{\Upsilon}(\theta_0) = \alpha \\
+&\int \psi_{\Upsilon^*}(x) L(\theta_0; x) dx = Q_{\Upsilon^*}(\theta_0) \leq \alpha
+\end{align*}
+
+\subsection{O Resultado Final}
+
+Substituindo na integral expandida:
+\[
+Q_{\Upsilon}(\theta_1) - Q_{\Upsilon^*}(\theta_1) - k[\alpha - Q_{\Upsilon^*}(\theta_0)] \geq 0
+\]
+
+Como $Q_{\Upsilon^*}(\theta_0) \leq \alpha$, temos $\alpha - Q_{\Upsilon^*}(\theta_0) \geq 0$.
+
+Multiplicando por $k \geq 0$: $k[\alpha - Q_{\Upsilon^*}(\theta_0)] \geq 0$.
+
+Portanto:
+\[
+Q_{\Upsilon}(\theta_1) - Q_{\Upsilon^*}(\theta_1) \geq k \underbrace{[\alpha - Q_{\Upsilon^*}(\theta_0)]}_{\geq 0} \geq 0
+\]
+
+\[
+\boxed{Q_{\Upsilon}(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)} \quad \square
+\]
+
+\newpage
+
+% ================================================================
+\section{Visualização Completa: Unindo Tudo}
+% ================================================================
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    box/.style={rectangle, draw, text width=4cm, align=center, minimum height=1cm, rounded corners},
+    arrow/.style={->, thick}
+]
+
+% Nível 1: Comparação de Testes
+\node[box, fill=blue!20] (comp) {
+    \textbf{Comparação}\\
+    $\psi_{\Upsilon} - \psi_{\Upsilon^*}$\\
+    (Onde diferem?)
+};
+
+\node[box, fill=green!20, right=of comp] (evid) {
+    \textbf{Evidência}\\
+    $L_1 - kL_0$\\
+    (O que dados dizem?)
+};
+
+% Nível 2: Multiplicação
+\node[box, fill=orange!20, below=of $(comp)!0.5!(evid)$] (mult) {
+    \textbf{Multiplicação}\\
+    $[\psi_{\Upsilon} - \psi_{\Upsilon^*}] \times [L_1 - kL_0]$\\
+    Conecta decisão com evidência
+};
+
+% Nível 3: Desigualdade
+\node[box, fill=purple!20, below=of mult] (desig) {
+    \textbf{Desigualdade $\geq 0$}\\
+    Válida ponto a ponto\\
+    (Compatibilidade de sinais)
+};
+
+% Nível 4: Integração
+\node[box, fill=red!20, below=of desig] (integ) {
+    \textbf{Integração}\\
+    $\int [\cdots] dx \geq 0$\\
+    De pontual para global
+};
+
+% Nível 5: Função Poder
+\node[box, fill=yellow!20, below=of integ] (poder) {
+    \textbf{Comparação de Poderes}\\
+    $Q_{\Upsilon}(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)$\\
+    LNP é ótimo!
+};
+
+% Setas
+\draw[arrow] (comp) -- (mult);
+\draw[arrow] (evid) -- (mult);
+\draw[arrow] (mult) -- (desig);
+\draw[arrow] (desig) -- (integ);
+\draw[arrow] (integ) -- (poder);
+
+% Anotações laterais
+\node[text width=3cm, right=0.5cm of mult] {\small Por que multiplicar? Para conectar!};
+\node[text width=3cm, right=0.5cm of desig] {\small Por que $\geq 0$? Sinais compatíveis!};
+\node[text width=3cm, right=0.5cm of integ] {\small Por que integrar? De local para total!};
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% ================================================================
+\section{Recapitulação e Conclusão}
+% ================================================================
+
+\begin{respostabox}
+\subsection*{Respondendo Sua Dúvida Original}
+
+\textbf{Pergunta:} Por que multiplicamos pela função crítica?
+
+\textbf{Resposta em Níveis de Compreensão:}
+
+\paragraph{Nível Intuitivo:}
+Para provar que o teste LNP é ótimo, precisamos mostrar que ele toma as decisões certas nos lugares certos. A multiplicação garante que:
+\begin{itemize}
+    \item Onde há evidência para $H_0$, o LNP rejeita menos (correto!)
+    \item Onde há evidência para $H_1$, o LNP rejeita mais (correto!)
+\end{itemize}
+
+\paragraph{Nível Visual:}
+O produto $[\psi_{\Upsilon} - \psi_{\Upsilon^*}] \times [L_1 - kL_0]$ é sempre $\geq 0$ porque os dois fatores têm sinais compatíveis em cada ponto do espaço amostral.
+
+\paragraph{Nível Matemático:}
+A multiplicação é a ferramenta algébrica que, quando integrada, transforma a comparação pontual das decisões em uma comparação global dos poderes:
+\[
+\int [\psi_{\Upsilon} - \psi_{\Upsilon^*}][L_1 - kL_0] dx \geq 0 \implies Q_{\Upsilon}(\theta_1) \geq Q_{\Upsilon^*}(\theta_1)
+\]
+
+\paragraph{Nível Conceitual:}
+Sem multiplicar pela função crítica, teríamos apenas informação sobre a evidência dos dados ($L_1 - kL_0$), mas não conseguiríamos \textit{comparar} como diferentes testes usam essa evidência. A função crítica representa a "estratégia de decisão" de cada teste, e a multiplicação mede se essa estratégia está alinhada com a evidência.
+\end{respostabox}
+
+\begin{conceitobox}{Três Maneiras de Ver a Desigualdade Fundamental}
+\begin{enumerate}
+    \item \textbf{Como compatibilidade de sinais:}
+    
+    $(-)×(-) = (+)$ e $(+)×(+) = (+)$ sempre!
+    
+    \item \textbf{Como teste de alinhamento:}
+    
+    O teste LNP está "alinhado" com a evidência dos dados
+    
+    \item \textbf{Como ferramenta de otimalidade:}
+    
+    Transforma comparação local em prova global de superioridade
+\end{enumerate}
+\end{conceitobox}
+
+\vspace{1cm}
+
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{
+\centering
+\textbf{Mensagem Final}
+
+A desigualdade fundamental não é apenas uma manipulação algébrica — ela é uma \textit{garantia matemática} de que o teste baseado na razão de verossimilhanças toma as decisões ótimas em cada ponto do espaço amostral, levando ao maior poder possível!
+}}
+\end{center}
+
+\end{document}
+

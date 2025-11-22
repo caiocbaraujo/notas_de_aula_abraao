@@ -1,0 +1,1798 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\tcbuselibrary{breakable}
+\usepackage{enumitem}
+
+% Caixas coloridas para destacar conteúdo
+\newtcolorbox{questaobox}[1]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=#1
+}
+
+\newtcolorbox{solucaobox}{
+    colback=green!5!white,
+    colframe=green!50!black,
+    fonttitle=\bfseries,
+    title=Solução Detalhada,
+    breakable
+}
+
+\newtcolorbox{observacaobox}{
+    colback=yellow!5!white,
+    colframe=orange!75!black,
+    fonttitle=\bfseries,
+    title=Observações e Intuição
+}
+
+\newtcolorbox{resumobox}{
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=Resumo da Questão
+}
+
+\newtcolorbox{definicaobox}[1]{
+    colback=purple!5!white,
+    colframe=purple!75!black,
+    fonttitle=\bfseries,
+    title=#1
+}
+
+% Título e informações do documento
+\title{Questões Resolvidas do Capítulo 5\\
+\large Intervalos de Confiança - Soluções Detalhadas}
+\author{Curso de Inferência Estatística - PPGEST/UFPE\\
+\small Compilado e detalhado}
+\date{Novembro 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+% ================================================================
+\section*{Introdução}
+\addcontentsline{toc}{section}{Introdução}
+
+Este documento apresenta todas as questões resolvidas em sala de aula do Capítulo 5 sobre Intervalos de Confiança. As soluções foram expandidas com explicações detalhadas, intuições e comentários didáticos para facilitar o entendimento completo dos conceitos.
+
+\subsection*{Organização do Documento}
+
+Cada questão está organizada da seguinte forma:
+\begin{enumerate}
+    \item \textbf{Enunciado} - apresentação completa do problema
+    \item \textbf{Solução Detalhada} - desenvolvimento passo a passo
+    \item \textbf{Observações e Intuição} - comentários sobre o método e interpretações
+    \item \textbf{Resumo} - síntese dos principais resultados
+\end{enumerate}
+
+\subsection*{Questões Incluídas}
+
+\begin{itemize}
+    \item Q(5.1) - Comparação de intervalos de confiança para Normal
+    \item Q(5.2) - IC para Normal via inversão de teste (variância conhecida)
+    \item Q(5.3) - IC para Exponencial via inversão de teste
+    \item Q(5.4) - IC para Exponencial usando método pivotal
+    \item Q(5.5) - IC para Uniforme(0,$\theta$) usando método pivotal
+    \item Q(5.6) - IC bilateral para Normal (variância conhecida)
+    \item Q(5.7) - IC bilateral para Normal (variância desconhecida) - Intervalo t
+    \item Exercício - IC para variância de população Normal
+    \item Q(5.10) - IC para diferença de médias (duas amostras, variâncias iguais)
+    \item Q(5.11) - IC para razão de variâncias (duas amostras)
+\end{itemize}
+
+\subsection*{Métodos Abordados}
+
+\begin{enumerate}
+    \item \textbf{Inversão de Testes de Hipóteses} - aproveitando a dualidade entre testes e IC
+    \item \textbf{Método Pivotal} - usando estatísticas com distribuição conhecida
+\end{enumerate}
+
+\newpage
+
+% ================================================================
+\section{Conceitos Fundamentais}
+% ================================================================
+
+\subsection{Definições Básicas}
+
+\begin{definicaobox}{Definição 5.1 - Probabilidade de Cobertura}
+Sejam $T_l(x)$ e $T_u(x)$ duas estatísticas baseadas em uma amostra $X = (x_1, \ldots, x_n)^T$. A \textbf{probabilidade de cobertura} do intervalo aleatório $J = [T_l(x), T_u(x)]$ para o parâmetro desconhecido $\theta \in \Theta \subset \mathbb{R}$ é dada por:
+\begin{equation}
+P_\theta \left[ \theta \in [T_l(x), T_u(x)] \right]
+\end{equation}
+\end{definicaobox}
+
+\begin{definicaobox}{Coeficiente de Confiança}
+O \textbf{coeficiente de confiança} de $J$ é dado por:
+\begin{equation}
+\inf_{\theta \in \Theta} \left\{ \mathbb{P}_\theta \left[ \theta \in [T_L(x), T_U(x)] \right] \right\}
+\end{equation}
+
+Na maioria das aplicações, a probabilidade de cobertura não dependerá do parâmetro e será equivalente ao coeficiente de cobertura.
+\end{definicaobox}
+
+\subsection{Métodos de Construção}
+
+\begin{observacaobox}
+Para construir intervalos de confiança, podem ser utilizadas duas abordagens principais:
+
+\begin{enumerate}
+    \item \textbf{Inversão de Procedimento de Teste de Hipótese}
+    \item \textbf{Via Estatística Pivotal}
+\end{enumerate}
+\end{observacaobox}
+
+\subsubsection{Inversão de um Procedimento de Teste}
+
+Em teste de hipóteses, a região de não rejeição de $H_0$ foi denotada como:
+\[
+R^c = 
+\begin{cases}
+\{ x \in \mathcal{X}^n : T(x) > k \}^c & \text{para } H_1 : \theta \geq \theta_0, \\
+\{ x \in \mathcal{X}^n : T(x) < k \}^c & \text{para } H_1 : \theta \leq \theta_0, \\
+\{ x \in \mathcal{X}^n : |T(x)| > k \}^c & \text{para } H_1 : \theta \neq \theta_0.
+\end{cases}
+\]
+
+A construção de intervalos de confiança é intimamente relacionada a $R^c$.
+
+\subsubsection{Método da Estatística Pivotal}
+
+\begin{definicaobox}{Definição 5.3.1 - Pivô}
+Seja $T(x)$ (para $x = (x_1, \ldots, x_n)^T$) uma estatística suficiente (mínima) para $\theta$. 
+
+Um \textbf{pivô} é uma variável aleatória $U$ que depende de $T$ e $\theta$ cuja distribuição \textbf{não depende} de $\theta$.
+\end{definicaobox}
+
+\begin{observacaobox}
+\textbf{Casos Especiais de Pivôs:}
+
+\begin{enumerate}
+    \item \textbf{Família Locação} em $a(\theta)$: A distribuição de $\{T - a(\theta)\}$ não depende de $\theta$.
+    
+    \item \textbf{Família Escala} em $b(\theta)$: A distribuição de $T / b(\theta)$ não depende de $\theta$.
+    
+    \item \textbf{Família Locação-Escala} em $a(\theta)$ e $b(\theta)$: A distribuição de $\{T - a(\theta)\} / b(\theta)$ não depende de $\theta$.
+\end{enumerate}
+\end{observacaobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.1: Comparação de Intervalos de Confiança}
+% ================================================================
+
+\begin{questaobox}{Questão 5.1}
+Sejam 
+\[
+J_1 = (X_1 - 1,96; X_1 + 1,96)
+\]
+e 
+\[
+J_2 = \left( \bar{X} - \frac{1,96}{\sqrt{2}}, \bar{X} + \frac{1,96}{\sqrt{2}} \right)
+\]
+dois intervalos aleatórios para $\mu$, tais que $X_1, X_2 \sim N(\mu, 1)$ i.i.d. e 
+\[
+\bar{X} = \frac{X_1 + X_2}{2}.
+\]
+
+Encontre as probabilidades de cobertura de $J_1$ e $J_2$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Parte 1: Probabilidade de Cobertura de $J_1$}
+
+O intervalo $J_1$ é baseado apenas na primeira observação $X_1$.
+
+\begin{align}
+\mathbb{P}_\mu \{ \mu \in J_1 \} &= \mathbb{P}_\mu \{ \mu \in (X_1 - 1,96; X_1 + 1,96) \} \\
+&= \mathbb{P}_\mu \{ X_1 - 1,96 < \mu < X_1 + 1,96 \} \\
+&= \mathbb{P}_\mu \{ -1,96 < X_1 - \mu < 1,96 \} \\
+&= \mathbb{P}_\mu \{ |X_1 - \mu| < 1,96 \}
+\end{align}
+
+Como $X_1 \sim N(\mu, 1)$, temos que $X_1 - \mu \sim N(0, 1)$. Portanto:
+
+\begin{align}
+\mathbb{P}_\mu \{ |X_1 - \mu| < 1,96 \} &= \mathbb{P}_\mu \{ |Z| < 1,96 \} \quad \text{onde } Z \sim N(0,1) \\
+&= \Phi(1,96) - \Phi(-1,96) \\
+&= 2\Phi(1,96) - 1 \\
+&= 2(0,975) - 1 \\
+&= 0,95 = 95\%
+\end{align}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-3,0) -- (3,0);
+\draw[domain=-3:3,smooth,variable=\x] plot ({\x},{1.5*exp(-\x*\x/2)});
+\draw[dashed] (-1.96,0) -- (-1.96,{1.5*exp(-1.96*1.96/2)});
+\draw[dashed] (1.96,0) -- (1.96,{1.5*exp(-1.96*1.96/2)});
+\fill[gray!30] (-1.96,0) -- plot[domain=-1.96:1.96] ({\x},{1.5*exp(-\x*\x/2)}) -- (1.96,0) -- cycle;
+\node at (0,0.2) {95\%};
+\node at (-2.5,0.2) {2,5\%};
+\node at (2.5,0.2) {2,5\%};
+\node at (-1.96,-0.3) {-1,96};
+\node at (1.96,-0.3) {1,96};
+\end{tikzpicture}
+\end{center}
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Parte 2: Probabilidade de Cobertura de $J_2$}
+
+O intervalo $J_2$ é baseado na média das duas observações.
+
+\begin{align}
+P_{\mu} \{ \mu \in J_{2} \} &= P_{\mu} \left\{ \mu \in \left( \bar{X} - \frac{1,96}{\sqrt{2}}, \; \bar{X} + \frac{1,96}{\sqrt{2}} \right) \right\} \\
+&= P_{\mu} \left\{ \bar{X} - \frac{1,96}{\sqrt{2}} < \mu < \bar{X} + \frac{1,96}{\sqrt{2}} \right\} \\
+&= P_{\mu} \left\{ -\frac{1,96}{\sqrt{2}} < \bar{X} - \mu < \frac{1,96}{\sqrt{2}} \right\} \\
+&= P_{\mu} \left\{ \left| \bar{X} - \mu \right| < \frac{1,96}{\sqrt{2}} \right\}
+\end{align}
+
+Multiplicando por $\sqrt{2}$:
+\begin{equation}
+= P_{\mu} \left\{ \left| (\bar{X} - \mu) \sqrt{2} \right| \leq 1,96 \right\}
+\end{equation}
+
+Como $\bar{X} = \frac{X_1 + X_2}{2}$ e $X_i \sim N(\mu, 1)$ i.i.d., temos:
+\begin{equation}
+\bar{X} \sim N\left(\mu, \frac{1}{2}\right)
+\end{equation}
+
+Portanto:
+\begin{equation}
+\frac{\bar{X} - \mu}{\sqrt{1/2}} = (\bar{X} - \mu)\sqrt{2} \sim N(0,1)
+\end{equation}
+
+Logo:
+\begin{equation}
+P_{\mu} \left\{ |Z| \leq 1,96 \right\} = \Phi(1,96) - \Phi(-1,96) = 0,95 = 95\%
+\end{equation}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Comparação dos Intervalos}
+
+\textbf{Principais Observações:}
+
+\begin{enumerate}
+    \item \textbf{Mesma Cobertura:} Ambos $J_1$ e $J_2$ têm probabilidade de cobertura de 95\%.
+    
+    \item \textbf{Eficiência:} Apesar da mesma cobertura, $J_2$ é \textbf{mais eficiente} porque:
+    \begin{itemize}
+        \item $J_1$ usa apenas $X_1$ (ignora $X_2$)
+        \item $J_2$ usa toda a informação disponível ($X_1$ e $X_2$) através de $\bar{X}$
+    \end{itemize}
+    
+    \item \textbf{Comprimento dos Intervalos:}
+    \begin{itemize}
+        \item Comprimento de $J_1$: $2 \times 1,96 = 3,92$
+        \item Comprimento de $J_2$: $2 \times \frac{1,96}{\sqrt{2}} \approx 2,77$
+    \end{itemize}
+    
+    O intervalo $J_2$ é mais estreito (aproximadamente 29\% menor), fornecendo estimativa mais precisa!
+    
+    \item \textbf{Estatística Suficiente:} $\bar{X}$ é suficiente para $\mu$. O princípio da suficiência sugere que intervalos baseados em estatísticas suficientes são superiores.
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{Principais Resultados:}
+\begin{itemize}
+    \item Probabilidade de cobertura de $J_1$ e $J_2$: ambos 95\%
+    \item $J_2$ é mais eficiente: intervalo 29\% mais estreito
+    \item Usar estatísticas suficientes leva a intervalos mais precisos
+    \item $\bar{X}$ utiliza toda a informação amostral
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Métodos de Construção de Intervalos de Confiança}
+% ================================================================
+
+\subsection{Data: 12/11/2025 - Abordagens Principais}
+
+\begin{observacaobox}
+Existem duas abordagens principais para construir intervalos de confiança:
+
+\begin{enumerate}
+    \item \textbf{Inversão de Procedimento de Teste de Hipótese}
+    \item \textbf{Via Estatística Pivotal}
+\end{enumerate}
+
+Veremos aplicações de ambos os métodos nas questões a seguir.
+\end{observacaobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.2: IC para Normal via Inversão de Teste}
+% ================================================================
+
+\begin{questaobox}{Questão 5.2 (Questão 52 das Notas)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ para $\mu \in \mathbb{R}$ desconhecida e $\sigma^2 > 0$ conhecida. 
+
+Deseja-se testar:
+\begin{equation}
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu > \mu_0
+\end{equation}
+
+Encontre o estimador intervalar para $\mu$ com nível de confiança de $1 - \alpha$ para $\alpha \in (0,1)$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Recordar o Teste UMP}
+
+Do Capítulo 4, sabemos que o teste UMP para $H_0$ vs $H_1$ de nível $\alpha$ tem função crítica dada por:
+\begin{equation}
+\psi(x) =
+\begin{cases}
+1, & \sqrt{n} \dfrac{\bar{X}_n - \mu_0}{\sigma} \ge z_\alpha, \\
+0, & \text{caso contrário}
+\end{cases}
+\end{equation}
+
+A região de \textbf{rejeição} é:
+\begin{equation}
+R = \left\{ x \in \mathcal{X} : \sqrt{n} \dfrac{\bar{X}_n - \mu_0}{\sigma} \ge z_\alpha \right\}
+\end{equation}
+
+A região de \textbf{não rejeição} é:
+\begin{equation}
+R^c = \left\{ x \in \mathcal{X} : \sqrt{n} \dfrac{\bar{X}_n - \mu_0}{\sigma} \le z_\alpha \right\}
+\end{equation}
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 2: Visualização da Região de Não Rejeição}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+% eixo x
+\draw[->] (-3,0) -- (3,0) node[right] {$t$};
+% eixo y
+\draw[->] (0,0) -- (0,1.5);
+% curva normal
+\draw[domain=-3:3,smooth,variable=\x] plot ({\x},{1.2*exp(-\x*\x/2)});
+% região de não rejeição
+\fill[pattern=north east lines] (-2.5,0) -- plot[domain=-2.5:1] ({\x},{1.2*exp(-\x*\x/2)}) -- (1,0) -- cycle;
+% região de rejeição
+\fill[gray!50] (1,0) -- plot[domain=1:3] ({\x},{1.2*exp(-\x*\x/2)}) -- (3,0) -- cycle;
+% linha z_alpha
+\draw[dashed] (1,0) -- (1,{1.2*exp(-1*1/2)}) node[above] {$z_\alpha$};
+% labels
+\node at (-1.5,0.8) {$R^c$};
+\node at (2,0.4) {$R$};
+\node at (2.5,0.2) {$\alpha$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Passo 3: Probabilidade da Região de Não Rejeição}
+
+Note que, sob $H_0: \mu = \mu_0$, a estatística $Z = \sqrt{n}(\bar{X}_n - \mu_0)/\sigma \sim N(0,1)$.
+
+Portanto:
+\[
+P_{\mu_0} \left\{ \sqrt{n} \frac{\overline{X}_n - \mu_0}{\sigma} \leq z_{\alpha} \right\} = 1 - \alpha
+\]
+
+\subsection*{Passo 4: Inversão para Obter o IC}
+
+Rearranjando a desigualdade para isolar $\mu_0$:
+\begin{align}
+\sqrt{n} \frac{\overline{X}_n - \mu_0}{\sigma} &\leq z_{\alpha} \\
+\overline{X}_n - \mu_0 &\leq z_{\alpha} \frac{\sigma}{\sqrt{n}} \\
+-\mu_0 &\leq z_{\alpha} \frac{\sigma}{\sqrt{n}} - \overline{X}_n \\
+\mu_0 &\geq \overline{X}_n - z_{\alpha} \frac{\sigma}{\sqrt{n}}
+\end{align}
+
+Logo:
+\[
+P_{\mu} \left\{ \mu_0 \geq \overline{X}_n - z_{\alpha} \frac{\sigma}{\sqrt{n}} \right\} = 1 - \alpha
+\]
+
+Como esta relação vale para qualquer $\mu_0$ (substituindo $\mu_0$ por $\mu$):
+\[
+P_{\mu} \left\{ \mu \geq \overline{X}_n - z_{\alpha} \frac{\sigma}{\sqrt{n}} \right\} = 1 - \alpha, \quad \forall \mu \in \mathbb{R}
+\]
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 5: Intervalo de Confiança Final}
+
+\textbf{Intervalo de Confiança Unilateral Inferior:}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\mu) = \left[ \overline{X}_n - z_{\alpha} \frac{\sigma}{\sqrt{n}}, \; +\infty \right)}
+\end{equation}
+
+Este é um intervalo de confiança \textbf{unilateral inferior} para $\mu$ com coeficiente de confiança $1-\alpha$.
+
+\textbf{Interpretação:} Com confiança $1-\alpha$, podemos afirmar que $\mu$ é pelo menos $\overline{X}_n - z_{\alpha} \frac{\sigma}{\sqrt{n}}$.
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Método de Inversão:} Este método conecta diretamente testes de hipóteses com intervalos de confiança.
+    
+    \item \textbf{Teste Unilateral $\Rightarrow$ IC Unilateral:} Como testamos $H_1: \mu > \mu_0$, obtemos um IC unilateral inferior.
+    
+    \item \textbf{Dualidade:} Se $\mu_0 \in IC_{1-\alpha}$, então NÃO rejeitamos $H_0: \mu = \mu_0$ ao nível $\alpha$.
+    
+    \item \textbf{IC Unilateral Superior:} Para $H_1: \mu < \mu_0$, obteríamos:
+    \[
+    IC_{1-\alpha}(\mu) = \left( -\infty, \; \overline{X}_n + z_{\alpha} \frac{\sigma}{\sqrt{n}} \right]
+    \]
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC Unilateral Inferior para $\mu$ (variância conhecida):}
+
+\textbf{Fórmula:}
+\begin{equation*}
+IC_{1-\alpha}(\mu) = \left[ \bar{X}_n - z_{\alpha} \frac{\sigma}{\sqrt{n}}, \; +\infty \right)
+\end{equation*}
+
+\textbf{Interpretação:}
+\begin{itemize}
+    \item Obtido via inversão do teste UMP
+    \item Apropriado quando interessam valores grandes de $\mu$
+    \item Coeficiente de confiança: $1-\alpha$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.3: IC para Exponencial via Inversão}
+% ================================================================
+
+\begin{questaobox}{Questão 5.3}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim \text{Exp}(\theta)$ para $\theta > 0$ desconhecido. 
+
+Deseja-se testar:
+\[
+H_0: \theta = \theta_0 \quad \text{vs} \quad H_1: \theta > \theta_0
+\]
+
+Encontre o estimador intervalar para $\theta$ com nível de confiança $1 - \alpha$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Recordar o Teste UMP para Exponencial}
+
+Do Capítulo 4 (Questão 4.5), o teste UMP para $H_0$ vs $H_1$ de nível $\alpha$ tem função crítica:
+\[
+\psi(\mathbf{x}) =
+\begin{cases}
+1, & 2 \sum_{i=1}^n \frac{x_i}{\theta_0} > \chi^2_{2n, \alpha} \\
+0, & 2 \sum_{i=1}^n \frac{x_i}{\theta_0} \leq \chi^2_{2n, \alpha}
+\end{cases}
+\]
+
+onde $\chi^2_{2n, \alpha}$ é o quantil tal que $P(\chi^2_{2n} > \chi^2_{2n, \alpha}) = \alpha$.
+
+A região de não rejeição é:
+\[
+R^c = \left\{ \mathbf{x} \in \mathcal{X} : 2 \sum_{i=1}^n \frac{x_i}{\theta_0} \leq \chi^2_{2n, \alpha} \right\}
+\]
+
+\subsection*{Passo 2: Probabilidade da Região de Não Rejeição}
+
+Sob $H_0$, sabemos que $\frac{2\sum_{i=1}^n X_i}{\theta_0} \sim \chi^2_{2n}$.
+
+Portanto:
+\begin{align}
+P_{\theta_0} \left\{ 2 \sum_{i=1}^n X_i / \theta_0 \leq \chi^2_{2n, \alpha} \right\} &= 1 - P_{\theta_0} \left\{ 2 \sum_{i=1}^n X_i / \theta_0 > \chi^2_{2n, \alpha} \right\} \\
+&= 1 - \alpha
+\end{align}
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Inversão para Obter o IC}
+
+Rearranjando a desigualdade:
+\begin{align}
+2 \sum_{i=1}^n \frac{X_i}{\theta_0} &\leq \chi^2_{2n, \alpha} \\
+2 \sum_{i=1}^n X_i &\leq \theta_0 \cdot \chi^2_{2n, \alpha} \\
+\theta_0 &\geq \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n, \alpha}}
+\end{align}
+
+Logo:
+\begin{equation}
+P_{\theta_0} \left\{ \theta_0 \geq \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n, \alpha}} \right\} = 1 - \alpha
+\end{equation}
+
+Como esta relação vale para qualquer valor de $\theta$ (não apenas $\theta_0$):
+\begin{equation}
+P_{\theta} \left\{ \theta \geq \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n, \alpha}} \right\} = 1 - \alpha, \quad \forall \theta \in \mathbb{R}_+
+\end{equation}
+
+\subsection*{Passo 4: Intervalo de Confiança Final}
+
+\textbf{Intervalo de Confiança Unilateral Inferior:}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\theta) = \left[ \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n, \alpha}}, \; +\infty \right)}
+\end{equation}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Estatística Suficiente:} $\sum X_i$ é suficiente para $\theta$ na Exponencial.
+    
+    \item \textbf{Distribuição Qui-Quadrado:} A transformação $\frac{2\sum X_i}{\theta}$ tem distribuição $\chi^2_{2n}$ livre de parâmetros.
+    
+    \item \textbf{Graus de Liberdade:} São $2n$ (não $n$) porque cada $\frac{2X_i}{\theta} \sim \chi^2_2$.
+    
+    \item \textbf{Interpretação Prática:} Valores grandes de $\sum X_i$ sugerem $\theta$ grande (pois $E[X] = \theta$).
+    
+    \item \textbf{Exemplo Numérico:} Suponha $n=10$, $\alpha=0.05$, $\sum x_i = 25$.
+    \begin{itemize}
+        \item Graus de liberdade: $2n = 20$
+        \item $\chi^2_{20, 0.05} = 31.41$
+        \item $IC_{0.95}(\theta) = [25 \times 2 / 31.41, +\infty) = [1.59, +\infty)$
+    \end{itemize}
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC para Exponencial via Inversão:}
+
+\textbf{Estatística:}
+\begin{equation*}
+Q = \frac{2\sum_{i=1}^n X_i}{\theta_0} \sim \chi^2_{2n}
+\end{equation*}
+
+\textbf{IC Unilateral Inferior:}
+\begin{equation*}
+IC_{1-\alpha}(\theta) = \left[ \frac{2 \sum_{i=1}^n X_i}{\chi^2_{2n, \alpha}}, \; +\infty \right)
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Obtido via inversão do teste UMP
+    \item Depende da estatística suficiente $\sum X_i$
+    \item Usa distribuição qui-quadrado com $2n$ graus de liberdade
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.4: IC para Exponencial usando Método Pivotal}
+% ================================================================
+
+\subsection{Data: 12/11/25}
+
+\begin{questaobox}{Questão 5.4}
+Seja $X \sim \text{Exp}(\theta)$ com densidade:
+\begin{equation}
+f(x; \theta) = \frac{1}{\theta} e^{-x/\theta} \mathbb{I}_{(0,\infty)}(x)
+\end{equation}
+
+Construa um intervalo de confiança \textbf{bilateral} para $\theta$ usando a abordagem pivotal.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Encontrar o Pivô}
+
+Considere a transformação $U = X / \theta$. Vamos calcular sua densidade.
+
+Usando a técnica da transformação:
+\begin{align}
+f_U(u) &= \frac{dF_X(u\theta)}{du} = \theta f_X(u\theta; \theta) \\
+&= \theta \cdot \frac{1}{\theta} e^{-(u\theta)/\theta} \mathbb{I}_{(0,\infty)}(u\theta) \\
+&= e^{-u} \mathbb{I}_{(0,\infty)}(u)
+\end{align}
+
+\textbf{Conclusão:} $U = X/\theta \sim \text{Exp}(1)$ (Exponencial padrão).
+
+Portanto, $U$ é um \textbf{pivô} pela Definição 5.3.1, pois sua distribuição não depende de $\theta$!
+
+\subsection*{Passo 2: Determinar os Quantis}
+
+Para um IC bilateral com confiança $1-\alpha$, precisamos encontrar $a, b > 0$ com $a < b$ tais que:
+\begin{equation}
+P(U \leq a) = P(U > b) = \frac{\alpha}{2}
+\end{equation}
+
+Equivalentemente:
+\begin{equation}
+P(a < U < b) = 1 - \alpha
+\end{equation}
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Cálculo de $a$ (quantil inferior)}
+
+Para a Exponencial padrão, a função de distribuição é $F_U(u) = 1 - e^{-u}$.
+
+\begin{align}
+P(U \leq a) &= \frac{\alpha}{2} \\
+F_U(a) &= \frac{\alpha}{2} \\
+1 - e^{-a} &= \frac{\alpha}{2} \\
+e^{-a} &= 1 - \frac{\alpha}{2} \\
+-a &= \log\left(1 - \frac{\alpha}{2}\right) \\
+a &= -\log\left(1 - \frac{\alpha}{2}\right)
+\end{align}
+
+\subsection*{Passo 4: Cálculo de $b$ (quantil superior)}
+
+\begin{align}
+P(U > b) &= \frac{\alpha}{2} \\
+1 - F_U(b) &= \frac{\alpha}{2} \\
+1 - (1 - e^{-b}) &= \frac{\alpha}{2} \\
+e^{-b} &= \frac{\alpha}{2} \\
+-b &= \log\left(\frac{\alpha}{2}\right) \\
+b &= -\log\left(\frac{\alpha}{2}\right)
+\end{align}
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 5: Inversão do Pivô}
+
+Temos que:
+\[
+P_{\theta} \left\{ a < \frac{X}{\theta} < b \right\} = 1 - \alpha
+\]
+
+Invertendo as desigualdades (dividindo por $X > 0$):
+\[
+P_{\theta} \left\{ \frac{1}{b} < \frac{\theta}{X} < \frac{1}{a} \right\} = 1 - \alpha
+\]
+
+Multiplicando por $X$:
+\[
+P_{\theta} \left\{ \frac{X}{b} < \theta < \frac{X}{a} \right\} = 1 - \alpha
+\]
+
+Ou seja:
+\[
+P_{\theta} \left\{ \theta \in \left( \frac{X}{b}, \frac{X}{a} \right) \right\} = 1 - \alpha
+\]
+
+\subsection*{Passo 6: Intervalo de Confiança Final}
+
+Substituindo os valores de $a$ e $b$:
+
+\textbf{Intervalo de Confiança Bilateral:}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\theta) = \left( \frac{X}{-\log(\alpha/2)}, \; \frac{X}{-\log(1-\alpha/2)} \right)}
+\end{equation}
+
+Este é o intervalo bilateral para $\theta$ com confiança $1-\alpha$.
+\end{solucaobox}
+
+\newpage
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Método Pivotal:} Mais direto que inversão de testes quando conhecemos a família de distribuições.
+    
+    \item \textbf{Família Escala:} A Exponencial é família escala, logo $X/\theta$ tem distribuição livre de $\theta$.
+    
+    \item \textbf{Valores Numéricos Comuns:}
+    \begin{itemize}
+        \item Para $\alpha = 0.05$: 
+        \begin{align*}
+        a &= -\log(0.975) \approx 0.0253 \\
+        b &= -\log(0.025) \approx 3.689
+        \end{align*}
+        \item Para $\alpha = 0.01$:
+        \begin{align*}
+        a &= -\log(0.995) \approx 0.00501 \\
+        b &= -\log(0.005) \approx 5.298
+        \end{align*}
+    \end{itemize}
+    
+    \item \textbf{Exemplo Numérico:} Suponha $\alpha = 0.05$ e observamos $X = 5$.
+    \[
+    IC_{0.95}(\theta) = \left( \frac{5}{3.689}, \frac{5}{0.0253} \right) \approx (1.36, 197.6)
+    \]
+    
+    \item \textbf{Assimetria:} O intervalo é assimétrico em relação a $X$ devido à natureza da distribuição Exponencial.
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC Bilateral para Exponencial (método pivotal):}
+
+\textbf{Pivô:}
+\begin{equation*}
+U = \frac{X}{\theta} \sim \text{Exp}(1)
+\end{equation*}
+
+\textbf{IC Bilateral:}
+\begin{equation*}
+IC_{1-\alpha}(\theta) = \left( \frac{X}{-\log(\alpha/2)}, \; \frac{X}{-\log(1-\alpha/2)} \right)
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Baseado em distribuição livre de parâmetros
+    \item Intervalo assimétrico
+    \item Para 1 observação apenas
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.5: IC para Uniforme usando Método Pivotal}
+% ================================================================
+
+\begin{questaobox}{Questão 5.5 (Questão 55 das Notas)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim U(0, \theta)$ para $\theta > 0$ desconhecido.
+
+Encontre o estimador intervalar bilateral para $\theta$ com confiança de $1-\alpha$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Estatística Suficiente}
+
+A estatística $T(X) = X_{(n)} = \max\{X_1, \ldots, X_n\}$ é suficiente mínima para $\theta$.
+
+Para uma amostra de $U(0, \theta)$, a densidade da estatística de ordem máxima é:
+\[
+f_T(t; \theta) = \frac{n}{\theta^n} t^{n-1} \mathbb{I}_{(0,\theta)}(t)
+\]
+
+\textbf{Derivação:} Como $F_X(x) = x/\theta$ para $x \in (0, \theta)$:
+\begin{align}
+F_T(t) &= [F_X(t)]^n = \left(\frac{t}{\theta}\right)^n \\
+f_T(t) &= \frac{d}{dt}F_T(t) = \frac{n}{\theta^n}t^{n-1}
+\end{align}
+
+\subsection*{Passo 2: Construir o Pivô}
+
+Considere $U = T/\theta$. Calculemos sua densidade:
+
+\begin{align}
+f_U(u) &= \frac{dF_T(u\theta)}{du} = \theta f_T(u\theta; \theta) \\
+&= \theta \cdot \frac{n}{\theta^n} (u \cdot \theta)^{n-1} \\
+&= \theta \cdot \frac{n}{\theta^n} \cdot u^{n-1} \cdot \theta^{n-1} \\
+&= n u^{n-1}, \quad \text{para } u \in (0,1)
+\end{align}
+
+\textbf{Conclusão:} $U = T/\theta \sim \text{Beta}(n, 1)$ é um pivô!
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Determinar os Quantis}
+
+Para um IC bilateral, precisamos de $a,b \in (0,1)$ com $a < b$ tais que:
+\begin{equation}
+P(U < a) = P(U > b) = \frac{\alpha}{2}
+\end{equation}
+
+Equivalentemente:
+\begin{equation}
+P(a < U < b) = 1 - \alpha
+\end{equation}
+
+\textbf{Cálculo de $a$:}
+\begin{align}
+P(U < a) &= \int_{0}^{a} n \cdot u^{n-1} \, du = \left[ u^n \right]_{0}^{a} = a^n \\
+a^n &= \frac{\alpha}{2} \\
+a &= \left( \frac{\alpha}{2} \right)^{1/n}
+\end{align}
+
+\textbf{Cálculo de $b$:}
+\begin{align}
+P(U > b) &= \int_{b}^{1} n \cdot u^{n-1} \, du = \left[ u^n \right]_{b}^{1} = 1 - b^n \\
+1 - b^n &= \frac{\alpha}{2} \\
+b^n &= 1 - \frac{\alpha}{2} \\
+b &= \left( 1 - \frac{\alpha}{2} \right)^{1/n}
+\end{align}
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 4: Inversão do Pivô}
+
+Temos:
+\[
+P\left(a < \frac{T}{\theta} < b\right) = 1 - \alpha
+\]
+
+Invertendo (note que $T, \theta > 0$):
+\[
+P\left(\frac{1}{b} < \frac{\theta}{T} < \frac{1}{a}\right) = 1 - \alpha
+\]
+
+Multiplicando por $T$:
+\[
+P\left(\frac{T}{b} < \theta < \frac{T}{a}\right) = 1 - \alpha
+\]
+
+Ou seja:
+\[
+P\left(\theta \in \left(\frac{T}{b}, \frac{T}{a}\right)\right) = 1 - \alpha
+\end{equation}
+
+\subsection*{Passo 5: Intervalo de Confiança Final}
+
+Como $T = X_{(n)} = X_{n:n}$ (notação de estatística de ordem):
+
+\textbf{Intervalo de Confiança Bilateral:}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\theta) = \left( \frac{X_{(n)}}{\left(1 - \frac{\alpha}{2}\right)^{1/n}}, \; \frac{X_{(n)}}{\left(\frac{\alpha}{2}\right)^{1/n}} \right)}
+\end{equation}
+
+ou, usando a notação $X_{n:n}$:
+\begin{equation}
+IC_{1-\alpha}(\theta) = \left(b^{-1} X_{n:n}, \; a^{-1} X_{n:n}\right)
+\end{equation}
+
+onde $a = (\alpha/2)^{1/n}$ e $b = (1-\alpha/2)^{1/n}$.
+\end{solucaobox}
+
+\newpage
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Estatística Suficiente:} $X_{(n)}$ é suficiente mínima para $\theta$ na Uniforme.
+    
+    \item \textbf{Distribuição Beta:} O pivô tem distribuição Beta$(n,1)$, que concentra massa perto de 1.
+    
+    \item \textbf{Comportamento Assintótico:} Quando $n \to \infty$:
+    \begin{itemize}
+        \item $a = (\alpha/2)^{1/n} \to 1$
+        \item $b = (1-\alpha/2)^{1/n} \to 1$
+        \item O intervalo se concentra em torno de $X_{(n)}$
+    \end{itemize}
+    
+    \item \textbf{Valores Numéricos:} Para $\alpha = 0.05$ e $n = 10$:
+    \begin{align*}
+    a &= (0.025)^{0.1} \approx 0.635 \\
+    b &= (0.975)^{0.1} \approx 0.997
+    \end{align*}
+    Se $X_{(n)} = 8$:
+    \[
+    IC_{0.95}(\theta) = \left( \frac{8}{0.997}, \frac{8}{0.635} \right) \approx (8.02, 12.60)
+    \]
+    
+    \item \textbf{Intuição:} Como $X_{(n)} \leq \theta$ sempre, o limite inferior do IC é próximo de $X_{(n)}$, e o superior é maior para compensar a incerteza.
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC Bilateral para Uniforme(0,$\theta$):}
+
+\textbf{Pivô:}
+\begin{equation*}
+U = \frac{X_{(n)}}{\theta} \sim \text{Beta}(n, 1)
+\end{equation*}
+
+\textbf{IC Bilateral:}
+\begin{equation*}
+IC_{1-\alpha}(\theta) = \left( \frac{X_{(n)}}{(1-\alpha/2)^{1/n}}, \; \frac{X_{(n)}}{(\alpha/2)^{1/n}} \right)
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Baseado na estatística de ordem máxima
+    \item Usa distribuição Beta
+    \item Assimétrico: limite inferior próximo de $X_{(n)}$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.6: IC Bilateral para Normal (Variância Conhecida)}
+% ================================================================
+
+\begin{questaobox}{Questão 5.6 (Questão 56 das Notas)}
+Sejam $X_1, \ldots, X_n$ uma amostra de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ desconhecido e $\sigma^2 > 0$ conhecido. 
+
+Encontre o IC bilateral com $1 - \alpha$ de confiança para $\mu$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Estatística Suficiente}
+
+De discussões anteriores (Capítulo 3), $T = \bar{X}_n$ é uma estatística suficiente mínima para $\mu$.
+
+A distribuição de $T$ é:
+\[
+\bar{X}_n \sim N\left(\mu, \frac{\sigma^2}{n}\right)
+\]
+
+\subsection*{Passo 2: Identificar a Família}
+
+Os $X_i$'s (e consequentemente $\bar{X}_n$) pertencem a uma \textbf{família locação} parametrizada por $\mu$.
+
+\subsection*{Passo 3: Construir o Pivô}
+
+Padronizando $\bar{X}_n$:
+\begin{equation}
+U = \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \sim N(0,1)
+\end{equation}
+
+Esta é uma variável aleatória cuja distribuição \textbf{não depende} de $\mu$ (nem de $\sigma$, que é conhecido).
+
+Portanto, $U$ é um \textbf{pivô}.
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 4: Determinar os Quantis}
+
+Para um IC bilateral com confiança $1-\alpha$, usamos o quantil $z_{\alpha/2}$ da Normal padrão tal que:
+\begin{equation}
+P(Z > z_{\alpha/2}) = \frac{\alpha}{2}
+\end{equation}
+
+Por simetria da Normal:
+\begin{equation}
+P\left(-z_{\alpha/2} < U < z_{\alpha/2}\right) = 1 - \alpha
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-4,0) -- (4,0);
+\draw[thick] plot[domain=-3:3,samples=100] (\x,{1.5*exp(-\x*\x/2)});
+\fill[gray!30] (-3,0) -- plot[domain=-3:-2,samples=100] (\x,{1.5*exp(-\x*\x/2)}) -- (-2,0) -- cycle;
+\fill[gray!30] (2,0) -- plot[domain=2:3,samples=100] (\x,{1.5*exp(-\x*\x/2)}) -- (3,0) -- cycle;
+\fill[cyan!20] (-2,0) -- plot[domain=-2:2,samples=100] (\x,{1.5*exp(-\x*\x/2)}) -- (2,0) -- cycle;
+\node at (-2.5,-0.4) {$-z_{\alpha/2}$};
+\node at (2.5,-0.4) {$z_{\alpha/2}$};
+\node at (0,0.8) {$1-\alpha$};
+\node at (-2.5,0.3) {$\alpha/2$};
+\node at (2.5,0.3) {$\alpha/2$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Passo 5: Inversão do Pivô}
+
+Substituindo o pivô:
+\[
+P\left(-z_{\alpha/2} < \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} < z_{\alpha/2}\right) = 1 - \alpha
+\]
+
+Multiplicando por $\sigma/\sqrt{n}$:
+\[
+P\left(-z_{\alpha/2}\frac{\sigma}{\sqrt{n}} < \bar{X}_n - \mu < z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha
+\]
+
+Isolando $\mu$ (multiplicando por $-1$ e adicionando $\bar{X}_n$):
+\[
+P\left(\bar{X}_n - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} < \mu < \bar{X}_n + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha
+\]
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 6: Intervalo de Confiança Final}
+
+\textbf{Intervalo de Confiança Bilateral:}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\mu) = \left( \bar{X}_n - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \; \bar{X}_n + z_{\alpha/2} \frac{\sigma}{\sqrt{n}} \right)}
+\end{equation}
+
+Ou, de forma mais compacta:
+\begin{equation}
+IC_{1-\alpha}(\mu) = \bar{X}_n \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}
+\end{equation}
+
+\textbf{Valores Comuns de $z_{\alpha/2}$:}
+\begin{itemize}
+    \item Para $\alpha = 0.05$ (95\% de confiança): $z_{0.025} = 1.96$
+    \item Para $\alpha = 0.01$ (99\% de confiança): $z_{0.005} = 2.576$
+    \item Para $\alpha = 0.10$ (90\% de confiança): $z_{0.05} = 1.645$
+\end{itemize}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Este é o IC Z Clássico:} Amplamente usado quando $\sigma^2$ é conhecido.
+    
+    \item \textbf{Margem de Erro:} A quantidade $ME = z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$ é chamada margem de erro.
+    
+    \item \textbf{Tamanho Amostral:} Para obter margem de erro $E$ desejada:
+    \[
+    n = \left(\frac{z_{\alpha/2} \sigma}{E}\right)^2
+    \]
+    
+    \item \textbf{Interpretação Correta:} ``Em 95\% das amostras, o intervalo construído conterá o verdadeiro valor de $\mu$'' (não ``$\mu$ tem 95\% de chance de estar no intervalo'').
+    
+    \item \textbf{Exemplo Numérico:} Suponha $n = 25$, $\sigma = 5$, $\bar{x} = 103$, $\alpha = 0.05$.
+    \begin{align*}
+    ME &= 1.96 \times \frac{5}{\sqrt{25}} = 1.96 \times 1 = 1.96 \\
+    IC_{0.95}(\mu) &= (103 - 1.96, \; 103 + 1.96) = (101.04, \; 104.96)
+    \end{align*}
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC Bilateral para $\mu$ (variância conhecida):}
+
+\textbf{Pivô:}
+\begin{equation*}
+Z = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \sim N(0,1)
+\end{equation*}
+
+\textbf{IC Bilateral:}
+\begin{equation*}
+IC_{1-\alpha}(\mu) = \bar{X}_n \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Simétrico em torno de $\bar{X}_n$
+    \item Comprimento: $2 z_{\alpha/2} \sigma/\sqrt{n}$
+    \item Diminui com $\sqrt{n}$
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.7: IC Bilateral para Normal (Variância Desconhecida)}
+% ================================================================
+
+\begin{questaobox}{Questão 5.7}
+Sejam $X_1, \ldots, X_n$ i.i.d. de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ e $\sigma^2 > 0$ ambos desconhecidos. 
+
+Encontre estimador bilateral intervalar com $1-\alpha$ de confiança para $\mu$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Estatística Suficiente}
+
+De discussões anteriores, $(\bar{X}_n, S_n)$ é uma estatística suficiente mínima para $(\mu, \sigma)$, onde:
+\[
+S_n^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2
+\]
+
+Os $X_i$'s pertencem a uma \textbf{família de locação-escala}.
+
+\subsection*{Passo 2: Construir o Pivô}
+
+Como $\sigma$ é desconhecido, não podemos usar $\frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}}$. 
+
+Em vez disso, substituímos $\sigma$ por seu estimador $S_n$:
+\begin{equation}
+U = \sqrt{n} \frac{\bar{X}_n - \mu}{S_n} \sim t_{n-1}
+\end{equation}
+
+Esta estatística segue a \textbf{distribuição t de Student} com $n-1$ graus de liberdade, que não depende de $\mu$ nem de $\sigma^2$.
+
+Portanto, $U$ é um \textbf{pivô}.
+
+\textbf{Justificativa:} Pelo Teorema de Cochran,
+\[
+\frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1} \quad \text{e é independente de } \bar{X}_n.
+\]
+
+Logo:
+\[
+U = \frac{\sqrt{n}(\bar{X}_n - \mu)/\sigma}{\sqrt{(n-1)S_n^2/[(n-1)\sigma^2]}} = \frac{Z}{\sqrt{\chi^2_{n-1}/(n-1)}} \sim t_{n-1}
+\]
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Determinar os Quantis}
+
+Para $t_{n-1, \alpha/2} > 0$ tal que:
+\begin{equation}
+P\left( |T| > t_{n-1, \alpha/2} \right) = \alpha \quad \text{onde } T \sim t_{n-1}
+\end{equation}
+
+temos (por simetria da distribuição t):
+\begin{equation}
+P\left\{ -t_{n-1,\alpha/2} < U < t_{n-1,\alpha/2} \right\} = 1 - \alpha
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-4,0) -- (4,0);
+\draw[domain=-4:4,smooth,variable=\x] plot ({\x},{1.5*exp(-\x*\x/2)});
+\draw (-2.5,0) -- (-2.5,0.3);
+\draw (2.5,0) -- (2.5,0.3);
+\fill[cyan!20] (-2.5,0) -- plot[domain=-2.5:2.5,samples=100] ({\x},{1.5*exp(-\x*\x/2)}) -- (2.5,0) -- cycle;
+\fill[gray!30] (-4,0) -- plot[domain=-4:-2.5,samples=100] ({\x},{1.5*exp(-\x*\x/2)}) -- (-2.5,0) -- cycle;
+\fill[gray!30] (2.5,0) -- plot[domain=2.5:4,samples=100] ({\x},{1.5*exp(-\x*\x/2)}) -- (4,0) -- cycle;
+\node at (0,1.2) {$1-\alpha$};
+\node at (-3.2,0.2) {$\alpha/2$};
+\node at (3.2,0.2) {$\alpha/2$};
+\node at (-2.5,-0.4) {$-t_{n-1,\alpha/2}$};
+\node at (2.5,-0.4) {$t_{n-1,\alpha/2}$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Passo 4: Inversão do Pivô}
+
+Substituindo a definição de $U$:
+\[
+P\left\{ -t_{n-1,\alpha/2} < \sqrt{n} \frac{\bar{X}_n - \mu}{S_n} < t_{n-1,\alpha/2} \right\} = 1 - \alpha
+\]
+
+Multiplicando por $S_n/\sqrt{n}$:
+\[
+P\left\{ -t_{n-1,\alpha/2}\frac{S_n}{\sqrt{n}} < \bar{X}_n - \mu < t_{n-1,\alpha/2}\frac{S_n}{\sqrt{n}} \right\} = 1 - \alpha
+\]
+
+Isolando $\mu$:
+\[
+P\left\{ \bar{X}_n - t_{n-1,\alpha/2}\frac{S_n}{\sqrt{n}} < \mu < \bar{X}_n + t_{n-1,\alpha/2}\frac{S_n}{\sqrt{n}} \right\} = 1 - \alpha
+\]
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 5: Intervalo de Confiança Final}
+
+\textbf{Intervalo de Confiança Bilateral (Intervalo t):}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\mu) = \bar{X}_n \pm t_{n-1,\alpha/2} \frac{S_n}{\sqrt{n}}}
+\end{equation}
+
+Ou explicitamente:
+\begin{equation}
+IC_{1-\alpha}(\mu) = \left[ \bar{X}_n - t_{n-1,\alpha/2} \frac{S_n}{\sqrt{n}}, \; \bar{X}_n + t_{n-1,\alpha/2} \frac{S_n}{\sqrt{n}} \right]
+\end{equation}
+
+Este é o famoso \textbf{intervalo t de Student}, utilizado quando a variância populacional é desconhecida.
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Diferença Fundamental em relação a Q5.6:}
+    \begin{itemize}
+        \item \textbf{Q5.6:} $\sigma^2$ conhecido $\Rightarrow$ usa $N(0,1)$ $\Rightarrow$ quantis $z_{\alpha/2}$
+        \item \textbf{Q5.7:} $\sigma^2$ desconhecido $\Rightarrow$ usa $t_{n-1}$ $\Rightarrow$ quantis $t_{n-1,\alpha/2}$
+    \end{itemize}
+    
+    \item \textbf{Cauda Mais Pesada:} A distribuição $t$ tem caudas mais pesadas que a Normal, refletindo a incerteza adicional de estimar $\sigma$.
+    
+    \item \textbf{Convergência Assintótica:} Quando $n \to \infty$, $t_{n-1} \to N(0,1)$, logo os intervalos t e Z convergem.
+    
+    \item \textbf{Valores de $t_{n-1,\alpha/2}$ para $\alpha=0.05$:}
+    \begin{itemize}
+        \item $n=10$: $t_{9,0.025} = 2.262$ (compare com $z_{0.025} = 1.96$)
+        \item $n=30$: $t_{29,0.025} = 2.045$
+        \item $n=100$: $t_{99,0.025} = 1.984$
+        \item $n \to \infty$: $t_{\infty,0.025} = 1.96 = z_{0.025}$
+    \end{itemize}
+    
+    \item \textbf{Exemplo Numérico:} Suponha $n=16$, $\bar{x}=50$, $s=10$, $\alpha=0.05$.
+    \begin{align*}
+    t_{15,0.025} &= 2.131 \\
+    ME &= 2.131 \times \frac{10}{\sqrt{16}} = 2.131 \times 2.5 = 5.33 \\
+    IC_{0.95}(\mu) &= (50 - 5.33, \; 50 + 5.33) = (44.67, \; 55.33)
+    \end{align*}
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC Bilateral para $\mu$ (variância desconhecida):}
+
+\textbf{Pivô:}
+\begin{equation*}
+T = \sqrt{n} \frac{\bar{X}_n - \mu}{S_n} \sim t_{n-1}
+\end{equation*}
+
+\textbf{IC Bilateral (Intervalo t):}
+\begin{equation*}
+IC_{1-\alpha}(\mu) = \bar{X}_n \pm t_{n-1,\alpha/2} \frac{S_n}{\sqrt{n}}
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Usa distribuição t de Student
+    \item Mais largo que IC Z (reflete incerteza adicional)
+    \item Converge para IC Z quando $n \to \infty$
+    \item Mais usado na prática (raramente $\sigma$ é conhecido)
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Exercício: IC para a Variância}
+% ================================================================
+
+\begin{questaobox}{Exercício Proposto}
+Sejam $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu, \sigma^2)$ com $\mu \in \mathbb{R}$ e $\sigma^2 > 0$ ambos desconhecidos. 
+
+Mostre que:
+\begin{equation}
+IC_{1-\alpha}(\sigma^2) = \left[ \frac{(n-1)S_n^2}{\chi^2_{n-1;\alpha/2}}, \; \frac{(n-1)S_n^2}{\chi^2_{n-1;1-\alpha/2}} \right]
+\end{equation}
+
+é o IC bilateral para $\sigma^2$ com confiança de $1 - \alpha$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Identificar o Pivô}
+
+Pelo Teorema de Cochran, sabemos que:
+\begin{equation}
+\frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1}
+\end{equation}
+
+Esta estatística:
+\begin{itemize}
+    \item Depende de $S_n^2$ (dados) e $\sigma^2$ (parâmetro)
+    \item Tem distribuição qui-quadrado com $n-1$ graus de liberdade
+    \item A distribuição \textbf{não depende} de $\mu$ nem de $\sigma^2$
+\end{itemize}
+
+Portanto, $Q = \frac{(n-1)S_n^2}{\sigma^2}$ é um \textbf{pivô}.
+
+\subsection*{Passo 2: Determinar os Quantis}
+
+Seja $\chi^2_{n-1;\alpha/2}$ o quantil superior (cauda direita):
+\[
+P\left(\chi^2_{n-1} > \chi^2_{n-1;\alpha/2}\right) = \frac{\alpha}{2}
+\]
+
+Seja $\chi^2_{n-1;1-\alpha/2}$ o quantil inferior (cauda esquerda):
+\[
+P\left(\chi^2_{n-1} < \chi^2_{n-1;1-\alpha/2}\right) = \frac{\alpha}{2}
+\]
+
+Logo:
+\[
+P\left(\chi^2_{n-1;1-\alpha/2} < \chi^2_{n-1} < \chi^2_{n-1;\alpha/2}\right) = 1 - \alpha
+\]
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Inversão do Pivô}
+
+Substituindo o pivô $Q = \frac{(n-1)S_n^2}{\sigma^2}$:
+\[
+P\left(\chi^2_{n-1;1-\alpha/2} < \frac{(n-1)S_n^2}{\sigma^2} < \chi^2_{n-1;\alpha/2}\right) = 1 - \alpha
+\]
+
+Invertendo as desigualdades (note que dividir por $\sigma^2$ inverte):
+\[
+P\left(\frac{1}{\chi^2_{n-1;\alpha/2}} < \frac{\sigma^2}{(n-1)S_n^2} < \frac{1}{\chi^2_{n-1;1-\alpha/2}}\right) = 1 - \alpha
+\]
+
+Multiplicando por $(n-1)S_n^2$:
+\[
+P\left(\frac{(n-1)S_n^2}{\chi^2_{n-1;\alpha/2}} < \sigma^2 < \frac{(n-1)S_n^2}{\chi^2_{n-1;1-\alpha/2}}\right) = 1 - \alpha
+\]
+
+\subsection*{Passo 4: Intervalo de Confiança Final}
+
+\textbf{Intervalo de Confiança Bilateral para $\sigma^2$:}
+\begin{equation}
+\boxed{IC_{1-\alpha}(\sigma^2) = \left[ \frac{(n-1)S_n^2}{\chi^2_{n-1;\alpha/2}}, \; \frac{(n-1)S_n^2}{\chi^2_{n-1;1-\alpha/2}} \right]}
+\end{equation}
+
+\textbf{Para o desvio padrão $\sigma$:}
+\begin{equation}
+IC_{1-\alpha}(\sigma) = \left[ \sqrt{\frac{(n-1)S_n^2}{\chi^2_{n-1;\alpha/2}}}, \; \sqrt{\frac{(n-1)S_n^2}{\chi^2_{n-1;1-\alpha/2}}} \right]
+\end{equation}
+\end{solucaobox}
+
+\newpage
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Assimetria:} Ao contrário do IC para $\mu$, este intervalo é \textbf{assimétrico} devido à assimetria da distribuição qui-quadrado.
+    
+    \item \textbf{Atenção aos Quantis:} Note que:
+    \begin{itemize}
+        \item \textbf{Limite inferior}: usa $\chi^2_{n-1;\alpha/2}$ (maior quantil) no denominador
+        \item \textbf{Limite superior}: usa $\chi^2_{n-1;1-\alpha/2}$ (menor quantil) no denominador
+    \end{itemize}
+    Esta inversão é crucial!
+    
+    \item \textbf{Independência:} $\bar{X}_n$ e $S_n^2$ são independentes (Teorema de Cochran), permitindo construir IC's simultâneos.
+    
+    \item \textbf{Sensibilidade à Não Normalidade:} Este IC é mais sensível a desvios da normalidade que o IC para $\mu$.
+    
+    \item \textbf{Exemplo Numérico:} Suponha $n=20$, $s^2=16$, $\alpha=0.05$.
+    \begin{align*}
+    \chi^2_{19;0.025} &= 32.85 \quad \text{(cauda superior)} \\
+    \chi^2_{19;0.975} &= 8.91 \quad \text{(cauda inferior)} \\
+    IC_{0.95}(\sigma^2) &= \left[\frac{19 \times 16}{32.85}, \frac{19 \times 16}{8.91}\right] \\
+    &= [9.25, 34.12]
+    \end{align*}
+    Para $\sigma$: $IC_{0.95}(\sigma) = [\sqrt{9.25}, \sqrt{34.12}] \approx [3.04, 5.84]$
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC Bilateral para $\sigma^2$ (média desconhecida):}
+
+\textbf{Pivô:}
+\begin{equation*}
+Q = \frac{(n-1)S_n^2}{\sigma^2} \sim \chi^2_{n-1}
+\end{equation*}
+
+\textbf{IC Bilateral:}
+\begin{equation*}
+IC_{1-\alpha}(\sigma^2) = \left[ \frac{(n-1)S_n^2}{\chi^2_{n-1;\alpha/2}}, \; \frac{(n-1)S_n^2}{\chi^2_{n-1;1-\alpha/2}} \right]
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Assimétrico (distribuição qui-quadrado)
+    \item Cuidado com a inversão dos quantis!
+    \item Baseado no Teorema de Cochran
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.10: IC para Diferença de Médias (Duas Amostras)}
+% ================================================================
+
+\begin{questaobox}{Questão 5.10}
+Sejam $X_{i1}, \ldots, X_{in_i}$ para $i = 1, 2$ duas amostras aleatórias independentes de $X_i \sim N(\mu_i, \sigma^2)$, $X_1 \perp X_2$. 
+
+Vamos assumir que $\theta = (\mu_1, \mu_2, \sigma) \in \mathbb{R} \times \mathbb{R} \times \mathbb{R}^+$ é desconhecido. 
+
+Encontre o intervalo bilateral com confiança $1 - \alpha$ para $K(\theta) = \mu_1 - \mu_2$.
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Estatísticas Suficientes}
+
+Note que, pela independência de $X_1$ e $X_2$:
+\begin{equation}
+f_{X_1, X_2}(x_1, x_2) \stackrel{X_1 \perp X_2}{=} f_{X_1}(x_1) f_{X_2}(x_2)
+\end{equation}
+
+Pelo teorema (2.2), temos que
+\begin{equation}
+T_1 = \left[ \sum_{i=1}^{n_1} X_{1i}, \ \sum_{i=1}^{n_2} X_{2i}, \ \sum_{i=1}^{n_1} X_{1i}^2 + \sum_{i=1}^{n_2} X_{2i}^2 \right]
+\end{equation}
+
+é conjuntamente suficiente para $\theta = (\mu_1, \mu_2, \sigma)^T$.
+
+Pelo Teorema (2.4),
+\begin{equation}
+T_3 = \left[ \frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}, \ \frac{1}{n_2} \sum_{i=1}^{n_2} X_{2i}, \ \frac{1}{n_1 + n_2 - 2} \left[ \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2 + \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2 \right] \right]
+\end{equation}
+
+é também suficiente para $\theta$. O termo $\hat{S}_p^2$ é chamado de variância amostral conjunta e pode ser descrito como:
+
+Para 
+\[
+S_1^2 = (n_1 - 1)^{-1} \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2
+\]
+e 
+\[
+S_2^2 = (n_2 - 1)^{-1} \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2
+\]
+
+\begin{equation}
+S_p^2 = (n_1 + n_2 - 2)^{-1} \left[ (n_1 - 1) S_1^2 + (n_2 - 1) S_2^2 \right]
+\end{equation}
+
+\subsection*{Passo 2: Construção do Pivô}
+
+Note que como $(n_1 - 1) \cdot \frac{S_1^2}{\sigma^2} \sim \chi^2_{n_1 - 1}$ e $(n_2 - 1) \cdot \frac{S_2^2}{\sigma^2} \sim \chi^2_{n_2 - 1}$, então
+
+\begin{equation}
+(n_1 + n_2 - 2) \cdot \frac{S_p^2}{\sigma^2} \sim \chi^2_{n_1 + n_2 - 2}
+\end{equation}
+
+Daí note que
+
+\begin{equation}
+U = \frac{\overline{X}_1 - \overline{X}_2 - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} 
+= \frac{\overline{X}_1 - \overline{X}_2 - (\mu_1 - \mu_2)}{\sigma \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \cdot \sqrt{\frac{n_1 + n_2 - 2}{n_1 + n_2 - 2} \cdot \frac{S_p^2}{\sigma^2}} \sim t_{n_1 + n_2 - 2}
+\end{equation}
+
+\textbf{Justificativa:} O numerador $\frac{\overline{X}_1 - \overline{X}_2 - (\mu_1 - \mu_2)}{\sigma \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim N(0,1)$ porque $\overline{X}_1 - \overline{X}_2 \sim N(\mu_1 - \mu_2, \sigma^2(\frac{1}{n_1} + \frac{1}{n_2}))$. O denominador é a raiz quadrada de uma qui-quadrado dividida por seus graus de liberdade, resultando em uma distribuição $t$.
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Determinar os Quantis}
+
+Para $\nu = n_1 + n_2 - 2$ e $t_{\nu, \alpha/2}$ tal que
+
+\begin{equation}
+P(U > t_{\nu, \alpha/2}) = \frac{\alpha}{2}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[->] (-4,0) -- (4,0);
+\draw[thick, domain=-3.5:3.5, smooth, variable=\x] plot ({\x}, {1.5*exp(-\x*\x/2)});
+\draw[fill=gray!30] (2,0) -- plot[domain=2:3.5] ({\x}, {1.5*exp(-\x*\x/2)}) -- (3.5,0) -- cycle;
+\draw[fill=gray!30] (-2,0) -- plot[domain=-3.5:-2] ({\x}, {1.5*exp(-\x*\x/2)}) -- (-3.5,0) -- cycle;
+\node at (2.7,0.3) {$\alpha/2$};
+\node at (-2.7,0.3) {$\alpha/2$};
+\node at (2,-0.3) {$t_{\nu, \alpha/2}$};
+\node at (-2,-0.3) {$-t_{\nu, \alpha/2}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{equation}
+P\{-t_{\nu, \alpha/2} < U < t_{\nu, \alpha/2}\} = 1 - \alpha
+\end{equation}
+
+\subsection*{Passo 4: Inversão do Pivô}
+
+Substituindo a definição de $U$:
+\begin{equation}
+P\left\{-t_{\nu, \alpha/2} < \frac{\overline{X}_1 - \overline{X}_2 - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} < t_{\nu, \alpha/2}\right\} = 1 - \alpha
+\end{equation}
+
+Isolando $\mu_1 - \mu_2$:
+\begin{equation}
+\therefore P\left\{\overline{X}_1 - \overline{X}_2 - t_{\nu, \alpha/2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} < \mu_1 - \mu_2 < \overline{X}_1 - \overline{X}_2 + t_{\nu, \alpha/2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}\right\} = 1 - \alpha
+\end{equation}
+
+\subsection*{Passo 5: Intervalo de Confiança Final}
+
+Isto é
+
+\begin{equation}
+\boxed{IC_{1-\alpha}(\mu_1 - \mu_2) = \left[ \overline{X}_1 - \overline{X}_2 \pm t_{\nu, \alpha/2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \right]}
+\end{equation}
+
+onde $\nu = n_1 + n_2 - 2$ e $S_p^2$ é a variância amostral conjunta (pooled variance).
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Variância Conjunta:} Como assumimos que $\sigma_1^2 = \sigma_2^2 = \sigma^2$, combinamos as informações de ambas as amostras para estimar a variância comum através de $S_p^2$.
+    
+    \item \textbf{Graus de Liberdade:} São $n_1 + n_2 - 2$ porque estimamos duas médias ($\mu_1$ e $\mu_2$), perdendo 2 graus de liberdade.
+    
+    \item \textbf{Distribuição t:} A estatística segue distribuição $t$ de Student, não Normal, porque a variância comum é estimada.
+    
+    \item \textbf{Independência:} As amostras devem ser independentes entre si.
+    
+    \item \textbf{Exemplo Numérico:} Suponha $n_1 = 15$, $n_2 = 20$, $\bar{x}_1 = 50$, $\bar{x}_2 = 45$, $s_1^2 = 16$, $s_2^2 = 20$, $\alpha = 0.05$.
+    \begin{align*}
+    s_p^2 &= \frac{(15-1) \times 16 + (20-1) \times 20}{15 + 20 - 2} = \frac{14 \times 16 + 19 \times 20}{33} = \frac{604}{33} \approx 18.33 \\
+    s_p &\approx 4.28 \\
+    \nu &= 33 \\
+    t_{33, 0.025} &\approx 2.035 \\
+    IC_{0.95}(\mu_1 - \mu_2) &= (50 - 45) \pm 2.035 \times 4.28 \times \sqrt{\frac{1}{15} + \frac{1}{20}} \\
+    &= 5 \pm 2.035 \times 4.28 \times 0.3416 \\
+    &= 5 \pm 2.98 \\
+    &= (2.02, 7.98)
+    \end{align*}
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC para Diferença de Médias (variâncias iguais):}
+
+\textbf{Pivô:}
+\begin{equation*}
+T = \frac{\overline{X}_1 - \overline{X}_2 - (\mu_1 - \mu_2)}{S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{n_1 + n_2 - 2}
+\end{equation*}
+
+\textbf{IC Bilateral:}
+\begin{equation*}
+IC_{1-\alpha}(\mu_1 - \mu_2) = \left[ \overline{X}_1 - \overline{X}_2 \pm t_{\nu, \alpha/2} \cdot S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \right]
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Requer suposição de variâncias iguais
+    \item Usa variância amostral conjunta $S_p^2$
+    \item Distribuição t com $n_1 + n_2 - 2$ graus de liberdade
+    \item Apropriado para comparação de dois grupos
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section{Questão 5.11: IC para Razão de Variâncias (Duas Amostras)}
+% ================================================================
+
+\begin{questaobox}{Questão 5.11}
+Sejam $X_{i1}, \ldots, X_{in_i}$ uma amostra de $X_i \sim N(\mu_i, \sigma_i^2)$ para $n_i \geq 2$ e $i = 1, 2$. Assuma que $X_1 \perp X_2$ e 
+\[
+\theta = (\mu_1, \mu_2, \sigma_1, \sigma_2) \in \mathbb{R} \times \mathbb{R} \times \mathbb{R}^+ \times \mathbb{R}^+
+\]
+é desconhecido.
+
+Encontre o intervalo bilateral com confiança $1 - \alpha$ para 
+\[
+K(\theta) = \frac{\sigma_1^2}{\sigma_2^2}.
+\]
+\end{questaobox}
+
+\begin{solucaobox}
+\subsection*{Passo 1: Estatísticas Suficientes}
+
+Pode-se mostrar (fica como exercício) que
+\begin{equation}
+\bar{X}_1 = n_1^{-1} \sum_{i=1}^{n_1} X_{1i}, \quad \bar{X}_2 = n_2^{-1} \sum_{i=1}^{n_2} X_{2i}, \quad S_1^2 = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1} (X_{1i} - \bar{X}_1)^2
+\end{equation}
+e
+\begin{equation}
+S_2^2 = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2} (X_{2i} - \bar{X}_2)^2
+\end{equation}
+são suficientes para $\mu_1, \mu_2, \sigma_1^2, \sigma_2^2$.
+
+\subsection*{Passo 2: Construção do Pivô}
+
+Note que (por definição da distribuição $F$ - cenário i.c.):
+\begin{equation}
+U = \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F_{n_1 - 1, \, n_2 - 1}.
+\end{equation}
+
+Uma vez que 
+\begin{equation}
+(n_1 - 1) \frac{S_1^2}{\sigma_1^2} \sim \chi^2_{n_1 - 1} \quad \text{e} \quad (n_2 - 1) \frac{S_2^2}{\sigma_2^2} \sim \chi^2_{n_2 - 1}
+\end{equation}
+são independentes.
+
+\textbf{Justificativa:} A razão entre duas variáveis qui-quadrado independentes, cada uma dividida por seus graus de liberdade, segue distribuição $F$. Como as variâncias amostrais são independentes (amostras independentes) e cada uma segue uma qui-quadrado quando padronizada, sua razão segue $F$.
+
+Logo $U$ é uma quantidade pivotal.
+\end{solucaobox}
+
+\newpage
+
+\begin{solucaobox}
+\subsection*{Passo 3: Determinar os Quantis}
+
+Sejam 
+\[
+F_1 = F_{n_1 - 1, n_2 - 1, 1 - \alpha/2} > 0 \quad \text{e} \quad F_2 = F_{n_1 - 1, n_2 - 1, \alpha/2}
+\]
+tais que
+
+\begin{equation}
+P(U < F_1) = \frac{\alpha}{2}
+\end{equation}
+
+\begin{equation}
+P(U > F_2) = \frac{\alpha}{2}
+\end{equation}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[->] (-0.5,0) -- (5,0) node[right] {};
+\draw[->] (0,-0.2) -- (0,2) node[above] {};
+\draw[domain=0.5:4.5,smooth,variable=\x] plot ({\x},{1.5*exp(-(\x-2.5)^2)});
+\draw[dashed] (1,0) -- (1,0.8) node[above] {$F_1$};
+\draw[dashed] (4,0) -- (4,0.8) node[above] {$F_2$};
+\node at (2.5,1.5) {$1 - \alpha$};
+\node at (0.7,0.4) {$\alpha/2$};
+\node at (4.3,0.4) {$\alpha/2$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Passo 4: Inversão do Pivô}
+
+Daí:
+\begin{equation}
+P_\theta \{ F_1 < U < F_2 \} = 1 - \alpha
+\end{equation}
+
+Substituindo $U = \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2}$:
+\begin{equation}
+P_\theta \left\{ F_1 < \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} < F_2 \right\} = 1 - \alpha
+\end{equation}
+
+Reescrevendo:
+\begin{equation}
+P_\theta \left\{ F_1 \frac{S_2^2}{S_1^2} < \frac{\sigma_2^2}{\sigma_1^2} < F_2 \frac{S_2^2}{S_1^2} \right\} = 1 - \alpha
+\end{equation}
+
+Invertendo para obter $\frac{\sigma_1^2}{\sigma_2^2}$:
+\begin{equation}
+P_\theta \left\{ F_2^{-1} \frac{S_1^2}{S_2^2} < \frac{\sigma_1^2}{\sigma_2^2} < F_1^{-1} \frac{S_1^2}{S_2^2} \right\} = 1 - \alpha
+\end{equation}
+
+\subsection*{Passo 5: Intervalo de Confiança Final}
+
+Usando a propriedade $F_{1-\alpha/2, \nu_1, \nu_2} = \frac{1}{F_{\alpha/2, \nu_2, \nu_1}}$:
+
+\begin{equation}
+\boxed{IC_{1 - \alpha} \left( \frac{\sigma_1^2}{\sigma_2^2} \right) = \left( F_{n_1 - 1, n_2 - 1, 1 - \alpha/2}^{-1} \frac{S_1^2}{S_2^2}, \; F_{n_1 - 1, n_2 - 1, \alpha/2}^{-1} \frac{S_1^2}{S_2^2} \right)}
+\end{equation}
+
+ou, usando a notação mais comum:
+\begin{equation}
+IC_{1 - \alpha} \left( \frac{\sigma_1^2}{\sigma_2^2} \right) = \left( \frac{S_1^2}{S_2^2} \cdot \frac{1}{F_{n_1 - 1, n_2 - 1, \alpha/2}}, \; \frac{S_1^2}{S_2^2} \cdot F_{n_2 - 1, n_1 - 1, \alpha/2} \right)
+\end{equation}
+\end{solucaobox}
+
+\begin{observacaobox}
+\subsection*{Pontos Importantes}
+
+\begin{enumerate}
+    \item \textbf{Distribuição F:} A distribuição $F$ não é simétrica, então os quantis não são simétricos.
+    
+    \item \textbf{Relação entre Quantis:} Há uma relação importante: $F_{1-\alpha/2, \nu_1, \nu_2} = \frac{1}{F_{\alpha/2, \nu_2, \nu_1}}$. Isso é usado na construção do intervalo.
+    
+    \item \textbf{Independência:} As amostras devem ser independentes para que as variâncias amostrais sejam independentes.
+    
+    \item \textbf{Graus de Liberdade:} São $(n_1 - 1, n_2 - 1)$ porque estimamos as médias $\mu_1$ e $\mu_2$.
+    
+    \item \textbf{Exemplo Numérico:} Suponha $n_1 = 10$, $n_2 = 15$, $s_1^2 = 25$, $s_2^2 = 16$, $\alpha = 0.05$.
+    \begin{align*}
+    F_{9, 14, 0.025} &\approx 3.21 \\
+    F_{14, 9, 0.025} &\approx 3.80 \\
+    \frac{s_1^2}{s_2^2} &= \frac{25}{16} = 1.5625 \\
+    IC_{0.95}\left(\frac{\sigma_1^2}{\sigma_2^2}\right) &= \left( \frac{1.5625}{3.21}, 1.5625 \times 3.80 \right) \\
+    &= (0.487, 5.938)
+    \end{align*}
+    
+    \item \textbf{Interpretação:} Se o IC contém 1, não há evidência de que as variâncias sejam diferentes.
+\end{enumerate}
+\end{observacaobox}
+
+\begin{resumobox}
+\textbf{IC para Razão de Variâncias:}
+
+\textbf{Pivô:}
+\begin{equation*}
+F = \frac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F_{n_1 - 1, n_2 - 1}
+\end{equation*}
+
+\textbf{IC Bilateral:}
+\begin{equation*}
+IC_{1 - \alpha} \left( \frac{\sigma_1^2}{\sigma_2^2} \right) = \left( \frac{S_1^2}{S_2^2} \cdot \frac{1}{F_{n_1 - 1, n_2 - 1, \alpha/2}}, \; \frac{S_1^2}{S_2^2} \cdot F_{n_2 - 1, n_1 - 1, \alpha/2} \right)
+\end{equation*}
+
+\textbf{Propriedades:}
+\begin{itemize}
+    \item Usa distribuição $F$ de Fisher
+    \item Intervalo assimétrico
+    \item Requer amostras independentes
+    \item Útil para verificar suposição de variâncias iguais
+\end{itemize}
+\end{resumobox}
+
+\newpage
+
+% ================================================================
+\section*{Conclusão}
+\addcontentsline{toc}{section}{Conclusão}
+% ================================================================
+
+Este documento apresentou soluções detalhadas e didáticas para todas as questões do Capítulo 5 sobre Intervalos de Confiança resolvidas em sala de aula.
+
+\subsection*{Síntese dos Tópicos Abordados}
+
+\begin{enumerate}
+    \item \textbf{Q5.1:} Comparação de intervalos - conceito de eficiência
+    
+    \item \textbf{Q5.2:} IC via inversão de teste (Normal, variância conhecida)
+    
+    \item \textbf{Q5.3:} IC via inversão de teste (Exponencial)
+    
+    \item \textbf{Q5.4:} IC via método pivotal (Exponencial)
+    
+    \item \textbf{Q5.5:} IC via método pivotal (Uniforme)
+    
+    \item \textbf{Q5.6:} IC bilateral Z (Normal, variância conhecida)
+    
+    \item \textbf{Q5.7:} IC bilateral t (Normal, variância desconhecida)
+    
+    \item \textbf{Exercício:} IC para variância (qui-quadrado)
+    
+    \item \textbf{Q5.10:} IC para diferença de médias (duas amostras, variâncias iguais)
+    
+    \item \textbf{Q5.11:} IC para razão de variâncias (duas amostras)
+\end{enumerate}
+
+\subsection*{Conexões Entre os Métodos}
+
+\begin{itemize}
+    \item Q5.2 e Q5.3 $\to$ Método de inversão de testes
+    \item Q5.4, Q5.5, Q5.6, Q5.7, Q5.10, Q5.11 $\to$ Método pivotal
+    \item Q5.6 vs Q5.7 $\to$ Impacto de $\sigma$ desconhecido
+    \item Q5.10 $\to$ Extensão para duas amostras (diferença de médias)
+    \item Q5.11 $\to$ Extensão para duas amostras (razão de variâncias)
+\end{itemize}
+
+\subsection*{Tabela Comparativa Rápida}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Questão} & \textbf{Distribuição} & \textbf{Método} & \textbf{Tipo IC} \\
+\hline
+Q5.2 & $N(\mu, \sigma^2)$ & Inversão & Unilateral inferior \\
+Q5.3 & Exp$(\theta)$ & Inversão & Unilateral inferior \\
+Q5.4 & Exp$(\theta)$ & Pivotal & Bilateral \\
+Q5.5 & $U(0,\theta)$ & Pivotal & Bilateral \\
+Q5.6 & $N(\mu, \sigma^2)$ & Pivotal & Bilateral \\
+Q5.7 & $N(\mu, \sigma^2)$ & Pivotal & Bilateral (t) \\
+Exercício & $N(\mu, \sigma^2)$ & Pivotal & Bilateral ($\chi^2$) \\
+Q5.10 & $N(\mu_1, \sigma^2)$, $N(\mu_2, \sigma^2)$ & Pivotal & Bilateral (t) \\
+Q5.11 & $N(\mu_1, \sigma_1^2)$, $N(\mu_2, \sigma_2^2)$ & Pivotal & Bilateral (F) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Mensagens Principais}
+
+\begin{enumerate}
+    \item \textbf{Dois Métodos Principais:} Inversão de testes e método pivotal
+    \item \textbf{Estatísticas Suficientes:} IC ótimos dependem de estatísticas suficientes
+    \item \textbf{Dualidade:} Correspondência exata entre testes e IC
+    \item \textbf{Família de Distribuições:} Determina o tipo de pivô (locação, escala, locação-escala)
+    \item \textbf{Interpretação Cuidadosa:} O intervalo é aleatório, não o parâmetro!
+\end{enumerate}
+
+\subsection*{Recomendações Finais}
+
+Para dominar o material:
+\begin{itemize}
+    \item Pratique derivar IC's do zero usando ambos os métodos
+    \item Entenda a intuição por trás de cada pivô
+    \item Compare IC unilaterais vs bilaterais
+    \item Calcule IC's para dados reais e interprete corretamente
+    \item Conecte com testes de hipóteses (dualidade)
+\end{itemize}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{Fim do Documento de Questões Resolvidas}
+\end{center}
+
+\end{document}
+

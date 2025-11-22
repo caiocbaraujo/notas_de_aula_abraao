@@ -1,0 +1,63 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {0.1}Introdução}{2}{section.0.1}%
+\contentsline {section}{\numberline {0.2}Metodologia de Análise}{2}{section.0.2}%
+\contentsline {section}{\numberline {0.3}Análise Matemática Detalhada do Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{2}{section.0.3}%
+\contentsline {subsection}{\numberline {0.3.1}Fundamentos Teóricos Necessários para o Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{3}{subsection.0.3.1}%
+\contentsline {subsubsection}{Verificação de Cálculos e Derivadas}{3}{section*.2}%
+\contentsline {paragraph}{Expansão da Função Objetivo $S(\boldsymbol {\beta })$}{3}{section*.3}%
+\contentsline {paragraph}{Derivada de Primeira Ordem}{3}{section*.4}%
+\contentsline {paragraph}{Segunda Derivada e Positividade}{3}{section*.5}%
+\contentsline {paragraph}{Estimador de Mínimos Quadrados}{3}{section*.6}%
+\contentsline {subsection}{\numberline {0.3.2}Verificação de Propriedades Estatísticas}{4}{subsection.0.3.2}%
+\contentsline {paragraph}{Não-Viesamento do Estimador}{4}{section*.7}%
+\contentsline {paragraph}{Teorema de Gauss-Markov}{4}{section*.8}%
+\contentsline {paragraph}{Distribuição Normal de $\hat {\boldsymbol {\beta }}$}{4}{section*.9}%
+\contentsline {paragraph}{Distribuição Qui-Quadrado de $\hat {\sigma }^2$}{4}{section*.10}%
+\contentsline {subsection}{\numberline {0.3.3}Verificação do Teorema de Cochran}{4}{subsection.0.3.3}%
+\contentsline {paragraph}{Enunciado do Teorema}{4}{section*.11}%
+\contentsline {paragraph}{Aplicação na Proposição 1.1}{4}{section*.12}%
+\contentsline {subsection}{\numberline {0.3.4}Análise Detalhada do Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{5}{subsection.0.3.4}%
+\contentsline {subsubsection}{Formulação do Teste de Hipótese}{5}{section*.13}%
+\contentsline {paragraph}{Decomposição de Somas de Quadrados para o Teste}{5}{section*.14}%
+\contentsline {paragraph}{Matrizes de Projeção}{5}{section*.15}%
+\contentsline {paragraph}{Idempotência de $\mathbf {Q}_1 = \mathbf {P} - \mathbf {P}_0$}{5}{section*.16}%
+\contentsline {paragraph}{Graus de Liberdade}{6}{section*.17}%
+\contentsline {paragraph}{Distribuição da Estatística F}{6}{section*.18}%
+\contentsline {subsubsection}{Verificação da Aplicação do Teorema de Cochran para $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{6}{section*.19}%
+\contentsline {subsubsection}{Estatística F como Estatística Pivotal}{7}{section*.20}%
+\contentsline {subsubsection}{Interpretação da Estatística F para $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{7}{section*.21}%
+\contentsline {section}{\numberline {0.4}Verificação de Coerência Temática: Foco no Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{7}{section.0.4}%
+\contentsline {subsection}{\numberline {0.4.1}Alinhamento com o Tema}{7}{subsection.0.4.1}%
+\contentsline {subsection}{\numberline {0.4.2}Estrutura e Organização}{8}{subsection.0.4.2}%
+\contentsline {subsection}{\numberline {0.4.3}Completude do Conteúdo}{8}{subsection.0.4.3}%
+\contentsline {section}{\numberline {0.5}Verificação de Notação e Consistência}{9}{section.0.5}%
+\contentsline {subsection}{\numberline {0.5.1}Notação Matemática}{9}{subsection.0.5.1}%
+\contentsline {subsubsection}{Uso de $\boldsymbol {\beta }$ vs $\beta $}{9}{section*.22}%
+\contentsline {subsubsection}{Vetores e Matrizes}{9}{section*.23}%
+\contentsline {subsubsection}{Operadores Matemáticos}{9}{section*.24}%
+\contentsline {subsection}{\numberline {0.5.2}Consistência de Símbolos}{9}{subsection.0.5.2}%
+\contentsline {section}{\numberline {0.6}Verificação de Referências e Citações}{10}{section.0.6}%
+\contentsline {subsection}{\numberline {0.6.1}Citações no Texto}{10}{subsection.0.6.1}%
+\contentsline {subsection}{\numberline {0.6.2}Bibliografia}{10}{subsection.0.6.2}%
+\contentsline {section}{\numberline {0.7}Pontos Fortes do Trabalho}{10}{section.0.7}%
+\contentsline {section}{\numberline {0.8}Possíveis Melhorias}{11}{section.0.8}%
+\contentsline {section}{\numberline {0.9}Verificações Específicas por Seção}{11}{section.0.9}%
+\contentsline {subsection}{\numberline {0.9.1}Seção 1: Modelo e Fundamentos Teóricos}{11}{subsection.0.9.1}%
+\contentsline {subsubsection}{Especificação do Modelo}{11}{section*.25}%
+\contentsline {subsubsection}{Pressupostos Clássicos}{11}{section*.26}%
+\contentsline {subsubsection}{Estimadores de Mínimos Quadrados}{11}{section*.27}%
+\contentsline {subsubsection}{Propriedades do Estimador}{11}{section*.28}%
+\contentsline {subsubsection}{Distribuição de $\hat {\sigma }^2$}{12}{section*.29}%
+\contentsline {subsection}{\numberline {0.9.2}Seção 2: Teste de Hipótese $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$ - Análise Detalhada}{12}{subsection.0.9.2}%
+\contentsline {subsubsection}{Formulação do Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{12}{section*.30}%
+\contentsline {subsubsection}{Estatística F}{12}{section*.31}%
+\contentsline {subsubsection}{Derivação via Decomposição para $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{12}{section*.32}%
+\contentsline {subsubsection}{Região de Rejeição}{12}{section*.33}%
+\contentsline {subsection}{\numberline {0.9.3}Seção 3: Análise de Variância}{13}{subsection.0.9.3}%
+\contentsline {subsubsection}{Decomposição ANOVA}{13}{section*.34}%
+\contentsline {subsubsection}{Interpretação}{13}{section*.35}%
+\contentsline {section}{\numberline {0.10}Resumo Executivo: Avaliação do Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{13}{section.0.10}%
+\contentsline {subsection}{\numberline {0.10.1}Avaliação Geral}{13}{subsection.0.10.1}%
+\contentsline {subsection}{\numberline {0.10.2}Principais Conquistas Específicas do Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{13}{subsection.0.10.2}%
+\contentsline {subsection}{\numberline {0.10.3}Recomendações Finais}{14}{subsection.0.10.3}%
+\contentsline {section}{\numberline {0.11}Conclusão: Avaliação Final do Teste $H_0: \boldsymbol {\beta }_1 = \mathbf {0}_p$}{14}{section.0.11}%

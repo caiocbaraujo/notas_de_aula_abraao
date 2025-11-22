@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  9 NOV 2025 00:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.21)  9 NOV 2025 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -877,12 +877,9 @@ Overfull \vbox (18.24635pt too high) has occurred while \output is active []
 [21]
 
 [22]
-Overfull \vbox (103.48563pt too high) has occurred while \output is active []
-
-
 
 [23]
-Overfull \vbox (59.97421pt too high) has occurred while \output is active []
+Overfull \vbox (74.47421pt too high) has occurred while \output is active []
 
 
 
@@ -895,7 +892,7 @@ Overfull \vbox (59.97421pt too high) has occurred while \output is active []
 [27]
 
 [28]
-Underfull \hbox (badness 2717) in paragraph at lines 1105--1106
+Underfull \hbox (badness 2717) in paragraph at lines 1114--1115
 []\T1/cmr/bx/n/12 Aproximação Nor-mal para Bi-no-mial: \T1/cmr/m/n/12 Como $\OM
 L/cmm/m/it/12 S[] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 X[] \OMS/cmsy/m/n/12 ^^
 X
@@ -911,15 +908,15 @@ Overfull \vbox (61.33751pt too high) has occurred while \output is active []
 [30]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1153.
+(hyperref)                removing `math shift' on input line 1162.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 1153.
+(hyperref)                removing `subscript' on input line 1162.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1153.
+(hyperref)                removing `math shift' on input line 1162.
 
 
 
@@ -938,31 +935,31 @@ Overfull \vbox (11.95761pt too high) has occurred while \output is active []
 [34]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1297.
+(hyperref)                removing `math shift' on input line 1306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 1297.
+(hyperref)                removing `\@ifnextchar' on input line 1306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 1297.
+(hyperref)                removing `subscript' on input line 1306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 1297.
+(hyperref)                removing `superscript' on input line 1306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sigma' on input line 1297.
+(hyperref)                removing `\sigma' on input line 1306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 1297.
+(hyperref)                removing `superscript' on input line 1306.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1297.
+(hyperref)                removing `math shift' on input line 1306.
 
 
 
@@ -1007,13 +1004,13 @@ Package rerunfilecheck Info: File `questoes_cap3_completo.out' has not changed.
 (rerunfilecheck)             Checksum: 0E529C75435B5BF5BAC45E9EEBB2B513;3618.
  ) 
 Here is how much of TeX's memory you used:
- 25968 strings out of 468130
- 498057 string characters out of 5431116
- 877840 words of memory out of 5000000
- 53761 multiletter control sequences out of 15000+600000
+ 25969 strings out of 468130
+ 498073 string characters out of 5431116
+ 877843 words of memory out of 5000000
+ 53762 multiletter control sequences out of 15000+600000
  649618 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,20n,107p,561b,862s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,20n,107p,561b,863s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1
 200.pk> <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
 ecti1200.pk> <C:\Users\User\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dp
@@ -1044,7 +1041,7 @@ rs/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
 <C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbol
 s/msam10.pfb><C:/Users/User/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on questoes_cap3_completo.pdf (49 pages, 520088 bytes).
+Output written on questoes_cap3_completo.pdf (49 pages, 520405 bytes).
 PDF statistics:
  1265 PDF objects out of 1440 (max. 8388607)
  437 named destinations out of 1000 (max. 500000)

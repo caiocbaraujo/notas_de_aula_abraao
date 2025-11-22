@@ -1,0 +1,46 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Contexto: O Problema de Hipóteses Bilaterais}{3}{section.1}%
+\contentsline {section}{\numberline {2}Exemplo 4.5.1: NÃO Existência de Teste UMP (Normal)}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Passo 1: Recordar os Testes UMP Unilaterais}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Passo 2: O Conflito Fundamental}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Exemplo 4.5.2: EXISTÊNCIA de Teste UMP (Uniforme)}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Por que a Uniforme é Diferente?}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Passo 1: Distribuição de $T(X) = X_{(n)}$ (Revisão)}{7}{subsection.3.2}%
+\contentsline {paragraph}{Função de Distribuição:}{7}{section*.5}%
+\contentsline {paragraph}{Densidade:}{7}{section*.6}%
+\contentsline {subsection}{\numberline {3.3}Passo 2: Verificar a Razão de Verossimilhança Monótona}{7}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Passo 3: Teste UMP para $H_1: \theta > \theta _0$ (Unilateral)}{9}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Passo 4: A Ideia Chave para o Teste Bilateral}{11}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Passo 5: Construção da Função Poder (Notas n80--n81)}{11}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Teorema 4.5.1: Teste UMP Bilateral para Uniforme}{15}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Entendendo a Região Crítica}{15}{subsection.4.1}%
+\contentsline {paragraph}{Parte 1: $T(x) > \theta _0$}{15}{section*.8}%
+\contentsline {paragraph}{Parte 2: $T(x) \leq \theta _0 \alpha ^{1/n}$}{15}{section*.9}%
+\contentsline {subsection}{\numberline {4.2}Passo 6: Prova do Teorema 4.5.1 (Nota n82)}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Passo 7: Teste para $H_1: \theta < \theta _0$ (Nota n83)}{17}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Síntese e Comparação Final}{18}{section.5}%
+\contentsline {section}{\numberline {6}Resumo Passo a Passo dos Cálculos Principais}{19}{section.6}%
+\contentsline {paragraph}{Passo 1: Identificar estatística suficiente}{19}{section*.13}%
+\contentsline {paragraph}{Passo 2: Calcular razão de verossimilhança}{19}{section*.14}%
+\contentsline {paragraph}{Passo 3: Verificar RVM}{19}{section*.15}%
+\contentsline {paragraph}{Passo 4: Aplicar TKR para $H_1: \theta > \theta _0$}{19}{section*.16}%
+\contentsline {paragraph}{Passo 5: Calcular função poder}{19}{section*.17}%
+\contentsline {paragraph}{Passo 6: Construir teste bilateral}{19}{section*.18}%
+\contentsline {paragraph}{Passo 7: Verificar nível}{19}{section*.19}%
+\contentsline {paragraph}{Passo 8: Concluir que é UMP}{19}{section*.20}%
+\contentsline {section}{\numberline {7}Exemplo Numérico Completo}{20}{section.7}%
+\contentsline {paragraph}{Passo 1: Calcular os limites da região de não rejeição}{20}{section*.22}%
+\contentsline {paragraph}{Passo 2: Determinar a regra de decisão}{20}{section*.23}%
+\contentsline {paragraph}{Passo 3: Aplicar aos dados}{20}{section*.24}%
+\contentsline {paragraph}{Passo 4: Calcular a função poder}{21}{section*.25}%
+\contentsline {section}{\numberline {8}Interpretação Geométrica e Visual}{22}{section.8}%
+\contentsline {section}{\numberline {9}Exercícios para Fixação}{24}{section.9}%
+\contentsline {section}{\numberline {10}Perguntas e Respostas Frequentes}{25}{section.10}%
+\contentsline {paragraph}{Q1: Por que $P_{\theta _0}[X_{(n)} > \theta _0] = 0$ para a Uniforme?}{25}{section*.29}%
+\contentsline {paragraph}{Q2: Por que usamos $\alpha ^{1/n}$ e não simplesmente $\alpha $?}{25}{section*.30}%
+\contentsline {paragraph}{Q3: O que significa "os testes coincidem" (nota n83)?}{25}{section*.31}%
+\contentsline {paragraph}{Q4: Por que a função poder para Uniforme tem essa forma específica?}{25}{section*.32}%
+\contentsline {paragraph}{Q5: Este teste UMP bilateral existe para outras distribuições com suporte limitado?}{25}{section*.33}%
+\contentsline {section}{\numberline {11}Conexões com o Resto do Capítulo 4}{26}{section.11}%
+\contentsline {section}{\numberline {12}Checklist de Estudo}{27}{section.12}%
+\contentsline {section}{\numberline {13}Conclusão}{28}{section.13}%

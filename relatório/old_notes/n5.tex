@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+A segunda derivada de $S(\beta)$ é dada por:
+\begin{equation}
+\frac{\partial^2 S(\beta)}{\partial \beta^2} 
+= \frac{\partial \left[ 2 X^T X \beta \right]}{\partial \beta^T} 
+= 2 \frac{\partial \left[ A \beta \right]}{\partial \beta^T} 
+= 2 A = 2 X^T X
+\end{equation}
+
+Note que, $\forall h \in \mathbb{R}^n$, 
+\begin{equation}
+h^T (2 X^T X) h = 2 \cdot h^T X^T X h = 2 \| X h \|^2
+\end{equation}
+
+Para $h \neq 0$, então $2 X^T X$ é positiva definida e $\hat{\beta}_{MQ}$ é o E.M.Q. para $\beta$.
+
+\vspace{0.5cm}
+\noindent 24/09/25
+
+\section*{3.3 Critérios de Comparação de Estimadores}
+
+É comum termos vários estimadores para um parâmetro.  
+Uma questão importante é como comparar os estimadores.
+
+\subsection*{3.3.1 Viés, variância e erro quadrático médio}
+
+Para as definições dadas a seguir, seja $T(\theta)$ uma função de valor real de $\theta \in \Theta \subset \mathbb{R}^p$.
+
+\textbf{Definição (3.3.1)} Seja $T$ um estimador de valor real para $\theta(\theta)$. O viés de $T$ é dado por:
+\begin{equation}
+B_\theta(T) = \mathbb{E}_\theta(T) - \gamma(\theta),
+\end{equation}
+para $\theta \in \Theta$.
+
+\end{document}
