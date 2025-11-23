@@ -1,0 +1,213 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{graphicx}
+\usepackage{float}
+
+\title{Detalhamento Matemático: Testes de Razão de Verossimilhança (TRV)\\
+\large Foco nos Casos 3, 4 e Duas Amostras}
+\author{Explicação Detalhada para Estudo}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Este documento detalha os passos matemáticos para a construção dos Testes de Razão de Verossimilhança (TRV), focando nos pontos de maior dificuldade: \textbf{Casos 3 e 4} (testes para variância de uma normal) e \textbf{testes para duas amostras} (comparação de médias e variâncias).
+
+A estatística de Razão de Verossimilhança é definida como:
+\begin{equation}
+\Lambda = \frac{\sup_{\theta \in \Theta_0} \{ L(\theta) \}}{\sup_{\theta \in \Theta} \{ L(\theta) \}}
+\end{equation}
+Rejeitamos $H_0$ se $\Lambda < k$, onde $k$ é uma constante associada ao nível de significância $\alpha$.
+
+\section{Caso 3: Teste para Variância com Média Conhecida}
+
+\subsection{Definição do Problema}
+Seja $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu, \sigma^2)$.
+\begin{itemize}
+    \item \textbf{Parâmetros:} $\mu$ é \textbf{conhecido}; $\sigma^2$ é \textbf{desconhecido}.
+    \item \textbf{Hipóteses:} $H_0: \sigma^2 = \sigma_0^2$ vs $H_1: \sigma^2 \neq \sigma_0^2$.
+    \item \textbf{Espaço Paramétrico Irrestrito ($\Theta$):} $\sigma^2 > 0$.
+    \item \textbf{Espaço Paramétrico Restrito ($\Theta_0$):} $\sigma^2 = \sigma_0^2$ (ponto único).
+\end{itemize}
+
+\subsection{A Função de Verossimilhança}
+A densidade conjunta (verossimilhança) é:
+\[ L(\sigma^2) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x_i - \mu)^2}{2\sigma^2}} = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\} \]
+
+\subsection{Passo 1: O Denominador (Máximo sob $\Theta$)}
+Precisamos encontrar o Estimador de Máxima Verossimilhança (EMV) de $\sigma^2$ sem restrições.
+Aplicando o logaritmo em $L(\sigma^2)$:
+\[ \ell(\sigma^2) = -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2 \]
+Derivando em relação a $\sigma^2$ e igualando a zero:
+\[ \frac{d\ell}{d\sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2}\sum_{i=1}^n (x_i - \mu)^2 = 0 \]
+\[ \frac{n}{2\hat{\sigma}^2} = \frac{\sum (x_i - \mu)^2}{2(\hat{\sigma}^2)^2} \implies \hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \mu)^2 \]
+
+O valor máximo da verossimilhança no denominador é $L(\hat{\sigma}^2)$.
+Substituindo $\hat{\sigma}^2$ na expressão de $L$:
+\begin{align*}
+\sup_{\Theta} L &= (2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \underbrace{\sum (x_i - \mu)^2}_{n\hat{\sigma}^2} \right\} \\
+&= (2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{n\hat{\sigma}^2}{2\hat{\sigma}^2} \right\} = (2\pi\hat{\sigma}^2)^{-n/2} e^{-n/2}
+\end{align*}
+
+\subsection{Passo 2: O Numerador (Máximo sob $\Theta_0$)}
+Sob $H_0$, $\sigma^2$ é fixo em $\sigma_0^2$. Não há maximização a fazer.
+\[ \sup_{\Theta_0} L = L(\sigma_0^2) = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 \right\} \]
+Para simplificar, observe que $\sum (x_i - \mu)^2 = n\hat{\sigma}^2$ (usando o estimador definido acima).
+\[ \sup_{\Theta_0} L = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{n\hat{\sigma}^2}{2\sigma_0^2} \right\} \]
+
+\subsection{Passo 3: A Razão $\Lambda$}
+\[ \Lambda = \frac{(2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{n\hat{\sigma}^2}{2\sigma_0^2} \right\}}{(2\pi\hat{\sigma}^2)^{-n/2} e^{-n/2}} \]
+Agrupando os termos semelhantes:
+\[ \Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \frac{\exp\left\{ -\frac{n}{2} \frac{\hat{\sigma}^2}{\sigma_0^2} \right\}}{e^{-n/2}} \]
+\[ \Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ \frac{n}{2} \left( 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right) \right\} \]
+
+\subsection{Passo 4: A Região Crítica}
+Seja $u = \frac{\hat{\sigma}^2}{\sigma_0^2}$. Então $\Lambda(u) = (u e^{1-u})^{n/2}$.
+A função $g(u) = u e^{1-u}$ tem máximo em $u=1$ e decresce à medida que $u$ se afasta de 1 (tanto para 0 quanto para $+\infty$).
+Rejeitar $H_0$ quando $\Lambda < k$ é equivalente a rejeitar quando $u$ é muito pequeno ($u < c_1$) ou muito grande ($u > c_2$).
+
+Substituindo $u$:
+\[ \frac{\hat{\sigma}^2}{\sigma_0^2} < c_1 \quad \text{ou} \quad \frac{\hat{\sigma}^2}{\sigma_0^2} > c_2 \]
+\[ \frac{\frac{1}{n}\sum (x_i - \mu)^2}{\sigma_0^2} < c_1 \quad \text{ou} \quad \frac{\frac{1}{n}\sum (x_i - \mu)^2}{\sigma_0^2} > c_2 \]
+
+Multiplicando por $n$, obtemos a estatística de teste $W$:
+\[ W = \frac{\sum_{i=1}^n (x_i - \mu)^2}{\sigma_0^2} \]
+Sabemos que se $X_i \sim N(\mu, \sigma_0^2)$, então $\frac{X_i - \mu}{\sigma_0} \sim N(0,1)$, e a soma de quadrados de normais padrão é uma Qui-quadrado.
+\[ W \sim \chi^2_n \]
+
+Portanto, a região crítica é:
+\[ W < \chi^2_{n, 1-\alpha/2} \quad \text{ou} \quad W > \chi^2_{n, \alpha/2} \]
+\textbf{Nota:} Aqui usamos $\chi^2_n$ com $n$ graus de liberdade porque a média $\mu$ é \textbf{conhecida}.
+
+\section{Caso 4: Teste para Variância com Média Desconhecida}
+
+\subsection{Diferença Fundamental}
+A estrutura é quase idêntica ao Caso 3, mas agora $\mu$ é \textbf{desconhecido}.
+Isso muda a maximização no numerador (sob $H_0$).
+
+\subsection{Passo 1: O Denominador (Máximo sob $\Theta$)}
+Sob $\Theta$ (irrestrito), maximizamos em relação a $\mu$ e $\sigma^2$.
+\[ \hat{\mu} = \bar{x} \]
+\[ \hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 \]
+(Note que agora usamos $\bar{x}$ em vez de $\mu$).
+\[ \sup_{\Theta} L = (2\pi\hat{\sigma}^2)^{-n/2} e^{-n/2} \]
+
+\subsection{Passo 2: O Numerador (Máximo sob $\Theta_0$)}
+Sob $H_0$, temos $\sigma^2 = \sigma_0^2$ (fixo), mas $\mu$ é livre.
+\[ L(\mu, \sigma_0^2) = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 \right\} \]
+Precisamos encontrar o $\hat{\mu}_0$ que maximiza essa expressão. Isso equivale a minimizar $\sum (x_i - \mu)^2$.
+A soma de quadrados é mínima quando $\mu = \bar{x}$.
+Logo, $\hat{\mu}_0 = \bar{x}$.
+
+Substituindo na verossimilhança:
+\[ \sup_{\Theta_0} L = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\} \]
+Usando a notação $n\hat{\sigma}^2 = \sum (x_i - \bar{x})^2$:
+\[ \sup_{\Theta_0} L = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{n\hat{\sigma}^2}{2\sigma_0^2} \right\} \]
+
+\subsection{Passo 3: A Razão $\Lambda$}
+A expressão algébrica de $\Lambda$ acaba sendo \textbf{idêntica} à do Caso 3:
+\[ \Lambda = \left[ \frac{\hat{\sigma}^2}{\sigma_0^2} \exp\left( 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right) \right]^{n/2} \]
+Onde agora $\hat{\sigma}^2 = \frac{1}{n}\sum (x_i - \bar{x})^2$.
+
+\subsection{Passo 4: Distribuição e Graus de Liberdade}
+A região crítica em termos de $\hat{\sigma}^2$ é a mesma:
+\[ \frac{n\hat{\sigma}^2}{\sigma_0^2} < k_1 \quad \text{ou} \quad \frac{n\hat{\sigma}^2}{\sigma_0^2} > k_2 \]
+Ou seja:
+\[ \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\sigma_0^2} < k_1 \quad \text{ou} \quad \dots \]
+
+\textbf{Ponto crucial de entendimento:} Qual a distribuição de $W = \frac{\sum (x_i - \bar{x})^2}{\sigma_0^2}$?
+Diferente do Caso 3, aqui temos $\bar{x}$ estimando $\mu$. Isso introduz uma dependência linear entre os termos $(x_i - \bar{x})$, reduzindo a dimensionalidade do vetor de desvios em 1.
+Sabemos que:
+\[ S^2 = \frac{1}{n-1}\sum (x_i - \bar{x})^2 \]
+\[ \frac{(n-1)S^2}{\sigma_0^2} = \frac{\sum (x_i - \bar{x})^2}{\sigma_0^2} \sim \chi^2_{n-1} \]
+
+Portanto, o teste usa a distribuição \textbf{Qui-quadrado com $n-1$ graus de liberdade}:
+\[ W < \chi^2_{n-1, 1-\alpha/2} \quad \text{ou} \quad W > \chi^2_{n-1, \alpha/2} \]
+
+\section{Duas Amostras: Comparação de Médias (Variâncias Iguais)}
+
+\subsection{O Problema}
+$X \sim N(\mu_x, \sigma^2)$ e $Y \sim N(\mu_y, \sigma^2)$.
+$H_0: \mu_x = \mu_y = \mu$ vs $H_1: \mu_x \neq \mu_y$.
+
+\subsection{Passo 1: Irrestrito ($H_1$)}
+Maximizamos separadamente.
+$\hat{\mu}_x = \bar{x}$, $\hat{\mu}_y = \bar{y}$.
+A variância comum $\sigma^2$ é estimada pela média dos erros quadráticos totais:
+\[ \hat{\sigma}^2_1 = \frac{\sum (x_i - \bar{x})^2 + \sum (y_j - \bar{y})^2}{n+m} \]
+Supremo: $L_1 \propto (\hat{\sigma}^2_1)^{-(n+m)/2}$.
+
+\subsection{Passo 2: Restrito ($H_0$)}
+Sob $H_0$, $\mu_x = \mu_y = \mu$.
+O estimador de $\mu$ é a média ponderada geral:
+\[ \hat{\mu}_0 = \frac{n\bar{x} + m\bar{y}}{n+m} \]
+A variância estimada sob $H_0$ inclui a variação em relação a essa média comum:
+\[ \hat{\sigma}^2_0 = \frac{\sum (x_i - \hat{\mu}_0)^2 + \sum (y_j - \hat{\mu}_0)^2}{n+m} \]
+Supremo: $L_0 \propto (\hat{\sigma}^2_0)^{-(n+m)/2}$.
+
+\subsection{Passo 3: A Razão e a Identidade Algébrica}
+\[ \Lambda = \left( \frac{\hat{\sigma}^2_0}{\hat{\sigma}^2_1} \right)^{-(n+m)/2} \]
+Rejeitamos para $\Lambda$ pequeno $\iff \frac{\hat{\sigma}^2_0}{\hat{\sigma}^2_1}$ grande.
+Vamos decompor o numerador $\sum (x_i - \hat{\mu}_0)^2$:
+\[ \sum (x_i - \hat{\mu}_0)^2 = \sum (x_i - \bar{x} + \bar{x} - \hat{\mu}_0)^2 = \sum (x_i - \bar{x})^2 + n(\bar{x} - \hat{\mu}_0)^2 \]
+Fazendo o mesmo para $Y$ e somando:
+\[ (n+m)\hat{\sigma}^2_0 = \underbrace{\sum (x_i - \bar{x})^2 + \sum (y_j - \bar{y})^2}_{(n+m)\hat{\sigma}^2_1} + \underbrace{n(\bar{x} - \hat{\mu}_0)^2 + m(\bar{y} - \hat{\mu}_0)^2}_{Q} \]
+O termo $Q$ mede a distância entre as médias amostrais e a média global. Pode-se provar que:
+\[ Q = \frac{nm}{n+m}(\bar{x} - \bar{y})^2 \]
+
+Assim, a razão é:
+\[ \frac{\hat{\sigma}^2_0}{\hat{\sigma}^2_1} = 1 + \frac{Q}{(n+m)\hat{\sigma}^2_1} = 1 + \frac{\frac{nm}{n+m}(\bar{x} - \bar{y})^2}{\sum (x_i - \bar{x})^2 + \sum (y_j - \bar{y})^2} \]
+
+\subsection{Passo 4: Conexão com o Teste t}
+O termo variável na razão acima é essencialmente o quadrado da estatística $t$.
+Lembrando que $S_p^2 = \frac{\sum (x_i - \bar{x})^2 + \sum (y_j - \bar{y})^2}{n+m-2}$.
+A estatística $T$ é:
+\[ T = \frac{\bar{x} - \bar{y}}{S_p \sqrt{\frac{1}{n} + \frac{1}{m}}} \]
+Elevando ao quadrado:
+\[ T^2 = \frac{(\bar{x} - \bar{y})^2}{S_p^2 \frac{n+m}{nm}} = \frac{\frac{nm}{n+m}(\bar{x} - \bar{y})^2}{S_p^2} \]
+Substituindo na razão de verossimilhança:
+\[ \frac{\hat{\sigma}^2_0}{\hat{\sigma}^2_1} = 1 + \frac{T^2 \cdot S_p^2}{(n+m-2)S_p^2} \cdot \frac{n+m-2}{n+m} \approx 1 + \frac{T^2}{n+m} \]
+(Ignorando constantes multiplicativas exatas, a monotonicidade se mantém).
+
+O TRV rejeita quando essa razão é grande $\iff T^2$ é grande $\iff |T|$ é grande.
+Isso confirma que o TRV para médias é equivalente ao \textbf{Teste t bilateral} usual.
+
+\section{Duas Amostras: Comparação de Variâncias}
+
+\subsection{O Problema}
+$H_0: \sigma_x^2 = \sigma_y^2$ vs $H_1: \sigma_x^2 \neq \sigma_y^2$.
+
+\subsection{Passo 1: Irrestrito ($H_1$)}
+Maximizando separadamente: $\hat{\sigma}^2_x$ e $\hat{\sigma}^2_y$.
+$L_1 \propto (\hat{\sigma}^2_x)^{-n/2} (\hat{\sigma}^2_y)^{-m/2}$.
+
+\subsection{Passo 2: Restrito ($H_0$)}
+Maximizando sob a restrição $\sigma_x^2 = \sigma_y^2 = \sigma^2$:
+\[ \hat{\sigma}^2_{comb} = \frac{n\hat{\sigma}^2_x + m\hat{\sigma}^2_y}{n+m} \]
+$L_0 \propto (\hat{\sigma}^2_{comb})^{-(n+m)/2}$.
+
+\subsection{Passo 3: A Razão $\Lambda$}
+\[ \Lambda = \frac{(\hat{\sigma}^2_x)^{n/2} (\hat{\sigma}^2_y)^{m/2}}{(\frac{n\hat{\sigma}^2_x + m\hat{\sigma}^2_y}{n+m})^{(n+m)/2}} \]
+Dividindo numerador e denominador por $(\hat{\sigma}^2_y)^{(n+m)/2}$:
+\[ \Lambda \propto \frac{( \hat{\sigma}^2_x / \hat{\sigma}^2_y )^{n/2} }{ (n \frac{\hat{\sigma}^2_x}{\hat{\sigma}^2_y} + m )^{(n+m)/2} } \]
+Seja $F' = \frac{\hat{\sigma}^2_x}{\hat{\sigma}^2_y}$. A função $\Lambda(F')$ tem a forma $x^{a} / (c_1 x + c_2)^{b}$.
+Esta função cresce até um ponto e depois decresce.
+Rejeitamos $H_0$ se $\Lambda$ for pequeno, o que ocorre se $F'$ for \textbf{muito pequeno} (próximo de 0) ou \textbf{muito grande}.
+
+Isso justifica o uso do teste F clássico:
+\[ F = \frac{S_x^2}{S_y^2} \]
+Onde rejeitamos se $F < F_{\alpha/2}$ ou $F > F_{1-\alpha/2}$.
+
+\end{document}

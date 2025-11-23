@@ -1,0 +1,1720 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{array}
+\usepackage{booktabs}
+
+% Título e informações do documento
+\title{TRV Detalhado - Casos 3, 4 e Testes para Duas Amostras\\
+\large Derivações Passo a Passo com Explicações Detalhadas}
+\author{Curso de Inferência Estatística}
+\date{2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Este documento apresenta derivações detalhadas e passo a passo dos Testes de Razão de Verossimilhanças (TRV) para os principais casos de teste de hipóteses em populações normais:
+
+\begin{itemize}
+\item \textbf{Caso 1:} Teste de média com variância conhecida (Teste Z)
+\item \textbf{Caso 2:} Teste de média com variância desconhecida (Teste t)
+\item \textbf{Caso 3:} Teste de variância com média conhecida
+\item \textbf{Caso 4:} Teste de variância com média desconhecida
+\item \textbf{TRV para duas amostras:} Comparação de médias e variâncias
+\end{itemize}
+
+Cada passo matemático será explicado em detalhes, incluindo justificativas para manipulações algébricas e o raciocínio estatístico subjacente.
+
+\section{Caso 1: Teste de Média com Variância Conhecida (Teste Z)}
+
+\subsection{Enunciado do Problema}
+
+Sejam $X_1, \ldots, X_n$ variáveis aleatórias independentes e identicamente distribuídas (i.i.d.) tais que $X_i \sim N(\mu, \sigma^2)$ para $i = 1, \ldots, n$, onde:
+\begin{itemize}
+\item $\mu \in \mathbb{R}$ é \textbf{desconhecido}
+\item $\sigma^2 > 0$ é \textbf{conhecido} (fixo)
+\end{itemize}
+
+Dado um nível de significância $\alpha \in (0,1)$, queremos derivar o TRV para testar:
+\[
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0
+\]
+
+onde $\mu_0 \in \mathbb{R}$ é um valor fixo especificado.
+
+\subsection{Passo 1: Definição dos Espaços Paramétricos}
+
+\textbf{Espaço paramétrico completo:}
+\[
+\Theta = \{ \mu : \mu \in \mathbb{R} \}
+\]
+
+Como $\sigma^2$ é conhecido, trabalhamos apenas com o parâmetro $\mu$.
+
+\textbf{Espaço paramétrico sob $H_0$:}
+\[
+\Theta_0 = \{ \mu_0 \}
+\]
+
+Ou seja, sob $H_0$, $\mu$ está fixado em $\mu_0$.
+
+\textbf{Espaço paramétrico sob $H_1$:}
+\[
+\Theta_1 = \{ \mu \in \mathbb{R} : \mu \neq \mu_0 \}
+\]
+
+\subsection{Passo 2: Função de Verossimilhança}
+
+Para uma amostra $x_1, \ldots, x_n$ de $X_1, \ldots, X_n$, a função de densidade conjunta é:
+\[
+f(x_1, \ldots, x_n \mid \mu) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left\{ -\frac{(x_i - \mu)^2}{2\sigma^2} \right\}
+\]
+
+\textbf{Explicação:} Como as observações são independentes, a densidade conjunta é o produto das densidades individuais. Cada $X_i$ tem densidade normal com média $\mu$ (desconhecida) e variância $\sigma^2$ (conhecida).
+
+A função de verossimilhança é:
+\begin{equation}
+L(\mu) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\label{eq:likelihood_caso1}
+\end{equation}
+
+\textbf{Explicação:} 
+\begin{itemize}
+\item O fator $(2\pi\sigma^2)^{-n/2}$ vem do produto dos $n$ termos $\frac{1}{\sqrt{2\pi\sigma^2}}$.
+\item O expoente $\sum_{i=1}^n (x_i - \mu)^2$ aparece porque estamos somando os expoentes dos produtos de exponenciais.
+\end{itemize}
+
+\subsection{Passo 3: Estimador de Máxima Verossimilhança Irrestrito}
+
+Para encontrar o EMV irrestrito, maximizamos $L(\mu)$ (ou, equivalentemente, $\ell(\mu) = \log L(\mu)$) sobre $\Theta$.
+
+A função de log-verossimilhança é:
+\[
+\ell(\mu) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+Derivando em relação a $\mu$:
+\[
+\frac{\partial \ell}{\partial \mu} = -\frac{1}{2\sigma^2} \sum_{i=1}^n 2(x_i - \mu)(-1) = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu)
+\]
+
+\textbf{Explicação:} A derivada de $(x_i - \mu)^2$ em relação a $\mu$ é $2(x_i - \mu)(-1) = -2(x_i - \mu)$.
+
+Igualando a zero:
+\[
+\frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) = 0
+\]
+
+Como $\sigma^2 > 0$, temos:
+\[
+\sum_{i=1}^n (x_i - \mu) = 0 \quad \Rightarrow \quad \sum_{i=1}^n x_i = n\mu
+\]
+
+Portanto:
+\[
+\hat{\mu} = \frac{1}{n} \sum_{i=1}^n x_i = \bar{x}
+\]
+
+\textbf{Explicação:} O EMV irrestrito para $\mu$ é simplesmente a média amostral $\bar{x}$.
+
+\subsection{Passo 4: Máxima Verossimilhança sob $H_0$}
+
+Sob $H_0$, temos $\mu = \mu_0$ (fixo). Portanto:
+\[
+\sup_{\mu \in \Theta_0} L(\mu) = L(\mu_0) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu_0)^2 \right\}
+\]
+
+\textbf{Explicação:} Como $\Theta_0$ contém apenas um ponto ($\mu_0$), o supremo é simplesmente o valor da função nesse ponto.
+
+\subsection{Passo 5: Máxima Verossimilhança Irrestrita}
+
+Substituindo $\hat{\mu} = \bar{x}$ na função de verossimilhança:
+\[
+\sup_{\mu \in \Theta} L(\mu) = L(\bar{x}) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}
+\]
+
+\textbf{Explicação:} Como $\bar{x}$ é o maximizador, este é o valor máximo da verossimilhança.
+
+\subsection{Passo 6: Razão de Verossimilhanças}
+
+A estatística da razão de verossimilhanças é:
+\[
+\Lambda = \frac{\sup_{\mu \in \Theta_0} L(\mu)}{\sup_{\mu \in \Theta} L(\mu)} = \frac{L(\mu_0)}{L(\bar{x})}
+\]
+
+Substituindo as expressões:
+\[
+\Lambda = \frac{(2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu_0)^2 \right\}}{(2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}}
+\]
+
+Simplificando:
+\[
+\Lambda = \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_0)^2 - \sum_{i=1}^n (x_i - \bar{x})^2 \right] \right\}
+\]
+
+\subsection{Passo 7: Identidade Fundamental para Somas de Quadrados}
+
+Precisamos relacionar $\sum_{i=1}^n (x_i - \mu_0)^2$ com $\sum_{i=1}^n (x_i - \bar{x})^2$.
+
+\textbf{Identidade:} Para qualquer constante $c$:
+\[
+\sum_{i=1}^n (x_i - c)^2 = \sum_{i=1}^n (x_i - \bar{x} + \bar{x} - c)^2
+\]
+
+Expandindo o quadrado:
+\[
+= \sum_{i=1}^n \left[ (x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - c) + (\bar{x} - c)^2 \right]
+\]
+
+\[
+= \sum_{i=1}^n (x_i - \bar{x})^2 + 2(\bar{x} - c) \sum_{i=1}^n (x_i - \bar{x}) + n(\bar{x} - c)^2
+\]
+
+\textbf{Propriedade crucial:} $\sum_{i=1}^n (x_i - \bar{x}) = 0$ (por definição da média amostral).
+
+\textbf{Explicação:} 
+\[
+\sum_{i=1}^n (x_i - \bar{x}) = \sum_{i=1}^n x_i - n\bar{x} = \sum_{i=1}^n x_i - n \cdot \frac{1}{n}\sum_{i=1}^n x_i = 0
+\]
+
+Portanto:
+\[
+\sum_{i=1}^n (x_i - c)^2 = \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - c)^2
+\]
+
+\textbf{Aplicação:} Para $c = \mu_0$:
+\[
+\sum_{i=1}^n (x_i - \mu_0)^2 = \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \mu_0)^2
+\]
+
+\subsection{Passo 8: Simplificação de $\Lambda$}
+
+Substituindo na expressão de $\Lambda$:
+\[
+\Lambda = \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \mu_0)^2 - \sum_{i=1}^n (x_i - \bar{x})^2 \right] \right\}
+\]
+
+Simplificando:
+\[
+\Lambda = \exp\left\{ -\frac{1}{2\sigma^2} \cdot n(\bar{x} - \mu_0)^2 \right\} = \exp\left\{ -\frac{n(\bar{x} - \mu_0)^2}{2\sigma^2} \right\}
+\]
+
+\textbf{Explicação:} Os termos $\sum_{i=1}^n (x_i - \bar{x})^2$ se cancelam, restando apenas $n(\bar{x} - \mu_0)^2$.
+
+\subsection{Passo 9: Região Crítica}
+
+O TRV rejeita $H_0$ quando $\Lambda < k$ para algum $k \in (0,1)$ escolhido de forma que o nível do teste seja $\alpha$.
+
+Como $\Lambda = \exp\left\{ -\frac{n(\bar{x} - \mu_0)^2}{2\sigma^2} \right\}$ e a função exponencial é estritamente decrescente quando o expoente é negativo, temos:
+\[
+\Lambda < k \quad \Leftrightarrow \quad \exp\left\{ -\frac{n(\bar{x} - \mu_0)^2}{2\sigma^2} \right\} < k
+\]
+
+Aplicando logaritmo natural (função crescente):
+\[
+-\frac{n(\bar{x} - \mu_0)^2}{2\sigma^2} < \log k
+\]
+
+Multiplicando por $-1$ (e invertendo a desigualdade):
+\[
+\frac{n(\bar{x} - \mu_0)^2}{2\sigma^2} > -\log k
+\]
+
+Multiplicando por $2\sigma^2$ (positivo):
+\[
+n(\bar{x} - \mu_0)^2 > -2\sigma^2 \log k
+\]
+
+Tomando a raiz quadrada (e usando o valor absoluto):
+\[
+\sqrt{n} \left| \frac{\bar{x} - \mu_0}{\sigma} \right| > \sqrt{-2 \log k}
+\]
+
+\textbf{Explicação:} Como estamos lidando com uma desigualdade quadrática, precisamos usar o valor absoluto para capturar ambos os casos ($\bar{x} > \mu_0$ e $\bar{x} < \mu_0$).
+
+\subsection{Passo 10: Estatística de Teste}
+
+Definindo a estatística de teste:
+\[
+Z = \sqrt{n} \left( \frac{\bar{X} - \mu_0}{\sigma} \right)
+\]
+
+\textbf{Propriedade importante:} Sob $H_0$, temos $\mu = \mu_0$. Portanto:
+\[
+\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \sim N\left(\mu_0, \frac{\sigma^2}{n}\right)
+\]
+
+\textbf{Explicação:} A média amostral de variáveis normais independentes é normal, com média igual à média populacional e variância igual à variância populacional dividida por $n$.
+
+Portanto:
+\[
+\frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} = \sqrt{n} \frac{\bar{X} - \mu_0}{\sigma} = Z \sim N(0,1)
+\]
+
+\textbf{Explicação:} Padronizamos $\bar{X}$ subtraindo a média ($\mu_0$) e dividindo pelo desvio padrão ($\sigma/\sqrt{n}$), resultando em uma distribuição normal padrão.
+
+\subsection{Passo 11: Função Crítica}
+
+A região crítica é:
+\[
+R_c = \left\{ |Z| > z_{\alpha/2} \right\}
+\]
+
+onde $z_{\alpha/2}$ é o quantil $(1-\alpha/2)$ da distribuição normal padrão, ou seja:
+\[
+P(|Z| > z_{\alpha/2}) = P(Z > z_{\alpha/2}) + P(Z < -z_{\alpha/2}) = \frac{\alpha}{2} + \frac{\alpha}{2} = \alpha
+\]
+
+\textbf{Explicação:} 
+\begin{itemize}
+\item $P(Z > z_{\alpha/2}) = \alpha/2$ (área na cauda direita)
+\item $P(Z < -z_{\alpha/2}) = \alpha/2$ (área na cauda esquerda, por simetria)
+\item Total: $\alpha$ (nível de significância)
+\end{itemize}
+
+\textbf{Função crítica:}
+\[
+\psi(x) = 
+\begin{cases}
+1, & |Z(x)| > z_{\alpha/2} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+onde $\psi(x) = 1$ significa rejeitar $H_0$ e $\psi(x) = 0$ significa não rejeitar $H_0$.
+
+\section{Caso 2: Teste de Média com Variância Desconhecida (Teste t)}
+
+\subsection{Enunciado do Problema}
+
+Sejam $X_1, \ldots, X_n$ variáveis aleatórias i.i.d. tais que $X_i \sim N(\mu, \sigma^2)$ para $i = 1, \ldots, n$, onde:
+\begin{itemize}
+\item $\mu \in \mathbb{R}$ é \textbf{desconhecido}
+\item $\sigma^2 \in \mathbb{R}^+$ é \textbf{desconhecido}
+\end{itemize}
+
+Dado um nível de significância $\alpha \in (0,1)$, queremos derivar o TRV para testar:
+\[
+H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0
+\]
+
+onde $\mu_0 \in \mathbb{R}$ é um valor fixo especificado.
+
+\subsection{Passo 1: Definição dos Espaços Paramétricos}
+
+\textbf{Espaço paramétrico completo:}
+\[
+\Theta = \{ (\mu, \sigma^2) : \mu \in \mathbb{R}, \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Espaço paramétrico sob $H_0$:}
+\[
+\Theta_0 = \{ (\mu, \sigma^2) : \mu = \mu_0 \text{ (fixo)}, \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Diferença crucial:} No Caso 1, $\sigma^2$ era conhecido. No Caso 2, $\sigma^2$ é desconhecido e precisa ser estimado tanto sob $H_0$ quanto sob $H_1$.
+
+\subsection{Passo 2: Função de Verossimilhança}
+
+A função de verossimilhança conjunta para $(\mu, \sigma^2)$ é:
+\[
+L(\mu, \sigma^2) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\]
+
+\textbf{Explicação:} Agora temos dois parâmetros desconhecidos: $\mu$ e $\sigma^2$.
+
+\subsection{Passo 3: Estimadores de Máxima Verossimilhança Irrestritos}
+
+Para encontrar os EMV irrestritos, maximizamos $L(\mu, \sigma^2)$ sobre $\Theta$.
+
+\textbf{Log-verossimilhança:}
+\[
+\ell(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+\textbf{Derivadas parciais:}
+
+Em relação a $\mu$:
+\[
+\frac{\partial \ell}{\partial \mu} = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) = 0
+\]
+
+Portanto: $\hat{\mu} = \bar{x}$.
+
+Em relação a $\sigma^2$:
+\[
+\frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu)^2 = 0
+\]
+
+Substituindo $\mu = \hat{\mu} = \bar{x}$:
+\[
+-\frac{n}{2\hat{\sigma}^2} + \frac{1}{2(\hat{\sigma}^2)^2} \sum_{i=1}^n (x_i - \bar{x})^2 = 0
+\]
+
+Multiplicando por $2(\hat{\sigma}^2)^2$:
+\[
+-n\hat{\sigma}^2 + \sum_{i=1}^n (x_i - \bar{x})^2 = 0
+\]
+
+Portanto:
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+\]
+
+\textbf{Explicação:} Os EMV irrestritos são $\hat{\mu} = \bar{x}$ e $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2$.
+
+\subsection{Passo 4: Máxima Verossimilhança sob $H_0$}
+
+Sob $H_0$, temos $\mu = \mu_0$ (fixo), mas $\sigma^2$ ainda é desconhecido e precisa ser estimado.
+
+Maximizamos $L(\mu_0, \sigma^2)$ em relação a $\sigma^2$:
+\[
+\frac{\partial \ell(\mu_0, \sigma^2)}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu_0)^2 = 0
+\]
+
+Portanto:
+\[
+\hat{\sigma}_0^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \mu_0)^2
+\]
+
+\textbf{Explicação:} Sob $H_0$, o EMV para $\sigma^2$ usa $\mu_0$ em vez de $\bar{x}$.
+
+Portanto:
+\[
+\sup_{(\mu, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = L(\mu_0, \hat{\sigma}_0^2) = (2\pi\hat{\sigma}_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}_0^2} \sum_{i=1}^n (x_i - \mu_0)^2 \right\}
+\]
+
+\subsection{Passo 5: Simplificação da Verossimilhança sob $H_0$}
+
+Note que:
+\[
+\sum_{i=1}^n (x_i - \mu_0)^2 = n\hat{\sigma}_0^2
+\]
+
+Portanto:
+\[
+\exp\left\{ -\frac{1}{2\hat{\sigma}_0^2} \sum_{i=1}^n (x_i - \mu_0)^2 \right\} = \exp\left\{ -\frac{1}{2\hat{\sigma}_0^2} \cdot n\hat{\sigma}_0^2 \right\} = \exp\left\{ -\frac{n}{2} \right\} = e^{-n/2}
+\]
+
+Portanto:
+\[
+\sup_{(\mu, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = (2\pi\hat{\sigma}_0^2)^{-n/2} e^{-n/2}
+\]
+
+\subsection{Passo 6: Máxima Verossimilhança Irrestrita}
+
+\[
+\sup_{(\mu, \sigma^2) \in \Theta} L(\mu, \sigma^2) = L(\bar{x}, \hat{\sigma}^2) = (2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}
+\]
+
+Similarmente:
+\[
+\sum_{i=1}^n (x_i - \bar{x})^2 = n\hat{\sigma}^2
+\]
+
+Portanto:
+\[
+\exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\} = e^{-n/2}
+\]
+
+Portanto:
+\[
+\sup_{(\mu, \sigma^2) \in \Theta} L(\mu, \sigma^2) = (2\pi\hat{\sigma}^2)^{-n/2} e^{-n/2}
+\]
+
+\subsection{Passo 7: Razão de Verossimilhanças}
+
+\[
+\Lambda = \frac{\sup_{(\mu, \sigma^2) \in \Theta_0} L(\mu, \sigma^2)}{\sup_{(\mu, \sigma^2) \in \Theta} L(\mu, \sigma^2)} = \frac{(2\pi\hat{\sigma}_0^2)^{-n/2} e^{-n/2}}{(2\pi\hat{\sigma}^2)^{-n/2} e^{-n/2}}
+\]
+
+Simplificando:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\hat{\sigma}_0^2} \right)^{n/2}
+\]
+
+\textbf{Explicação:} Os termos $(2\pi)^{-n/2}$ e $e^{-n/2}$ se cancelam.
+
+\subsection{Passo 8: Relação entre $\hat{\sigma}_0^2$ e $\hat{\sigma}^2$}
+
+Usando a identidade fundamental:
+\[
+\sum_{i=1}^n (x_i - \mu_0)^2 = \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \mu_0)^2
+\]
+
+Portanto:
+\[
+n\hat{\sigma}_0^2 = n\hat{\sigma}^2 + n(\bar{x} - \mu_0)^2
+\]
+
+Dividindo por $n$:
+\[
+\hat{\sigma}_0^2 = \hat{\sigma}^2 + (\bar{x} - \mu_0)^2
+\]
+
+\textbf{Explicação:} A variância estimada sob $H_0$ é maior ou igual à variância estimada irrestrita, pois inclui o termo adicional $(\bar{x} - \mu_0)^2$.
+
+\subsection{Passo 9: Simplificação de $\Lambda$}
+
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\hat{\sigma}_0^2} \right)^{n/2} = \left( \frac{\hat{\sigma}^2}{\hat{\sigma}^2 + (\bar{x} - \mu_0)^2} \right)^{n/2}
+\]
+
+Fatorando $\hat{\sigma}^2$ no denominador:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\hat{\sigma}^2 \left[ 1 + \frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2} \right]} \right)^{n/2} = \left( \frac{1}{1 + \frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2}} \right)^{n/2}
+\]
+
+\[
+= \left( 1 + \frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2} \right)^{-n/2}
+\]
+
+\subsection{Passo 10: Região Crítica}
+
+O TRV rejeita $H_0$ quando $\Lambda < k$ para algum $k \in (0,1)$.
+
+Como $\Lambda = \left( 1 + \frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2} \right)^{-n/2}$ e a função $f(x) = x^{-n/2}$ é estritamente decrescente para $x > 0$, temos:
+\[
+\Lambda < k \quad \Leftrightarrow \quad \left( 1 + \frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2} \right)^{-n/2} < k
+\]
+
+Elevando ambos os lados à potência $-\frac{2}{n}$ (e invertendo a desigualdade porque o expoente é negativo):
+\[
+1 + \frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2} > k^{-2/n}
+\]
+
+Portanto:
+\[
+\frac{(\bar{x} - \mu_0)^2}{\hat{\sigma}^2} > k^{-2/n} - 1
+\]
+
+Tomando a raiz quadrada:
+\[
+\frac{|\bar{x} - \mu_0|}{\hat{\sigma}} > \sqrt{k^{-2/n} - 1}
+\]
+
+Multiplicando por $\sqrt{n}$:
+\[
+\sqrt{n} \frac{|\bar{x} - \mu_0|}{\hat{\sigma}} > \sqrt{n(k^{-2/n} - 1)}
+\]
+
+\subsection{Passo 11: Estatística de Teste}
+
+Definindo a variância amostral:
+\[
+s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2
+\]
+
+\textbf{Relação:} Note que:
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2 = \frac{n-1}{n} s^2
+\]
+
+Portanto:
+\[
+\frac{|\bar{x} - \mu_0|}{\hat{\sigma}} = \frac{|\bar{x} - \mu_0|}{\sqrt{\frac{n-1}{n} s^2}} = \frac{|\bar{x} - \mu_0|}{s} \sqrt{\frac{n}{n-1}}
+\]
+
+A estatística de teste é:
+\[
+T = \sqrt{n} \frac{\bar{x} - \mu_0}{s} = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}
+\]
+
+\textbf{Explicação:} Esta é a estatística $t$ de Student. O fator $\sqrt{\frac{n}{n-1}}$ é aproximadamente 1 para $n$ grande, então usamos $s$ diretamente.
+
+\subsection{Passo 12: Distribuição da Estatística sob $H_0$}
+
+\textbf{Propriedade crucial:} Sob $H_0$, temos:
+\[
+T = \frac{\bar{X} - \mu_0}{S/\sqrt{n}} \sim t_{n-1}
+\]
+
+onde $S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2$ é a variância amostral.
+
+\textbf{Justificativa:} 
+\begin{itemize}
+\item O numerador $\frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1)$ quando $\mu = \mu_0$.
+\item O denominador $\frac{S}{\sigma}$ está relacionado a $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+\item A razão entre uma normal padrão e a raiz quadrada de uma qui-quadrado dividida por seus graus de liberdade segue distribuição $t$ de Student.
+\end{itemize}
+
+\subsection{Passo 13: Função Crítica}
+
+A região crítica é:
+\[
+R_c = \left\{ |T| > t_{n-1, \alpha/2} \right\}
+\]
+
+onde $t_{n-1, \alpha/2}$ é o quantil $(1-\alpha/2)$ da distribuição $t$ de Student com $n-1$ graus de liberdade.
+
+\textbf{Função crítica:}
+\[
+\psi(x) = 
+\begin{cases}
+1, & |T(x)| > t_{n-1, \alpha/2} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+\textbf{Explicação:} A diferença crucial entre Caso 1 e Caso 2:
+\begin{itemize}
+\item \textbf{Caso 1:} Usamos distribuição normal padrão ($Z \sim N(0,1)$) porque $\sigma^2$ é conhecido.
+\item \textbf{Caso 2:} Usamos distribuição $t$ de Student ($T \sim t_{n-1}$) porque $\sigma^2$ é desconhecido e estimado, perdendo um grau de liberdade.
+\end{itemize}
+
+\section{Caso 3: Teste de Variância com Média Conhecida}
+
+\subsection{Enunciado do Problema}
+
+Sejam $X_1, \ldots, X_n$ variáveis aleatórias independentes e identicamente distribuídas (i.i.d.) tais que $X_i \sim N(\mu, \sigma^2)$ para $i = 1, \ldots, n$, onde:
+\begin{itemize}
+\item $\mu$ é \textbf{conhecido} (fixo)
+\item $\sigma^2 \in \mathbb{R}^+$ é \textbf{desconhecido}
+\end{itemize}
+
+Dado um nível de significância $\alpha \in (0,1)$, queremos derivar o TRV para testar:
+\[
+H_0: \sigma^2 = \sigma_0^2 \quad \text{vs} \quad H_1: \sigma^2 \neq \sigma_0^2
+\]
+
+onde $\sigma_0^2 > 0$ é um valor fixo especificado.
+
+\subsection{Passo 1: Definição dos Espaços Paramétricos}
+
+\textbf{Espaço paramétrico completo:}
+\[
+\Theta = \{ (\mu, \sigma^2) : \mu \text{ é conhecido e fixo, } \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+Como $\mu$ é conhecido, na prática trabalhamos apenas com $\sigma^2 \in \mathbb{R}_+$.
+
+\textbf{Espaço paramétrico sob $H_0$:}
+\[
+\Theta_0 = \{ \sigma^2 = \sigma_0^2 \}
+\]
+
+Ou seja, sob $H_0$, $\sigma^2$ está fixado em $\sigma_0^2$.
+
+\textbf{Espaço paramétrico sob $H_1$:}
+\[
+\Theta_1 = \{ \sigma^2 \in \mathbb{R}_+ : \sigma^2 \neq \sigma_0^2 \}
+\]
+
+\subsection{Passo 2: Função de Verossimilhança}
+
+Para uma amostra $x_1, \ldots, x_n$ de $X_1, \ldots, X_n$, a função de densidade conjunta é:
+\[
+f(x_1, \ldots, x_n \mid \sigma^2) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left\{ -\frac{(x_i - \mu)^2}{2\sigma^2} \right\}
+\]
+
+\textbf{Explicação:} Como as observações são independentes, a densidade conjunta é o produto das densidades individuais. Cada $X_i$ tem densidade normal com média $\mu$ (conhecida) e variância $\sigma^2$ (desconhecida).
+
+A função de verossimilhança é:
+\begin{equation}
+L(\sigma^2) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\label{eq:likelihood_caso3}
+\end{equation}
+
+\textbf{Explicação:} 
+\begin{itemize}
+\item O fator $(2\pi\sigma^2)^{-n/2}$ vem do produto dos $n$ termos $\frac{1}{\sqrt{2\pi\sigma^2}}$.
+\item O expoente $\sum_{i=1}^n (x_i - \mu)^2$ aparece porque estamos somando os expoentes dos produtos de exponenciais.
+\end{itemize}
+
+\subsection{Passo 3: Estimador de Máxima Verossimilhança Irrestrito}
+
+Para encontrar o EMV irrestrito, maximizamos $L(\sigma^2)$ (ou, equivalentemente, $\ell(\sigma^2) = \log L(\sigma^2)$) sobre $\Theta$.
+
+A função de log-verossimilhança é:
+\[
+\ell(\sigma^2) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+Derivando em relação a $\sigma^2$:
+\[
+\frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2} \cdot \frac{1}{\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+\textbf{Explicação:} 
+\begin{itemize}
+\item A derivada de $\log(2\pi\sigma^2)$ em relação a $\sigma^2$ é $\frac{1}{\sigma^2}$.
+\item A derivada de $\frac{1}{\sigma^2}$ é $-\frac{1}{(\sigma^2)^2}$.
+\end{itemize}
+
+Igualando a zero:
+\[
+-\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu)^2 = 0
+\]
+
+Multiplicando ambos os lados por $2(\sigma^2)^2$:
+\[
+-n\sigma^2 + \sum_{i=1}^n (x_i - \mu)^2 = 0
+\]
+
+Portanto:
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+\textbf{Explicação:} Este é o EMV irrestrito. Note que usamos $\mu$ (conhecido) em vez de $\bar{x}$ porque a média é conhecida.
+
+\subsection{Passo 4: Máxima Verossimilhança sob $H_0$}
+
+Sob $H_0$, temos $\sigma^2 = \sigma_0^2$ (fixo). Portanto:
+\[
+\sup_{\sigma^2 \in \Theta_0} L(\sigma^2) = L(\sigma_0^2) = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\]
+
+\textbf{Explicação:} Como $\Theta_0$ contém apenas um ponto ($\sigma_0^2$), o supremo é simplesmente o valor da função nesse ponto.
+
+\subsection{Passo 5: Máxima Verossimilhança Irrestrita}
+
+Substituindo $\hat{\sigma}^2$ na função de verossimilhança:
+\[
+\sup_{\sigma^2 \in \Theta} L(\sigma^2) = L(\hat{\sigma}^2) = (2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\]
+
+\textbf{Explicação:} Como $\hat{\sigma}^2$ é o maximizador, este é o valor máximo da verossimilhança.
+
+\subsection{Passo 6: Razão de Verossimilhanças}
+
+A estatística da razão de verossimilhanças é:
+\[
+\Lambda = \frac{\sup_{\sigma^2 \in \Theta_0} L(\sigma^2)}{\sup_{\sigma^2 \in \Theta} L(\sigma^2)} = \frac{L(\sigma_0^2)}{L(\hat{\sigma}^2)}
+\]
+
+Substituindo as expressões:
+\[
+\Lambda = \frac{(2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}}{(2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}}
+\]
+
+Simplificando:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 + \frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\]
+
+\textbf{Explicação:} 
+\begin{itemize}
+\item O fator $(2\pi)^{-n/2}$ cancela no numerador e denominador.
+\item O termo $\left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2}$ vem de $\frac{(\sigma_0^2)^{-n/2}}{(\hat{\sigma}^2)^{-n/2}} = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2}$.
+\end{itemize}
+
+Agora, note que:
+\[
+\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \mu)^2 = \frac{1}{2\hat{\sigma}^2} \cdot n\hat{\sigma}^2 = \frac{n}{2}
+\]
+
+\textbf{Explicação:} Por definição, $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2$, então $\sum_{i=1}^n (x_i - \mu)^2 = n\hat{\sigma}^2$.
+
+Também:
+\[
+\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \mu)^2 = \frac{1}{2\sigma_0^2} \cdot n\hat{\sigma}^2 = \frac{n\hat{\sigma}^2}{2\sigma_0^2}
+\]
+
+Portanto:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ -\frac{n\hat{\sigma}^2}{2\sigma_0^2} + \frac{n}{2} \right\}
+\]
+
+Fatorando $\frac{n}{2}$:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ \frac{n}{2} \left( 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right) \right\}
+\]
+
+Definindo $u = \frac{\hat{\sigma}^2}{\sigma_0^2}$:
+\[
+\Lambda = u^{n/2} \exp\left\{ \frac{n}{2}(1 - u) \right\} = u^{n/2} e^{n/2} e^{-nu/2} = e^{n/2} u^{n/2} e^{-nu/2}
+\]
+
+Ou, de forma mais simples:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left( \frac{n}{2} \left( 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right) \right)
+\]
+
+\subsection{Passo 7: Análise da Função $g(u) = u e^{1-u}$}
+
+Para entender quando $\Lambda$ é pequeno (evidência contra $H_0$), analisamos a função:
+\[
+g(u) = u e^{1-u}, \quad u > 0
+\]
+
+onde $u = \frac{\hat{\sigma}^2}{\sigma_0^2}$.
+
+\textbf{Derivada primeira:}
+\[
+g'(u) = e^{1-u} + u \cdot (-e^{1-u}) = e^{1-u}(1 - u)
+\]
+
+\textbf{Ponto crítico:} $g'(u) = 0 \Rightarrow 1 - u = 0 \Rightarrow u = 1$.
+
+\textbf{Análise:}
+\begin{itemize}
+\item Se $u < 1$: $g'(u) > 0$ (função crescente)
+\item Se $u > 1$: $g'(u) < 0$ (função decrescente)
+\item Se $u = 1$: $g'(u) = 0$ (máximo)
+\end{itemize}
+
+\textbf{Limites:}
+\[
+\lim_{u \to 0^+} g(u) = 0 \cdot e^1 = 0
+\]
+\[
+\lim_{u \to \infty} g(u) = \lim_{u \to \infty} \frac{u}{e^{u-1}} = 0 \quad \text{(por L'Hôpital)}
+\]
+
+\textbf{Conclusão:} A função $g(u)$ tem máximo em $u = 1$ e tende a zero quando $u \to 0$ ou $u \to \infty$. Isso significa que $\Lambda$ será pequeno quando $\hat{\sigma}^2$ está muito distante de $\sigma_0^2$ (tanto menor quanto maior).
+
+\subsection{Passo 8: Região Crítica}
+
+O TRV rejeita $H_0$ quando $\Lambda < k$ para algum $k \in (0,1)$ escolhido de forma que o nível do teste seja $\alpha$.
+
+Como $\Lambda$ é pequeno quando $\frac{\hat{\sigma}^2}{\sigma_0^2}$ está muito distante de 1, a região crítica é bilateral.
+
+Definindo:
+\[
+T(X) = \sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma_0^2}
+\]
+
+\textbf{Propriedade importante:} Se $X_i \sim N(\mu, \sigma_0^2)$ sob $H_0$, então:
+\[
+\frac{X_i - \mu}{\sigma_0} \sim N(0,1)
+\]
+
+Portanto:
+\[
+\left( \frac{X_i - \mu}{\sigma_0} \right)^2 \sim \chi^2_1
+\]
+
+Como as observações são independentes:
+\[
+T(X) = \sum_{i=1}^n \left( \frac{X_i - \mu}{\sigma_0} \right)^2 \sim \chi^2_n
+\]
+
+\textbf{Explicação:} A soma de $n$ variáveis qui-quadrado independentes com 1 grau de liberdade cada resulta em uma qui-quadrado com $n$ graus de liberdade.
+
+Note que:
+\[
+T(X) = \frac{n\hat{\sigma}^2}{\sigma_0^2} = n \cdot \frac{\hat{\sigma}^2}{\sigma_0^2} = nu
+\]
+
+\textbf{Região crítica:} Rejeitamos $H_0$ quando $T(X) < a$ ou $T(X) > b$, onde $a$ e $b$ são escolhidos de forma que:
+\[
+P_{H_0}(T < a) = \frac{\alpha}{2} \quad \text{e} \quad P_{H_0}(T > b) = \frac{\alpha}{2}
+\]
+
+Portanto:
+\[
+a = \chi^2_{n, 1-\alpha/2} \quad \text{e} \quad b = \chi^2_{n, \alpha/2}
+\]
+
+\textbf{Explicação:} 
+\begin{itemize}
+\item $\chi^2_{n, 1-\alpha/2}$ é o quantil $(1-\alpha/2)$ da distribuição $\chi^2_n$, ou seja, $P(\chi^2_n \leq \chi^2_{n, 1-\alpha/2}) = 1-\alpha/2$, então $P(\chi^2_n < \chi^2_{n, 1-\alpha/2}) = \alpha/2$.
+\item $\chi^2_{n, \alpha/2}$ é o quantil $(\alpha/2)$ da distribuição $\chi^2_n$, ou seja, $P(\chi^2_n > \chi^2_{n, \alpha/2}) = \alpha/2$.
+\end{itemize}
+
+\subsection{Passo 9: Função Crítica}
+
+A função crítica do teste é:
+\[
+\psi(x) = 
+\begin{cases}
+1, & T(x) < \chi^2_{n, 1-\alpha/2} \quad \text{ou} \quad T(x) > \chi^2_{n, \alpha/2} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+onde $\psi(x) = 1$ significa rejeitar $H_0$ e $\psi(x) = 0$ significa não rejeitar $H_0$.
+
+\section{Caso 4: Teste de Variância com Média Desconhecida}
+
+\subsection{Enunciado do Problema}
+
+Sejam $X_1, \ldots, X_n$ variáveis aleatórias i.i.d. tais que $X_i \sim N(\mu, \sigma^2)$ para $i = 1, \ldots, n$, onde:
+\begin{itemize}
+\item $\mu \in \mathbb{R}$ é \textbf{desconhecido}
+\item $\sigma^2 \in \mathbb{R}^+$ é \textbf{desconhecido}
+\end{itemize}
+
+Dado um nível de significância $\alpha \in (0,1)$, queremos derivar o TRV para testar:
+\[
+H_0: \sigma^2 = \sigma_0^2 \quad \text{vs} \quad H_1: \sigma^2 \neq \sigma_0^2
+\]
+
+onde $\sigma_0^2 > 0$ é um valor fixo especificado.
+
+\subsection{Passo 1: Definição dos Espaços Paramétricos}
+
+\textbf{Espaço paramétrico completo:}
+\[
+\Theta = \{ (\mu, \sigma^2) : \mu \in \mathbb{R}, \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Espaço paramétrico sob $H_0$:}
+\[
+\Theta_0 = \{ (\mu, \sigma^2) : \mu \in \mathbb{R}, \sigma^2 = \sigma_0^2 \}
+\]
+
+\textbf{Diferença crucial:} No Caso 3, $\mu$ era conhecido. No Caso 4, $\mu$ é desconhecido e precisa ser estimado tanto sob $H_0$ quanto sob $H_1$.
+
+\subsection{Passo 2: Função de Verossimilhança}
+
+A função de verossimilhança conjunta para $(\mu, \sigma^2)$ é:
+\[
+L(\mu, \sigma^2) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right\}
+\]
+
+\textbf{Explicação:} Agora temos dois parâmetros desconhecidos: $\mu$ e $\sigma^2$.
+
+\subsection{Passo 3: Estimadores de Máxima Verossimilhança Irrestritos}
+
+Para encontrar os EMV irrestritos, maximizamos $L(\mu, \sigma^2)$ sobre $\Theta$.
+
+\textbf{Log-verossimilhança:}
+\[
+\ell(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+\textbf{Derivadas parciais:}
+
+Em relação a $\mu$:
+\[
+\frac{\partial \ell}{\partial \mu} = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu) = \frac{1}{\sigma^2} \left( \sum_{i=1}^n x_i - n\mu \right)
+\]
+
+Igualando a zero:
+\[
+\sum_{i=1}^n x_i - n\mu = 0 \quad \Rightarrow \quad \hat{\mu} = \bar{x} = \frac{1}{n} \sum_{i=1}^n x_i
+\]
+
+Em relação a $\sigma^2$:
+\[
+\frac{\partial \ell}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i=1}^n (x_i - \mu)^2
+\]
+
+Igualando a zero e substituindo $\mu = \hat{\mu}$:
+\[
+-\frac{n}{2\hat{\sigma}^2} + \frac{1}{2(\hat{\sigma}^2)^2} \sum_{i=1}^n (x_i - \bar{x})^2 = 0
+\]
+
+Portanto:
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+\]
+
+\textbf{Explicação:} Note a diferença crucial: no Caso 3, usávamos $\mu$ (conhecido) na soma. No Caso 4, usamos $\bar{x}$ (estimado).
+
+\subsection{Passo 4: Máxima Verossimilhança sob $H_0$}
+
+Sob $H_0$, temos $\sigma^2 = \sigma_0^2$ (fixo), mas $\mu$ ainda é desconhecido e precisa ser estimado.
+
+Maximizamos $L(\mu, \sigma_0^2)$ em relação a $\mu$:
+\[
+\frac{\partial \ell(\mu, \sigma_0^2)}{\partial \mu} = \frac{1}{\sigma_0^2} \sum_{i=1}^n (x_i - \mu) = 0
+\]
+
+Portanto, mesmo sob $H_0$, o EMV para $\mu$ é $\hat{\mu}_0 = \bar{x}$.
+
+\textbf{Explicação:} A restrição $\sigma^2 = \sigma_0^2$ não afeta a estimação de $\mu$, pois a derivada em relação a $\mu$ não depende de $\sigma^2$.
+
+Portanto:
+\[
+\sup_{(\mu, \sigma^2) \in \Theta_0} L(\mu, \sigma^2) = L(\bar{x}, \sigma_0^2) = (2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}
+\]
+
+\subsection{Passo 5: Máxima Verossimilhança Irrestrita}
+
+\[
+\sup_{(\mu, \sigma^2) \in \Theta} L(\mu, \sigma^2) = L(\bar{x}, \hat{\sigma}^2) = (2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}
+\]
+
+\subsection{Passo 6: Razão de Verossimilhanças}
+
+\[
+\Lambda = \frac{L(\bar{x}, \sigma_0^2)}{L(\bar{x}, \hat{\sigma}^2)} = \frac{(2\pi\sigma_0^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}}{(2\pi\hat{\sigma}^2)^{-n/2} \exp\left\{ -\frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}}
+\]
+
+Simplificando:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \bar{x})^2 + \frac{1}{2\hat{\sigma}^2} \sum_{i=1}^n (x_i - \bar{x})^2 \right\}
+\]
+
+Note que:
+\[
+\sum_{i=1}^n (x_i - \bar{x})^2 = n\hat{\sigma}^2
+\]
+
+Portanto:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ -\frac{n\hat{\sigma}^2}{2\sigma_0^2} + \frac{n}{2} \right\} = \left( \frac{\hat{\sigma}^2}{\sigma_0^2} \right)^{n/2} \exp\left\{ \frac{n}{2} \left( 1 - \frac{\hat{\sigma}^2}{\sigma_0^2} \right) \right\}
+\]
+
+Esta é a mesma forma do Caso 3! A diferença está na distribuição da estatística de teste.
+
+\subsection{Passo 7: Estatística de Teste}
+
+Definindo:
+\[
+T(X) = \sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma_0^2} = \frac{n\hat{\sigma}^2}{\sigma_0^2}
+\]
+
+\textbf{Propriedade crucial:} Sob $H_0$, temos:
+\[
+\frac{(n-1)S_n^2}{\sigma_0^2} \sim \chi^2_{n-1}
+\]
+
+onde $S_n^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2$ é a variância amostral.
+
+\textbf{Explicação:} A diferença entre Caso 3 e Caso 4:
+\begin{itemize}
+\item \textbf{Caso 3:} Usamos $\mu$ conhecido, então $\sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma_0^2} \sim \chi^2_n$ (n graus de liberdade).
+\item \textbf{Caso 4:} Usamos $\bar{X}$ estimado, então perdemos um grau de liberdade: $\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma_0^2} \sim \chi^2_{n-1}$ (n-1 graus de liberdade).
+\end{itemize}
+
+\textbf{Relação:} Note que:
+\[
+n\hat{\sigma}^2 = \sum_{i=1}^n (X_i - \bar{X})^2 = (n-1)S_n^2
+\]
+
+Portanto:
+\[
+T(X) = \frac{(n-1)S_n^2}{\sigma_0^2} \sim \chi^2_{n-1}
+\]
+
+\subsection{Passo 8: Região Crítica}
+
+A região crítica é bilateral:
+\[
+R_c = \{ T(X) < \chi^2_{n-1, 1-\alpha/2} \quad \text{ou} \quad T(X) > \chi^2_{n-1, \alpha/2} \}
+\]
+
+\textbf{Função crítica:}
+\[
+\psi(x) = 
+\begin{cases}
+1, & T(x) < \chi^2_{n-1, 1-\alpha/2} \quad \text{ou} \quad T(x) > \chi^2_{n-1, \alpha/2} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+\section{TRV para Duas Amostras: Comparação de Médias}
+
+\subsection{Enunciado do Problema}
+
+Sejam:
+\begin{itemize}
+\item $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu_X, \sigma_X^2)$
+\item $Y_1, \ldots, Y_m$ uma amostra aleatória de $Y \sim N(\mu_Y, \sigma_Y^2)$
+\item As amostras são independentes entre si
+\end{itemize}
+
+\textbf{Suposição importante:} $\sigma_X^2 = \sigma_Y^2 = \sigma^2$ (variâncias iguais, desconhecidas).
+
+Queremos testar:
+\[
+H_0: \mu_X = \mu_Y \quad \text{vs} \quad H_1: \mu_X \neq \mu_Y
+\]
+
+\subsection{Passo 1: Definição dos Espaços Paramétricos}
+
+\textbf{Espaço paramétrico completo:}
+\[
+\Theta = \{ (\mu_X, \mu_Y, \sigma^2) : \mu_X, \mu_Y \in \mathbb{R}, \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Espaço paramétrico sob $H_0$:}
+\[
+\Theta_0 = \{ (\mu_X, \mu_Y, \sigma^2) : \mu_X = \mu_Y = \mu \in \mathbb{R}, \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Explicação:} Sob $H_0$, as duas populações têm a mesma média $\mu$, mas esse valor comum é desconhecido e precisa ser estimado.
+
+\subsection{Passo 2: Estatísticas Suficientes}
+
+As estatísticas suficientes são:
+\[
+\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i, \quad \bar{Y} = \frac{1}{m} \sum_{i=1}^m Y_i
+\]
+\[
+S_X^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2, \quad S_Y^2 = \frac{1}{m-1} \sum_{i=1}^m (Y_i - \bar{Y})^2
+\]
+
+\textbf{Variância amostral conjunta (pooled):}
+\[
+S_p^2 = \frac{(n-1)S_X^2 + (m-1)S_Y^2}{n + m - 2}
+\]
+
+\textbf{Explicação:} Como assumimos variâncias iguais, combinamos as informações de ambas as amostras para estimar a variância comum. Os pesos são os graus de liberdade de cada amostra.
+
+\subsection{Passo 3: Função de Verossimilhança}
+
+Como as amostras são independentes, a verossimilhança conjunta é o produto das verossimilhanças individuais:
+
+\[
+L(\mu_X, \mu_Y, \sigma^2) = L_X(\mu_X, \sigma^2) \cdot L_Y(\mu_Y, \sigma^2)
+\]
+
+onde:
+\[
+L_X(\mu_X, \sigma^2) = (2\pi\sigma^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu_X)^2 \right\}
+\]
+\[
+L_Y(\mu_Y, \sigma^2) = (2\pi\sigma^2)^{-m/2} \exp\left\{ -\frac{1}{2\sigma^2} \sum_{i=1}^m (y_i - \mu_Y)^2 \right\}
+\]
+
+Portanto:
+\begin{equation}
+L(\mu_X, \mu_Y, \sigma^2) = (2\pi\sigma^2)^{-\frac{n+m}{2}} \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_X)^2 + \sum_{j=1}^m (y_j - \mu_Y)^2 \right] \right\}
+\label{eq:likelihood_2amostras}
+\end{equation}
+
+\subsection{Passo 4: Estimadores de Máxima Verossimilhança Irrestritos}
+
+\textbf{Log-verossimilhança:}
+\[
+\ell(\mu_X, \mu_Y, \sigma^2) = -\frac{n+m}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_X)^2 + \sum_{j=1}^m (y_j - \mu_Y)^2 \right]
+\]
+
+\textbf{Derivadas parciais:}
+
+Em relação a $\mu_X$:
+\[
+\frac{\partial \ell}{\partial \mu_X} = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu_X) = \frac{1}{\sigma^2} \left( \sum_{i=1}^n x_i - n\mu_X \right) = 0
+\]
+
+Portanto: $\hat{\mu}_X = \bar{x}$.
+
+Em relação a $\mu_Y$:
+\[
+\frac{\partial \ell}{\partial \mu_Y} = \frac{1}{\sigma^2} \sum_{j=1}^m (y_j - \mu_Y) = \frac{1}{\sigma^2} \left( \sum_{j=1}^m y_j - m\mu_Y \right) = 0
+\]
+
+Portanto: $\hat{\mu}_Y = \bar{y}$.
+
+Em relação a $\sigma^2$:
+\[
+\frac{\partial \ell}{\partial \sigma^2} = -\frac{n+m}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \left[ \sum_{i=1}^n (x_i - \hat{\mu}_X)^2 + \sum_{j=1}^m (y_j - \hat{\mu}_Y)^2 \right] = 0
+\]
+
+Portanto:
+\[
+\hat{\sigma}^2 = \frac{1}{n+m} \left[ \sum_{i=1}^n (x_i - \bar{x})^2 + \sum_{j=1}^m (y_j - \bar{y})^2 \right]
+\]
+
+\textbf{Explicação:} Note que este é o EMV irrestrito. Ele usa as médias amostrais separadas ($\bar{x}$ e $\bar{y}$) para cada população.
+
+\subsection{Passo 5: Máxima Verossimilhança sob $H_0$}
+
+Sob $H_0$, temos $\mu_X = \mu_Y = \mu$ (desconhecido). Precisamos estimar $\mu$ e $\sigma^2$ sujeitos a essa restrição.
+
+\textbf{Log-verossimilhança sob $H_0$:}
+\[
+\ell(\mu, \sigma^2) = -\frac{n+m}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu)^2 + \sum_{j=1}^m (y_j - \mu)^2 \right]
+\]
+
+\textbf{Derivada em relação a $\mu$:}
+\[
+\frac{\partial \ell}{\partial \mu} = \frac{1}{\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu) + \sum_{j=1}^m (y_j - \mu) \right] = \frac{1}{\sigma^2} \left[ \sum_{i=1}^n x_i + \sum_{j=1}^m y_j - (n+m)\mu \right] = 0
+\]
+
+Portanto:
+\[
+\hat{\mu} = \frac{n\bar{x} + m\bar{y}}{n+m}
+\]
+
+\textbf{Explicação:} Este é uma média ponderada das médias amostrais, onde os pesos são os tamanhos das amostras.
+
+\textbf{Derivada em relação a $\sigma^2$:}
+\[
+\frac{\partial \ell}{\partial \sigma^2} = -\frac{n+m}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \left[ \sum_{i=1}^n (x_i - \hat{\mu})^2 + \sum_{j=1}^m (y_j - \hat{\mu})^2 \right] = 0
+\]
+
+Portanto:
+\[
+\hat{\sigma}_c^2 = \frac{1}{n+m} \left[ \sum_{i=1}^n (x_i - \hat{\mu})^2 + \sum_{j=1}^m (y_j - \hat{\mu})^2 \right]
+\]
+
+onde o subscrito $c$ indica "restrito" (constrained).
+
+\textbf{Explicação:} Este é o EMV restrito. Ele usa a média comum estimada $\hat{\mu}$ para ambas as populações.
+
+\subsection{Passo 6: Simplificação das Expressões}
+
+Precisamos simplificar as expressões para calcular $\Lambda$. Vamos trabalhar com as somas de quadrados.
+
+\textbf{Identidade fundamental:} Para qualquer constante $c$:
+\[
+\sum_{i=1}^n (x_i - c)^2 = \sum_{i=1}^n (x_i - \bar{x} + \bar{x} - c)^2
+\]
+
+Expandindo:
+\[
+= \sum_{i=1}^n \left[ (x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - c) + (\bar{x} - c)^2 \right]
+\]
+
+Como $\sum_{i=1}^n (x_i - \bar{x}) = 0$, temos:
+\[
+= \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - c)^2
+\]
+
+\textbf{Aplicação:} Para a amostra $X$ sob $H_0$:
+\[
+\sum_{i=1}^n (x_i - \hat{\mu})^2 = \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \hat{\mu})^2
+\]
+
+Para a amostra $Y$ sob $H_0$:
+\[
+\sum_{j=1}^m (y_j - \hat{\mu})^2 = \sum_{j=1}^m (y_j - \bar{y})^2 + m(\bar{y} - \hat{\mu})^2
+\]
+
+Portanto:
+\[
+\hat{\sigma}_c^2 = \frac{1}{n+m} \left[ \sum_{i=1}^n (x_i - \bar{x})^2 + n(\bar{x} - \hat{\mu})^2 + \sum_{j=1}^m (y_j - \bar{y})^2 + m(\bar{y} - \hat{\mu})^2 \right]
+\]
+
+\subsection{Passo 7: Cálculo de $(\bar{x} - \hat{\mu})^2$ e $(\bar{y} - \hat{\mu})^2$}
+
+Temos:
+\[
+\hat{\mu} = \frac{n\bar{x} + m\bar{y}}{n+m}
+\]
+
+Portanto:
+\[
+\bar{x} - \hat{\mu} = \bar{x} - \frac{n\bar{x} + m\bar{y}}{n+m} = \frac{(n+m)\bar{x} - n\bar{x} - m\bar{y}}{n+m} = \frac{m(\bar{x} - \bar{y})}{n+m}
+\]
+
+\textbf{Explicação:} 
+\[
+(n+m)\bar{x} - n\bar{x} = m\bar{x}
+\]
+
+Similarmente:
+\[
+\bar{y} - \hat{\mu} = \bar{y} - \frac{n\bar{x} + m\bar{y}}{n+m} = \frac{(n+m)\bar{y} - n\bar{x} - m\bar{y}}{n+m} = \frac{n(\bar{y} - \bar{x})}{n+m} = -\frac{n(\bar{x} - \bar{y})}{n+m}
+\]
+
+Portanto:
+\[
+n(\bar{x} - \hat{\mu})^2 + m(\bar{y} - \hat{\mu})^2 = n \left( \frac{m(\bar{x} - \bar{y})}{n+m} \right)^2 + m \left( \frac{n(\bar{x} - \bar{y})}{n+m} \right)^2
+\]
+
+\[
+= \frac{nm^2}{(n+m)^2} (\bar{x} - \bar{y})^2 + \frac{mn^2}{(n+m)^2} (\bar{x} - \bar{y})^2
+\]
+
+\[
+= \frac{nm(m + n)}{(n+m)^2} (\bar{x} - \bar{y})^2 = \frac{nm}{n+m} (\bar{x} - \bar{y})^2
+\]
+
+\textbf{Explicação:} Fatoramos $(\bar{x} - \bar{y})^2$ e simplificamos.
+
+\subsection{Passo 8: Expressão Final para $\hat{\sigma}_c^2$}
+
+\[
+\hat{\sigma}_c^2 = \frac{1}{n+m} \left[ \sum_{i=1}^n (x_i - \bar{x})^2 + \sum_{j=1}^m (y_j - \bar{y})^2 + \frac{nm}{n+m} (\bar{x} - \bar{y})^2 \right]
+\]
+
+Definindo:
+\[
+SS_X = \sum_{i=1}^n (x_i - \bar{x})^2 = (n-1)s_x^2
+\]
+\[
+SS_Y = \sum_{j=1}^m (y_j - \bar{y})^2 = (m-1)s_y^2
+\]
+
+onde $s_x^2$ e $s_y^2$ são as variâncias amostrais (observações de $S_X^2$ e $S_Y^2$).
+
+Portanto:
+\[
+\hat{\sigma}_c^2 = \frac{1}{n+m} \left[ (n-1)s_x^2 + (m-1)s_y^2 + \frac{nm}{n+m} (\bar{x} - \bar{y})^2 \right]
+\]
+
+\subsection{Passo 9: Razão de Verossimilhanças}
+
+\[
+\Lambda = \frac{\sup_{(\mu_X, \mu_Y, \sigma^2) \in \Theta_0} L(\mu_X, \mu_Y, \sigma^2)}{\sup_{(\mu_X, \mu_Y, \sigma^2) \in \Theta} L(\mu_X, \mu_Y, \sigma^2)} = \frac{L(\hat{\mu}, \hat{\sigma}_c^2)}{L(\bar{x}, \bar{y}, \hat{\sigma}^2)}
+\]
+
+Substituindo as expressões:
+\[
+\Lambda = \frac{(2\pi\hat{\sigma}_c^2)^{-\frac{n+m}{2}} \exp\left\{ -\frac{n+m}{2\hat{\sigma}_c^2} \hat{\sigma}_c^2 \right\}}{(2\pi\hat{\sigma}^2)^{-\frac{n+m}{2}} \exp\left\{ -\frac{n+m}{2\hat{\sigma}^2} \hat{\sigma}^2 \right\}}
+\]
+
+\textbf{Simplificação:} Note que:
+\[
+\exp\left\{ -\frac{n+m}{2\hat{\sigma}_c^2} \hat{\sigma}_c^2 \right\} = \exp\left\{ -\frac{n+m}{2} \right\} = e^{-\frac{n+m}{2}}
+\]
+
+Similarmente:
+\[
+\exp\left\{ -\frac{n+m}{2\hat{\sigma}^2} \hat{\sigma}^2 \right\} = e^{-\frac{n+m}{2}}
+\]
+
+Portanto:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\hat{\sigma}_c^2} \right)^{\frac{n+m}{2}}
+\]
+
+\textbf{Explicação:} Os termos exponenciais se cancelam porque ambos são $e^{-\frac{n+m}{2}}$.
+
+\subsection{Passo 10: Manipulação Algébrica}
+
+Temos:
+\[
+\hat{\sigma}^2 = \frac{1}{n+m} \left[ (n-1)s_x^2 + (m-1)s_y^2 \right]
+\]
+
+\[
+\hat{\sigma}_c^2 = \frac{1}{n+m} \left[ (n-1)s_x^2 + (m-1)s_y^2 + \frac{nm}{n+m} (\bar{x} - \bar{y})^2 \right]
+\]
+
+Portanto:
+\[
+\hat{\sigma}_c^2 = \hat{\sigma}^2 + \frac{1}{n+m} \cdot \frac{nm}{n+m} (\bar{x} - \bar{y})^2 = \hat{\sigma}^2 + \frac{nm}{(n+m)^2} (\bar{x} - \bar{y})^2
+\]
+
+Definindo:
+\[
+R(\bar{x}, \bar{y}) = \frac{\frac{nm}{n+m} (\bar{x} - \bar{y})^2}{(n-1)s_x^2 + (m-1)s_y^2}
+\]
+
+Temos:
+\[
+\hat{\sigma}_c^2 = \hat{\sigma}^2 \left( 1 + R(\bar{x}, \bar{y}) \right)
+\]
+
+\textbf{Verificação:}
+\[
+\hat{\sigma}_c^2 = \hat{\sigma}^2 + \frac{nm}{(n+m)^2} (\bar{x} - \bar{y})^2 = \hat{\sigma}^2 \left[ 1 + \frac{\frac{nm}{(n+m)^2} (\bar{x} - \bar{y})^2}{\hat{\sigma}^2} \right]
+\]
+
+\[
+= \hat{\sigma}^2 \left[ 1 + \frac{\frac{nm}{(n+m)^2} (\bar{x} - \bar{y})^2}{\frac{1}{n+m}[(n-1)s_x^2 + (m-1)s_y^2]} \right]
+\]
+
+\[
+= \hat{\sigma}^2 \left[ 1 + \frac{nm(\bar{x} - \bar{y})^2}{(n+m)[(n-1)s_x^2 + (m-1)s_y^2]} \right] = \hat{\sigma}^2 (1 + R(\bar{x}, \bar{y}))
+\]
+
+Portanto:
+\[
+\Lambda = \left( \frac{\hat{\sigma}^2}{\hat{\sigma}_c^2} \right)^{\frac{n+m}{2}} = \left( \frac{1}{1 + R(\bar{x}, \bar{y})} \right)^{\frac{n+m}{2}} = \left[ 1 + R(\bar{x}, \bar{y}) \right]^{-\frac{n+m}{2}}
+\]
+
+\subsection{Passo 11: Região Crítica}
+
+O TRV rejeita $H_0$ quando $\Lambda < k$ para algum $k \in (0,1)$.
+
+Como $\Lambda = [1 + R(\bar{x}, \bar{y})]^{-\frac{n+m}{2}}$ é uma função decrescente de $R(\bar{x}, \bar{y})$, temos:
+\[
+\Lambda < k \quad \Leftrightarrow \quad [1 + R(\bar{x}, \bar{y})]^{-\frac{n+m}{2}} < k
+\]
+
+Elevando ambos os lados à potência $-\frac{2}{n+m}$ (e invertendo a desigualdade porque o expoente é negativo):
+\[
+1 + R(\bar{x}, \bar{y}) > k^{-\frac{2}{n+m}}
+\]
+
+Portanto:
+\[
+R(\bar{x}, \bar{y}) > k^{-\frac{2}{n+m}} - 1
+\]
+
+\textbf{Explicação:} Como a função $f(x) = x^{-\frac{n+m}{2}}$ é estritamente decrescente para $x > 0$, quando aplicamos a inversa, a desigualdade se inverte.
+
+\subsection{Passo 12: Estatística de Teste}
+
+Temos:
+\[
+R(\bar{x}, \bar{y}) = \frac{\frac{nm}{n+m} (\bar{x} - \bar{y})^2}{(n-1)s_x^2 + (m-1)s_y^2}
+\]
+
+Tomando a raiz quadrada:
+\[
+\sqrt{R(\bar{x}, \bar{y})} = \sqrt{\frac{nm}{n+m}} \cdot \frac{|\bar{x} - \bar{y}|}{\sqrt{(n-1)s_x^2 + (m-1)s_y^2}}
+\]
+
+Definindo a variância amostral conjunta:
+\[
+s_p^2 = \frac{(n-1)s_x^2 + (m-1)s_y^2}{n+m-2}
+\]
+
+Temos:
+\[
+(n-1)s_x^2 + (m-1)s_y^2 = (n+m-2)s_p^2
+\]
+
+Portanto:
+\[
+\sqrt{R(\bar{x}, \bar{y})} = \sqrt{\frac{nm}{n+m}} \cdot \frac{|\bar{x} - \bar{y}|}{\sqrt{(n+m-2)s_p^2}} = \sqrt{\frac{nm}{n+m}} \cdot \frac{|\bar{x} - \bar{y}|}{s_p \sqrt{n+m-2}}
+\]
+
+Simplificando:
+\[
+= \frac{|\bar{x} - \bar{y}|}{s_p} \cdot \sqrt{\frac{nm}{(n+m)(n+m-2)}}
+\]
+
+Para grandes amostras, $(n+m-2) \approx (n+m)$, então:
+\[
+\sqrt{\frac{nm}{(n+m)(n+m-2)}} \approx \sqrt{\frac{nm}{(n+m)^2}} = \sqrt{\frac{nm}{n+m}} \cdot \frac{1}{\sqrt{n+m}} = \sqrt{\frac{1}{n} + \frac{1}{m}}
+\]
+
+\textbf{Estatística de teste:}
+\[
+T(\bar{x}, \bar{y}) = \frac{\bar{x} - \bar{y}}{s_p \sqrt{\frac{1}{n} + \frac{1}{m}}}
+\]
+
+\textbf{Distribuição sob $H_0$:} $T(\bar{x}, \bar{y}) \sim t_{n+m-2}$
+
+\textbf{Explicação:} Esta é a estatística $t$ de Student para duas amostras com variâncias iguais. Os graus de liberdade são $n+m-2$ porque estimamos duas médias.
+
+\subsection{Passo 13: Função Crítica Final}
+
+\[
+\psi(\bar{x}, \bar{y}) = 
+\begin{cases}
+1, & |T(\bar{x}, \bar{y})| > t_{n+m-2, \alpha/2} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+onde $t_{n+m-2, \alpha/2}$ é o quantil $(1-\alpha/2)$ da distribuição $t$ de Student com $n+m-2$ graus de liberdade.
+
+\section{TRV para Duas Amostras: Comparação de Variâncias}
+
+\subsection{Enunciado do Problema}
+
+Sejam:
+\begin{itemize}
+\item $X_1, \ldots, X_n$ uma amostra aleatória de $X \sim N(\mu_X, \sigma_X^2)$
+\item $Y_1, \ldots, Y_m$ uma amostra aleatória de $Y \sim N(\mu_Y, \sigma_Y^2)$
+\item As amostras são independentes entre si
+\end{itemize}
+
+Queremos testar:
+\[
+H_0: \sigma_X^2 = \sigma_Y^2 \quad \text{vs} \quad H_1: \sigma_X^2 \neq \sigma_Y^2
+\]
+
+\textbf{Observação:} Agora não assumimos que as variâncias são iguais. Na verdade, queremos testar se elas são iguais.
+
+\subsection{Passo 1: Definição dos Espaços Paramétricos}
+
+\textbf{Espaço paramétrico completo:}
+\[
+\Theta = \{ (\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2) : \mu_X, \mu_Y \in \mathbb{R}, \sigma_X^2, \sigma_Y^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Espaço paramétrico sob $H_0$:}
+\[
+\Theta_0 = \{ (\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2) : \mu_X, \mu_Y \in \mathbb{R}, \sigma_X^2 = \sigma_Y^2 = \sigma^2 \in \mathbb{R}_+ \}
+\]
+
+\textbf{Explicação:} Sob $H_0$, as variâncias são iguais a um valor comum $\sigma^2$ (desconhecido).
+
+\subsection{Passo 2: Função de Verossimilhança}
+
+Como as amostras são independentes:
+\[
+L(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2) = L_X(\mu_X, \sigma_X^2) \cdot L_Y(\mu_Y, \sigma_Y^2)
+\]
+
+onde:
+\[
+L_X(\mu_X, \sigma_X^2) = (2\pi\sigma_X^2)^{-n/2} \exp\left\{ -\frac{1}{2\sigma_X^2} \sum_{i=1}^n (x_i - \mu_X)^2 \right\}
+\]
+\[
+L_Y(\mu_Y, \sigma_Y^2) = (2\pi\sigma_Y^2)^{-m/2} \exp\left\{ -\frac{1}{2\sigma_Y^2} \sum_{i=1}^m (y_i - \mu_Y)^2 \right\}
+\]
+
+Portanto:
+\begin{equation}
+L(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2) = (2\pi)^{-\frac{n+m}{2}} (\sigma_X^2)^{-n/2} (\sigma_Y^2)^{-m/2} \exp\left\{ -\frac{1}{2\sigma_X^2} \sum_{i=1}^n (x_i - \mu_X)^2 - \frac{1}{2\sigma_Y^2} \sum_{i=1}^m (y_i - \mu_Y)^2 \right\}
+\label{eq:likelihood_var}
+\end{equation}
+
+\textbf{Explicação:} Note que agora temos variâncias diferentes ($\sigma_X^2$ e $\sigma_Y^2$) para cada população.
+
+\subsection{Passo 3: Estimadores de Máxima Verossimilhança Irrestritos}
+
+As estimativas irrestritas são obtidas maximizando cada verossimilhança separadamente:
+
+\textbf{Para a amostra $X$:}
+\[
+\hat{\mu}_X = \bar{x}, \quad \hat{\sigma}_X^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+\]
+
+\textbf{Para a amostra $Y$:}
+\[
+\hat{\mu}_Y = \bar{y}, \quad \hat{\sigma}_Y^2 = \frac{1}{m} \sum_{i=1}^m (y_i - \bar{y})^2
+\]
+
+\textbf{Explicação:} Como as amostras são independentes e os parâmetros são diferentes, maximizamos cada verossimilhança separadamente.
+
+\subsection{Passo 4: Máxima Verossimilhança sob $H_0$}
+
+Sob $H_0$, temos $\sigma_X^2 = \sigma_Y^2 = \sigma^2$ (desconhecido). A verossimilhança sob $H_0$ é:
+\[
+L(\mu_X, \mu_Y, \sigma^2) = (2\pi\sigma^2)^{-\frac{n+m}{2}} \exp\left\{ -\frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_X)^2 + \sum_{i=1}^m (y_i - \mu_Y)^2 \right] \right\}
+\]
+
+\textbf{Log-verossimilhança:}
+\[
+\ell(\mu_X, \mu_Y, \sigma^2) = -\frac{n+m}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \left[ \sum_{i=1}^n (x_i - \mu_X)^2 + \sum_{i=1}^m (y_i - \mu_Y)^2 \right]
+\]
+
+\textbf{Derivadas parciais:}
+
+Em relação a $\mu_X$:
+\[
+\frac{\partial \ell}{\partial \mu_X} = \frac{1}{\sigma^2} \sum_{i=1}^n (x_i - \mu_X) = 0 \quad \Rightarrow \quad \hat{\mu}_X = \bar{x}
+\]
+
+Em relação a $\mu_Y$:
+\[
+\frac{\partial \ell}{\partial \mu_Y} = \frac{1}{\sigma^2} \sum_{i=1}^m (y_i - \mu_Y) = 0 \quad \Rightarrow \quad \hat{\mu}_Y = \bar{y}
+\]
+
+Em relação a $\sigma^2$:
+\[
+\frac{\partial \ell}{\partial \sigma^2} = -\frac{n+m}{2\sigma^2} + \frac{1}{2(\sigma^2)^2} \left[ \sum_{i=1}^n (x_i - \hat{\mu}_X)^2 + \sum_{i=1}^m (y_i - \hat{\mu}_Y)^2 \right] = 0
+\]
+
+Portanto:
+\[
+\tilde{\sigma}^2 = \frac{1}{n+m} \left[ \sum_{i=1}^n (x_i - \bar{x})^2 + \sum_{i=1}^m (y_i - \bar{y})^2 \right]
+\]
+
+\textbf{Explicação:} Usamos $\tilde{\sigma}^2$ para denotar o EMV restrito (sob $H_0$), para diferenciá-lo de $\hat{\sigma}^2$ usado anteriormente.
+
+\subsection{Passo 5: Razão de Verossimilhanças}
+
+\[
+\Lambda = \frac{\sup_{(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2) \in \Theta_0} L(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2)}{\sup_{(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2) \in \Theta} L(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2)}
+\]
+
+\[
+= \frac{L(\bar{x}, \bar{y}, \tilde{\sigma}^2, \tilde{\sigma}^2)}{L(\bar{x}, \bar{y}, \hat{\sigma}_X^2, \hat{\sigma}_Y^2)}
+\]
+
+Substituindo:
+\[
+\Lambda = \frac{(2\pi\tilde{\sigma}^2)^{-\frac{n+m}{2}} \exp\left\{ -\frac{n+m}{2\tilde{\sigma}^2} \tilde{\sigma}^2 \right\}}{(2\pi)^{-\frac{n+m}{2}} (\hat{\sigma}_X^2)^{-n/2} (\hat{\sigma}_Y^2)^{-m/2} \exp\left\{ -\frac{n}{2\hat{\sigma}_X^2} \hat{\sigma}_X^2 - \frac{m}{2\hat{\sigma}_Y^2} \hat{\sigma}_Y^2 \right\}}
+\]
+
+Simplificando os expoentes:
+\[
+\exp\left\{ -\frac{n+m}{2\tilde{\sigma}^2} \tilde{\sigma}^2 \right\} = e^{-\frac{n+m}{2}}
+\]
+\[
+\exp\left\{ -\frac{n}{2\hat{\sigma}_X^2} \hat{\sigma}_X^2 - \frac{m}{2\hat{\sigma}_Y^2} \hat{\sigma}_Y^2 \right\} = e^{-\frac{n+m}{2}}
+\]
+
+Portanto:
+\[
+\Lambda = \frac{(\hat{\sigma}_X^2)^{n/2} (\hat{\sigma}_Y^2)^{m/2}}{(\tilde{\sigma}^2)^{\frac{n+m}{2}}}
+\]
+
+\subsection{Passo 6: Simplificação de $\tilde{\sigma}^2$}
+
+Temos:
+\[
+\tilde{\sigma}^2 = \frac{1}{n+m} \left[ \sum_{i=1}^n (x_i - \bar{x})^2 + \sum_{i=1}^m (y_i - \bar{y})^2 \right]
+\]
+
+\[
+= \frac{1}{n+m} \left[ n\hat{\sigma}_X^2 + m\hat{\sigma}_Y^2 \right]
+\]
+
+\textbf{Explicação:} Por definição, $\hat{\sigma}_X^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2$ e $\hat{\sigma}_Y^2 = \frac{1}{m} \sum_{i=1}^m (y_i - \bar{y})^2$.
+
+Definindo $\lambda = \frac{n}{n+m}$, temos:
+\[
+\tilde{\sigma}^2 = \lambda \hat{\sigma}_X^2 + (1-\lambda) \hat{\sigma}_Y^2
+\]
+
+\textbf{Explicação:} 
+\[
+\frac{1}{n+m} (n\hat{\sigma}_X^2 + m\hat{\sigma}_Y^2) = \frac{n}{n+m} \hat{\sigma}_X^2 + \frac{m}{n+m} \hat{\sigma}_Y^2 = \lambda \hat{\sigma}_X^2 + (1-\lambda) \hat{\sigma}_Y^2
+\]
+
+\subsection{Passo 7: Manipulação Algébrica de $\Lambda$}
+
+\[
+\Lambda = \frac{(\hat{\sigma}_X^2)^{n/2} (\hat{\sigma}_Y^2)^{m/2}}{[\lambda \hat{\sigma}_X^2 + (1-\lambda) \hat{\sigma}_Y^2]^{\frac{n+m}{2}}}
+\]
+
+Fatorando $(\hat{\sigma}_Y^2)^{\frac{n+m}{2}}$:
+\[
+\Lambda = \frac{(\hat{\sigma}_X^2)^{n/2} (\hat{\sigma}_Y^2)^{m/2}}{(\hat{\sigma}_Y^2)^{\frac{n+m}{2}} \left[ \lambda \frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2} + (1-\lambda) \right]^{\frac{n+m}{2}}}
+\]
+
+\[
+= \frac{(\hat{\sigma}_X^2)^{n/2}}{(\hat{\sigma}_Y^2)^{n/2}} \cdot \frac{1}{\left[ \lambda \frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2} + (1-\lambda) \right]^{\frac{n+m}{2}}}
+\]
+
+\[
+= \left( \frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2} \right)^{n/2} \cdot \left[ \lambda \frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2} + (1-\lambda) \right]^{-\frac{n+m}{2}}
+\]
+
+Definindo $u = \frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2}$:
+\[
+\Lambda = u^{n/2} [\lambda u + (1-\lambda)]^{-\frac{n+m}{2}}
+\]
+
+Multiplicando e dividindo por $\lambda^{-\frac{n+m}{2}}$:
+\[
+\Lambda = \lambda^{-\frac{n+m}{2}} \cdot u^{n/2} \lambda^{\frac{n+m}{2}} [\lambda u + (1-\lambda)]^{-\frac{n+m}{2}}
+\]
+
+\[
+= \lambda^{-\frac{n+m}{2}} \left( \frac{u}{\lambda u + (1-\lambda)} \right)^{n/2} \left( \frac{1}{\lambda u + (1-\lambda)} \right)^{m/2}
+\]
+
+\[
+= \lambda^{-\frac{n+m}{2}} \left( \frac{u}{\lambda u + (1-\lambda)} \right)^{\frac{n+m}{2}}
+\]
+
+Definindo $b = \frac{1-\lambda}{\lambda} = \frac{m}{n}$:
+\[
+\lambda u + (1-\lambda) = \lambda u + \lambda b = \lambda(u + b)
+\]
+
+Portanto:
+\[
+\Lambda = \lambda^{-\frac{n+m}{2}} \left( \frac{u}{\lambda(u+b)} \right)^{\frac{n+m}{2}} = \lambda^{-\frac{n+m}{2}} \lambda^{-\frac{n+m}{2}} \left( \frac{u}{u+b} \right)^{\frac{n+m}{2}}
+\]
+
+\[
+= \lambda^{-(n+m)} \left( \frac{u}{u+b} \right)^{\frac{n+m}{2}}
+\]
+
+\textbf{Correção:} Vamos refazer com mais cuidado. Temos:
+\[
+\Lambda = u^{n/2} [\lambda u + (1-\lambda)]^{-\frac{n+m}{2}}
+\]
+
+Com $b = \frac{1-\lambda}{\lambda} = \frac{m}{n}$, temos $1-\lambda = \lambda b$, então:
+\[
+\lambda u + (1-\lambda) = \lambda u + \lambda b = \lambda(u + b)
+\]
+
+Portanto:
+\[
+\Lambda = u^{n/2} [\lambda(u+b)]^{-\frac{n+m}{2}} = u^{n/2} \lambda^{-\frac{n+m}{2}} (u+b)^{-\frac{n+m}{2}}
+\]
+
+\[
+= \lambda^{-\frac{n+m}{2}} \cdot \frac{u^{n/2}}{(u+b)^{\frac{n+m}{2}}}
+\]
+
+\subsection{Passo 8: Análise da Função $g(u)$}
+
+Definindo:
+\[
+g(u) = \frac{u^{n/2}}{(u+b)^{\frac{n+m}{2}}}, \quad u > 0
+\]
+
+onde $b = \frac{m}{n}$.
+
+\textbf{Derivada:}
+\[
+g'(u) = \frac{\frac{n}{2} u^{\frac{n}{2}-1} (u+b)^{\frac{n+m}{2}} - u^{n/2} \frac{n+m}{2} (u+b)^{\frac{n+m}{2}-1}}{(u+b)^{n+m}}
+\]
+
+Fatorando:
+\[
+= \frac{u^{\frac{n}{2}-1} (u+b)^{\frac{n+m}{2}-1}}{(u+b)^{n+m}} \left[ \frac{n}{2}(u+b) - u\frac{n+m}{2} \right]
+\]
+
+\[
+= \frac{u^{\frac{n}{2}-1} (u+b)^{\frac{n+m}{2}-1}}{(u+b)^{n+m}} \cdot \frac{1}{2} [n(u+b) - u(n+m)]
+\]
+
+\[
+= \frac{u^{\frac{n}{2}-1} (u+b)^{\frac{n+m}{2}-1}}{(u+b)^{n+m}} \cdot \frac{1}{2} [nu + nb - nu - mu]
+\]
+
+\[
+= \frac{u^{\frac{n}{2}-1} (u+b)^{\frac{n+m}{2}-1}}{(u+b)^{n+m}} \cdot \frac{1}{2} [nb - mu]
+\]
+
+Simplificando o denominador:
+\[
+(u+b)^{n+m} = (u+b)^{\frac{n+m}{2}} \cdot (u+b)^{\frac{n+m}{2}}
+\]
+
+Portanto:
+\[
+g'(u) = \frac{u^{\frac{n}{2}-1}}{(u+b)^{\frac{n+m}{2}+1}} \cdot \frac{1}{2} [nb - mu]
+\]
+
+\textbf{Ponto crítico:} $g'(u) = 0 \Rightarrow nb - mu = 0 \Rightarrow u = \frac{nb}{m} = \frac{n \cdot m/n}{m} = 1$.
+
+\textbf{Conclusão:} $g(u)$ tem máximo em $u = 1$, ou seja, quando $\frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2} = 1$, o que corresponde a $\hat{\sigma}_X^2 = \hat{\sigma}_Y^2$ (evidência a favor de $H_0$).
+
+Quando $u \to 0$ ou $u \to \infty$, temos $g(u) \to 0$, então $\Lambda \to 0$ (evidência contra $H_0$).
+
+\subsection{Passo 9: Região Crítica e Estatística de Teste}
+
+Como $\Lambda$ é pequeno quando $\frac{\hat{\sigma}_X^2}{\hat{\sigma}_Y^2}$ está muito distante de 1, a região crítica é bilateral.
+
+\textbf{Propriedade conhecida:} Sob $H_0$, temos:
+\[
+\frac{(n-1)S_X^2}{\sigma_X^2} \sim \chi^2_{n-1}, \quad \frac{(m-1)S_Y^2}{\sigma_Y^2} \sim \chi^2_{m-1}
+\]
+
+e essas variáveis são independentes.
+
+Portanto:
+\[
+F = \frac{S_X^2 / \sigma_X^2}{S_Y^2 / \sigma_Y^2} = \frac{S_X^2 / \sigma_X^2}{S_Y^2 / \sigma_Y^2} \sim F_{n-1, m-1}
+\]
+
+Sob $H_0$, $\sigma_X^2 = \sigma_Y^2$, então:
+\[
+F = \frac{S_X^2}{S_Y^2} \sim F_{n-1, m-1}
+\]
+
+\textbf{Função crítica:}
+\[
+\psi(x, y) = 
+\begin{cases}
+1, & F < F_{n-1, m-1, 1-\alpha/2} \quad \text{ou} \quad F > F_{n-1, m-1, \alpha/2} \\
+0, & \text{caso contrário}
+\end{cases}
+\]
+
+onde $F_{n-1, m-1, \alpha/2}$ é o quantil $(1-\alpha/2)$ da distribuição $F$ com $(n-1, m-1)$ graus de liberdade.
+
+\section{Conclusão}
+
+Este documento apresentou derivações detalhadas passo a passo dos TRV para:
+
+\begin{enumerate}
+\item \textbf{Caso 1:} Teste de média com variância conhecida - usa distribuição normal padrão $N(0,1)$ (Teste Z)
+\item \textbf{Caso 2:} Teste de média com variância desconhecida - usa distribuição $t_{n-1}$ (Teste t de Student)
+\item \textbf{Caso 3:} Teste de variância com média conhecida - usa distribuição $\chi^2_n$
+\item \textbf{Caso 4:} Teste de variância com média desconhecida - usa distribuição $\chi^2_{n-1}$ (perde um grau de liberdade por estimar a média)
+\item \textbf{TRV para duas amostras - médias:} Compara médias de duas populações normais com variâncias iguais - usa distribuição $t_{n+m-2}$
+\item \textbf{TRV para duas amostras - variâncias:} Compara variâncias de duas populações normais - usa distribuição $F_{n-1, m-1}$
+\end{enumerate}
+
+Cada passo foi explicado em detalhes, incluindo justificativas para manipulações algébricas e o raciocínio estatístico subjacente. Esperamos que este material facilite a compreensão desses conceitos importantes em inferência estatística.
+
+\end{document}
+
